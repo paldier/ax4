@@ -1,0 +1,665 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title>
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<STYLE TYPE="text/javascript">
+	classes.num.all.fontFamily = "Courier";
+	classes.num.all.fontSize = "10pt" ;
+</style>
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!--
+var MacAddress;
+var DisableFixedIP = false;
+var DisableFixedDNS = false;
+var DisableFixedMAC = false;
+var SkipParentalControlCheck=1;
+
+
+    $(document).ready(function()
+    {	
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+    function setHelpIframeVisible(){
+        $('.bas-help-frame-div').css("visibility","visible");
+    }
+
+
+    function showHelpIframe() {
+
+        var imgSrc=document.getElementById('help-button');
+
+        if(imgSrc.src.search("up")>=0)
+        {
+            $(".bas-help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
+            imgSrc.src="img/helparrowdown-icon.png";
+        }
+        else
+        {
+            $(".bas-help-frame-div").hide();
+            imgSrc.src="img/helparrowup-icon.png";
+            setTimeout(setHelpIframeVisible,500);
+        }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
+             change_size();
+
+    }
+
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+
+    function loadhelp(fname,anchname)
+    {
+                var pane = window.frames["helpframe"].$('#content');
+                var imgSrc=document.getElementById('help-button');
+                if(imgSrc.src.search("up")<0)
+                {
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+
+                        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm";
+                                $(".help-frame-div").show();
+                        }
+                        else
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                                $(".help-frame-div").show();
+                        }
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+                }
+    }
+
+function checkType(wan_proto) // called from basictop.htm
+{
+	if (1)
+//	if (basictop.document.forms[0])
+	{
+		if (wan_proto == "pppoe")
+		    window.location.href = "BAS_pppoe.html";
+		else if (wan_proto == "pptp")
+		    window.location.href = "BAS_pptp.html";
+		else if (wan_proto == "bpa")
+		    window.location.href = "BAS_bpa.html";
+		else if (wan_proto == "l2tp")
+		    window.location.href = "BAS_l2tp.html";
+		else
+		    window.location.href = "BAS_ether.html";
+	}
+	else 
+	    window.setTimeout(checkType(),300);
+}
+
+
+ 
+function goTestApply()
+{
+	var winoptions = "width=640,height=480,menubar=yes,toolbar=yes,status=yes,location=yes,resizable=yes";
+	if(document.forms[0].runtest.value == "yes")
+		window.open('BAS_wtest_d.htm','test_win',winoptions);
+}
+
+function loadcheck()
+{
+	//loadhelp('BAS_ether');
+	if(isIE()){
+	/*
+		document.formname.system_name.size="24";
+	*/
+
+		document.formname.domain_name.size="24";
+	}
+	MacAddress=document.formname.Spoofmac.value;
+	setIP();
+	setDNS();
+	setMAC();
+}
+function setIP()
+{
+	var cf = document.forms[0];
+	var dflag = cf.WANAssign[0].checked;
+	setDisabled(dflag,cf.WPethr1,cf.WPethr2,cf.WPethr3,cf.WPethr4,cf.WMask1,cf.WMask2,cf.WMask3,cf.WMask4,cf.WGateway1,cf.WGateway2,cf.WGateway3,cf.WGateway4);
+	if (cf.WANAssign[1].checked)
+	{
+	    cf.DNSAssign[1].checked = true;
+	    setDNS();
+	}
+	DisableFixedIP = dflag;
+}
+
+function isParentalControlEnable()
+{
+	var cf = document.forms[0];
+    if(((cf.parental_control.value=='1') ) && (SkipParentalControlCheck==0))
+        return true;
+    else
+        return false;
+}
+
+function isCircleControlEnable()
+{
+	var cf = document.forms[0];
+    if(( (cf.parental_circle.value=='1')) && (SkipParentalControlCheck==0))
+        return true;
+    else
+        return false;
+}
+
+function setDNS()
+{
+	var cf = document.forms[0];
+	var dflag = cf.DNSAssign[0].checked;
+	if(isParentalControlEnable() && cf.DNSAssign[0].checked)
+  {
+  	alert('The DNS Server setup will not take effect due to Parental Controls is enabled. If you need to configure DNS manually, please disable the Parental Controls.');
+		cf.DNSAssign[1].checked=true;
+    dflag=false;      
+  }
+  
+  if(isCircleControlEnable() && cf.DNSAssign[1].checked)
+  {
+  	alert('The DNS Server setup will not take effect due to Parental Controls is enabled. If you need to configure DNS manually, please disable the Parental Controls.');
+		cf.DNSAssign[0].checked=true;
+  }
+  
+	setDisabled(dflag,cf.DAddr1,cf.DAddr2,cf.DAddr3,cf.DAddr4,cf.PDAddr1,cf.PDAddr2,cf.PDAddr3,cf.PDAddr4);
+	DisableFixedDNS = dflag;
+}
+function setMAC()
+{
+	var cf = document.forms[0];
+
+	if (cf.MACAssign[0].checked)
+	    cf.Spoofmac.value = cf.wan_hwaddr_def.value;
+	else if(cf.MACAssign[1].checked)
+	    cf.Spoofmac.value = cf.wan_hwaddr_pc.value;
+	else if (cf.MACAssign[2].checked)
+	    cf.Spoofmac.value = cf.wan_hwaddr2.value;
+	    
+	if (cf.MACAssign[2].checked)
+		cf.Spoofmac.disabled = false;
+	else
+		cf.Spoofmac.disabled = true;
+	DisableFixedMAC = cf.Spoofmac.disabled;
+}
+
+function isValidStr(str, start_char, end_char)
+{
+	for (i=0; i<str.length; i++)
+	{
+		var c = str.substring(i, i+1);
+		if (c < start_char || c > end_char)
+			return false;
+	}
+	return true;
+}
+
+function checkData()
+{
+	var cf = document.forms[0];
+	var msg = "";
+	var lan_ipaddr = cf.lan_ipaddr.value.split(".");
+	var lan_netmask = cf.lan_netmask.value.split(".");
+	var l_ipaddr = (lan_ipaddr[0] << 24) | (lan_ipaddr[1] << 16) | (lan_ipaddr[2] << 8)| (lan_ipaddr[3]);
+	var l_netmask = (lan_netmask[0]<< 24) | (lan_netmask[1]<< 16) | (lan_netmask[2]<< 8)| (lan_netmask[3]);
+	var w_ipaddr = (cf.WPethr1.value << 24) | (cf.WPethr2.value << 16) | (cf.WPethr3.value << 8)| (cf.WPethr4.value);
+	var w_netmask = (cf.WMask1.value<< 24) | (cf.WMask2.value<< 16) | (cf.WMask3.value<< 8)| (cf.WMask4.value);
+	var wan_ip  = "<% GetPageCfg("wan_ip") %>";
+	var openvpnEnable = "<% GetPageCfg("openvpnEnable") %>";
+
+    var wan_proto = cf.wan_proto.value;
+    var pppoe_single_login = "0";
+    if (wan_proto == "pppoe" && cf.ipv6_proto.value == "pppoe" && pppoe_single_login == 1)
+    {
+        if (!confirm("IPv4 PPPoE configuration is shared with IPv6 PPPoE. Apply the change will disable the IPv6. Do you want to proceed?"))
+            return false;
+    }
+
+	/*
+    if (cf.system_name.value.match( /[^\x20-\x7E]/ ))
+    {
+		alert("<% GetMultiLangStr("SWPE01") %>");
+		return false;
+	}
+	*/
+	
+    if (cf.domain_name.value.match( /[^\x20-\x7E]/ ))
+    {
+		alert("<% GetMultiLangStr("SWPE02") %>");
+		return false;
+	}
+
+	if(cf.WANAssign[1].checked)
+	{
+		if(checkIP(cf.WPethr1,cf.WPethr2,cf.WPethr3,cf.WPethr4,255))
+			msg+= "<% GetMultiLangStr("SWPE05") %>";
+		else
+		{
+			cf.WPethr1.value = parseInt(cf.WPethr1.value,10);
+			cf.WPethr2.value = parseInt(cf.WPethr2.value,10);
+			cf.WPethr3.value = parseInt(cf.WPethr3.value,10);
+			cf.WPethr4.value = parseInt(cf.WPethr4.value,10);
+		}
+		if(checkIP(cf.WMask1,cf.WMask2,cf.WMask3,cf.WMask4,255))
+			msg+= "<% GetMultiLangStr("SWPE06") %>";
+		else
+		{
+			cf.WMask1.value = parseInt(cf.WMask1.value,10);
+			cf.WMask2.value = parseInt(cf.WMask2.value,10);
+			cf.WMask3.value = parseInt(cf.WMask3.value,10);
+			cf.WMask4.value = parseInt(cf.WMask4.value,10);
+		}
+		if(checkIP(cf.WGateway1,cf.WGateway2,cf.WGateway3,cf.WGateway4,255))
+			msg+= "<% GetMultiLangStr("SWPE04") %>";
+		else
+		{
+			cf.WGateway1.value = parseInt(cf.WGateway1.value,10);
+			cf.WGateway2.value = parseInt(cf.WGateway2.value,10);
+			cf.WGateway3.value = parseInt(cf.WGateway3.value,10);
+			cf.WGateway4.value = parseInt(cf.WGateway4.value,10);
+		}
+
+		var w_gateway = (cf.WGateway1.value<< 24) | (cf.WGateway2.value<< 16) | (cf.WGateway3.value<< 8)| (cf.WGateway4.value);
+		var tmpip = cf.WPethr1.value+'.'+cf.WPethr2.value+'.'+cf.WPethr3.value+'.'+cf.WPethr4.value;
+		var tmpgwip = cf.WGateway1.value+'.'+cf.WGateway2.value+'.'+cf.WGateway3.value+'.'+cf.WGateway4.value;
+		//if((w_ipaddr&w_netmask) != (w_gateway&w_netmask))
+		//{
+		//	alert("Error: IP Address" + tmpip + "is in a different subnet as the gateway address" + tmpgwip);
+		//	return false;
+		//}
+	}
+	if(cf.DNSAssign[1].checked)
+	{
+		if(checkIP(cf.DAddr1,cf.DAddr2,cf.DAddr3,cf.DAddr4,254)||(parseInt(cf.DAddr4.value,10)==0))
+			msg+= "<% GetMultiLangStr("SWPE08") %>\n";
+		else
+		{
+			cf.DAddr1.value = parseInt(cf.DAddr1.value,10);
+			cf.DAddr2.value = parseInt(cf.DAddr2.value,10);
+			cf.DAddr3.value = parseInt(cf.DAddr3.value,10);
+			cf.DAddr4.value = parseInt(cf.DAddr4.value,10);
+		}
+		if(cf.PDAddr1.value.length>0 || cf.PDAddr2.value.length>0 || cf.PDAddr3.value.length>0 || cf.PDAddr4.value.length>0)
+		{
+			if(checkIP(cf.PDAddr1,cf.PDAddr2,cf.PDAddr3,cf.PDAddr4,254)||(parseInt(cf.PDAddr4.value,10)==0))
+				msg+= "<% GetMultiLangStr("SWPE09") %>\n";
+			else
+			{
+				cf.PDAddr1.value = parseInt(cf.PDAddr1.value,10);
+				cf.PDAddr2.value = parseInt(cf.PDAddr2.value,10);
+				cf.PDAddr3.value = parseInt(cf.PDAddr3.value,10);
+				cf.PDAddr4.value = parseInt(cf.PDAddr4.value,10);
+			}
+		}
+	}
+	
+	if( checkMacStr(cf.Spoofmac) || MacStrallf(cf.Spoofmac) )
+	    msg+= "<% GetMultiLangStr("AAWE06") %>";
+	
+	if (msg.length > 1)
+	{
+		alert(msg);
+		return false;
+	}
+	/*
+	if (!isValidStr(cf.system_name.value, ' ', '~') || !isValidStr(cf.domain_name.value, '!', '~'))
+	{
+		if (!confirm("<% GetMultiLangStr("SBSW01") %>"))
+			return false;
+	}
+	*/
+	
+	if ((w_ipaddr != 0) && 
+	    (((l_netmask & w_netmask ) & l_ipaddr) == ((l_netmask & w_netmask ) & w_ipaddr)))
+    {
+//        alert("IP address is conflicted with LAN IP subnet.\nPlease do ipconfig /release and ipconfig /renew and enter the new IP in the browser in order to access the GUI again.");
+    }
+
+	cf.wan_ipaddr.value = cf.WPethr1.value+'.'+cf.WPethr2.value+'.'+cf.WPethr3.value+'.'+cf.WPethr4.value;
+	if(openvpnEnable == "enable"){
+		if(wan_ip != cf.wan_ipaddr.value){
+			alert("<% GetMultiLangStr("vpn161") %>");
+		}
+	}
+	cf.wan_netmask.value = cf.WMask1.value+'.'+cf.WMask2.value+'.'+cf.WMask3.value+'.'+cf.WMask4.value;
+	cf.wan_gateway.value = cf.WGateway1.value+'.'+cf.WGateway2.value+'.'+cf.WGateway3.value+'.'+cf.WGateway4.value;
+	cf.wan_dns1_pri.value = cf.DAddr1.value+'.'+cf.DAddr2.value+'.'+cf.DAddr3.value+'.'+cf.DAddr4.value;
+	cf.wan_dns1_sec.value = cf.PDAddr1.value+'.'+cf.PDAddr2.value+'.'+cf.PDAddr3.value+'.'+cf.PDAddr4.value;
+	cf.wan_hwaddr2.value = cf.Spoofmac.value.toUpperCase();            
+	return sumvalue(cf);
+}
+
+function loadSettings()
+{
+	var cf = document.forms[0];
+	var wan_proto = cf.wan_proto.value;
+	var wan_ipaddr = cf.wan_ipaddr.value.split(".");
+	var wan_netmask = cf.wan_netmask.value.split(".");
+	var wan_gateway = cf.wan_gateway.value.split(".");
+	var wan_dns_sel = cf.wan_dns_sel.value;
+	var wan_dns1_pri = cf.wan_dns1_pri.value.split(".");
+	var wan_dns1_sec = cf.wan_dns1_sec.value.split(".");
+	var wan_dns_pri = cf.wan_dns_pri.value.split(".");
+	var wan_dns_sec = cf.wan_dns_sec.value.split(".");
+	var wan_hwaddr_sel = cf.wan_hwaddr_sel.value;
+
+	if (wan_proto == "static")
+		cf.WANAssign[1].checked = true;
+	else
+		cf.WANAssign[0].checked = true;
+	setIP();
+	cf.WPethr1.value = wan_ipaddr[0];
+	cf.WPethr2.value = wan_ipaddr[1];
+	cf.WPethr3.value = wan_ipaddr[2];
+	cf.WPethr4.value = wan_ipaddr[3];
+	cf.WMask1.value = wan_netmask[0];
+	cf.WMask2.value = wan_netmask[1];
+	cf.WMask3.value = wan_netmask[2];
+	cf.WMask4.value = wan_netmask[3];
+	cf.WGateway1.value = wan_gateway[0];
+	cf.WGateway2.value = wan_gateway[1];
+	cf.WGateway3.value = wan_gateway[2];
+	cf.WGateway4.value = wan_gateway[3];
+
+	cf.DNSAssign[wan_dns_sel].checked = true;
+	setDNS();
+	
+	if(wan_dns_sel=="1")
+	{
+    if (cf.wan_dns1_pri.value != "")
+	  {
+		  cf.DAddr1.value = wan_dns1_pri[0];
+		  cf.DAddr2.value = wan_dns1_pri[1];
+		  cf.DAddr3.value = wan_dns1_pri[2];
+		  cf.DAddr4.value = wan_dns1_pri[3];
+	  }
+	  if (cf.wan_dns1_sec.value != "")
+	  {
+		  cf.PDAddr1.value = wan_dns1_sec[0];
+		  cf.PDAddr2.value = wan_dns1_sec[1];
+		  cf.PDAddr3.value = wan_dns1_sec[2];
+		  cf.PDAddr4.value = wan_dns1_sec[3];
+	  }
+  }
+  else
+	{
+    if (cf.wan_dns_pri.value != "")
+	  {
+		  cf.DAddr1.value = wan_dns_pri[0];
+		  cf.DAddr2.value = wan_dns_pri[1];
+		  cf.DAddr3.value = wan_dns_pri[2];
+		  cf.DAddr4.value = wan_dns_pri[3];
+	  }
+	  if (cf.wan_dns_sec.value != "")
+	  {
+		  cf.PDAddr1.value = wan_dns_sec[0];
+		  cf.PDAddr2.value = wan_dns_sec[1];
+		  cf.PDAddr3.value = wan_dns_sec[2];
+		  cf.PDAddr4.value = wan_dns_sec[3];
+	  }
+  }
+  
+    if (wan_hwaddr_sel == 0)
+        cf.Spoofmac.value = cf.wan_hwaddr_def.value;
+    else if (wan_hwaddr_sel == 2)
+        cf.Spoofmac.value = cf.wan_hwaddr2.value;
+	cf.MACAssign[wan_hwaddr_sel].checked = true;
+}
+
+
+//-->
+</script>
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+</head>
+<body  onload="change_size();loadSettings(); loadcheck();goTestApply();SkipParentalControlCheck=0;" class="page-body"  onResize="change_size();" >
+<img class="cover-image" src="img/cover-image_noh.gif">
+<!--<img class="body-image" src="img/subhead2-background_noh.jpg">-->
+<div id="full-page-container">
+<form id="target"  name="formname" method="POST" action="ether.cgi">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue"> 
+<img class="subtop-image" src="img/subhead2-top_noh.gif">
+<div class="subhead2"> <% GetMultiLangStr("genie_68") %></div>
+<table border="0" class="subhead2-table">
+    <tr align="left" valign="middle">
+        <td colspan="2" class="table-seperate-border">
+            <div class="fix_button">
+                <button type="submit" value="SUBMIT"  onClick="buttonClick(this,'Test');return checkData()" name="Test" id="test" class="button-common common_bt"><% GetMultiLangStr("SWP045") %></button>
+                <button type="button" value="BUTTON"  onClick="buttonClick(this,'Cancel');reset();loadSettings();loadcheck();" name="Cancel" id="cancel" class="button-cancel cancel_bt"><% GetMultiLangStr("UAS021") %></button>
+                <button type="submit" value="SUBMIT"  onClick="buttonClick(this,'Apply');return checkData()" name="apply" id="apply" class="button-apply apply_bt"><% GetMultiLangStr("LUP004") %></button>
+            </div>
+        </td>
+    </tr>
+      <tr>
+        <td colspan="2" class="table-seperate-border"><iframe id="topframe" style="width:100%;height:100px;margin-top:10px" allowTransparency="true" src="BAS_basictop1.htm" frameborder="0" scrolling="no"></iframe></td>
+      </tr>
+      <tr>
+        <td colspan="2" class="scrollpane-table-seperate-border"><div class="scroll-pane main_bas" style="height:260px;width:620px;overflow:auto;scrolling:auto">
+            <table style="border-collapse:collapse;width:97%">
+              <tr>
+                <td nowrap><a href="javascript:loadhelp('BAS_ether','acname')" tabindex="-1"><b><% GetMultiLangStr("SWP032") %></a></td>
+                <!--
+	<td align="left"><input type="text" name="system_name" id="system_name" maxlength="60" size="15" value="RAX40"></td>
+	-->
+                
+                <td align="left"> <% GetPageCfg("dev_name") %>
+                  &nbsp;&nbsp;&nbsp;
+                  <button type="button" value="Edit" name="Edit" id="edit_devname_bt" class="button-sty1" onClick="location.href='DEV_name.html';"><% GetMultiLangStr("UAS011") %></button></td>
+              </tr>
+              <tr>
+                <td nowrap class="pb-0"><a href="javascript:loadhelp('BAS_ether','doname')" tabindex="-1"><b><% GetMultiLangStr("SWP033") %></a></td>
+                <td align="right" class="pt-0"><input type="text" class="input1" name="domain_name" id="domain_name" maxlength="60" size="15" value="<% GetPageCfg("domain_name") %>"></td>
+              </tr>
+            <tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+              <tr>
+                <td colspan="2" nowrap><a href="javascript:loadhelp('BAS_ether','InternetIP')" tabindex="-1"><b><% GetMultiLangStr("SWP021") %></b></a></td>
+              </tr>
+              <tr>
+                <td colspan="2" nowrap>
+					<label class="checkbox-container"><% GetMultiLangStr("SWP019") %>
+					  <input type="radio" name="WANAssign" id="wan_assign_dhcp" value="dhcp" onClick="setIP()">
+					  <span class="radio-checkmark"></span>
+					</label>
+                  </td>
+              </tr>
+              <tr>
+                <td colspan="2" nowrap class="pt-0">
+					<label class="checkbox-container"><% GetMultiLangStr("SWP024") %>
+					  <input type="radio" name="WANAssign" id="wan_assign_static" value="static" onClick="setIP()">
+					  <span class="radio-checkmark"></span>
+					</label>
+                  </td>
+              </tr>
+              <tr>
+                <td nowrap><% GetMultiLangStr("SWP030") %></td>
+                <td nowrap align="right" class="num ip-input-row"><input type="text" name="WPethr1" id="wpethr1" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">
+                  .
+                  <input type="text" name="WPethr2" id="wpethr2" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)" >
+                  .
+                  <input type="text" name="WPethr3" id="wpethr3" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">
+                  .
+                  <input type="text" name="WPethr4" id="wpethr4" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
+              </tr>
+              <tr>
+                <td nowrap><% GetMultiLangStr("SWP044") %></td>
+                <td align="right" class="num ip-input-row"><input type="text" name="WMask1" id="wmask1" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">
+                  .
+                  <input type="text" name="WMask2" id="wmask2" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">
+                  .
+                  <input type="text" name="WMask3" id="wmask3" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">
+                  .
+                  <input type="text" name="WMask4" id="wmask4" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
+              </tr>
+              <tr>
+                <td nowrap><% GetMultiLangStr("SWP034") %></td>
+                <td align="right" class="num ip-input-row"><input type="text" name="WGateway1" id="wgateway1" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">
+                  .
+                  <input type="text" name="WGateway2" id="wgateway2" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">
+                  .
+                  <input type="text" name="WGateway3" id="wgateway3" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">
+                  .
+                  <input type="text" name="WGateway4" id="wgateway4" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
+              </tr>
+               <tr>
+                <td colspan="2" height="12" ><div style="background-image:url('seprator.gif');width:100%;background-repeat:repeat-x;">&nbsp;</div></td>
+              </tr>
+              <tr>
+                <td nowrap colspan="2"><a href="javascript:loadhelp('BAS_ether','DNSaddress')" tabindex="-1"><b><% GetMultiLangStr("SWP020") %></b></a></td>
+              </tr>
+              <tr>
+                <td colspan="2" nowrap>
+					<label class="checkbox-container"><% GetMultiLangStr("SWP018") %>
+					  <input type="radio" name="DNSAssign" id="dns_assign_auto" value="0" onClick="setDNS()">
+					  <span class="radio-checkmark"></span>
+					</label>					
+                  </td>
+              </tr>
+              <tr>
+                <td colspan="2" nowrap class="pt-0">
+					<label class="checkbox-container"> <% GetMultiLangStr("SWP025") %>
+					  <input type="radio" name="DNSAssign" id="dns_assign_static" value="1" onClick="setDNS()">
+					  <span class="radio-checkmark"></span>
+					</label>
+                  </td>
+              </tr>
+              <tr>
+                <td nowrap><% GetMultiLangStr("SWP022") %></td>
+                <td nowrap align="right" class="num ip-input-row"><input type="text" name="DAddr1" id="daddr1" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="if(isParentalControlEnable()) return false;bscheck(event,this,1)" onkeyup="if(isParentalControlEnable()){ alert('The DNS Server setup will not take effect due to Parental Controls is enabled. If you need to configure DNS manually, please disable the Parental Controls.');return false;} jumpcheck(this,0)">
+                  .
+                  <input type="text" name="DAddr2" id="daddr2" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="if(isParentalControlEnable()) return false;bscheck(event,this,0)" onkeyup="if(isParentalControlEnable()){ alert('The DNS Server setup will not take effect due to Parental Controls is enabled. If you need to configure DNS manually, please disable the Parental Controls.');return false;} jumpcheck(this,0)">
+                  .
+                  <input type="text" name="DAddr3" id="daddr3" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="if(isParentalControlEnable()) return false;bscheck(event,this,0)" onkeyup="if(isParentalControlEnable()){ alert('The DNS Server setup will not take effect due to Parental Controls is enabled. If you need to configure DNS manually, please disable the Parental Controls.');return false;} jumpcheck(this,0)">
+                  .
+                  <input type="text" name="DAddr4" id="daddr4" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="if(isParentalControlEnable()) return false;bscheck(event,this,0)" onkeyup="if(isParentalControlEnable()){ alert('The DNS Server setup will not take effect due to Parental Controls is enabled. If you need to configure DNS manually, please disable the Parental Controls.');return false;} jumpcheck(this,1)"></td>
+              </tr>
+              <tr>
+                <td nowrap><% GetMultiLangStr("SWP023") %></td>
+                <td nowrap align="right" class="num ip-input-row"><input type="text" name="PDAddr1" id="pdaddr1" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="if(isParentalControlEnable()) return false;bscheck(event,this,1)" onkeyup="if(isParentalControlEnable()){ alert('The DNS Server setup will not take effect due to Parental Controls is enabled. If you need to configure DNS manually, please disable the Parental Controls.');return false;} jumpcheck(this,0)">
+                  .
+                  <input type="text" name="PDAddr2" id="pdaddr2" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="if(isParentalControlEnable()) return false;bscheck(event,this,0)" onkeyup="if(isParentalControlEnable()){ alert('The DNS Server setup will not take effect due to Parental Controls is enabled. If you need to configure DNS manually, please disable the Parental Controls.');return false;} jumpcheck(this,0)">
+                  .
+                  <input type="text" name="PDAddr3" id="pdaddr3" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="if(isParentalControlEnable()) return false;bscheck(event,this,0)" onkeyup="if(isParentalControlEnable()){ alert('The DNS Server setup will not take effect due to Parental Controls is enabled. If you need to configure DNS manually, please disable the Parental Controls.');return false;} jumpcheck(this,0)">
+                  .
+                  <input type="text" name="PDAddr4" id="pdaddr4" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="if(isParentalControlEnable()) return false;bscheck(event,this,0)" onkeyup="if(isParentalControlEnable()){ alert('The DNS Server setup will not take effect due to Parental Controls is enabled. If you need to configure DNS manually, please disable the Parental Controls.');return false;} jumpcheck(this,1)"></td>
+              </tr>
+              <tr>
+                <td colspan="2" height="12" ><div style="background-image:url('seprator.gif');width:100%;background-repeat:repeat-x;">&nbsp;</div></td>
+              </tr>
+              <tr>
+                <td nowrap colspan="2"><a href="javascript:loadhelp('BAS_ether','localaddress')" tabindex="-1"><b><% GetMultiLangStr("SBS006") %></b></a></td>
+              </tr>
+              <tr>
+                <td nowrap colspan="2">
+					<label class="checkbox-container"><% GetMultiLangStr("SBS005") %>
+					  <input type="radio" name="MACAssign" id="mac_assign_default" value="0" onClick="setMAC()">
+					  <span class="radio-checkmark"></span>
+					</label>
+                  </td>
+              </tr>
+              <tr>
+                <td nowrap colspan="2" class="pt-0">
+					<label class="checkbox-container"> <% GetMultiLangStr("SBS003") %>
+					  <input type="radio" name="MACAssign" id="mac_assign_computer" value="1" onClick="setMAC()">
+					  <span class="radio-checkmark"></span>
+					</label>
+                 </td>
+              </tr>
+              <tr>
+                <td nowrap align="left" class="pt-0">
+					<label class="checkbox-container"><% GetMultiLangStr("SBS007") %>
+					  <input type="radio" name="MACAssign" id="mac_assign_define" value="2" onClick="setMAC()">
+					  <span class="radio-checkmark"></span>
+					</label>
+                  </td>
+                <td nowrap align="right" class="num"><input type="text" class="num input1" name="Spoofmac" id="spoof_mac" size="17" maxlength="17" value="" onFocus="if(DisableFixedMAC) this.blur()"></td>
+              </tr>
+             <tr><td colspan="2" height="12"></td></tr>
+              <tr><td colspan="2" height="12"></td></tr>
+             
+            </table>
+          </div></td>
+      </tr>
+      <tr valign="middle" align="center">
+        <td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="bas-help-frame-div" >
+            <iframe id="helpframe"  name=helpframe src="BAS_ether_h.htm" scrolling="no" class="help-iframe"  frameborder="0" onload="showHelpIframe();"></iframe>
+          </div></td>
+      </tr>
+    </table>
+    
+    <!--<img class="subfooter-image" src="img/subhead2-bottom.gif">-->
+    <div class="subhead2-bottom" > <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.png" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span> <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_51") %> </span> <span class="button-help-arrow"> <img src="img/helparrowdown-icon.png" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span> <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"><% GetMultiLangStr("genie_51") %> </span> </div>
+	  
+    <input type="hidden" name="runtest" value="<% GetPageCfg("runtest") %>">
+    <INPUT name=wan_proto type=hidden value= "<% GetPageCfg("wan_proto") %>">
+    <INPUT name=wan_ipaddr type=hidden value= "<% GetPageCfg("wan_ipaddr") %>">
+    <INPUT name=wan_netmask type=hidden value= "<% GetPageCfg("wan_netmask") %>">
+    <INPUT name=wan_gateway type=hidden value= "<% GetPageCfg("wan_gateway") %>">
+    <INPUT name=wan_dns_sel type=hidden value= "<% GetPageCfg("wan_dns_sel") %>">
+    <INPUT name=wan_dns1_pri type=hidden value= "<% GetPageCfg("wan_dns1_pri") %>">
+    <INPUT name=wan_dns1_sec type=hidden value= "<% GetPageCfg("wan_dns1_sec") %>">
+    <INPUT name=wan_dns_pri type=hidden value= "<% GetPageCfg("wan_dns_pri") %>">
+    <INPUT name=wan_dns_sec type=hidden value= "<% GetPageCfg("wan_dns_sec") %>">
+    <INPUT name=wan_hwaddr_sel type=hidden value= "<% GetPageCfg("wan_hwaddr_sel") %>">
+    <INPUT name=wan_hwaddr_def type=hidden value= "<% GetPageCfg("wan_hwaddr_def") %>">
+    <INPUT name=wan_hwaddr2 type=hidden value= "<% GetPageCfg("wan_hwaddr2") %>">
+    <INPUT name=wan_hwaddr_pc type=hidden value= "<% GetPageCfg("wan_hwaddr_pc") %>">
+    <INPUT name=lan_ipaddr type=hidden value= "<% GetPageCfg("lan_ipaddr") %>">
+    <INPUT name=lan_netmask type=hidden value= "<% GetPageCfg("lan_netmask") %>">
+    <INPUT name=parental_control type=hidden value= "<% GetPageCfg("parental_control") %>">
+    <INPUT name=parental_circle type=hidden value= "0">
+    <INPUT name=ipv6_proto type=hidden value= "disable">
+    <INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+    <a name="helpframe-anchor"></a>
+  </form>
+</div>
+</body>
+<!--<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+</head>-->
+</html>

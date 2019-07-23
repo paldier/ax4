@@ -1,0 +1,222 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title> 
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!--
+  
+    $(document).ready(function()
+    {	
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+    function setHelpIframeVisible(){
+        $('.help-frame-div').css("visibility","visible");
+    }
+
+
+    function showHelpIframe() {
+
+        var imgSrc=document.getElementById('help-button');
+
+        if(imgSrc.src.search("up")>=0)
+        {
+            $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
+            imgSrc.src="img/helparrowdown-icon.png";
+        }
+        else
+        {
+            $(".help-frame-div").hide();
+            imgSrc.src="img/helparrowup-icon.png";
+            setTimeout(setHelpIframeVisible,500);
+        }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
+             change_size();
+
+    }
+
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+
+    function loadhelp(fname,anchname)
+    {
+                var pane = window.frames["helpframe"].$('#content');
+                var imgSrc=document.getElementById('help-button');
+                if(imgSrc.src.search("up")<0)
+                {
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+
+                        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm";
+                                $(".help-frame-div").show();
+                        }
+                        else
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                                $(".help-frame-div").show();
+                        }
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+                }
+    }
+
+   
+
+function check_restore()
+{
+	if(document.forms[0].mtenRestoreCfg.value.length == 0)
+	{
+		//alert("File name cannot be blank.");
+		alert("<% GetMultiLangStr("MBSE01") %>");
+		return false;
+	}
+//	if(confirm("Warning! \nRestoring settings from a configuration file will erase all of the current settings. \nAre you sure you want to do this?"))
+	if(confirm("<% GetMultiLangStr("MBSW01") %>"))
+		return true;
+	else
+		return false;
+}
+//-->
+</script> 
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+</head>
+<body  onload="change_size();" class="page-body"  onResize="change_size();" >
+<img class="cover-image" src="img/cover-image_noh.gif">
+<img class="body-image" src="img/subhead2-background_noh.jpg">
+<div id="full-page-container">
+
+<form id="target"  method="POST" action="/backup.cgi" ENCTYPE="multipart/form-data">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+<img class="subtop-image" src="img/subhead2-top_noh.gif">
+<!--
+<div class="subhead2"> Backup Settings</div>
+-->
+<div class="subhead2"> <% GetMultiLangStr("LUP024") %></div>
+<table border="0"    style="height:370px"  class="subhead2-table main_bas">
+
+
+<tr><td class="scrollpane-table-seperate-border" colspan="2"><div class="scroll-pane" style="height:410px;width:620px;overflow:auto;scrolling:auto"><table style="border-collapse:collapse;width:97%">
+
+
+<tr>
+<!--
+	<td colspan="2"><a href="javascript:loadhelp('BAK_backup','save')" tabindex="-1"><b>Save a copy of current settings</b></a></td>
+-->
+	<td colspan="2"><a href="javascript:loadhelp('BAK_backup','save')" tabindex="-1"><b><% GetMultiLangStr("MBS004") %></b></a></td>
+</tr>
+<tr>
+
+	<td colspan="2" align="center">
+<!--
+	&nbsp;&nbsp;&nbsp;<button type="BUTTON" value="Back Up" name="Backup" class="button-rule" onclick="buttonClick(this,'Back Up');window.location.href = 'NETGEAR_RAX40.cfg';"><span class="roundleft_button">&nbsp;&nbsp; Back Up</span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button> 
+-->
+<button type="BUTTON" value="Back Up" name="Backup" id="backup" class="button-sty1" onclick="buttonClick(this,'Back Up');window.location.href = 'NETGEAR_RAX40.cfg';"><% GetMultiLangStr("MBS002") %></button> 
+	</td>
+</tr>
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+<tr>
+<!--
+	<td colspan="2"><a href="javascript:loadhelp('BAK_backup','restore')" tabindex="-1"><b>Restore saved settings from a file</b></a></td>
+-->
+	<td colspan="2"><a href="javascript:loadhelp('BAK_backup','restore')" tabindex="-1"><b><% GetMultiLangStr("MBS003") %></b></a></td>
+</tr>
+<tr>
+	<td colspan="2" align="left">
+
+	<input type="file" name="mtenRestoreCfg" id="file" size="20" maxlength="1024" style="position:absolute;opacity:0;filter:alpha(opacity=0);" onchange="this.form.upfile.value=this.value.substr(this.value.lastIndexOf('\\')+1);" contentEditable=false onkeydown="return false;" onbeforeeditfocus="return false;" onpaste="return false;">
+	<input type="text" class="input1" name="upfile" size="20" maxlength="1024" readonly >
+<!--
+	&nbsp;&nbsp;&nbsp;<button type="button" value="browse"  class="button-rule" onclick="buttonClick(this,'browse');this.form.file.click();"><span class="roundleft_button">&nbsp;&nbsp; Browse</span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>	
+-->
+<button type="button" id="browse" value="browse"  class="button-sty1" onclick="buttonClick(this,'browse');this.form.file.click();"><% GetMultiLangStr("UAS017") %></button>	
+	</td>
+</tr>
+<tr>
+<!--
+	<td colspan="2" align="center">&nbsp;&nbsp;&nbsp;<button TYPE="submit" value="Restore" name="mtenRestore" class=button-rule onClick="buttonClick(this,'Restore');if(!check_restore()) return false;"><span class="roundleft_button">&nbsp;&nbsp; Restore</span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td>
+-->
+	<td colspan="2" align="center"><button TYPE="submit" value="Restore" name="mtenRestore" id="restore" class="button-sty1" onClick="buttonClick(this,'Restore');if(!check_restore()) return false;"><% GetMultiLangStr("MBS008") %></button></td>
+</tr>
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+
+
+<tr>
+<!--
+	<td nowrap colspan="2"><a href="javascript:loadhelp('BAK_backup','revert')" tabindex="-1"><b>Revert to factory default settings</b></a></td>
+-->
+	<td nowrap colspan="2"><a href="javascript:loadhelp('BAK_backup','revert')" tabindex="-1"><b><% GetMultiLangStr("MBS001") %></b></a></td>
+
+</tr>
+<tr>
+<!--
+	<td colspan="2" align="center">&nbsp;&nbsp;&nbsp;<button type="button" value="Erase" name="defaults" class=button-rule onClick="buttonClick(this,'Erase');location.href='BAK_cfm.htm'"><span class="roundleft_button">&nbsp;&nbsp; Erase</span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td>
+-->
+	<td colspan="2" align="center"><button type="button" value="Erase" name="defaults" id="erase" class="button-sty1" onClick="buttonClick(this,'Erase');location.href='BAK_cfm.htm'"><span class="roundleft_button">&nbsp;&nbsp; <% GetMultiLangStr("MBS005") %></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></td>
+</tr>
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+</table></td></tr>
+
+<tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe"  src="BAK_backup_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
+</div></table>
+
+</table>
+<div class="subhead2-bottom" >
+    <span class="help_ico"><img src="img/help-icon.png" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
+    <span class="subhead2-text help_center_text" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_51") %> </span>
+    <span class="button-help-arrow">
+      <img src="img/helparrowdown-icon.png" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
+    <span class="subhead2-text help_right_text" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_123") %> </span>
+      </div>
+
+
+
+<a name="helpframe-anchor"></a>
+</form>
+
+</div>
+</body>
+
+</html>
+

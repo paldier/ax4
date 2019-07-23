@@ -1,0 +1,37 @@
+#!/bin/sh
+if [ ! "$CONFIGLOADED" ]; then
+        if [ -r /etc/config.sh ]; then
+                . /etc/config.sh 2>/dev/null
+                CONFIGLOADED="1"
+        fi
+fi
+
+. /opt/lantiq/etc/switchports.conf 2> /dev/null
+. /opt/lantiq/etc/switch_functions $3 2> /dev/null
+
+# This script takes wan vlan id as input argument and configures VLANs
+# in switch. This script calls functions defined in
+# /opt/lantiq/etc/switch_functions
+
+operation=$1
+wan_vid=$2
+wan_mode=$3
+Egress_tag=1
+
+echo "wan vlan config $1 called for vlan $2"
+if [ "$1" = "1" ]; then
+	if [ "$CONFIG_TARGET_LANTIQ_XRX330" = "1" ] && [ "$wan_mode" = "dsl" ]; then
+               switch_cli IFX_ETHSW_PORT_CFG_SET nPortId=$switch_mii1_port eEnable=0
+	fi
+	create_vlanid $wan_vid $wan_fid
+	config_port_member $wan_vid $cpu_port $Egress_tag
+	for i in $wan_port; do
+	  config_port_member $wan_vid $i $Egress_tag
+	done
+elif [ "$1" = "0" ]; then
+	for i in $wan_port; do
+	  reset_port_member $wan_vid $wan_port $Egress_tag
+	done
+	reset_port_member $wan_vid $cpu_port $Egress_tag
+	delete_vlanid $wan_vid $wan_fid
+fi

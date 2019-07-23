@@ -1,0 +1,19 @@
+qcfg --queue -A def_queue_US -l 102400 -m sp --priority 8 --map 8 
+qcfg --queue -A queue_US_1 -l 102400 -m sp --priority 1 --map 1
+qcfg --queue -A queue_US_2 -l 102400 -m sp --priority 2 --map 2
+qcfg --queue -A queue_US_3 -l 102400 -m sp --priority 3 --map 3
+qcfg --queue -A queue_US_4 -l 102400 -m sp --priority 4 --map 4
+ifcfg --ifmap -A br-lan -t 0 -b br-lan
+classcfg -A CL_US_1_skypeout -i br-lan -m layer7 --l7proto skypeout -j mark --mark 1
+classcfg -A CL_US_1_skypetoskype -i br-lan -m layer7 --l7proto skypetoskype -j mark --mark 1
+classcfg -A CL_US_2_ssh -i br-lan -m layer7 --l7proto ssh -j mark --mark 2
+classcfg -A CL_US_2_telnet -i br-lan -m layer7 --l7proto telnet -j mark --mark 2
+classcfg -A CL_US_2_aim -i br-lan -m layer7 --l7proto aim -j mark --mark 2
+classcfg -A CL_US_2_xboxlive -i br-lan -m layer7 --l7proto xboxlive -j mark --mark 2
+classcfg -A CL_US_2_worldofwarcraft -i br-lan -m layer7 --l7proto worldofwarcraft -j mark --mark 2
+classcfg -A CL_US_3_ftp -i br-lan -m layer7 --l7proto ftp -j mark --mark 3
+classcfg -A CL_US_3_smtp -i br-lan -m layer7 --l7proto smtp -j mark --mark 3
+classcfg -A CL_US_3_http-rtsp -i br-lan -m layer7 --l7proto http-rtsp -j mark --mark 3
+classcfg -A CL_US_3_http -i br-lan -m layer7 --l7proto http -j mark --mark 3
+classcfg -A CL_US_3_dns -i br-lan -m layer7 --l7proto dns -j mark --mark 3
+classcfg -A CL_US_4_bittorrent -i br-lan -m layer7 --l7proto bittorrent -j mark --mark 4

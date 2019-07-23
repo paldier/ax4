@@ -1,0 +1,416 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title> 
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!--
+
+
+  
+    $(document).ready(function()
+    {	
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+    function setHelpIframeVisible(){
+        $('.help-frame-div').css("visibility","visible");
+    }
+
+
+    function showHelpIframe() {
+
+        var imgSrc=document.getElementById('help-button');
+
+        if(imgSrc.src.search("up")>=0)
+        {
+            $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
+            imgSrc.src="img/helparrowdown-icon.png";
+        }
+        else
+        {
+            $(".help-frame-div").hide();
+            imgSrc.src="img/helparrowup-icon.png";
+            setTimeout(setHelpIframeVisible,500);
+        }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
+             change_size();
+
+    }
+
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+
+    function loadhelp(fname,anchname)
+    {
+                var pane = window.frames["helpframe"].$('#content');
+                var imgSrc=document.getElementById('help-button');
+                if(imgSrc.src.search("up")<0)
+                {
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+
+                        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm";
+                                $(".help-frame-div").show();
+                        }
+                        else
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                                $(".help-frame-div").show();
+                        }
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+                }
+    }
+
+   
+
+function loadvalue()
+{
+	var cf=document.forms[0];
+
+	if(cf.media_server_onoff.value == "1"){
+		cf.media_server.checked =true;
+		if(cf.tivo_support_onoff.value == "1")
+			cf.tivo_support.checked =true;
+		else
+			cf.tivo_support.checked =false;
+		cf.tivo_support.disabled=false;
+	}else{
+		cf.media_server.checked =false;
+		if(cf.tivo_support_onoff.value == "1")
+			cf.tivo_support.checked =true;
+		else
+			cf.tivo_support.checked =false;
+		cf.tivo_support.disabled=true;
+	}
+
+/*
+	if(cf.iserver_onoff.value == "1")
+		cf.iserver.checked =true;
+	else
+		cf.iserver.checked =false;
+*/
+
+/*
+	//cf.media_server_name.value=upnp_media_name.replace(/: WNDR3700/g, "");
+	cf.media_server_name.value=cf.upnp_media_name.value;	
+*/
+//  cf.iserver_device_name.value=cf.iserver_remote_device.value;
+
+  //cf.iserver_passcode.value=cf.iserver_remote_pass.value;
+
+
+  	if(cf.iserver_onoff.value == "1")
+  	{
+  	    //cf.iserver_passcode.disabled=false;
+        //cf.allowcontrol.disabled=false;
+  	}
+  	else
+  	{
+  	    //cf.iserver_passcode.disabled=true;
+        //cf.allowcontrol.disabled=true;
+  	}
+  	
+}
+
+/*
+function iserver_click()
+{
+	var cf=document.forms[0];
+    if(cf.iserver.checked==true)
+    {
+        cf.iserver_passcode.disabled=false;
+        cf.allowcontrol.disabled=false;
+    }
+    else
+    {
+ 	    cf.iserver_passcode.disabled=true;
+      cf.allowcontrol.disabled=true;
+ 	    
+    }
+}
+*/
+
+function check_name()
+{
+	var cf=document.forms[0];
+	
+/*
+	var media_name=cf.media_server_name.value;	
+*/
+        //cf.upnp_media_name.value=media_name+": WNDR3700";
+}
+
+function check_media(form)
+{       
+
+/*
+        var mediaName = form.media_server_name.value;
+        if(mediaName == ":")
+        {
+	    alert("<% GetMultiLangStr("UMSE02") %>");
+            return false;
+        }else		
+*/
+        {
+	if(form.media_server.checked)
+		form.media_server_onoff.value="1";
+	else
+		form.media_server_onoff.value="0";
+
+/*
+	if(form.iserver.checked)
+		form.iserver_onoff.value="1";
+	else
+		form.iserver_onoff.value="0";
+*/
+	//check_name();
+
+	form.submit();
+        return true;
+        }
+}
+
+function getkey(type, e)
+{
+	var keycode, event;
+
+	if (window.event) 
+	{
+		event = window.event;
+		keycode = window.event.keyCode;
+	}	
+	else if (e)
+	{
+		event = e;
+		keycode = e.which;
+	}	
+	else return true;
+
+	if(event.ctrlKey && ( keycode==99 || keycode==118 || keycode==120) )
+		return true;
+
+    if(type == "mediaServerName")// not / * ? " <> \ : keycode==58 means :
+    {
+        if((keycode==47) || (keycode==42) || (keycode==63) || (keycode==34) || (keycode==60) || (keycode==62) || (keycode==92) || (keycode==93) || (keycode==124))
+        {
+		    alert("<% GetMultiLangStr("UMSE02") %>");
+            return false;
+	}	
+        else if(keycode == 13)
+        {
+            check_media(document.forms[0]);
+            return false;
+        }
+        else
+            return true;
+    }
+	  else
+	  {
+        var cf=document.forms[0];
+	      if(((keycode >= 48) && (keycode <= 57)) || (keycode == 8) || (keycode == 9)|| (keycode == 46) || (keycode == 00))
+	      {
+		        if(type=="iServerPass")
+		        {
+		            if((keycode >= 48) && (keycode <= 57))		       
+		            {         
+//                    document.forms[0].iserver_passcode1.focus();
+//                    document.forms[0].iserver_passcode1.select();;
+                }
+ //               else if(keyCode == 9)
+ //                   document.forms[0].iserver_passcode1.focus();
+                return true;
+  	        
+		        }
+
+		    }
+
+		}
+		return false;
+}
+
+function checkDLNA(){
+	var cf=document.forms[0];
+	if(cf.media_server.checked)
+		cf.tivo_support.disabled=false;
+	else
+		cf.tivo_support.disabled=true;
+}
+function checkTiVo(){
+	var cf=document.forms[0];
+	if(cf.tivo_support.checked)
+		cf.tivo_support_onoff.value="1";
+	else
+		cf.tivo_support_onoff.value="0";
+}
+
+function checkRemotePin()
+{
+	var cf = document.forms[0];
+	var passcode;
+	
+	passcode=cf.iserver_passcode.value;
+	if(passcode.length!=4)
+	{
+	    alert("Please input 4 digit pin code");
+	    return false;
+	}
+	return true;
+}
+
+//-->
+</script> 
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+</head>
+
+<body  onload="change_size();loadvalue();" class="subpage-body"  onResize="change_size();" >
+<img class="cover-image" src="img/cover-image_noh.gif">
+<img class="body-image" src="img/subhead2-background_noh.jpg">
+<div id="full-page-container">
+
+<form id="target"  method="POST" action="/upnp_media.cgi">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+<img class="subtop-image" src="img/subhead2-top_noh.gif">
+
+<div class="subhead2"> <% GetMultiLangStr("UMS002") %></div>
+
+<table border="0"    style="height:370px"  class="subhead2-table">
+
+<tr align="left" valign="middle">
+
+
+<td  colspan="2" class="table-seperate-border">
+<div class="fix_button">
+<button value="Apply"  onClick="buttonClick(this,'Apply'); return check_media(document.forms[0]);" type="button" name="Apply" class=button-apply ><% GetMultiLangStr("LUP004") %></button>
+</div>
+</td>
+
+
+</tr>
+
+<tr><td class="scrollpane-table-seperate-border scroll_container pt-0" colspan="2"><div class="scroll-pane main_bas" style="height:365px;width:620px;overflow:auto;scrolling:auto"><table style="border-collapse:collapse;width:97%">
+
+
+<tr>
+	<td nowrap colspan=2 class="pt-35 pb-0">
+		
+        
+        <label class="checkbox-container"><a href="javascript:loadhelp('UPNP_media','dlna_enable')" tabindex="-1"><b><% GetMultiLangStr("UMS012") %></b></a>
+			 <input type="checkbox" name="media_server" id="enable_media_server" value="1" onClick="checkDLNA();">
+			  <span class="checkbox-checkmark"></span>
+</label>
+        
+        
+	</td>
+</tr>
+<tr >
+	<td nowrap colspan=2 class="pl-15 pt-15">
+  <label class="checkbox-container"><a href="javascript:loadhelp('UPNP_media','tivo_enable')" tabindex="-1"><b><% GetMultiLangStr("UMS011") %></b></a>
+			<input type="checkbox" name="tivo_support" id="enable_media_server_tivo" value="1" onClick="checkTiVo()">
+			  <span class="checkbox-checkmark"></span>
+</label>
+    
+	</td>
+</tr>
+<!--
+<tr>
+	<td nowrap colspan=2>
+	<input type="checkbox" name="iserver" value="1" onClick="iserver_click();"><a href="javascript:loadhelp('UPNP_iserver','enable')" tabindex="-1"><b><% GetMultiLangStr("UMS013") %></b></a>
+	</td>
+</tr>
+
+<tr>
+	<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Device Name:</b></td>
+	<td nowrap align=left>
+	<input type="text" name="iserver_device_name" size="32" onBlur="check_name()" onKeyPress="return getkey('mediaServerName', event)" style="display:none">
+	</td>
+</tr>
+
+<tr>
+	<td colspan=2>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<% GetMultiLangStr("UMS014") %>
+	<input type="text" name="iserver_passcode" maxlength=4 style="width:40px" onKeyPress="return getkey('iServerPass', event)">
+  &nbsp;&nbsp;<button type="submit" value="allowcontrol" name="allowcontrol" class="button-rule" onclick="buttonClick(this,'allowcontrol');return checkRemotePin();"><span class="roundleft_button">&nbsp;&nbsp; <% GetMultiLangStr("UMS015") %> </span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+
+	</td>
+
+</tr>
+-->
+<tr>
+	<td colspan=2><a href="javascript:loadhelp('UPNP_media','dev_name')" tabindex="-1"><b><% GetMultiLangStr("UMS004") %></b>:</td>
+<!--
+<input type="text" name="media_server_name" size="32" readonly onKeyPress="return getkey('mediaServerName', event)"><a href="LAN_lan.htm"><u><% GetMultiLangStr("UMS016") %></u></a>
+-->
+<td class="pt-0">
+<% GetPageCfg("UpnpMediaName") %>
+&nbsp;&nbsp;&nbsp;<button type="button" value="<% GetMultiLangStr("UAS011") %>" name="Edit" class="button-sty1" onClick="parent.location.href='DEV_name.htm';"><% GetMultiLangStr("UAS011") %></button>
+
+	</td>
+</tr>
+
+
+
+</table></div></td></tr>
+<tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe"  src="UPNP_media_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
+</table>
+
+<div class="subhead2-bottom" style="width: 829px;">
+    <span class="help_ico"><img src="img/help-icon.png" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
+    <span class="subhead2-text help_center_text" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_51") %> </span>
+    <span class="button-help-arrow" style="position: absolute; left: 414.5px;">
+      <img src="img/helparrowdown-icon.png" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"></span>
+    <span class="subhead2-text help_right_text" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_123") %> </span>
+      </div>
+
+<input type="hidden" name="media_server_onoff" value="<% GetPageCfg("MediaServerOnoff") %>">
+<input type="hidden" name="tivo_support_onoff" value="<% GetPageCfg("TivoSupportOnoff") %>">
+<input type="hidden" name="upnp_media_name" value="<% GetPageCfg("UpnpMediaName") %>">
+<input type="hidden" name="iserver_onoff" value="<% GetPageCfg("IserverOnoff") %>">
+<input type="hidden" name="iserver_remote_device" value="NoNeedAnymore">
+<input type="hidden" name="iserver_remote_pass" value="">
+<INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+<a name="helpframe-anchor"></a>
+</FORM>
+</div>
+</BODY>
+</HTML>

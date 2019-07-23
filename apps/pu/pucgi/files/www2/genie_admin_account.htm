@@ -1,0 +1,439 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR   Genie</title>
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+
+  <style type="text/css">
+
+ table {
+    border-collapse: separate;
+    width:700px;
+    border: 0px;
+}
+
+td {
+    border: 1px solid #00;
+}
+
+table.ex1 {
+    table-layout: auto;
+}
+
+table.ex2 {
+    table-layout: fixed;
+}
+ 
+.genie_font{
+    font-family: Arial, Helvetica, sans-serif; 
+    font-size:14px;
+    height:21px;
+    color:#404040;    
+    padding-left:20px; 
+}
+   
+  </style>
+
+<link rel="stylesheet" href="CDL.css">
+
+  <script language="javascript" type="text/javascript">
+  
+  <!-- 
+  var timer;
+  var timeout = 1000;
+
+  function key_check()
+  {
+    clearTimeout(timer);
+    timer = setTimeout(function(){
+      sendpasswdcheck();
+    }, timeout);
+    return true;
+  }
+
+  function change_display()
+  {
+      document.forms[0].admin_account_next.disabled = "";
+      document.getElementById("password_rules").style.display="none";
+      return true;
+  }
+
+  function checkData()
+  {
+     var cf = document.forms[0];
+
+      if (cf.sysNewPasswd.value == "")
+      {
+        alert("<% GetMultiLangStr("ADDE02") %>");
+        return false;
+      }
+
+      if(cf.sysNewPasswd.value == "password")
+      {
+        alert("<% GetMultiLangStr("SWP080") %>");
+        return false;
+      }
+
+      if(cf.sysNewPasswd.value.length < 6)
+      {
+        alert("<% GetMultiLangStr("PCVP_043") %>");
+        return false;
+      }
+
+      if (cf.sysNewPasswd.value.length >= 33 || cf.sysConfirmPasswd.value.length >= 33)
+      {
+        alert("<% GetMultiLangStr("MSPE01") %>");
+        return false;
+      }
+
+      if(cf.sysNewPasswd.value != cf.sysConfirmPasswd.value)
+      {
+        alert("<% GetMultiLangStr("SWPE13") %>");
+        cf.sysConfirmPasswd.focus();
+        return false;
+      }
+/*   
+      if(cf.sysNewPasswd.value.match(/[A-Z]/gi)==null || cf.sysNewPasswd.value.match(/[0-9]/gi)==null || cf.sysNewPasswd.value.length < 6) 
+      {
+        alert("");
+        return false;
+      }
+*/  
+    if(cf.answer1.value.length < 1 || cf.answer1.value.length > 64)
+    {
+      alert("<% GetMultiLangStr("genie_95") %>");
+      return false;
+    }
+    
+    if(cf.answer2.value.length < 1 || cf.answer2.value.length > 64)
+    {
+  	  alert("<% GetMultiLangStr("genie_95") %>");
+    	return false;
+    }
+		
+    if(cf.question1.value == 0 || cf.question2.value == 0)
+    {
+      alert("<% GetMultiLangStr("genie_97") %>");
+      return false;
+    }
+    return true;
+  }
+
+  function showQuestion1()
+  {
+  	var selected = [ "", "", "", "", "", "", "", "", "", ""];
+	
+	  selected[0] = "selected";
+	
+    document.open();
+    document.write("<select name=\"question1\" id=\"sec_question_one\">");
+    document.write("<option " + selected[0] + " value=\"0\"><% GetMultiLangStr("genie_97") %></option>");
+    document.write("<option " + selected[1] + " value=\"1\"><% GetMultiLangStr("genie_149") %></option>");
+    document.write("<option " + selected[2] + " value=\"2\"><% GetMultiLangStr("genie_150") %></option>");
+    document.write("<option " + selected[3] + " value=\"3\"><% GetMultiLangStr("genie_145") %></option>");
+    document.write("<option " + selected[4] + " value=\"4\"><% GetMultiLangStr("genie_144") %></option>");
+    document.write("<option " + selected[5] + " value=\"5\"><% GetMultiLangStr("genie_63") %></option>");
+    document.write("<option " + selected[6] + " value=\"6\"><% GetMultiLangStr("genie_142") %></option>");
+    document.write("<option " + selected[7] + " value=\"7\"><% GetMultiLangStr("genie_141") %></option>");
+    document.write("<option " + selected[8] + " value=\"8\"><% GetMultiLangStr("genie_64") %></option>");
+    document.write("<option " + selected[9] + " value=\"9\"><% GetMultiLangStr("genie_138") %></option>");
+    document.write("</select>");
+    document.close();
+    return true;
+  }
+
+  function showQuestion2()
+  {
+    var selected = [ "", "", "", "", "", "", "", "", "", ""];
+	
+    selected[0] = "selected";
+	
+    document.open();
+	  document.write("<select name=\"question2\" id=\"sec_question_two\">");
+    document.write("<option " + selected[0] + " value=\"0\"><% GetMultiLangStr("genie_97") %></option>");
+    document.write("<option " + selected[1] + " value=\"1\"><% GetMultiLangStr("genie_147") %></option>");
+    document.write("<option " + selected[2] + " value=\"2\"><% GetMultiLangStr("genie_146") %></option>");
+    document.write("<option " + selected[3] + " value=\"3\"><% GetMultiLangStr("genie_140") %></option>");
+    document.write("<option " + selected[4] + " value=\"4\"><% GetMultiLangStr("genie_143") %></option>");
+    document.write("<option " + selected[5] + " value=\"5\"><% GetMultiLangStr("genie_148") %></option>");
+    document.write("<option " + selected[6] + " value=\"6\"><% GetMultiLangStr("genie_62") %></option>");
+    document.write("<option " + selected[7] + " value=\"7\"><% GetMultiLangStr("genie_61") %></option>");
+    document.write("<option " + selected[8] + " value=\"8\"><% GetMultiLangStr("genie_139") %></option>");
+    document.write("</select>");	
+    document.close();
+    return true;
+  }
+
+  function sendpasswdcheck()
+  {
+	var cf = document.forms[0];
+	var passwd=cf.sysNewPasswd.value;
+    var check_result=true;
+    if(passwd != "")
+	{
+        var conditions = 0;
+        var containSpecial = RegExp(/[(\ )(\!)(\")(\#)(\)(\$)(\%)(\&)(\')(\()(\))(\*)(\+)(\,)(\-)(\.)(\/)(\:)(\;)(\<)(\=)(\>)(\?)(\@)(\[)(\\)(\])(\^)(\_)(\`)(\{)(\|)(\})(\~)]/);
+
+        if (cf.sysNewPasswd.value.match(/[A-Z]/)) {
+            document.getElementById("weak_password_rule1_1").style.display="table-cell";
+            document.getElementById("weak_password_rule1_1_gray").style.display ="none";
+            conditions += 1;
+        }
+        else{
+            document.getElementById("weak_password_rule1_1").style.display="none";
+            document.getElementById("weak_password_rule1_1_gray").style.display="table-cell";
+        }
+
+        if (cf.sysNewPasswd.value.match(/[a-z]/)) {
+            document.getElementById("weak_password_rule1_2").style.display="table-cell";
+            document.getElementById("weak_password_rule1_2_gray").style.display ="none";
+            conditions += 1;
+        }
+        else{
+            document.getElementById("weak_password_rule1_2").style.display ="none";
+            document.getElementById("weak_password_rule1_2_gray").style.display="table-cell";
+        }
+
+        if (cf.sysNewPasswd.value.match(/[0-9]/)) {
+            document.getElementById("weak_password_rule1_3").style.display="table-cell";
+            document.getElementById("weak_password_rule1_3_gray").style.display ="none";
+            conditions += 1;
+        }
+        else{
+            document.getElementById("weak_password_rule1_3").style.display ="none";
+            document.getElementById("weak_password_rule1_3_gray").style.display="table-cell";
+        }
+
+        if (containSpecial.test(cf.sysNewPasswd.value)) {
+            document.getElementById("weak_password_rule1_4").style.display="table-cell";
+            document.getElementById("weak_password_rule1_4_gray").style.display ="none";
+            conditions += 1;
+        }
+        else{
+            document.getElementById("weak_password_rule1_4").style.display ="none";
+            document.getElementById("weak_password_rule1_4_gray").style.display="table-cell";
+        }
+
+        if (conditions < 3) {
+            document.getElementById("weak_password_rule1").style.display ="none";
+            document.getElementById("weak_password_rule1_gray").style.display="table-cell";
+            check_result = false;
+        }
+        else {
+            document.getElementById("weak_password_rule1").style.display="table-cell";
+            document.getElementById("weak_password_rule1_gray").style.display ="none";
+        }
+ 
+ 
+		if (cf.sysNewPasswd.value.length < 6 || cf.sysNewPasswd.value.length > 32 ) {
+            document.getElementById("weak_password_rule2").style.display ="none";
+            document.getElementById("weak_password_rule2_gray").style.display="table-cell";
+            check_result = false;
+        }
+        else {
+            document.getElementById("weak_password_rule2").style.display="table-cell";
+            document.getElementById("weak_password_rule2_gray").style.display ="none";
+        }
+
+        if (/(\W)\1\1/.test(cf.sysNewPasswd.value) || /(\w)\1\1/.test(cf.sysNewPasswd.value)) {
+            document.getElementById("weak_password_rule4").style.display ="none";
+            document.getElementById("weak_password_rule4_gray").style.display="table-cell";
+            check_result = false;
+        }
+        else {
+            document.getElementById("weak_password_rule4").style.display="table-cell";
+            document.getElementById("weak_password_rule4_gray").style.display ="none";
+        }
+
+        if (check_result == false)
+		{
+            document.getElementById("Netgear_img_blank").style.display="none";
+			document.getElementById("Netgear_img").style.display="none";
+			document.getElementById("Netgear_img_no").style.display="table-cell";
+			document.getElementById("password_rules").style.display="table-row";
+			//cf.next.className  = "greyBtn";
+			//cf.next.disabled = true;
+			cf.sysPasswdWeak.value = 1;
+		}
+        else {
+            document.getElementById("Netgear_img_blank").style.display="none";
+            document.getElementById("Netgear_img").style.display="table-cell";
+            document.getElementById("Netgear_img_no").style.display="none";
+            document.getElementById("password_rules").style.display="none";
+            //cf.next.className  = "purpleBtn";
+            cf.next.disabled = false;
+            cf.sysPasswdWeak.value = 0;
+        }
+    }
+    else {
+        document.getElementById("Netgear_img_blank").style.display="table-cell";
+	    document.getElementById("Netgear_img").style.display="none";
+        document.getElementById("Netgear_img_no").style.display="none";
+        document.getElementById("password_rules").style.display="none";
+        //cf.next.className  = "greyBtn";
+        //cf.next.disabled = true;
+        cf.sysPasswdWeak.value = 1;
+    }
+    return true;
+  }
+  //-->
+  </script>
+  <script src="jquery.js"></script>
+  <script src="script/jquery.mousewheel.js"></script>
+  <script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+  <script src="script/script.js"></script>
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+</head>
+
+<body   class="page-body" >
+  <form id="target"  method="POST" action="admin_account.cgi">
+     <div class="subhead2 page_title"><% GetMultiLangStr("pwr_001") %></div>
+      <div class="scroll-pane" style="height:780px;overflow:auto;scrolling:auto">
+	<table border="0" class="ex1" width="100%">
+
+    <tr>
+
+        <td  width="100%" class="pl28"><% GetMultiLangStr("pwr_002") %></td>
+
+    </tr>
+    <tr>
+
+    </tr>
+    <tr>
+
+      <td>
+        <table class="ex2">
+          <tr>
+              <td width="25%" align="left" class="centerTd3"><% GetMultiLangStr("SWP051") %>:</td>
+              <td width="30%" align="left" class="centerTd3"> admin </td>
+              <td width="45%" align="left" class="centerTd3"></td>
+          </tr>   		  
+          <tr>
+            <td width="25%" align="left" class="centerTd3"><% GetMultiLangStr("pwr_003") %>:</td>
+            <td width="30%" align="left" class="centerTd3"><input class="input1" type="password" name="sysNewPasswd" id="sys_new_passwd" size="22" maxlength="32" onkeyup="return key_check()"  onkeydown="return change_display()"></td>
+            <td width="45%" align="left" id="Netgear_img_blank"></td>
+	        <td width="45%" align="left" id="Netgear_img" style="display: none; white-space: nowrap; font-size:12px; color: green"><img src="DDNS_Yes.png" style="vertical-align:middle; width:16px;height:16px"></td>
+	        <td width="45%" align="left" id="Netgear_img_no" style="display: none; white-space: nowrap; font-size:12px; color: red"><img src="warning.png" style="vertical-align:middle; width:16px;height:16px"></td>
+          </tr>
+          <tr id="password_rules" style="display: none">
+            <td width="25%" align="left">&nbsp;</td>
+            <td width="75%" class="centerTd3" align="left" colspan="2" ><div style="border-radius:30px; background-color:#D3D3D3; font-size:11px">
+            <table style="width:100%">
+              <tr>
+                <td width="100%" align="left" colspan="3" style="display: table-cell;padding-left:20px;height:22px"><% GetMultiLangStr("PCVP_032") %></td>
+              </tr>
+              <tr>
+                <td width="5%" class="centerTd3" align="left"><img id="weak_password_rule2" src="DDNS_Yes.png" style="display: none;height:65%"><img id="weak_password_rule2_gray" src="DDNS_Yes_gray.png" style="display: table-cell;height:65%"></td>
+                <td width="95%" colspan="2" align="left" style="height:22px"><% GetMultiLangStr("PCVP_033") %></td>
+              </tr>
+              <tr>
+                <td width="5%" class="centerTd3" align="left"><img id="weak_password_rule4" src="DDNS_Yes.png" style="display: none;height:65%"><img id="weak_password_rule4_gray" src="DDNS_Yes_gray.png" style="display: table-cell;height:65%"></td>
+                <td width="95%" colspan="2" align="left" style="height:22px"><% GetMultiLangStr("PCVP_034") %></td>
+              </tr>
+              <tr>
+                <td width="5%" class="centerTd3" align="left"><img id="weak_password_rule1" src="DDNS_Yes.png" style="display: none;height:65%"><img id="weak_password_rule1_gray" src="DDNS_Yes_gray.png" style="display: table-cell;height:65%"></td>
+                <td width="95%" colspan="2" align="left" style="height:22px"><% GetMultiLangStr("PCVP_035") %></td>
+              </tr>
+              <tr>
+                <td width="5%" align="left">
+                <td width="5%" class="centerTd3" align="left"><img id="weak_password_rule1_1" src="DDNS_Yes.png" style="display: none;height:65%"><img id="weak_password_rule1_1_gray" src="DDNS_Yes_gray.png" style="display: table-cell;height:65%"></td>
+                <td width="90%" align="left"><% GetMultiLangStr("PCVP_036") %></td>
+              </tr>
+              <tr>
+                <td width="5%" align="left">
+                <td width="5%" class="centerTd3" align="left"><img id="weak_password_rule1_2" src="DDNS_Yes.png" style="display: none;height:65%"><img id="weak_password_rule1_2_gray" src="DDNS_Yes_gray.png" style="display: table-cell;height:65%"></td>
+                <td width="90%" align="left"><% GetMultiLangStr("PCVP_037") %></td>
+              </tr>
+              <tr>
+                <td width="5%" align="left">
+                <td width="5%" class="centerTd3" align="left"><img id="weak_password_rule1_3" src="DDNS_Yes.png" style="display: none;height:65%"><img id="weak_password_rule1_3_gray" src="DDNS_Yes_gray.png" style="display: table-cell;height:65%"></td>
+                <td width="90%" align="left"><% GetMultiLangStr("PCVP_038") %></td>
+              </tr>
+              <tr>
+                <td width="5%" align="left">
+                <td width="5%" class="centerTd3" align="left"><img id="weak_password_rule1_4" src="DDNS_Yes.png" style="display: none;height:65%"><img id="weak_password_rule1_4_gray" src="DDNS_Yes_gray.png" style="display: table-cell;height:65%"></td>
+                <td width="90%" align="left"><% GetMultiLangStr("PCVP_039") %></td>
+              </tr>
+            </table>
+            </div></td>
+          </tr>
+          <tr>
+            <td width="25%" align="left" class="centerTd3"><% GetMultiLangStr("pwr_004") %>:</td>
+            <td width="30%" align="left" class="centerTd3"><input class="input1" type="password" name="sysConfirmPasswd" id="sys_confirm_passwd" size="22" maxlength="130"></td>
+            <td width="45%" align="left" class="centerTd3"></td>
+          </tr>
+          <tr>
+              <td colspan=2>&nbsp;</td>
+          </tr>
+        </table>
+      </td>
+
+    </tr>
+    <tr>       
+
+      <td>
+          <table class="ex2">
+              <tr>
+                  <td width="25%" class="genie_font" align="left"><% GetMultiLangStr("genie_117") %>*: </td>
+                  <td width="75%" class="genie_font">
+                      <script language="javascript" type="text/javascript">
+				      <!--
+				        showQuestion1();	
+				      //-->
+                      </script>
+                  </td>
+              </tr>
+              <tr>
+                  <td width="25%" class="genie_font" align="left"><% GetMultiLangStr("genie_17") %>*:</td>
+                  <td width="75%" class="genie_font"><input class="input1" type="text" name="answer1" id="answer1" size="64" maxlength="64" value=""> </td>
+              </tr>
+              <tr>
+                  <td width="25%" class="genie_font" align="left"><% GetMultiLangStr("genie_118") %>*: </td>
+                  <td width="75%" class="genie_font">
+                      <script language="javascript" type="text/javascript">
+				      <!--
+				        showQuestion2();
+				      //-->
+                      </script>
+                   </td>
+              </tr>
+              <tr>
+                  <td width="25%" class="genie_font" align="left"><% GetMultiLangStr("genie_17") %>*: </td>
+			      <td width="75%" class="genie_font"><input class="input1" type="text" name="answer2" id="answer2"size="64" maxlength="64" value=""></td>
+              </tr>
+              <tr>
+                  <td width="100%" class="genie_font" align="left"><% GetMultiLangStr("genie_6") %></td>
+                  <td></td>
+              </tr>
+              <tr>
+                  <td class="genie_font pt-20"  align="left" colspan=2><button type="submit" style="width:100px" value="submit" class="button-sty1" name="next" id="admin_account_next" onClick="return checkData();" disabled="disabled"><span><% GetMultiLangStr("OTH011") %></span></button></td>
+              </tr>
+              <tr>
+                  <td colspan=2>&nbsp;</td>
+              </tr>	
+          </table>
+      </td>
+
+    </tr>
+  </table>
+  </div>
+  <INPUT type="hidden" name="sysPasswdWeak" value="1">
+  <INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+  </form>
+</body>
+
+</html>

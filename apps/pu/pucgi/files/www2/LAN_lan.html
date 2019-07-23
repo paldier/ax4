@@ -1,0 +1,800 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title> 
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<STYLE TYPE="text/javascript">
+	classes.num.all.fontFamily = "Courier";
+	classes.num.all.fontSize = "10pt" ;
+</style>
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!--
+  
+    $(document).ready(function()
+    {	
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+    function setHelpIframeVisible(){
+        $('.help-frame-div').css("visibility","visible");
+    }
+
+
+    function showHelpIframe() {
+
+        var imgSrc=document.getElementById('help-button');
+
+        if(imgSrc.src.search("up")>=0)
+        {
+            $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
+            imgSrc.src="img/helparrowdown-icon.png";
+        }
+        else
+        {
+            $(".help-frame-div").hide();
+            imgSrc.src="img/helparrowup-icon.png";
+            setTimeout(setHelpIframeVisible,500);
+        }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
+             change_size();
+
+    }
+
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+
+    function loadhelp(fname,anchname)
+    {
+                var pane = window.frames["helpframe"].$('#content');
+                var imgSrc=document.getElementById('help-button');
+                if(imgSrc.src.search("up")<0)
+                {
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+
+                        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm";
+                                $(".help-frame-div").show();
+                        }
+                        else
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                                $(".help-frame-div").show();
+                        }
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+                }
+    }
+
+   
+
+function chgSel(index)
+{
+ document.forms[0].select.value = index;
+ return true;
+}
+
+function checkEdit_Delete(index)
+{
+    var cf = document.forms[0];
+    var action_flag = index;
+    var ipmac_count = cf.ipmac_token.value;
+    var arp_enable = cf.arp_enable.value;
+    
+    if (arp_enable == "enable")
+    {
+        if(ipmac_count == 1)
+        {
+            if(action_flag == 0)
+            {/*Edit*/
+                alert("If the rule is configured wrong, no device would be able to access the router interface.");
+            }
+            else if(action_flag == 1)
+            {/*Delete*/
+                alert("<% GetMultiLangStr("IPMAC10") %>");
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+function checkData()
+{
+	var cf = document.forms[0];
+	var msg = "";
+
+	var wan_proto = cf.wan_proto.value;
+	var pptp_wan_ipaddr = cf.pptp_wan_ipaddr.value.split(".");
+	var l2tp_wan_ipaddr = cf.l2tp_wan_ipaddr.value.split(".");
+	var pppoe_wan_ipaddr = cf.pppoe_wan_ipaddr.value.split(".");
+    var dns_pri_ipaddr = cf.wan_dns1_pri.value.split(".");
+    var dns_sec_ipaddr = cf.wan_dns1_sec.value.split(".");
+	
+	var wan_ipaddr = cf.wan_ipaddr.value.split(".");
+	var wan_netmask = cf.wan_netmask.value.split(".");
+	var w_ipaddr = (wan_ipaddr[0] << 24) | (wan_ipaddr[1] << 16) | (wan_ipaddr[2] << 8)| (wan_ipaddr[3]);
+	var w_netmask = (wan_netmask[0]<< 24) | (wan_netmask[1]<< 16) | (wan_netmask[2]<< 8)| (wan_netmask[3]);
+	var l_ipaddr = (cf.sysLANIPAddr1.value << 24) | (cf.sysLANIPAddr2.value << 16) | (cf.sysLANIPAddr3.value << 8)| (cf.sysLANIPAddr4.value);
+	var l_netmask = (cf.sysLANSubnetMask1.value<< 24) | (cf.sysLANSubnetMask2.value<< 16) | (cf.sysLANSubnetMask3.value<< 8)| (cf.sysLANSubnetMask4.value);
+	var lan_netaddr_min = (l_ipaddr & l_netmask) + 1;
+	var lan_netaddr_max = ((l_ipaddr & l_netmask) | (~l_netmask)) - 1;
+    var dns_pri_ipaddr2 = (dns_pri_ipaddr[0] << 24) | (dns_pri_ipaddr[1] << 16) | (dns_pri_ipaddr[2] << 8)| (dns_pri_ipaddr[3]);
+    var dns_sec_ipaddr2 = (dns_sec_ipaddr[0] << 24) | (dns_sec_ipaddr[1] << 16) | (dns_sec_ipaddr[2] << 8)| (dns_sec_ipaddr[3]);
+
+/*
+
+	if (cf.device_name.value == "")
+		msg+= "<% GetMultiLangStr("ALSE02") %>\n";
+
+	if (cf.device_name.value.match( /[^\x20-\x7E]/ ))
+	{
+		cf.device_name.focus();
+		msg+= "<% GetMultiLangStr("AAWE04") %>\n";
+	}
+*/
+
+	if(checkIP(cf.sysLANSubnetMask1,cf.sysLANSubnetMask2,cf.sysLANSubnetMask3,cf.sysLANSubnetMask4,255)
+		||!isNetmask(cf.sysLANSubnetMask1, cf.sysLANSubnetMask2, cf.sysLANSubnetMask3, cf.sysLANSubnetMask4)
+		||(lan_netaddr_min > lan_netaddr_max))
+		msg+= "<% GetMultiLangStr("SWPE06") %>";
+	if(checkIP(cf.sysLANIPAddr1,cf.sysLANIPAddr2,cf.sysLANIPAddr3,cf.sysLANIPAddr4,254)
+		||((parseInt(cf.sysLANIPAddr4.value,10)==0) && (parseInt(cf.sysLANSubnetMask4.value,10)==0) && (parseInt(cf.sysLANSubnetMask3.value,10)!=0))
+		||((parseInt(cf.sysLANIPAddr4.value,10)==0) && (parseInt(cf.sysLANIPAddr3.value,10)==0) && (parseInt(cf.sysLANSubnetMask4.value,10)==0) && (parseInt(cf.sysLANSubnetMask3.value,10)==0)&& (parseInt(cf.sysLANSubnetMask2.value,10)!=0))
+		||parseInt(cf.sysLANIPAddr1.value,10)>224
+		||(l_ipaddr < lan_netaddr_min)||(l_ipaddr > lan_netaddr_max))
+		msg+= "<% GetMultiLangStr("SWPE05") %>";
+
+	var n1=parseInt(cf.sysPoolStartingAddr4.value,10);
+	var n2=parseInt(cf.sysPoolFinishAddr4.value,10);
+
+	if( isNaN(n1) || isNaN(n2)
+        || (n1<1||n1>254||n2<1||n2>254||n1>n2)
+        || ((n1 == n2) && (n1 == (l_ipaddr & 0xFF)))
+        || (n1 < (lan_netaddr_min & 0xFF)) || (n2 > (lan_netaddr_max & 0xFF))
+        || ((cf.sysPoolStartingAddr4.value & cf.sysLANSubnetMask4.value) != (cf.sysLANIPAddr4.value & cf.sysLANSubnetMask4.value))
+        || ((cf.sysPoolFinishAddr4.value & cf.sysLANSubnetMask4.value) != (cf.sysLANIPAddr4.value & cf.sysLANSubnetMask4.value)) )
+        msg+= "<% GetMultiLangStr("ALSE03") %>";
+	if (msg.length > 1)
+	{
+		alert(msg);
+		return false;
+	}
+	else
+	{
+		if ((w_ipaddr != 0) && 
+			(((l_netmask & w_netmask ) & l_ipaddr) == ((l_netmask & w_netmask ) & w_ipaddr)))
+		{
+			alert("<% GetMultiLangStr("ALSE01") %>");
+			return false;
+		}
+        
+		/*  if(1==0) */
+		/* checking whether DNS address as LAN address, no matter got automatically or not */
+        if (w_netmask != 0)
+		{
+                    if ((dns_pri_ipaddr2 != 0) &&  /* first DNS conflict check */
+                     (((l_netmask & w_netmask) & l_ipaddr) == ((l_netmask & w_netmask) & dns_pri_ipaddr2)))
+                    {
+                        alert("<% GetMultiLangStr("ALSE01") %>");
+                        return false;
+		    }
+
+		    if ((dns_pri_ipaddr2 != 0) &&  /* first DNS conflict check */
+                       (((l_ipaddr & l_netmask) & w_netmask) == ((dns_pri_ipaddr2 & l_netmask) & w_netmask)))
+                    {
+                         alert("<% GetMultiLangStr("ALSE01") %>");
+                         return false;
+		    }
+
+                    if ((dns_sec_ipaddr2 != 0) && /* second DNS conflict check */
+                     (((l_netmask & w_netmask) & l_ipaddr) == ((l_netmask & w_netmask) & dns_sec_ipaddr2)))
+                    {
+                        alert("<% GetMultiLangStr("ALSE01") %>");
+                        return false;
+		    }
+
+		    if ((dns_sec_ipaddr2 != 0) &&  /* second DNS conflict check */
+                     (((l_ipaddr & l_netmask) & w_netmask) == ((dns_sec_ipaddr2 & l_netmask) & w_netmask)))
+                    {
+                        alert("<% GetMultiLangStr("ALSE01") %>");
+                        return false;
+		    }
+		       
+		}   
+
+		if (wan_proto == "pptp")
+		{
+			w_ipaddr = (pptp_wan_ipaddr[0] << 24) | (pptp_wan_ipaddr[1] << 16) | (pptp_wan_ipaddr[2] << 8)| (pptp_wan_ipaddr[3]);
+			w_netmask = l_netmask;
+		}
+		else if (wan_proto == "l2tp")
+		{
+		    w_ipaddr = (l2tp_wan_ipaddr[0] << 24) | (l2tp_wan_ipaddr[1] << 16) | (l2tp_wan_ipaddr[2] << 8)| (l2tp_wan_ipaddr[3]);
+			w_netmask = l_netmask;
+		}
+		else if (wan_proto == "pppoe")
+		{
+		    w_ipaddr = (pppoe_wan_ipaddr[0] << 24) | (pppoe_wan_ipaddr[1] << 16) | (pppoe_wan_ipaddr[2] << 8)| (pppoe_wan_ipaddr[3]);
+			w_netmask = l_netmask;
+		}
+		
+		if ((w_ipaddr != 0) && 
+			(((l_netmask & w_netmask ) & l_ipaddr) == ((l_netmask & w_netmask ) & w_ipaddr)))
+		{
+			alert("<% GetMultiLangStr("ALSE01") %>");
+			return false;
+		}
+
+		data = cf.pptp_serv_ipaddr.value.match(/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/);
+		data1 = cf.l2tp_serv_ipaddr.value.match(/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/);
+		if (data && (wan_proto == "pptp"))
+		{
+			pptp_serv_ipaddr = cf.pptp_serv_ipaddr.value.split(".");
+			w_ipaddr = (pptp_serv_ipaddr[0] << 24) | (pptp_serv_ipaddr[1] << 16) | (pptp_serv_ipaddr[2] << 8)| (pptp_serv_ipaddr[3]);
+			w_netmask = l_netmask;
+
+			if ((w_ipaddr != 0) && 
+				(((l_netmask & w_netmask ) & l_ipaddr) == ((l_netmask & w_netmask ) & w_ipaddr)))
+			{
+				alert("<% GetMultiLangStr("ALSE01") %>");
+				return false;
+			}
+		}
+		if (data1 && (wan_proto == "l2tp"))
+		{
+			l2tp_serv_ipaddr = cf.l2tp_serv_ipaddr.value.split(".");
+			w_ipaddr = (l2tp_serv_ipaddr[0] << 24) | (l2tp_serv_ipaddr[1] << 16) | (l2tp_serv_ipaddr[2] << 8)| (l2tp_serv_ipaddr[3]);
+			w_netmask = l_netmask;
+
+			if ((w_ipaddr != 0) && 
+				(((l_netmask & w_netmask ) & l_ipaddr) == ((l_netmask & w_netmask ) & w_ipaddr)))
+			{
+				alert("<% GetMultiLangStr("ALSE01") %>");
+				return false;
+			}
+		}
+	}
+
+        var lan_netmask_old = cf.lan_netmask.value.split(".");
+
+        if ((parseInt(lan_netmask_old[0]) < cf.sysLANSubnetMask1.value) ||
+            (parseInt(lan_netmask_old[1]) < cf.sysLANSubnetMask2.value) ||
+            (parseInt(lan_netmask_old[2]) < cf.sysLANSubnetMask3.value) ||
+            (parseInt(lan_netmask_old[3]) < cf.sysLANSubnetMask4.value))
+        {
+            alert("After this new IP change, the corresponding configurations (DMZ, port forwarding/triggering, block service and block site trusted IP, Address Reservation Table) will be flushed too.");
+        }
+
+	cf.sysLANIPAddr1.value = parseInt(cf.sysLANIPAddr1.value,10);
+	cf.sysLANIPAddr2.value = parseInt(cf.sysLANIPAddr2.value,10);
+	cf.sysLANIPAddr3.value = parseInt(cf.sysLANIPAddr3.value,10);
+	cf.sysLANIPAddr4.value = parseInt(cf.sysLANIPAddr4.value,10);
+	cf.sysLANSubnetMask1.value = parseInt(cf.sysLANSubnetMask1.value,10);
+	cf.sysLANSubnetMask2.value = parseInt(cf.sysLANSubnetMask2.value,10);
+	cf.sysLANSubnetMask3.value = parseInt(cf.sysLANSubnetMask3.value,10);
+	cf.sysLANSubnetMask4.value = parseInt(cf.sysLANSubnetMask4.value,10);
+	cf.sysPoolStartingAddr4.value = parseInt(cf.sysPoolStartingAddr4.value,10);
+	cf.sysPoolFinishAddr4.value = parseInt(cf.sysPoolFinishAddr4.value,10);
+	cf.lan_ipaddr.value = cf.sysLANIPAddr1.value+'.'+cf.sysLANIPAddr2.value+'.'+cf.sysLANIPAddr3.value+'.'+cf.sysLANIPAddr4.value;
+	cf.lan_netmask.value = cf.sysLANSubnetMask1.value+'.'+cf.sysLANSubnetMask2.value+'.'+cf.sysLANSubnetMask3.value+'.'+cf.sysLANSubnetMask4.value;
+	cf.dhcp_start.value = cf.sysLANIPAddr1.value+'.'+cf.sysLANIPAddr2.value+'.'+cf.sysLANIPAddr3.value+'.'+cf.sysPoolStartingAddr4.value;
+	cf.dhcp_end.value = cf.sysLANIPAddr1.value+'.'+cf.sysLANIPAddr2.value+'.'+cf.sysLANIPAddr3.value+'.'+cf.sysPoolFinishAddr4.value;
+	if (cf.dhcp_server.checked)
+    {
+        var old_start = cf.dhcp_start_old.value.split(".");
+        var old_end   = cf.dhcp_end_old.value.split(".");       
+        
+        cf.lan_proto.value = "dhcp";
+    }
+	else
+    {
+        cf.lan_proto.value = "static";
+        alert("<% GetMultiLangStr("ALSW02") %>");
+    }
+	checkRip();
+	return true;
+}
+
+function loadSettings()
+{
+	var cf = document.forms[0];
+	var lan_ipaddr = cf.lan_ipaddr.value.split(".");
+	var lan_netmask = cf.lan_netmask.value.split(".");
+	var dhcp_start = cf.dhcp_start.value.split(".");
+	var dhcp_end = cf.dhcp_end.value.split(".");
+	var lan_proto = cf.lan_proto.value;
+	var rip_enable = cf.rip_enable.value;
+	var rip_multicast = cf.rip_multicast.value;
+	var rip_version = cf.rip_version.value;
+	
+	var lan_ipaddr_tmp = cf.tmp_lan_ipaddr.value.split(".");
+	var lan_netmask_tmp = cf.tmp_lan_netmask.value.split(".");
+	var lan_proto_tmp = cf.tmp_lan_proto.value;
+	var rip_enable_tmp = cf.tmp_rip_enable.value;
+
+/*
+	cf.device_name.value = cf.dev_name.value;
+*/
+	
+	if (cf.dlna_autoip_en.value == "0" || cf.dlna_autoip_en.value == "")
+    {
+        //cf.dlna_autoip.checked = false;
+        cf.sysLANIPAddr1.value = lan_ipaddr[0];
+	    cf.sysLANIPAddr2.value = lan_ipaddr[1];
+	    cf.sysLANIPAddr3.value = lan_ipaddr[2];
+	    cf.sysLANIPAddr4.value = lan_ipaddr[3];
+	    cf.sysLANSubnetMask1.value = lan_netmask[0];
+	    cf.sysLANSubnetMask2.value = lan_netmask[1];
+	    cf.sysLANSubnetMask3.value = lan_netmask[2];
+	    cf.sysLANSubnetMask4.value = lan_netmask[3];
+        
+	    cf.rip_direction.selectedIndex = <% GetPageCfg("rip_direction") %> - 1;
+	    if (rip_enable == "0")
+	    	cf.sysRIPVersion.selectedIndex = 0;
+	    else
+	    if (rip_version == "1")
+	    	cf.sysRIPVersion.selectedIndex = 1;
+	    else
+	    if (rip_version == "2")
+	    {
+	    	if (rip_multicast == "0")
+	    		cf.sysRIPVersion.selectedIndex = 2;
+	    	else
+	    		cf.sysRIPVersion.selectedIndex = 3;
+	    }
+            
+	    if (lan_proto == "dhcp")
+	    	cf.dhcp_server.checked = true;
+	    else
+	    	cf.dhcp_server.checked = false;
+	    cf.sysPoolStartingAddr1.value = dhcp_start[0];
+	    cf.sysPoolStartingAddr2.value = dhcp_start[1];
+	    cf.sysPoolStartingAddr3.value = dhcp_start[2];
+	    cf.sysPoolStartingAddr4.value = dhcp_start[3];
+	    cf.sysPoolFinishAddr1.value = dhcp_end[0];
+	    cf.sysPoolFinishAddr2.value = dhcp_end[1];
+	    cf.sysPoolFinishAddr3.value = dhcp_end[2];
+	    cf.sysPoolFinishAddr4.value = dhcp_end[3];
+        
+	    if (cf.repeater.value == "1" || cf.repeater_an.value == "1") {
+	    	cf.rip_direction.disabled = true;
+	    	cf.sysRIPVersion.disabled = true;
+	    	cf.dhcp_server.disabled = true;
+	    	cf.sysPoolStartingAddr1.disabled = true;
+	    	cf.sysPoolStartingAddr2.disabled = true;
+	    	cf.sysPoolStartingAddr3.disabled = true;
+	    	cf.sysPoolStartingAddr4.disabled = true;
+	    	cf.sysPoolFinishAddr1.disabled = true;
+	    	cf.sysPoolFinishAddr2.disabled = true;
+	    	cf.sysPoolFinishAddr3.disabled = true;
+	    	cf.sysPoolFinishAddr4.disabled = true;
+	    	cf.Add.disabled = true;
+	    	cf.Edit.disabled = true;
+	    	cf.Delete.disabled = true;
+	    } 
+    }
+    else
+    {
+        //cf.dlna_autoip.checked = true;
+        cf.sysLANIPAddr1.value = lan_ipaddr_tmp[0];
+	    cf.sysLANIPAddr2.value = lan_ipaddr_tmp[1];
+	    cf.sysLANIPAddr3.value = lan_ipaddr_tmp[2];
+	    cf.sysLANIPAddr4.value = lan_ipaddr_tmp[3];
+	    cf.sysLANSubnetMask1.value = lan_netmask_tmp[0];
+	    cf.sysLANSubnetMask2.value = lan_netmask_tmp[1];
+	    cf.sysLANSubnetMask3.value = lan_netmask_tmp[2];
+	    cf.sysLANSubnetMask4.value = lan_netmask_tmp[3];
+        
+	    cf.rip_direction.selectedIndex = <% GetPageCfg("rip_direction") %> - 1;
+	    if (rip_enable_tmp == "0")
+	    	cf.sysRIPVersion.selectedIndex = 0;
+	    else
+	    if (rip_version == "1")
+	    	cf.sysRIPVersion.selectedIndex = 1;
+	    else
+	    if (rip_version == "2")
+	    {
+	    	if (rip_multicast == "0")
+	    		cf.sysRIPVersion.selectedIndex = 2;
+	    	else
+	    		cf.sysRIPVersion.selectedIndex = 3;
+	    }
+            
+	    if (lan_proto_tmp == "dhcp")
+	    	cf.dhcp_server.checked = true;
+	    else
+	    	cf.dhcp_server.checked = false;
+	    cf.sysPoolStartingAddr1.value = dhcp_start[0];
+	    cf.sysPoolStartingAddr2.value = dhcp_start[1];
+	    cf.sysPoolStartingAddr3.value = dhcp_start[2];
+	    cf.sysPoolStartingAddr4.value = dhcp_start[3];
+	    cf.sysPoolFinishAddr1.value = dhcp_end[0];
+	    cf.sysPoolFinishAddr2.value = dhcp_end[1];
+	    cf.sysPoolFinishAddr3.value = dhcp_end[2];
+	    cf.sysPoolFinishAddr4.value = dhcp_end[3];
+        
+	    cf.sysLANIPAddr1.disabled = true;
+	    cf.sysLANIPAddr2.disabled = true;
+	    cf.sysLANIPAddr3.disabled = true;
+	    cf.sysLANIPAddr4.disabled = true;
+	    cf.sysLANSubnetMask1.disabled = true;
+	    cf.sysLANSubnetMask2.disabled = true;
+	    cf.sysLANSubnetMask3.disabled = true;
+	    cf.sysLANSubnetMask4.disabled = true;
+	    cf.rip_direction.disabled = true;
+	    cf.sysRIPVersion.disabled = true;
+	    cf.dhcp_server.disabled = true;
+	    cf.sysPoolStartingAddr1.disabled = true;
+	    cf.sysPoolStartingAddr2.disabled = true;
+	    cf.sysPoolStartingAddr3.disabled = true;
+	    cf.sysPoolStartingAddr4.disabled = true;
+	    cf.sysPoolFinishAddr1.disabled = true;
+	    cf.sysPoolFinishAddr2.disabled = true;
+	    cf.sysPoolFinishAddr3.disabled = true;
+	    cf.sysPoolFinishAddr4.disabled = true;
+	    cf.Add.disabled = true;
+	    cf.Edit.disabled = true;
+	    cf.Delete.disabled = true;
+	}
+}
+/*
+function DisableDHCPSetting()
+{
+    var cf = document.forms[0];
+    if(cf.dlna_autoip.checked)
+    {
+        cf.sysLANIPAddr1.disabled = true;
+	    cf.sysLANIPAddr2.disabled = true;
+	    cf.sysLANIPAddr3.disabled = true;
+	    cf.sysLANIPAddr4.disabled = true;
+	    cf.sysLANSubnetMask1.disabled = true;
+	    cf.sysLANSubnetMask2.disabled = true;
+	    cf.sysLANSubnetMask3.disabled = true;
+	    cf.sysLANSubnetMask4.disabled = true;
+        cf.rip_direction.disabled = true;
+		cf.sysRIPVersion.disabled = true;
+		cf.dhcp_server.disabled = true;
+		cf.sysPoolStartingAddr1.disabled = true;
+		cf.sysPoolStartingAddr2.disabled = true;
+		cf.sysPoolStartingAddr3.disabled = true;
+		cf.sysPoolStartingAddr4.disabled = true;
+		cf.sysPoolFinishAddr1.disabled = true;
+		cf.sysPoolFinishAddr2.disabled = true;
+		cf.sysPoolFinishAddr3.disabled = true;
+		cf.sysPoolFinishAddr4.disabled = true;
+		cf.Add.disabled = true;
+		cf.Edit.disabled = true;
+		cf.Delete.disabled = true;
+    }
+    else
+    {
+        cf.sysLANIPAddr1.disabled = false;
+	    cf.sysLANIPAddr2.disabled = false;
+	    cf.sysLANIPAddr3.disabled = false;
+	    cf.sysLANIPAddr4.disabled = false;
+	    cf.sysLANSubnetMask1.disabled = false;
+	    cf.sysLANSubnetMask2.disabled = false;
+	    cf.sysLANSubnetMask3.disabled = false;
+	    cf.sysLANSubnetMask4.disabled = false;
+        cf.rip_direction.disabled = false;
+		cf.sysRIPVersion.disabled = false;
+		cf.dhcp_server.disabled = false;
+		cf.sysPoolStartingAddr1.disabled = false;
+		cf.sysPoolStartingAddr2.disabled = false;
+		cf.sysPoolStartingAddr3.disabled = false;
+		cf.sysPoolStartingAddr4.disabled = false;
+		cf.sysPoolFinishAddr1.disabled = false;
+		cf.sysPoolFinishAddr2.disabled = false;
+		cf.sysPoolFinishAddr3.disabled = false;
+		cf.sysPoolFinishAddr4.disabled = false;
+		cf.Add.disabled = false;
+		cf.Edit.disabled = false;
+		cf.Delete.disabled = false;
+    }
+}
+*/
+function checkRip()
+{
+	var cf = document.forms[0];
+
+	if (cf.sysRIPVersion.selectedIndex == 0)
+	{
+		cf.rip_enable.value = "0";
+	}
+	else
+	if (cf.sysRIPVersion.selectedIndex == 1)
+	{
+		cf.rip_enable.value = "1";
+		cf.rip_version.value = "1";
+	}
+	else
+	if (cf.sysRIPVersion.selectedIndex == 2)
+	{
+		cf.rip_enable.value = "1";
+		cf.rip_version.value = "2";
+		cf.rip_multicast.value = "0";
+	}
+	else
+	if (cf.sysRIPVersion.selectedIndex == 3)
+	{
+		cf.rip_enable.value = "1";
+		cf.rip_version.value = "2";
+		cf.rip_multicast.value = "1";
+	}
+}
+    
+function dhcp_update(index)
+{
+    var cf = document.forms[0];
+    switch (index) {
+        case 1:
+            cf.sysPoolStartingAddr1.value=cf.sysLANIPAddr1.value;
+            cf.sysPoolFinishAddr1.value=cf.sysLANIPAddr1.value;
+            break;
+        case 2:
+            cf.sysPoolStartingAddr2.value=cf.sysLANIPAddr2.value;
+            cf.sysPoolFinishAddr2.value=cf.sysLANIPAddr2.value;
+            break;
+        case 3:
+            cf.sysPoolStartingAddr3.value=cf.sysLANIPAddr3.value;
+            cf.sysPoolFinishAddr3.value=cf.sysLANIPAddr3.value;
+            break;
+        case 4:
+            cf.sysPoolStartingAddr3.value=cf.sysLANIPAddr3.value;
+            cf.sysPoolFinishAddr3.value=cf.sysLANIPAddr3.value;
+            break;
+    }
+}
+
+
+
+//-->
+</script> 
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+</head>
+<body  onload="change_size();highLightMenu('setup_header', 'LAN_set');loadSettings();" class="page-body"  onResize="change_size();" >
+<img class="cover-image" src="img/cover-image_noh.gif" alt="">
+<!--<img class="body-image" src="img/subhead2-background_noh.jpg">-->
+<div id="full-page-container">
+
+<form id="target"  name="frmLan" method="POST" action="lan.cgi?">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+	<img class="subtop-image" src="img/subhead2-top_noh.gif" alt="">
+<div class="subhead2"> <% GetMultiLangStr("LUP032") %></div>
+<table border="0"    style="height:370px"  class="subhead2-table mt-15">
+
+<tr align="left" valign="middle">
+<td colspan="2" class="table-seperate-border">
+	<div class="fix_button">
+<button value="Cancel" onClick="buttonClick(this,'Cancel');loadSettings();" type="BUTTON" name="Cancel" id="cancel" class="button-cancel cancel_bt" ><% GetMultiLangStr("UAS021") %></button>
+
+	<button value="Apply"  onClick="buttonClick(this,'Apply');return checkData()" type="SUBMIT" name="action" id="apply" class="button-apply apply_bt" > <% GetMultiLangStr("LUP004") %></button>
+	</div>
+</td>
+</tr>
+
+<tr><td class="scrollpane-table-seperate-border" colspan="2">
+	<div class="scroll-pane main_bas" style="height:365px;width:620px;overflow:auto;scrolling:auto">
+		<table style="border-collapse:collapse;width:97%">
+<tr><td colspan="2" height="12"></td></tr>
+<tr>
+  <td nowrap><a href="javascript:loadhelp('LAN_lan','device_name')" tabindex="-1"><b><% GetMultiLangStr("MAD001") %></b></a></td>
+<!--
+  <td width="60%" align="left"><INPUT TYPE="text" MAXLENGTH="12" SIZE="24" NAME="device_name" id="device_name" value="RAX40"></td>
+-->
+
+	<td width="60%" align="left">
+		<% GetPageCfg("dev_name") %>
+		<button type="button" value="<% GetMultiLangStr("UAS011") %>" name="Edit" class="button-sty1" onClick="location.href='DEV_name.html';"><% GetMultiLangStr("UAS011") %></button>
+	</td>
+
+</tr>
+    
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+<tr>
+	<td nowrap colspan="2"><p><b><a href="javascript:loadhelp('LAN_lan','tcp')" tabindex="-1"><% GetMultiLangStr("ALS004") %> </a></b></p></td>
+	</tr>
+<!--<tr>
+	<td colspan="2" nowrap><input type="checkbox" name="dlna_autoip" value="dlna_autoip" onclick=DisableDHCPSetting();>Use Auto IP 
+	</td>
+</tr>-->
+<tr>
+<td nowrap><% GetMultiLangStr("SWP030") %></td>
+<td nowrap align="left" class="num ip-input-row">
+    <input type="text" name="sysLANIPAddr1" id="sys_lan_ipaddress1" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)" onBlur="dhcp_update(1)">.
+    <input type="text" name="sysLANIPAddr2" id="sys_lan_ipaddress2" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)" onBlur="dhcp_update(2)">.
+    <input type="text" name="sysLANIPAddr3" id="sys_lan_ipaddress3" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)" onBlur="dhcp_update(3)">.
+    <input type="text" name="sysLANIPAddr4" id="sys_lan_ipaddress4" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)" onBlur="dhcp_update(4)"></td>
+</tr>
+<tr>
+<td nowrap><% GetMultiLangStr("SWP044") %></td>
+<td nowrap align="left" class="num ip-input-row">
+    <input type="text" name="sysLANSubnetMask1" id="sys_lan_netmask1" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)" >.
+    <input type="text" name="sysLANSubnetMask2" id="sys_lan_netmask2" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)" >.
+    <input type="text" name="sysLANSubnetMask3" id="sys_lan_netmask3" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)" >.
+    <input type="text" name="sysLANSubnetMask4" id="sys_lan_netmask4" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)" ></td>
+</tr>
+<tr>
+<td nowrap><% GetMultiLangStr("ALS011") %></td>
+<td align="left">
+    <select name="rip_direction" id="rip_direction" size="1">
+        <option value=1><% GetMultiLangStr("ALS010") %></option>
+        <option value=2><% GetMultiLangStr("ALS012") %></option>
+        <option value=3><% GetMultiLangStr("ALS013") %></option>
+    </select></td>
+</tr>
+<tr>
+<td nowrap><% GetMultiLangStr("ALS014") %></td>
+<td align="left">
+    <select name="sysRIPVersion" id="sys_rip_version" size="1">
+	<option value="Disabled"><% GetMultiLangStr("SWP043") %></option>
+	<option value="RIP_1">RIP_1</option>
+	<option value="RIP_2B">RIP_2B</option>
+	<option value="RIP_2M">RIP_2M</option>
+    </select></td>
+</tr>
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+
+<tr>
+	<td colspan="2" nowrap>
+		
+
+ <label class="checkbox-container">
+	<input type="checkbox" name="dhcp_server" id="dhcp_server_enable" value="dhcp_server">
+	<a href="javascript:loadhelp('LAN_lan','dhcp')" tabindex="-1"><b> <% GetMultiLangStr("ALS003") %></b> </a> 
+	<span class="checkbox-checkmark"></span> 
+  </label> 
+	</td>
+</tr>
+
+<tr>
+<td nowrap><% GetMultiLangStr("ALS002") %></td>
+<td nowrap align="left" class="num ip-input-row">
+	<input type="text" name="sysPoolStartingAddr1" id="sys_pool_starting_address1" class="num" size="4" maxlength="3" disabled="true" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.
+	<input type="text" name="sysPoolStartingAddr2" id="sys_pool_starting_address2" class="num" size="4" maxlength="3" disabled="true" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.
+	<input type="text" name="sysPoolStartingAddr3" id="sys_pool_starting_address3" class="num" size="4" maxlength="3" disabled="true" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.
+	<input type="text" name="sysPoolStartingAddr4" id="sys_pool_starting_address4" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
+</tr>
+<tr>
+<td nowrap><% GetMultiLangStr("ALS001") %></td>
+<td nowrap align="left" class="num ip-input-row">
+	<input type="text" name="sysPoolFinishAddr1" id="sys_pool_finish_address1" class="num" size="4" maxlength="3" disabled="true" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.
+	<input type="text" name="sysPoolFinishAddr2" id="sys_pool_finish_address2" class="num" size="4" maxlength="3" disabled="true" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.
+	<input type="text" name="sysPoolFinishAddr3" id="sys_pool_finish_address3" class="num" size="4" maxlength="3" disabled="true" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.
+	<input type="text" name="sysPoolFinishAddr4" id="sys_pool_finish_address4" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
+</tr>
+
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+
+<tr>
+	<td nowrap colspan="2"><a href="javascript:loadhelp('LAN_lan','reserved')" tabindex="-1"><b><% GetMultiLangStr("ALS005") %></b></a></td>
+</tr>
+
+<tr>
+<td colspan="2">
+	<table id="address_reser_table" border="1" cellpadding="2" cellspacing="0" width="100%" class="tbWhite table1 cmn-table-2">
+	<tr class="table_header">
+		<td nowrap align="center" width="6%"><span class="thead"> &nbsp;</span></td>
+		<td nowrap align="center" width="6%"><span class="thead"># </span></td>
+		<td nowrap align="center"><span class="thead"><% GetMultiLangStr("SWP030") %></span></td>
+		<td nowrap align="center"><span class="thead"><% GetMultiLangStr("MAD001") %></span></td>
+		<td nowrap align="center"><span class="thead"><% GetMultiLangStr("MRS015") %></span></td>
+	</tr>
+    <% GetPageCfg("lan_dhcp_Addr_resv_table") %>
+	</table>
+</td>
+</tr>
+
+<tr>
+<td colspan="2" align="center">
+	<button type="Submit" value="Add" name="Add" id="add" class="button-sty1" onclick="buttonClick(this,'Add');" ><% GetMultiLangStr("OTH012") %></button>
+	<button type="Submit" value="Edit" name="Edit" id="edit" class="button-sty1" onclick="buttonClick(this,'Edit');return checkEdit_Delete(0)" ><% GetMultiLangStr("UAS011") %></button>
+	<button type="Submit" value="Delete" name="Delete" id="delete" class="button-sty1" onclick="buttonClick(this,'Delete');return checkEdit_Delete(1)" ><% GetMultiLangStr("UAS013") %></button>
+	<input type="hidden" name="select" value="-1">
+</td>
+</tr>
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+<tr><td colspan="2" height="12"></td></tr>
+<tr><td colspan="2" height="12"></td></tr>
+
+</table></div></td></tr>
+<tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe"  src="LAN_lan_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
+</table>
+  <!-- <img class="subfooter-image" src="img/subhead2-bottom.gif">-->
+<div class="subhead2-bottom" >
+    <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.png" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_51") %> </span>
+    <span class="button-help-arrow">
+      <img src="img/helparrowdown-icon.png" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_123") %> </span>
+      </div>
+
+  <INPUT name=arp_enable type=hidden value= "disable">
+  <INPUT name=ipmac_token type=hidden value= "<% GetPageCfg("ipmac_token") %>">
+  <INPUT name=dev_name type=hidden value= "<% GetPageCfg("dev_name") %>">
+  <INPUT name=lan_ipaddr type=hidden value= "<% GetPageCfg("lan_ipaddr") %>">
+  <INPUT name=lan_netmask type=hidden value= "<% GetPageCfg("lan_netmask") %>">
+  <INPUT name=rip_enable type=hidden value= "<% GetPageCfg("rip_enable") %>">
+  <INPUT name=rip_multicast type=hidden value= "<% GetPageCfg("rip_multicast") %>">
+  <INPUT name=rip_version type=hidden value= "<% GetPageCfg("rip_version") %>">
+  <INPUT name=lan_proto type=hidden value= "<% GetPageCfg("lan_proto") %>">
+  <INPUT name=dhcp_start type=hidden value= "<% GetPageCfg("dhcp_start") %>">
+  <INPUT name=dhcp_end type=hidden value= "<% GetPageCfg("dhcp_end") %>">
+  <INPUT name=dhcp_start_old type=hidden value= "<% GetPageCfg("dhcp_start_old") %>">
+  <INPUT name=dhcp_end_old type=hidden value= "<% GetPageCfg("dhcp_end_old") %>">
+  <INPUT name=pptp_wan_ipaddr type=hidden value= "<% GetPageCfg("pptp_wan_ipaddr") %>">
+  <INPUT name=l2tp_wan_ipaddr type=hidden value= "<% GetPageCfg("l2tp_wan_ipaddr") %>">
+  <INPUT name=pppoe_wan_ipaddr type=hidden value= "<% GetPageCfg("pppoe_wan_ipaddr") %>">
+  <INPUT name=pptp_serv_ipaddr type=hidden value= "<% GetPageCfg("pptp_serv_ipaddr") %>">
+  <INPUT name=l2tp_serv_ipaddr type=hidden value= "<% GetPageCfg("l2tp_serv_ipaddr") %>">
+  <INPUT name=wan_dns1_pri type=hidden value= "<% GetPageCfg("wan_dns1_pri") %>">
+  <INPUT name=wan_dns1_sec type=hidden value= "<% GetPageCfg("wan_dns1_sec") %>">
+  <INPUT name=wan_proto type=hidden value= "<% GetPageCfg("wan_proto") %>">
+  <INPUT name=wan_ipaddr type=hidden value= "<% GetPageCfg("wan_ipaddr") %>">
+  <INPUT name=wan_netmask type=hidden value= "<% GetPageCfg("wan_netmask") %>">
+  <input type="hidden" name="repeater" value="0">
+  <input type="hidden" name="repeater_an" value="0">
+  <input type="hidden" name="dlna_autoip_en" value="0">
+  <INPUT name=tmp_lan_ipaddr type=hidden value= "0.0.0.0">
+  <INPUT name=tmp_lan_netmask type=hidden value= "0.0.0.0">
+  <INPUT name=tmp_lan_proto type=hidden value= "null">
+  <INPUT name=tmp_rip_enable type=hidden value= "null">
+  <INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+<a name="helpframe-anchor"></a>
+</form>
+
+</div>
+</body>
+ <head>
+  <META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+</head>
+
+</html>
+

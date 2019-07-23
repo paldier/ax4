@@ -1,0 +1,94 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title>
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+
+
+    $(document).ready(function()
+    {	
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+
+function do_submit(){
+	document.forms[0].submit();
+}
+function wait1()
+{
+	setTimeout('do_submit()',2000);
+}
+function stop1()
+{
+document.forms[0].stop.value = "yes";
+return true;
+}
+function data_check()
+{
+	  if(document.forms[0].call_by_genie.value!=1)
+        if (top.tophideframe)
+        {
+            document.forms[0].menu_top_hide.value = "yes";
+        }
+}
+//-->
+</script>
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+</head>
+<body  onLoad="wait1();data_check();" style="margin:0px;">
+<form id="target"  name="formname" method="POST" action="/ver_check.cgi">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue"> 
+<div class="main_bas">
+<table border="0"   width="100%">
+
+<tr>
+<td colspan="2">
+	<div class="subhead2"><% GetMultiLangStr("genie_946") %></div>
+</td>
+</tr>
+
+<tr>
+	<td colspan="2" class="pl28" style="padding-top: 50px"><b><% GetMultiLangStr("MRU015") %></b></td>
+</tr>
+
+<tr>
+</tr>
+
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+<tr>
+	<td colspan="2" align="center">
+	<button type="SUBMIT" value="<% GetMultiLangStr("UAS021") %>" name="Cancel" id="cancel" class="button-cancel cancel_bt" onClick="buttonClick(this,'Cancel');return stop1();"><% GetMultiLangStr("UAS021") %></button>
+	</td></tr>
+</table>
+</div>
+<input type="hidden" name="stop" value="no">
+<input type="hidden" name="menu_top_hide" value="no">
+<input type="hidden" name="call_by_genie" value="0">
+<input type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+</form>
+<p></p>
+</body>
+</html>
+

@@ -1,0 +1,468 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<link rel="stylesheet" href="form.css">
+<title>NETGEAR Router RAX40</title>
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<STYLE TYPE="text/javascript">
+	classes.num.all.fontFamily = "Courier";
+	classes.num.all.fontSize = "10pt" ;
+</style>
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!--
+var isIE = document.all;
+var disable = false;
+var serv_array=[<% GetPageCfg("BKS_entry") %>["2","1","65535","ALL","1"],["0","1","65535","Any(TCP)","1"],["1","1","65535","Any(UDP)","1"],["0","5190","5190","AIM","1"],["1","47624","47624","Age of Empire","1"],["0","179","179","BGP","1"],["1","68","68","BOOTP CLIENT","1"],["1","67","67","BOOTP SERVER","1"],["2","7648","7648","CU-SEEME(7648)","1"],["2","24032","24032","CU-SEEME(24032)","1"],["2","53","53","DNS","1"],["0","79","79","FINGER","1"],["0","20","21","FTP","1"],["0","80","80","HTTP","1"],["0","443","443","HTTPS","1"],["0","23566","23566","ICUII","1"],["0","113","113","IDENT","1"],["0","6670","6670","IP Phone","1"],["2","6667","6667","IRC","1"],["0","1720","1720","NetMeeting/H.323","1"],["1","2049","2049","NFS","1"],["0","119","119","News","1"],["2","27960","27960","Quake II & III","1"],["0","512","512","RCMD","1"],["2","6970","7170","Real Audio","1"],["0","514","514","REXEC","1"],["0","513","513","RLOGIN","1"],["0","107","107","RTELNET","1"],["2","554","554","RTSP","1"],["0","115","115","SFTP","1"],["0","25","25","SMTP","1"],["2","161","161","SNMP","1"],["2","162","162","SNMP TRAPS","1"],["0","1521","1521","SQL-NET","1"],["2","22","22","SSH","1"],["1","1558","1558","STRMWORKS","1"],["1","49","49","TACACS","1"],["0","23","23","Telnet","1"],["1","69","69","TFTP","1"],["0","7000","7000","VDOLIVE","1"],["1","500","500","VPN-IPSEC","1"],["1","1701","1701","VPN-L2TP","1"],["0","1723","1723","VPN-PPTP","1"]];
+  
+    $(document).ready(function()
+    {	
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+    function setHelpIframeVisible(){
+        $('.help-frame-div').css("visibility","visible");
+    }
+
+
+    function showHelpIframe() {
+
+        var imgSrc=document.getElementById('help-button');
+
+        if(imgSrc.src.search("up")>=0)
+        {
+            $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
+            imgSrc.src="img/helparrowdown-icon.png";
+        }
+        else
+        {
+            $(".help-frame-div").hide();
+            imgSrc.src="img/helparrowup-icon.png";
+            setTimeout(setHelpIframeVisible,500);
+        }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
+             change_size();
+
+    }
+
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+
+    function loadhelp(fname,anchname)
+    {
+                var pane = window.frames["helpframe"].$('#content');
+                var imgSrc=document.getElementById('help-button');
+                if(imgSrc.src.search("up")<0)
+                {
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+
+                        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm";
+                                $(".help-frame-div").show();
+                        }
+                        else
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                                $(".help-frame-div").show();
+                        }
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+                }
+    }
+
+   
+
+function init_data()
+{
+ var cf = document.forms[0];
+ //which_mode 0:means add a service 1:means edit a service
+ PU_init_data();
+ chg_by_service(1);
+ filterIPtype();
+}
+function chg_by_service(is_load)
+{
+ var cf = document.forms[0];
+ var s = cf.service_type.selectedIndex;
+ var len = cf.service_type.options.length;
+ if(s<0)
+ {
+ s = cf.service_type.selectedIndex = 0;
+ }
+ disable = (pi(serv_array[s][4])==1)?true:false;
+ cf.protocol.selectedIndex = pi(serv_array[s][0]);
+ cf.portstart.value = serv_array[s][1];
+ cf.portend.value = serv_array[s][2];
+ cf.userdefined.value = serv_array[s][3];
+ if(isIE)
+ {
+ cf.protocol.disabled = disable; 
+ cf.portstart.disabled = disable;
+ cf.portend.disabled = disable;
+ cf.userdefined.disabled = disable;
+ }
+}
+function iptypeSel(F)
+{
+ var i;
+ for(i=0;i<F.iptype.length;i++)
+ {
+ if(F.iptype[i].checked)
+ return i;
+ }
+}
+function filterIPtype()
+{
+ var cf = document.forms[0];
+ var sel = iptypeSel(cf);
+ 
+ if(sel==0)
+ {
+ cf.f_pcip1.focus();
+ }
+ else if(sel==1)
+ {
+ cf.f_startip1.focus();
+ }
+ else if(sel==2)
+ {
+ cf.apply.focus();
+ }
+}
+function valid(obj1,v)
+{
+ if(document.forms[0].iptype[pi(v)].checked==false)
+ {
+ obj1.blur();
+ }
+}
+function check_data()
+{
+ var cf = document.forms[0];
+ var sel = iptypeSel(cf);
+ var txt,i,c;
+ if(cf.portstart.value==""||cf.portend.value=="")
+   return alertR("<% GetMultiLangStr("CBEE07") %>");
+ txt=cf.portstart.value;
+ for(i=0;i<txt.length;i++)
+ {
+   c=txt.charAt(i);
+   if("0123456789".indexOf(c,0)<0)
+     return alertR("<% GetMultiLangStr("CBEE08") %>");
+ }
+ txt=cf.portend.value;
+ for(i=0;i<txt.length;i++)
+ {
+   c=txt.charAt(i);
+   if("0123456789".indexOf(c,0)<0)
+     return alertR("<% GetMultiLangStr("CBEE02") %>");
+ }
+ if(parseInt(cf.portstart.value,10)<1||parseInt(cf.portstart.value,10)>65535)
+   return alertR("<% GetMultiLangStr("CBEE08") %>");
+ if(parseInt(cf.portend.value,10)<1||parseInt(cf.portend.value,10)>65535)
+   return alertR("<% GetMultiLangStr("CBEE02") %>");
+ if(parseInt(cf.portend.value,10)<parseInt(cf.portstart.value,10))
+   return alertR("<% GetMultiLangStr("CBEE01") %>");
+ txt=cf.userdefined.value;
+ if(txt==""||txt.match( /[^\x20-\x7E]/ ))
+   return alertR("<% GetMultiLangStr("CBEE09") %>");
+
+ cf.portstart.value = parseInt(cf.portstart.value,10);
+ cf.portend.value = parseInt(cf.portend.value,10);
+
+ var str_lan_ip = "<% GetPageCfg("BKS_lan_ip") %>";
+ var str_lan_netmask = "<% GetPageCfg("BKS_lan_mask") %>";
+ var lan_ip = str_lan_ip.split(".");
+ var lan_netmask = str_lan_netmask.split(".");
+ var lan_ipaddr = (lan_ip[0] << 24) | (lan_ip[1] << 16) | (lan_ip[2] << 8)| (lan_ip[3]);
+ var lan_netmaskaddr = (lan_netmask[0] << 24) | (lan_netmask[1] << 16) | (lan_netmask[2] << 8)| (lan_netmask[3]);
+ var pcip_addr = (cf.f_pcip1.value << 24) | (cf.f_pcip2.value << 16) | (cf.f_pcip3.value << 8)| cf.f_pcip4.value;
+ var start_ipaddr = (cf.f_startip1.value << 24) | (cf.f_startip2.value << 16) | (cf.f_startip3.value << 8)| cf.f_startip4.value;
+ var end_ipaddr = (cf.f_endip1.value << 24) | (cf.f_endip2.value << 16) | (cf.f_endip3.value << 8)| cf.f_endip4.value;
+ if((sel==0)&&((checkIP(cf.f_pcip1,cf.f_pcip2,cf.f_pcip3,cf.f_pcip4,254)||parseInt(cf.f_pcip4.value,10)==0)
+            ||((pcip_addr & lan_netmaskaddr) != (lan_ipaddr & lan_netmaskaddr) )))
+ 	return alertR(msg_invalid_ip);
+ else if(sel==0)
+ {
+ 	cf.f_pcip1.value = parseInt(cf.f_pcip1.value,10);
+	cf.f_pcip2.value = parseInt(cf.f_pcip2.value,10);
+	cf.f_pcip3.value = parseInt(cf.f_pcip3.value,10);
+	cf.f_pcip4.value = parseInt(cf.f_pcip4.value,10);
+	cf.BKS_ipstart.value = parseInt(cf.f_pcip1.value,10)+"."+parseInt(cf.f_pcip2.value,10)+"."+parseInt(cf.f_pcip3.value,10)+"."+parseInt(cf.f_pcip4.value,10);
+ }
+ if((sel==1)&&(checkIP(cf.f_startip1,cf.f_startip2,cf.f_startip3,cf.f_startip4,254)||checkIP(cf.f_endip1,cf.f_endip2,cf.f_endip3,cf.f_endip4,254)||(parseInt(cf.f_startip4.value,10)==0)
+            ||((start_ipaddr & lan_netmaskaddr) != (lan_ipaddr & lan_netmaskaddr))||((end_ipaddr & lan_netmaskaddr) != (lan_ipaddr & lan_netmaskaddr))))
+	return alertR(msg_invalid_ip);
+ else if(sel==1)
+ {
+ 	cf.f_startip1.value = parseInt(cf.f_startip1.value,10);
+	cf.f_startip2.value = parseInt(cf.f_startip2.value,10);
+	cf.f_startip3.value = parseInt(cf.f_startip3.value,10);
+	cf.f_startip4.value = parseInt(cf.f_startip4.value,10);
+	cf.BKS_ipstart.value = parseInt(cf.f_startip1.value,10)+"."+parseInt(cf.f_startip2.value,10)+"."+parseInt(cf.f_startip3.value,10)+"."+parseInt(cf.f_startip4.value,10);
+ }
+ if((sel==1)&&(cp_ip(cf.f_endip1,cf.f_endip2,cf.f_endip3,cf.f_endip4,cf.f_startip1,cf.f_startip2,cf.f_startip3,cf.f_startip4)==false))
+	return alertR("<% GetMultiLangStr("CBEE03") %>");
+ else if(sel==1)
+ {
+ 	cf.f_endip1.value = parseInt(cf.f_endip1.value,10);
+	cf.f_endip2.value = parseInt(cf.f_endip2.value,10);
+	cf.f_endip3.value = parseInt(cf.f_endip3.value,10);
+	cf.f_endip4.value = parseInt(cf.f_endip4.value,10);
+	cf.BKS_ipend.value = parseInt(cf.f_endip1.value,10)+"."+parseInt(cf.f_endip2.value,10)+"."+parseInt(cf.f_endip3.value,10)+"."+parseInt(cf.f_endip4.value,10);
+ }
+ cf.BKS_service_index.value = cf.service_type.selectedIndex;
+ return true;
+}
+
+function PU_init_data()
+{
+ var cf = document.forms[0];
+ cf.service_type.selectedIndex = cf.BKS_service_index.value;
+ var str_lan_ip = "<% GetPageCfg("BKS_lan_ip") %>";
+ var lan_ip = str_lan_ip.split(".");
+ cf.f_pcip1.value = parseInt(lan_ip[0],10);
+ cf.f_pcip2.value = parseInt(lan_ip[1],10);
+ cf.f_pcip3.value = parseInt(lan_ip[2],10);
+
+ cf.f_startip1.value = parseInt(lan_ip[0],10);
+ cf.f_startip2.value = parseInt(lan_ip[1],10);
+ cf.f_startip3.value = parseInt(lan_ip[2],10);
+
+ cf.f_endip1.value = parseInt(lan_ip[0],10);
+ cf.f_endip2.value = parseInt(lan_ip[1],10);
+ cf.f_endip3.value = parseInt(lan_ip[2],10);
+
+ if(cf.BKS_iptype.value == 0)
+ {
+	cf.iptype[0].checked =true;
+	var str_start_ip = cf.BKS_ipstart.value;
+	var start_ip = str_start_ip.split(".");
+ 	cf.f_pcip1.value = parseInt(start_ip[0],10);
+	cf.f_pcip2.value = parseInt(start_ip[1],10);
+	cf.f_pcip3.value = parseInt(start_ip[2],10);
+	cf.f_pcip4.value = parseInt(start_ip[3],10);
+ }
+ else if(cf.BKS_iptype.value == 1)
+ {
+	cf.iptype[1].checked =true;
+	var str_start_ip = cf.BKS_ipstart.value;
+	var start_ip = str_start_ip.split(".");
+ 	cf.f_startip1.value = parseInt(start_ip[0],10);
+	cf.f_startip2.value = parseInt(start_ip[1],10);
+	cf.f_startip3.value = parseInt(start_ip[2],10);
+	cf.f_startip4.value = parseInt(start_ip[3],10);
+	
+	var str_end_ip = cf.BKS_ipend.value;
+	var end_ip = str_end_ip.split(".");
+ 	cf.f_endip1.value = parseInt(end_ip[0],10);
+	cf.f_endip2.value = parseInt(end_ip[1],10);
+	cf.f_endip3.value = parseInt(end_ip[2],10);
+	cf.f_endip4.value = parseInt(end_ip[3],10);	
+ }
+ else if(cf.BKS_iptype.value == 2)
+	cf.iptype[2].checked =true;
+}
+//-->
+</script> 	
+	<link rel="stylesheet" type="text/css" href="css/custom.css">
+</head>
+<body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="change_size();init_data();" class="page-body"  onResize="change_size();" >
+<img class="cover-image" src="img/cover-image_noh.gif">
+<!--<img class="body-image" src="img/subhead2-background_noh.jpg">-->
+<div id="full-page-container">
+
+			
+	<form id="target"  name="formname" method="POST" action="fw_serv_edit.cgi">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+			
+<!--			
+	<form name="formname" method="POST" action="pppoe2_fw_serv_edit.cgi?id=7c421be665098a5e5ae155b465f486060b31cfec2c1f59580cc9e2426c619594">
+-->			
+		<div>
+			
+<img class="subtop-image" src="img/subhead2-top_noh.gif">
+<div class="subhead2"> <% GetMultiLangStr("CBE006") %></div>
+<table border="0"    style="height:370px"  class="subhead2-table">
+
+<tr align="left" valign="middle">
+<td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
+<div class="fix_button">
+	<button value="<% GetMultiLangStr("UAS021") %>" onClick="buttonClick(this,'<% GetMultiLangStr("UAS021") %>');location.href='BKS_service.html'" type="button" name="cancel" id="cancel" class="button-cancel cancel_bt" ><% GetMultiLangStr("UAS021") %></button>
+<button value="<% GetMultiLangStr("CBE014") %>"  onclick="buttonClick(this,'<% GetMultiLangStr("CBE014") %>');return check_data();" type="submit" name="apply" id="add" class="button-apply apply_bt" > <% GetMultiLangStr("LUP004") %></button>
+
+	</div>
+<!--
+&nbsp;&nbsp;&nbsp;<button value="<% GetMultiLangStr("CBE014") %>"  onclick="return check_data();" type="submit" name="apply" class=button-apply > <span class="roundleft_apply" ><% GetMultiLangStr("LUP004") %>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="<% GetMultiLangStr("UAS021") %>" onClick="location.href='BKS_service.htm'" type="button" name="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<% GetMultiLangStr("UAS021") %></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+-->
+</td>
+</tr>
+
+<tr><td class="scrollpane-table-seperate-border" colspan="2"><div class="scroll-pane main_bas" style="height:365px;width:620px;overflow:auto;scrolling:auto"><table style="border-collapse:collapse;width:97%">
+		
+		
+<tr><td colspan="2" height="12" ></td></tr>
+
+<tr><td class="pb-0 pt-0">
+<table border ="0"   width="100%">
+
+<tr>
+ <td width="50%"><% GetMultiLangStr("CBE005") %></td>
+						
+ <td width="50%"> 
+ <select NAME="service_type" id="service_type" size="1" onchange="chg_by_service(0);">
+ <option selected><% GetMultiLangStr("CBEE12") %></option><option >ALL</option><option >Any(TCP)</option><option>Any(UDP)</option><option >AIM</option><option >Age of Empire</option><option >BGP</option><option >BOOTP CLIENT</option><option >BOOTP SERVER</option><option >CU-SEEME(7648)</option><option >CU-SEEME(24032)</option><option >DNS</option><option >FINGER</option><option >FTP</option><option >HTTP</option><option >HTTPS</option><option >ICUII</option><option >IDENT</option><option >IP Phone</option><option >IRC</option><option >NetMeeting/H.323</option><option >NFS</option><option >News</option><option >Quake II & III</option><option >RCMD</option><option >Real Audio</option><option >REXEC</option><option >RLOGIN</option><option >RTELNET</option><option >RTSP</option><option >SFTP</option><option >SMTP</option><option >SNMP</option><option >SNMP TRAPS</option><option >SQL-NET</option><option >SSH</option><option >STRMWORKS</option><option >TACACS</option><option >Telnet</option><option >TFTP</option><option >VDOLIVE</option><option >VPN-IPSEC</option><option >VPN-L2TP</option><option >VPN-PPTP</option></select></td>
+</tr>
+<tr>
+ <td width="50%" class="pb-0 pt-0"><% GetMultiLangStr("SBS014") %></td>
+ <td width="50%"> 
+ <select name="protocol" id="procotol" size="1" onfocus="if(disable) this.blur();"><option selected>TCP</option><option>UDP</option><option>TCP/UDP</option></select>
+	</td>
+</tr>
+<tr>
+ <td width="50%" class="pb-0 pt-0"><% GetMultiLangStr("CBE012") %></td>
+ <td width="50%"> 
+ <input type="text" class="input1" name="portstart" id="portstart" size="7" maxlength="5" value="" onfocus="if(disable) this.blur();">(1~65535)
+	</td>
+</tr>
+<tr>
+ <td width="50%" class="pb-0 pt-0"><% GetMultiLangStr("CBE001") %></td>
+ <td width="50%"> 
+ <input type="text" class="input1" name="portend" id="portend" size="7" maxlength="5" value="" onfocus="if(disable) this.blur();">(1~65535)
+	</td>
+</tr>
+<tr>
+ <td width="50%" nowrap class="pb-0 pt-0"><% GetMultiLangStr("CBE011") %>&nbsp;</td>
+ <td width="50%"> 
+ <input type="text" class="input1" name="userdefined" id="userdefined" size="20" maxlength="30" value="" onfocus="if(disable) this.blur();">
+ </td>
+</tr>
+</table></td></tr>
+
+<tr><td class="pb-0 pt-0">
+<table border ="0"   width="100%">
+
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+<tr>
+	<td colspan="2"><a href="javascript:loadhelp('BKS_service_add','ip')" tabindex="-1"><b><% GetMultiLangStr("CBE008") %> :</b></td>
+</tr>
+</table></td></tr>
+
+<tr><td>
+<table border ="0"   width="100%">
+
+<tr>
+ <td width="50%" align="left" valign="top" nowrap>
+	 <label class="checkbox-container"> <% GetMultiLangStr("CBE009") %> :
+<input type="radio" name="iptype" id="iptype" value="single" onclick="filterIPtype()">
+<span class="radio-checkmark"></span>
+</label>
+</td>
+	<td width="50%" align="left" nowrap class="num ip-input-row">					
+			<input type="text" class="Num" name="f_pcip1" id="single_ipaddress1" size="4" maxlength="3" value="" onfocus="valid(this,0);" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.
+			<input type="text" class="Num" name="f_pcip2" id="single_ipaddress2" size="4" maxlength="3" value="" onfocus="valid(this,0);" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.
+			<input type="text" class="Num" name="f_pcip3" id="single_ipaddress3" size="4" maxlength="3" value="" onfocus="valid(this,0);" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.
+			<input type="text" class="Num" name="f_pcip4" id="single_ipaddress4" size="4" maxlength="3" value="" onfocus="valid(this,0);" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
+</tr>		
+<tr>
+	<td width="50%" align="left" nowrap valign="top">
+		<label class="checkbox-container"> <% GetMultiLangStr("CBE013") %>:
+<input type="radio"  name="iptype" value="range_addr" onclick="filterIPtype()">
+<span class="radio-checkmark"></span>
+</label>
+			</td>
+	<td width="50%" align="left" nowrap valign="top" class="num ip-input-row"><br>
+			<input type="text" class="Num" name="f_startip1" id="range_start_ipaddress1" size="4" maxlength="3" value="" onfocus="valid(this,1);" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.
+			<input type="text" class="Num" name="f_startip2" id="range_start_ipaddress2" size="4" maxlength="3" value="" onfocus="valid(this,1);" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.
+			<input type="text" class="Num" name="f_startip3" id="range_start_ipaddress3" size="4" maxlength="3" value="" onfocus="valid(this,1);" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.
+			<input type="text" class="Num" name="f_startip4" id="range_start_ipaddress4" size="4" maxlength="3" value="" onfocus="valid(this,1);" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
+</tr>
+<tr>
+	<td width="50%" align="right"><% GetMultiLangStr("CBE010") %>&nbsp;</td>
+	<td width="50%" align="left" nowrap class="num ip-input-row">
+			<input type="text" class="Num" name="f_endip1" id="range_end_ipaddress1" size="4" maxlength="3" value="" onfocus="valid(this,1);" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.
+			<input type="text" class="Num" name="f_endip2" id="range_end_ipaddress2" size="4" maxlength="3" value="" onfocus="valid(this,1);" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.
+			<input type="text" class="Num" name="f_endip3" id="range_end_ipaddress3" size="4" maxlength="3" value="" onfocus="valid(this,1);" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.
+			<input type="text" class="Num" name="f_endip4" id="range_end_ipaddress4" size="4" maxlength="3" value="" onfocus="valid(this,1);" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
+</tr>
+<tr>
+	<td colspan="2">
+		<label class="checkbox-container"><% GetMultiLangStr("CBE007") %>
+<input type="radio" checked name="iptype" value="all" onclick="filterIPtype()">
+<span class="radio-checkmark"></span>
+</label>
+		</td>
+</tr>
+
+
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+	<tr><td colspan="2" height="12"></td></tr>
+	<tr><td colspan="2" height="12"></td></tr>
+
+</table></td></tr>
+</table></div></td></tr>
+<tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe"  src="BKS_service_add_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
+</table>
+  <!-- <img class="subfooter-image" src="img/subhead2-bottom.gif">-->
+<div class="subhead2-bottom" >
+    <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.png" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_51") %> </span>
+    <span class="button-help-arrow">
+      <img src="img/helparrowdown-icon.png" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_123") %> </span>
+      </div>
+
+
+
+<input type="hidden" name="which_mode" value="1">
+<input type="hidden" name="BKS_service_index" value=<% GetPageCfg("BKS_service_index") %>>
+<input type="hidden" name="BKS_iptype" value=<% GetPageCfg("BKS_iptype") %>>
+<input type="hidden" name="BKS_ipstart" value="<% GetPageCfg("BKS_ipstart") %>">
+<input type="hidden" name="BKS_ipend" value="<% GetPageCfg("BKS_ipend") %>">
+<INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+		</div>
+	<a name="helpframe-anchor"></a>
+</form>
+</div>
+</body>
+</html>

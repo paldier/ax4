@@ -1,0 +1,128 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title>
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!-- 
+function selHelpFile(helpitem)
+{
+	if(document.forms[0].loginreq[0].checked)
+		parent.loadhelp('BAS_ether',helpitem)
+	else
+		parent.loadhelp('BAS_pppoe',helpitem)
+}
+function doTypeChange( newIndex )
+{
+	var cf = document.forms[0];
+	var wan_proto = cf.wan_proto.value;
+
+	if (newIndex == 0)
+	{
+		window.location.href = "BAS_ether.html";
+	} 
+	else if (newIndex == 1)
+	{
+		if (wan_proto == "pptp")
+			window.location.href = "BAS_pptp.html";
+		else if (wan_proto == "bpa")
+			window.location.href = "BAS_bpa.html";
+        else if (wan_proto == "l2tp")
+			window.location.href = "BAS_l2tp.html";
+		else
+			window.location.href = "BAS_pppoe.html";
+	}
+}
+function loadSettings()
+{
+	var cf = document.forms[0];
+	var wan_proto = cf.wan_proto.value;
+     
+	if (wan_proto == "pppoe" || wan_proto == "pptp" || wan_proto == "bpa" || wan_proto == "l2tp")
+	{
+		cf.loginreq[0].checked = true;
+	}
+	else
+	{
+		cf.loginreq[1].checked = true;
+	}
+}
+
+function checkType(wan_proto) // called from basictop.htm
+{
+//	if (basictop.document.forms[0])
+	if (1)
+	{
+		if (wan_proto == "pppoe")
+		    window.location.href = "BAS_pppoe.html";
+		else if (wan_proto == "pptp")
+		    window.location.href = "BAS_pptp.html";
+		else if (wan_proto == "bpa")
+		    window.location.href = "BAS_bpa.html";
+		else if (wan_proto == "l2tp")
+		    window.location.href = "BAS_l2tp.html";
+		else
+		    window.location.href = "BAS_ether.html";
+	}
+	else 
+	    window.setTimeout(checkType(),300);
+}
+
+//-->
+</script>
+</head>
+<body  onload="loadSettings();checkType(document.forms[0].wan_proto.value);parent.highLightMenu('setup_header', 'int_set');" onResize="if(document.layers)checkType(document.forms[0].wan_proto.value)" style="margin:0px;padding:0px;background-color:transparent" >
+<form name="basic" method="POST" action="basictop.cgi?"> 
+<table border="0"   style="width:100%;visibility:hidden" >
+
+
+
+<tr>
+	<td colspan="2">
+	<a href="javascript:selHelpFile('question')" tabindex="-1"><b>Does your Internet connection require a login?</b></a></td>
+</tr>
+<tr>
+	<td colspan="2"><input type="radio" name="loginreq" value="pppoe" onClick="doTypeChange(1)">
+	<a href="javascript:selHelpFile('question')" tabindex="-1">Yes</a></td>
+</tr>
+<tr>
+	<td colspan="2"><input type="radio"  checked name="loginreq" value="dhcp" onClick="doTypeChange(0)">
+	<a href="javascript:selHelpFile('question')" tabindex="-1">No</a></td>
+</tr>
+
+
+<tr><td colspan="2" height="12"  ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
+
+</table>
+
+  <INPUT name=wan_proto type=hidden value= "<% GetPageCfg("wan_proto") %>">
+  <INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+</form>
+
+</body>
+
+</html>

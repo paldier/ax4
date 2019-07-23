@@ -1,0 +1,270 @@
+menu INTERFACE1
+
+config INTERFACE1_TYPE
+	string "Type"
+	default "LAN"
+
+config INTERFACE1_IFNAME
+	string "IfName"
+    default "eth0_1"
+
+config INTERFACE1_MACVLAN
+	bool "MacvLan"
+	default n
+
+config INTERFACE1_PROTOS
+	string "Protos"
+    default "Static"
+
+config INTERFACE1_MODE
+	string "Mode"
+	default "ETH"
+
+config INTERFACE1_PORTID
+	string "Switch Port"
+    default ""
+
+config INTERFACE1_ENABLE
+	bool "Enable"
+	default "y"
+
+config INTERFACE1_LINKENABLE
+	bool "Link Enable"
+	default "y"
+
+config INTERFACE1_BONDMEMBERS
+	string "Bond Members"
+
+endmenu
+
+menu INTERFACE2
+
+config INTERFACE2_TYPE
+	string "Type"
+	default "LAN"
+
+config INTERFACE2_IFNAME
+	string "IfName"
+    default "eth0_2"
+
+config INTERFACE2_MACVLAN
+	bool "MacvLan"
+	default n
+
+config INTERFACE2_PROTOS
+	string "Protos"
+    default "Static"
+
+config INTERFACE2_MODE
+	string "Mode"
+	default "ETH"
+
+config INTERFACE2_PORTID
+	string "Switch Port"
+    default ""
+
+config INTERFACE2_ENABLE
+	bool "Enable"
+	default "y"
+
+config INTERFACE2_LINKENABLE
+	bool "Link Enable"
+	default "y"
+
+config INTERFACE2_BONDMEMBERS
+	string "Bond Members"
+
+
+endmenu
+
+menu INTERFACE3
+
+config INTERFACE3_TYPE
+	string "Type"
+	default "LAN"
+
+config INTERFACE3_IFNAME
+	string "IfName"
+    default "eth0_3"
+
+config INTERFACE3_MACVLAN
+	bool "MacvLan"
+	default n
+
+config INTERFACE3_PROTOS
+	string "Protos"
+    default "Static"
+
+config INTERFACE3_MODE
+	string "Mode"
+	default "ETH"
+
+config INTERFACE3_PORTID
+	string "Switch Port"
+    default ""
+
+config INTERFACE3_ENABLE
+	bool "Enable"
+	default "y"
+
+config INTERFACE3_LINKENABLE
+	bool "Link Enable"
+	default "y"
+
+config INTERFACE3_BONDMEMBERS
+	string "Bond Members"
+
+endmenu
+
+menu INTERFACE4
+
+config INTERFACE4_TYPE
+	string "Type"
+	default "LAN"
+
+config INTERFACE4_IFNAME
+	string "IfName"
+    default "eth0_4"
+
+config INTERFACE4_MACVLAN
+	bool "MacvLan"
+	default n
+
+config INTERFACE4_PROTOS
+	string "Protos"
+    default "Static"
+
+config INTERFACE4_MODE
+	string "Mode"
+	default "ETH"
+
+config INTERFACE4_PORTID
+	string "Switch Port"
+    default ""
+
+config INTERFACE4_ENABLE
+	bool "Enable"
+	default "y"
+
+config INTERFACE4_LINKENABLE
+	bool "Link Enable"
+	default "y"
+
+config INTERFACE4_BONDMEMBERS
+	string "Bond Members"
+
+endmenu
+
+menu INTERFACE5
+
+config INTERFACE5_TYPE
+	string "Type"
+	default "WAN"
+
+config INTERFACE5_IFNAME
+	string "IfName"
+    default "eth1"
+
+config INTERFACE5_MACVLAN
+	bool "MacvLan"
+	default y
+
+config INTERFACE5_PROTOS
+	string "Protos"
+    default "Static,DHCP,PPPoE"
+
+config INTERFACE5_MODE
+	string "Mode"
+	default "ETH"
+
+config INTERFACE5_PORTID
+	string "Switch Port"
+    default ""
+
+config INTERFACE5_ENABLE
+	bool "Enable"
+	default "y"
+
+config INTERFACE5_LINKENABLE
+	bool "Link Enable"
+	default "y"
+
+config INTERFACE5_BONDMEMBERS
+	string "Bond Members"
+
+endmenu
+
+menu INTERFACE6
+
+config INTERFACE6_TYPE
+	string "Type"
+	default "WAN"
+
+config INTERFACE6_MACVLAN
+	bool "MacvLan"
+	default y
+
+config INTERFACE6_PROTOS
+	string "Protos"
+    default "Static,DHCP,PPPoE"
+
+config INTERFACE6_MODE
+	string "Mode"
+	default "ETH"
+
+config INTERFACE6_PORTID
+	string "Switch Port"
+    default ""
+
+config INTERFACE6_ENABLE
+	bool "Enable"
+	default "y"
+
+config INTERFACE6_LINKENABLE
+	bool "Link Enable"
+	default "y"
+
+config INTERFACE6_BONDMEMBERS
+	string "Bond Members"
+
+endmenu
+
+menu INTERFACE7
+
+config INTERFACE7_TYPE
+	string "Type"
+	default "WAN"
+
+config INTERFACE7_IFNAME
+	string "IfName"
+    default "bond-bond0"
+
+config INTERFACE7_MACVLAN
+	bool "MacvLan"
+	default y
+
+config INTERFACE7_PROTOS
+	string "Protos"
+    default "Static,DHCP,PPPoE"
+
+config INTERFACE7_MODE
+	string "Mode"
+	default "bond"
+
+config INTERFACE7_PORTID
+	string "Switch Port"
+    default ""
+
+config INTERFACE7_ENABLE
+	bool "Enable"
+	default "y"
+
+config INTERFACE7_LINKENABLE
+	bool "LinkEnable"
+	default "y"
+
+config INTERFACE7_BONDMEMBERS
+	string "Bond Members"
+    default "eth1 nrgmii3"
+
+endmenu

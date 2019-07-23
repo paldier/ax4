@@ -1,0 +1,71 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 2 (0x2)
+    Signature Algorithm: sha256WithRSAEncryption
+        Issuer: C=TW, ST=TW, L=Taipei, O=netgear, OU=netgear, CN=netgear CA/emailAddress=mail@netgear.com
+        Validity
+            Not Before: Dec 12 02:16:44 2017 GMT
+            Not After : Dec 10 02:16:44 2027 GMT
+        Subject: C=TW, ST=TW, L=Taipei, O=netgear, OU=netgear, CN=client/emailAddress=mail@netgear.com
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                Public-Key: (1024 bit)
+                Modulus:
+                    00:cb:48:95:52:ff:cc:af:91:89:b3:5f:d5:5e:ed:
+                    06:f3:a5:b4:1b:24:47:0b:78:b8:96:53:b6:d5:f3:
+                    bf:54:11:6c:6f:ed:8e:85:ca:20:50:d6:cd:cb:96:
+                    c2:73:92:ef:78:97:89:39:db:43:65:58:2b:56:ec:
+                    42:9c:1b:28:ea:c5:33:e2:32:ed:63:04:c5:07:02:
+                    74:be:af:3a:b3:b0:7f:19:23:cc:87:fb:d8:6d:31:
+                    9a:80:28:51:d7:5b:34:af:35:9b:7f:07:2b:d2:be:
+                    df:98:ef:f9:e8:60:35:c9:fa:4b:d2:6b:f0:dd:d3:
+                    24:a3:63:9e:fd:bc:60:8c:b9
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            Netscape Comment: 
+                Easy-RSA Generated Certificate
+            X509v3 Subject Key Identifier: 
+                6E:A5:46:02:86:B1:DF:84:F8:FC:BA:13:71:64:10:22:A2:A5:C9:D2
+            X509v3 Authority Key Identifier: 
+                keyid:43:75:20:5C:D9:FF:9D:30:08:55:66:B6:4C:11:F8:34:27:CB:CB:18
+                DirName:/C=TW/ST=TW/L=Taipei/O=netgear/OU=netgear/CN=netgear CA/emailAddress=mail@netgear.com
+                serial:90:D5:E5:9B:36:64:10:BE
+
+            X509v3 Extended Key Usage: 
+                TLS Web Client Authentication
+            X509v3 Key Usage: 
+                Digital Signature
+    Signature Algorithm: sha256WithRSAEncryption
+         a2:0a:bf:75:75:5f:42:b1:a4:36:39:e3:9c:84:d4:b1:56:50:
+         0b:05:98:d8:d6:aa:6a:31:af:64:df:20:fb:49:46:31:fb:d4:
+         ee:02:d8:81:8c:c3:a7:0b:96:00:ae:38:51:62:0a:a6:e0:48:
+         06:af:db:80:56:c4:43:40:1f:06:62:1c:a0:d4:b9:56:ec:a8:
+         dd:d7:45:94:74:95:23:55:ab:42:db:32:a5:8b:56:c4:e9:a4:
+         62:4e:57:27:e5:fd:7b:b6:66:23:ee:cf:58:b4:45:25:fe:05:
+         ad:97:35:74:cb:ec:37:9f:8d:9d:bd:c3:9b:51:3e:e6:4e:0a:
+         3a:82
+-----BEGIN CERTIFICATE-----
+MIIDvDCCAyWgAwIBAgIBAjANBgkqhkiG9w0BAQsFADCBhTELMAkGA1UEBhMCVFcx
+CzAJBgNVBAgTAlRXMQ8wDQYDVQQHEwZUYWlwZWkxEDAOBgNVBAoTB25ldGdlYXIx
+EDAOBgNVBAsTB25ldGdlYXIxEzARBgNVBAMTCm5ldGdlYXIgQ0ExHzAdBgkqhkiG
+9w0BCQEWEG1haWxAbmV0Z2Vhci5jb20wHhcNMTcxMjEyMDIxNjQ0WhcNMjcxMjEw
+MDIxNjQ0WjCBgTELMAkGA1UEBhMCVFcxCzAJBgNVBAgTAlRXMQ8wDQYDVQQHEwZU
+YWlwZWkxEDAOBgNVBAoTB25ldGdlYXIxEDAOBgNVBAsTB25ldGdlYXIxDzANBgNV
+BAMTBmNsaWVudDEfMB0GCSqGSIb3DQEJARYQbWFpbEBuZXRnZWFyLmNvbTCBnzAN
+BgkqhkiG9w0BAQEFAAOBjQAwgYkCgYEAy0iVUv/Mr5GJs1/VXu0G86W0GyRHC3i4
+llO21fO/VBFsb+2OhcogUNbNy5bCc5LveJeJOdtDZVgrVuxCnBso6sUz4jLtYwTF
+BwJ0vq86s7B/GSPMh/vYbTGagChR11s0rzWbfwcr0r7fmO/56GA1yfpL0mvw3dMk
+o2Oe/bxgjLkCAwEAAaOCATwwggE4MAkGA1UdEwQCMAAwLQYJYIZIAYb4QgENBCAW
+HkVhc3ktUlNBIEdlbmVyYXRlZCBDZXJ0aWZpY2F0ZTAdBgNVHQ4EFgQUbqVGAoax
+34T4/LoTcWQQIqKlydIwgboGA1UdIwSBsjCBr4AUQ3UgXNn/nTAIVWa2TBH4NCfL
+yxihgYukgYgwgYUxCzAJBgNVBAYTAlRXMQswCQYDVQQIEwJUVzEPMA0GA1UEBxMG
+VGFpcGVpMRAwDgYDVQQKEwduZXRnZWFyMRAwDgYDVQQLEwduZXRnZWFyMRMwEQYD
+VQQDEwpuZXRnZWFyIENBMR8wHQYJKoZIhvcNAQkBFhBtYWlsQG5ldGdlYXIuY29t
+ggkAkNXlmzZkEL4wEwYDVR0lBAwwCgYIKwYBBQUHAwIwCwYDVR0PBAQDAgeAMA0G
+CSqGSIb3DQEBCwUAA4GBAKIKv3V1X0KxpDY545yE1LFWUAsFmNjWqmoxr2TfIPtJ
+RjH71O4C2IGMw6cLlgCuOFFiCqbgSAav24BWxENAHwZiHKDUuVbsqN3XRZR0lSNV
+q0LbMqWLVsTppGJOVyfl/Xu2ZiPuz1i0RSX+Ba2XNXTL7DefjZ29w5tRPuZOCjqC
+-----END CERTIFICATE-----

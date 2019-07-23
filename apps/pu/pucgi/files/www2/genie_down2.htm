@@ -1,0 +1,103 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR genie</title>
+<script type="text/javascript">
+	function showFWVer()
+	{
+                ; 
+                if(top.parent.frames['topframe'] != null){               	          
+                   top.parent.frames['topframe'].location="genie_top.htm";          
+                }
+	}
+	
+	function checkSel()
+	{
+	    if(document.forms[0].no_cable_insert[0].checked==true)
+          location.href='genie_redirect.htm';
+      else
+          document.forms[0].submit();
+	}
+
+</script>
+ <link href="css/custom.css" rel="stylesheet" type="text/css"> 
+<link rel="stylesheet" href="CDL.css">
+</head>
+<body bgcolor="#ffffff"  onLoad="showFWVer();" >
+<form name="formname" method="POST" action="genie_no_wan_cable.cgi">
+<table border="0" cellpadding="0" cellspacing="0" width="100%">
+<tr style="height:10px">
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="centerTd pl-0">
+		<h2 class="subhead2 pl-0" style="color:#ff0000;"><% GetMultiLangStr("genie_81") %></h2>
+        </td>
+	<td>&nbsp;</td>
+
+</tr>
+<tr style="height:10px">
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>	
+	<td>&nbsp;</td>
+	<td class="textRow centerTd pl-0"><p><% GetMultiLangStr("genie_76") %></p></td>
+	<td>&nbsp;</td>
+</tr>
+<tr style="height:10px">
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="textRow centerTd pl-0"><p><% GetMultiLangStr("genie_34") %></p></td>
+	<td>&nbsp;</td>
+</tr>
+</tr>
+<tr style="height:10px">
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="textRow" >	
+    <label class="checkbox-container"><% GetMultiLangStr("SWP003") %>
+				<input checked type="radio" name="no_cable_insert" value="try_next">
+				  <span class="radio-checkmark"></span>
+	</label>
+</td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="textRow pt-10">
+       <label class="checkbox-container"><% GetMultiLangStr("genie_84") %>
+				<input type="radio" name="no_cable_insert" value="manual">
+				  <span class="radio-checkmark"></span>
+		</label>
+        
+        </td>
+	<td>&nbsp;</td>
+</tr>
+
+
+<tr style="height:10px">
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="textRow centerTd2 pl-0" style="padding-left:180px">	
+		<button class="button-sty1" name="next" onClick="checkSel();" type="button"><% GetMultiLangStr("OTH011") %></span></button>
+	</td>
+	<td>&nbsp;</td>
+</tr>
+</table>
+</form>
+</body>
+</html>

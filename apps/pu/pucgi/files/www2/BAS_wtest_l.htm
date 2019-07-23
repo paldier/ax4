@@ -1,0 +1,94 @@
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title>
+<link rel="stylesheet" href="form.css">
+<link rel="stylesheet" href="css/button.css">
+<link rel="stylesheet" href="css/custom.css">
+<script src="script/script.js"></script>
+<script language=JavaScript type="text/javascript">
+<!--
+function changepage()
+{
+	var cf = document.forms[0];
+	if (cf.testOK.value == "true")
+	
+		window.setTimeout("window.location.replace('http://www.netgear.com/success/generic.aspx')",5000);
+	
+	/*
+		window.setTimeout("window.location.replace('')",5000);
+	*/
+	else
+		window.setTimeout("window.location.replace('BAS_wtest_l.htm')",2500);
+}
+//-->
+</script>
+</head>
+
+<body bgcolor="#ffffff" leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" text=black onLoad="changepage()">
+<div class="main_bas1">
+<form method="post" action="wtest_l">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+<div align="center">
+<br>
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+<tr>
+	<td colspan="2" align="center"><b><% GetMultiLangStr("SBS035") %></b></td>
+</tr>
+
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+<tr>
+<td colspan="2" align="left">
+ <% GetMultiLangStr("SBS033") %>
+ </td></tr>
+ </table>
+ <br>
+
+<table width="100%" border=0 cellspacing=1 cellpadding=5 class="tbWhite cmn-table-2">
+
+	<tr>
+		<TD NOWRAP width="50%"><FONT face="Arial, Helvetica, sans-serif" size=2><B><% GetMultiLangStr("SBS036") %></B></FONT></td>
+		<TD NOWRAP width="50%"><FONT face="Arial, Helvetica, sans-serif" size=2><% GetPageCfg("BAS_wtest_poe_wan_upTime") %></FONT></td>
+	</tr>
+
+	<tr>
+		<TD NOWRAP><FONT face="Arial, Helvetica, sans-serif" size=2><B><% GetMultiLangStr("SBS032") %></B></FONT></td>
+		<TD NOWRAP><FONT face="Arial, Helvetica, sans-serif" size=2><% GetPageCfg("BAS_wtest_poe_wan_connStatus") %></FONT></td>
+	</tr>
+	<tr>
+		<TD NOWRAP><FONT face="Arial, Helvetica, sans-serif" size=2><B><% GetMultiLangStr("SBS019") %></B></FONT></td>
+		<TD NOWRAP><FONT face="Arial, Helvetica, sans-serif" size=2><% GetPageCfg("BAS_wtest_poe_wan_negotiation") %></FONT></td>
+	</tr>
+	<tr>
+		<TD NOWRAP><FONT face="Arial, Helvetica, sans-serif" size=2><B><% GetMultiLangStr("SBS018") %></B></FONT></td>
+        <TD NOWRAP><FONT face="Arial, Helvetica, sans-serif" size=2><% GetPageCfg("BAS_wtest_poe_wan_authentication") %></FONT></td>
+	</tr>
+	<tr>
+		<TD NOWRAP><FONT face="Arial, Helvetica, sans-serif" size=2><B><% GetMultiLangStr("SBS034") %></B></FONT></td>
+		<TD NOWRAP><FONT face="Arial, Helvetica, sans-serif" size=2><% GetPageCfg("BAS_wtest_poe_wan_ip") %></FONT></td>
+	</tr>
+
+</table>
+
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+
+<TR><TD align="left" class="pt-20"><button type=button value="Close" name="close" class="button-sty1" onclick="buttonClick(this,'Close Window'); window.close();"><% GetMultiLangStr("OTH002") %></button></TD></TR>
+</table>
+ 
+</div>
+
+<input type="hidden" name="testOK" value="<% GetPageCfg("BAS_wtest_poe_testOK") %>">
+
+</form>
+</div>
+</body>
+</html>
+

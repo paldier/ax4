@@ -1,0 +1,111 @@
+#!/bin/sh
+if [ ! "$CONFIGLOADED" ]; then
+        if [ -r /etc/config.sh ]; then
+                . /etc/config.sh 2>/dev/null
+                CONFIGLOADED="1"
+        fi
+fi
+
+. /opt/lantiq/etc/switchports.conf 2> /dev/null
+. /opt/lantiq/etc/switch_functions $1 2 > /dev/null
+
+###############################################################################################################
+#Initializes the Switch ports for the selected WAN mode
+# ALL LAN ports will be set with PVID 501
+# ALL LAN ports, WLAN ports and CPU port will be member of VLAN 501
+# ALL WAN ports will be set with PVID 502
+# ALL WAN ports and CPU port will be member of VLAN 502
+# CPU Port will be set with PVID 500
+# ALL LAN ports, WLAN Ports, WAN ports & CPU port will be member of VLAN 500
+###############################################################################################################
+  echo "======SWITCH INIT ==============="
+  local maxPacketLen=1536
+  output=`switch_cli dev=$CONFIG_SWITCH_DEVICE_ID IFX_ETHSW_VLAN_PORT_CFG_GET nPortId=$lan_port_1| grep -w nPortVId | awk '{ print $2 }'`
+
+  if [ $output = $lan_vid_all -o $output = $lan_vid_port_start ]; then
+    switch_uninit
+  fi
+
+  switch_cli dev=$CONFIG_SWITCH_DEVICE_ID IFX_ETHSW_DISABLE
+
+  if [ "$CONFIG_FEATURE_MINI_JUMBO_FRAMES" == "1" ] ; then
+    #
+    # When mini jumbo frames feature is enabled the larger size packets should
+    # pass through switch. Default packet len configured in switch is 1536. In
+    # case of mini jumbo frames switch shall support packets upto 1600 bytes.
+    #
+    maxPacketLen=1600
+  fi
+
+  switch_cli dev=$CONFIG_SWITCH_DEVICE_ID IFX_ETHSW_CFG_SET eMAC_TableAgeTimer=3 bVLAN_Aware=1 \
+             nMaxPacketLen=$maxPacketLen bPauseMAC_ModeSrc=0 nPauseMAC_Src=00:00:00:00:00:00
+
+  #create the VLAN id
+  create_vlanid $wan_vid $wan_fid
+  create_vlanid $cpu_vid $cpu_fid
+  create_vlanid $lan_vid_all $lan_fid
+
+  # Setting the PVID 502 for WAN ports
+  # TVM is set to 0 in case of ETH WAN port and 1 in case of xDSL WAN port; because ATM and PTM will have some VLANs which is used internally by PPA
+  # That means if a tagged packet comes from wan side we must have corresponding VLAN created in Switch which has both WAN port and CPU port as member and 
+  # egress tagging enabled on CPU port for that VLAN.
+     for i in $wan_port; do
+     if [ $i = $wan_port_mii1 ]; then
+          #for ethwan we need to set TVM of wanport to 0
+	  #if  [ "$CONFIG_FEATURE_EEE" = "1" ]; then
+          #	switch_cli IFX_ETHSW_PORT_LINK_CFG_SET nPortId=$i  bLPI=1
+     	  #fi
+             config_port_pvid $i $wan_vid 0 3
+          else
+             config_port_pvid $i $wan_vid 1 3
+     fi
+     done
+
+   # Setting PVID of CPU port as 500  
+        config_port_pvid $cpu_port $cpu_vid 0 2
+
+  # Setting PVID of LAN ports as 501
+  for i in $lan_port_all; do
+          config_port_pvid $i $lan_vid_all 1 3
+  done
+
+ # ALL LAN ports, WLAN Ports, WAN ports & CPU port will be member of CPU VLAN 500
+  for i in $lan_port_all $cpu_port $wan_port; do
+    config_port_member $cpu_vid $i 0
+  done
+
+  # ALL LAN ports, WLAN ports and CPU port will be member of VLAN 501
+  for i in $lan_port_all $cpu_port; do
+    config_port_member $lan_vid_all $i 0
+  done
+
+
+  # ALL WAN ports and CPU port will be member of VLAN 502
+  for i in $wan_port $cpu_port; do
+    config_port_member $wan_vid $i 0
+  done
+  switch_cli dev=$CONFIG_SWITCH_DEVICE_ID IFX_ETHSW_ENABLE
+  #if  [ "$CONFIG_FEATURE_EEE" = "1" ]; then
+  #for i in $lan_port_all; do
+  #      switch_cli IFX_ETHSW_PORT_LINK_CFG_SET nPortId=$i  bLPI=1
+  #done
+  #fi
+  # spilt the lan and wan interrupts (DMA channels)
+#  split_lan_wan_dma_channel 1
+
+  mii1_reg="$((1 << wan_port_mii1))"
+  # Disable pause frame for cpu port
+  switch_cli IFX_FLOW_REGISTER_SET nRegAddr=0x94b nData=0x1c0
+  if [ "$1" = "eth" ]; then
+    switch_cli IFX_FLOW_REGISTER_SET nRegAddr=0xccd nData=$mii1_reg
+	echo 0 > /proc/sys/net/bridge/bridge-nf-call-iptables
+	echo 0 > /proc/sys/net/bridge/bridge-nf-call-ip6tables
+  fi
+	# Configure reserved buffers and global WRED configuration for GRX330 platform
+  init_sw_cfg_for_grx330_plat
+	#configure leds for grx330/300	
+  config_led
+  echo "Switch Init done "
+  #switch_cli dev=$CONFIG_SWITCH_DEVICE_ID IFX_ETHSW_VLAN_PORT_MEMBER_READ 
+
+

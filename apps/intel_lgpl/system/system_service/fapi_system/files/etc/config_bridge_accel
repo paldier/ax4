@@ -1,0 +1,82 @@
+#!/bin/sh
+
+if [ ! "$CONFIGLOADED" ]; then
+        if [ -r /etc/rc.d/config.sh ]; then
+                . /etc/rc.d/config.sh 2>/dev/null
+                CONFIGLOADED="1"
+        fi
+fi
+
+local wanintf
+local lan
+local brname
+local action
+
+wanintf=$1
+lan=$2
+brname=$3
+action=$4
+
+#if [ "$intf" = "ra0" -o "$intf" = "wlan" -o "$intf" = "ath" ]; then
+
+#if [ "$1" = "wlan0" -o "$1" = "ath0" -o "$1" = "ra0" ]; then
+
+	#add switch config to accelerate wlan traffic
+#	enable_bridge_accel 0 $intf $brname
+
+#else
+iface=$(echo $wanintf | cut -d "_" -f1)                             
+if [ "${iface::3}" = "nas" ]; then
+. /opt/lantiq/etc/switch_functions "dsl" 2> /dev/null
+elif [ "$iface" = "ptm0" ]; then
+. /opt/lantiq/etc/switch_functions "dsl" 2> /dev/null
+elif [ "$iface" = "eth1" ]; then
+. /opt/lantiq/etc/switch_functions "eth" 2> /dev/null
+fi
+
+if [ "$action" = "enable" ]; then
+	echo disable > /proc/ppa/api/bridged_flow_learning
+	killall dnsmasq
+	#add switch config to accelerate lan-wan traffic
+	enable_bridge_accel $wanintf $lan $brname
+
+elif [ "$action" = "disable" ]; then
+
+	#add switch config to accelerate lan-wan traffic
+	disable_bridge_accel $wanintf $lan
+
+	echo enable > /proc/ppa/api/bridged_flow_learning
+	#dnsmasq
+elif [ "$action" = "bridge_add" ]; then
+
+	#local lanif
+	if [ ! "$lan" == "-" ] ; then
+		/opt/lantiq/etc/vrx220_multi_bridge_config ADD "$lan"
+	fi
+	#if [ ! $wanintf == "-" ] ; then
+	#	echo disable > /proc/ppa/api/bridged_flow_learning
+	#	killall dnsmasq
+	#	for i in $lan ; do
+	#		if [ "$i" = "5" ] ; then
+	#		   lanif="$lanif eth0_1"
+	#		elif [ "$i" = "2" ] ; then
+	#		   lanif="$lanif eth0_2"
+	#		elif [ "$i" = "3" ] ;  then
+	#		   lanif="$lanif eth0_3"
+	#		fi
+	#	enable_bridge_accel $wanintf $lan $brname
+	#fi
+elif [ "$action" = "bridge_del" ]; then
+
+	#if [ ! $wanintf == "-" ] ; then
+	#	disable_bridge_accel $wanintf $lan 
+	#fi
+	if [ ! "$lan" == "-" ] ; then
+		/opt/lantiq/etc/vrx220_multi_bridge_config DEL "$lan"
+	fi
+elif [ "$action" = "bridge_mod" ]; then
+
+	if [ ! "$lan" == "-" ] ; then
+		/opt/lantiq/etc/vrx220_multi_bridge_config MOD "$lan"
+	fi
+fi

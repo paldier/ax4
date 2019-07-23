@@ -1,0 +1,46 @@
+<html>
+
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title>
+<link rel="stylesheet" href="form.css">
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+function do_submit()
+{
+    document.forms[0].submit();
+}
+function wait()
+{   
+    //setTimeout("do_submit()",2000);
+    var value = window.parent.document.getElementById('lang_menu').value;
+    var form=document.forms[0];
+    form.targetlang.value = value;
+    setTimeout("do_submit()",1000);
+    //window.parent.document.getElementById('lang_menu').disabled = true;
+
+}
+//-->
+</script>
+</head>
+<body bgcolor="#ffffff" onLoad="wait();">
+<form name="formname" method="POST" action="lang_settop.cgi"> 
+<input type="hidden" name="targetlang" value=""></input>
+<input type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+</form>
+</body>
+
+</html>

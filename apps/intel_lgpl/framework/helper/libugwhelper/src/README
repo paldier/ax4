@@ -1,0 +1,25 @@
+Helper Library 
+==============
+
+Helper library is framework library, which contains API's, enums, defs, structs and 
+these are used by many modules like CAL, CSD, SERVD, POLLD, CGI, SL.
+
+Helper library API's usage
+================================
+1. IPC(blob msg) creation and deletation from msg header struct
+2. Create Msg header
+3. Objlist handling
+   1. create objlist and paramlist
+   2. print objlist and paramlist
+   3. traverse objlist and paramlist
+   4. merge objlist and paramlist
+   5. delete objlist and paramlist
+   6. add/del node from objlist and paramlist
+   7. objlist to file conversion and vice versa
+   8. Copy/move objlist and paramlist
+   9. edit objlist and paramlist 
+4. ubus connect/disconnect msges
+5. Wsd support API's
+6. polld Support API's
+7. Objstlist - struct and vice versa
+8. Notificaton support API's

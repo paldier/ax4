@@ -1,0 +1,128 @@
+<HTML>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+ <title>NETGEAR Router RAX40</title>
+<link rel="stylesheet" href="form.css">
+<SCRIPT LANGUAGE="JavaScript" type="text/javascript">
+<!-- hide script from old browsers
+var trWarnWinVar = null;
+
+function openTrWarnWin(filename,win_type)
+{
+//	closeWin(trWarnWinVar);
+//sailor del it,because if these netscape will work abnormal!
+	trWarnWinVar = window.open(filename,'trwarn_win',win_type);
+	if (trWarnWinVar.focus)
+		setTimeout('trWarnWinVar.focus()',200); 
+}
+
+function openWarnWindow()
+{
+	var winoptions;
+
+    winoptions = "width=560,height=280,status=yes,resizable=yes";
+    openTrWarnWin('traffic_important_update.htm',winoptions);
+}
+
+function WinCloseCheck()
+{
+    var cf = document.forms[0];
+    var wan_proto = cf.wan_proto.value;
+
+    document.getElementById("amount_used_green_bar").height = cf.amount_used_green.value;
+    if(cf.amount_used_green.value >= 120*0.9)
+    {
+        document.getElementById("amount_used_green_bar").style.backgroundColor = "#FF0000";
+    }
+    else
+    {
+        document.getElementById("amount_used_green_bar").style.backgroundColor = "#00FF00";
+    }
+    if ((cf.traffic_on.value == "1") &&
+        (cf.traffic_supported.value == "YES"))
+    {
+        //do nothing
+    }
+    else
+    {
+        //close the window
+        top.window.opener=null;
+        top.window.close();
+    }
+}
+//-->
+</script>
+</HEAD>
+<!--
+<body bgcolor="#ffffff" onload="WinCloseCheck();">
+-->
+
+<!--
+<body bgcolor="#ffffff" onload="WinCloseCheck();openWarnWindow();" >
+-->
+<body bgcolor="#ffffff" onload="WinCloseCheck();<% GetPageCfg("openWarnWindow") %>" >
+
+<form name="warnwin">
+<table border="0" id="table7">
+<!--
+<tr>
+ <td colspan="7" background="liteblue.gif" height="12">&nbsp;</td>
+</tr>-->
+<tr>
+    <td colspan="7"><b><% GetMultiLangStr("ATM033") %></b></td>
+</tr>
+<tr>
+    <td colspan="7">&nbsp;&nbsp;&nbsp;</td>
+</tr>
+<tr>
+    <td width="30"></td>
+	<td colspan="2" width="120" align=left><span class="thead"><% GetMultiLangStr("count_preiod") %></span></td>
+	<td width="30"></td>
+	<td colspan="2" width="120" align=left><span class="thead"><% GetMultiLangStr("ATM036") %></span></td>
+	<td width="30"></td>
+</tr>
+<tr>
+    <td colspan="7">&nbsp;&nbsp;&nbsp;</td>
+</tr>
+<tr>
+ <td width="30"></td>
+ <td width="35">
+  <table border="1" bordercolor=#000000 width="100%" id="table8" style="border-collapse: collapse">
+   <tr>
+    <td style="border-left-style:solid; border-left-width:1px; border-right-style:solid; border-right-width:1px; border-top-style:solid; border-top-width:1px; border-bottom-style:none; border-bottom-width:medium" height="<% GetPageCfg("counting_period_white") %>"></td>
+   </tr>
+   <tr>
+    <td bgcolor="#0000FF" style="border-left-style:solid; border-left-width:1px; border-right-style:solid; border-right-width:1px; border-top-style:none; border-top-width:medium; border-bottom-style:solid; border-bottom-width:1px" height="<% GetPageCfg("counting_period_blue") %>"></td>
+   </tr>
+   </table>
+ </td>
+ <td width="85"><% GetPageCfg("counting_period_text") %></td>
+ <td width="30"></td>
+ <td width="35">
+  <table border="1" bordercolor=#000000 width="100%" id="table9" style="border-collapse: collapse">
+   <tr>
+   <td style="border-left-style:solid; border-left-width:1px; border-right-style:solid; border-right-width:1px; border-top-style:solid; border-top-width:1px; border-bottom-style:none; border-bottom-width:medium" height="<% GetPageCfg("amount_used_white") %>"></td>
+   </tr>
+   <tr>
+   <td id="amount_used_green_bar" style="border-left-style:solid; border-left-width:1px; border-right-style:solid; border-right-width:1px; border-top-style:none; border-top-width:medium; border-bottom-style:solid; border-bottom-width:1px"></td>
+   </tr>
+  </table>
+ </td>
+ <td width="85"><% GetPageCfg("amount_used_text") %></td>
+ <td width="30"></td>
+</tr>
+</table>
+<input name=traffic_supported type=hidden value= "YES">
+<input name=wan_proto type=hidden value= "<% GetPageCfg("wan_proto") %>">
+<input name=traffic_on type=hidden value= "<% GetPageCfg("traffic_on") %>">
+<input name=amount_used_green type=hidden value= "<% GetPageCfg("amount_used_green") %>">
+</FORM>
+</BODY>
+</HTML>
+

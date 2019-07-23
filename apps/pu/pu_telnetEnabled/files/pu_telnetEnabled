@@ -1,0 +1,28 @@
+#!/bin/sh /etc/rc.common
+
+USE_PROCD=1
+START=99
+
+#version=$(objcli get routerInfo |grep "fwVersion"|awk '{print $3}')
+
+start_service() {
+#	logger -p local5.info -t "t Important Info" "[Initialized, firmware version: $version]"
+	brlanMac=$(ifconfig br-lan | grep "HWaddr" | awk -F ' ' '{printf $5}');
+	#echo "\$brlanMac=$brlanMac";
+	while [ -z "${brlanMac}" ]
+	do
+		#echo "\$brlanMac=$brlanMac";
+		sleep 5;
+		brlanMac=$(ifconfig br-lan | grep "HWaddr" | awk -F ' ' '{printf $5}');
+	done
+	#echo "\$brlanMac=$brlanMac";
+	procd_open_instance
+	procd_set_param command pu_telnetEnabled -o -v 0
+	procd_set_param respawn
+	procd_close_instance
+}
+
+stop_service() {
+	killall pu_telnetEnabled
+}
+

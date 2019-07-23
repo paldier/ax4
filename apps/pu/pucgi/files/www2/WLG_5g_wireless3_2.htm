@@ -1,0 +1,269 @@
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title>
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<STYLE TYPE="text/javascript">
+    classes.num.all.fontFamily = "Courier";
+    classes.num.all.fontSize = "10pt" ;
+</style>
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+var initialized = false;
+
+function displayWepRadio()
+{
+    var cf = document.forms[0];
+    var wlan_mode = "<% GetPageCfg("Guest_5g_None_displayWepRadio_wlan_mode") %>";
+    
+    if (wlan_mode == "g&#32;and&#32;b")//Up to 54Mbps
+    {
+        document.getElementById("wep_radio_5G").style.display="block";
+        
+    }
+    else
+    {
+        document.getElementById("wep_radio_5G").style.display="none";
+    }
+}
+
+function initScrn()
+{
+    var defaultKey;
+    var fm=document.forms[0];
+    var i;
+
+    if (fm.bssid_enable.value == "1")
+        fm.enable_bssid_an.checked = true;
+    else
+        fm.enable_bssid_an.checked = false;
+
+    if (fm.ssid_bc_enable.value == "1")
+        fm.enable_ssid_bc_an.checked = true;
+    else
+        fm.enable_ssid_bc_an.checked = false;
+
+    if (fm.enable_allow_see_access.value == "1" || fm.enable_apmode.value == "1" || fm.enable_extender.value == "1")
+        fm.allow_see_access_an.checked = true;
+    else
+        fm.allow_see_access_an.checked = false;
+
+     if(fm.enable_apmode.value == "1" || fm.enable_extender.value == "1")
+        fm.allow_see_access_an.disabled = true;
+    
+    displayWepRadio();
+
+    if (fm.support_ac_mode.value == "1")
+        document.getElementById("wpa_radio_5g").style.display = "none";
+    
+    initialized=true;
+}
+
+function wpapskCheck()
+{
+    var cf = document.forms[0];
+    var wlan_mode = "<% GetPageCfg("Guest_5g_None_wpapskCheck_wlan_mode") %>";
+    if (wlan_mode != "g&#32;and&#32;b")
+    {
+        alert("<% GetMultiLangStr("SWSW04") %>");
+    	document.forms[0].submit();
+    }
+    else
+        document.forms[0].submit();
+}
+function autopskCheck()
+{
+    var cf = document.forms[0];
+    var wlan_mode = "<% GetPageCfg("Guest_5g_None_autopskCheck_wlan_mode") %>";
+    if (wlan_mode != "g&#32;and&#32;b")
+    {
+        if (cf.support_ac_mode.value == "1")
+            alert("<% GetMultiLangStr("SWSW10") %>");
+        else
+            alert("<% GetMultiLangStr("SWSW04") %>");
+        document.forms[0].submit();
+    }
+    else
+        document.forms[0].submit();
+    return true;
+}
+
+function checkData()
+{
+    var cf = document.forms[0];
+    
+    if (cf.ssid_an.value == "")
+    {
+        alert("<% GetMultiLangStr("SWSE07") %>");
+        return false;
+    }
+
+    if (cf.ssid_an.value.match( /[^\x20-\x7E]/ ))
+    {
+        alert("<% GetMultiLangStr("SWSE02") %>");
+        return false;
+    }
+    if(cf.enable_ssid_bc_an.checked)
+    {
+        parent.document.forms[0].enable_ssid_bc_an.value = "ssid_5G_bc";    
+    }
+    else
+    {
+        parent.document.forms[0].enable_ssid_bc_an.value = "";
+    }
+    if(cf.enable_bssid_an.checked)
+    {
+        parent.document.forms[0].enable_bssid_an.value = 1;
+    }
+    else
+    {
+        parent.document.forms[0].enable_bssid_an.value = "";
+    }
+
+    if(cf.allow_see_access_an.checked)
+    {
+        parent.document.forms[0].allow_see_access_an.value = 1;
+    }
+    else
+    {
+        parent.document.forms[0].allow_see_access_an.value = "";
+    }
+
+    parent.document.forms[0].ssid_an.value = cf.ssid_an.value; 
+
+    parent.document.forms[0].load_5g_frame.value = "1";
+    return true;
+}
+// -->
+</script>
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+</head>
+<body  onload="initScrn();" style="background-color:transparent">
+<form method="POST" action="wlg_sec_profile_main.cgi">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+<table class="tbl_1" border="0" cellpadding="0" cellspacing="3" width="100%">
+<tr>
+<td colspan="2" height="12"><div style="background-image:url('seprator.gif');width:100%;background-repeat:repeat-x;">&nbsp;</div></td></tr>
+<tr>
+<td colspan="2" class="mt-15"><a href="javascript:parent.loadhelp('WLG_wireless_2','wireless')" tabindex="-1"><b><% GetMultiLangStr("SWS038") %> (5GHz a/n/ac/ax) - <% GetMultiLangStr("SGN008") %></b></a></td>
+
+</tr>
+<tr>
+<td align="left" class="pt-15">
+    <label class="checkbox-container"><% GetMultiLangStr("SGN002") %>
+        <input type="checkbox" name="enable_bssid_an" id="enable_bssid_an" value="1">
+        <span class="checkbox-checkmark"></span> 
+    </label>
+</td>
+</tr>
+
+<tr>
+<td align="left" class="pt-15">
+<label class="checkbox-container"><% GetMultiLangStr("SGN003") %>
+	 <input type="checkbox" name="enable_ssid_bc_an" id="enable_ssid_bc_an" value="1">
+        <span class="checkbox-checkmark"></span> 
+    </label>
+</td>
+</tr>
+
+<tr>
+<td align="left" class="pt-15 pb-15">
+    <label class="checkbox-container"><% GetMultiLangStr("SGN014") %>
+    <input type="checkbox" name="allow_see_access_an" id="allow_access_an" value="1">
+        <span class="checkbox-checkmark"></span> 
+    </label>
+</td>
+</tr>
+
+<tr>
+<td width="50%" align="left" class="mt-15"><% GetMultiLangStr("SGN005") %>:</td>
+<td width="50%" class="pb-15">
+<input type="text" class="input1" name="ssid_an" id="ssid_an" value="<% GetPageCfg("Guest_5g_None_ssid") %>" size="20" maxlength="32"></td>
+</tr>
+
+<tr>
+    <td colspan="2" height="12"><div style="background-image:url('seprator.gif');width:100%;background-repeat:repeat-x;">&nbsp;</div></td></tr>
+<tr>
+    <td colspan="2" class="pt-15 pb-15"><a href="javascript:parent.loadhelp('WLG_wireless_2','security')" tabindex="-1"><b><% GetMultiLangStr("SWS036") %> - <% GetMultiLangStr("SGN008") %></b></a></td></tr>
+
+<tr><td colspan="2">
+<table cellpadding="0" cellspacing="3" width="100%">
+<tr>
+        <td colspan="2" class="pt-15 pb-0">
+            <label class="checkbox-container"><% GetMultiLangStr("SWS016") %>
+                <input type="radio" name="security_type_an" id="security _an_disable" value="Disable" checked >
+                <span class="radio-checkmark"></span> 
+            </label>
+        </td></tr>
+<!--
+<tr>
+    <td colspan="2">
+            <div id="wep_radio_5G" style="display: block;">
+        <label class="checkbox-container"><% GetMultiLangStr("SWS021") %>
+            <input type="radio" name="security_type_an" id="security_an_wep" value="WEP" onClick="buttonFilter();this.form.submit();" >
+            <span class="radio-checkmark"></span> 
+        </label>
+    </div></td></tr>
+<tr>
+        <td colspan="2" class="pt-15">
+        <div id="wpa_radio_5g" style="display: block;">
+            <label class="checkbox-container">WPA-PSK [TKIP]
+                <input type="radio" name="security_type_an" id="security_an_wpa" value="WPA-PSK"  onClick="wpapskCheck();" >
+                <span class="radio-checkmark"></span> 
+            </label>
+        </div></td></tr>
+-->
+<tr>
+        <td colspan="2" class="pt-15">
+            <label class="checkbox-container"><% GetMultiLangStr("SWS022") %>
+                <input type="radio" name="security_type_an" id="security_an_wpa2" value="WPA2-PSK"  onClick="buttonFilter();this.form.submit();" >
+                <span class="radio-checkmark"></span> 
+            </label>
+        </td>
+</tr>
+<tr>
+        <td colspan="2" class="pt-15  pb-15">
+               <label class="checkbox-container"><% GetMultiLangStr("SWS023") %>
+                <input type="radio" name="security_type_an" id="security_an_wpa_enter" value="AUTO-PSK"  onClick="autopskCheck();" >
+                <span class="radio-checkmark"></span> 
+		       </label>
+        </td>
+</tr>
+</table>
+</td></tr>
+  </table>
+  <input type="hidden" name="only_mode" value="0">
+  <input type="hidden" name="bssid_enable" value="<% GetPageCfg("Guest_5g_None_bssid_enable") %>">
+  <input type="hidden" name="ssid_bc_enable" value="<% GetPageCfg("Guest_5g_None_ssid_bc_enable") %>">
+
+  <input type="hidden" name="enable_allow_see_access" value="<% GetPageCfg("Guest_5g_None_enable_allow_see_access") %>">
+  <input type="hidden" name="enable_apmode" value="<% GetPageCfg("Guest_5g_None_enable_apmode") %>">
+  <input type="hidden" name="enable_extender" value="0">
+  <input type="hidden" name="support_ac_mode" value="1">
+  <INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+</form>
+</body>
+</html>
+

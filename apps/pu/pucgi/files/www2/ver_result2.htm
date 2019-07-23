@@ -1,0 +1,112 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title>
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+
+
+
+
+
+
+
+
+
+    $(document).ready(function()
+    {	
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+
+function goHome(){
+
+   
+	if (top.tophideframe)
+		top.close();
+	else if(document.forms[0].call_by_genie.value == 1 )
+             window.location.href="genie_redirect_successpage3.htm";
+    else if (document.forms[0].enable_ap_mode.value == 1 || document.forms[0].enable_sta_mode.value == 1 )
+	    window.location.href="RST_status.htm";
+    else
+		window.location.href="UPG_upgrade.html";
+		
+}
+function preCheck(){
+    var cancel_button = document.getElementById("cancel_button");
+    var quit_button = document.getElementById("quit_button");
+    
+    if (top.tophideframe)
+    {
+        cancel_button.style.display = "none";
+        quit_button.style.display = "block";
+    }  else {
+        cancel_button.style.display = "block";
+        quit_button.style.display = "none";
+    }    
+}
+//-->
+</script>
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+</head>
+<body  onLoad="preCheck();" style="margin:0px;">
+<form id="target"  name="formname" method="POST" action="ver_result.cgi">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue"> 
+<table border="0" width="100%">
+
+<tr>
+<td colspan="2">
+	<div class="subhead2"><% GetMultiLangStr("MRU011") %></div>
+</td>
+</tr>
+<br>
+<tr>
+    <td colspan="2" class="pl28" style="padding-top: 50px"><b><% GetMultiLangStr("MRU024") %></b></td>
+</tr>
+<tr></tr>
+
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+<tr>
+	<td colspan="2" id="cancel_button" align="center">
+<!--
+		&nbsp;&nbsp;&nbsp;<button type="BUTTON" value="<% GetMultiLangStr("UAS020") %>" name="back" class="button-sty1" onClick="buttonClick(this,'OK');goHome();"><span class="roundleft_button">&nbsp;&nbsp; OK</span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+-->
+	<button type="BUTTON" value="<% GetMultiLangStr("UAS020") %>" name="back" class="button-sty1" onClick="buttonClick(this,'OK');goHome();"><% GetMultiLangStr("UAS020") %></button>
+	</td>
+	<td colspan="2" id="quit_button" align="center">
+<!--
+		&nbsp;&nbsp;&nbsp;<button type="BUTTON" value="Quit" name="quit" class="button-sty1" onClick="buttonClick(this,'Quit');top.location.replace('close_process.htm');"><span class="roundleft_button">&nbsp;&nbsp; Quit</span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+-->
+	<button type="BUTTON" value="Quit" name="quit" class="button-sty1" onClick="buttonClick(this,'Quit');top.location.replace('close_process.htm');"><% GetMultiLangStr("quit_mark") %></button>
+	</td>    
+    </tr>
+</table>
+<input type="hidden" name="enable_ap_mode" value="0">
+<input type="hidden" name="enable_sta_mode" value="0">
+<input type="hidden" name="call_by_genie" value="0">
+</form>
+<p></p>
+</body>
+</html>
+

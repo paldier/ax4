@@ -1,0 +1,9 @@
+#!/bin/sh
+
+if [ "$ACTION" = "ifup" ]; then
+        /usr/bin/objcli modify updateReadyCloud $DEVICE
+fi
+
+if [ "$ACTION" = "ifdown" ]; then
+        /usr/bin/objcli del updateReadyCloud $INTERFACE
+fi

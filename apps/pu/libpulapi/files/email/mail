@@ -1,0 +1,139 @@
+#!/bin/sh
+
+dump_syslog_to_file()
+{
+        dump_option_to_file $optfile
+        #convert log events from uptime to date-time
+        uptime_to_datetime $logfile $datetimelog
+		if [ $NTP_SYNC == 1 ]
+		then
+			tac $datetimelog | grep -f $sysopt | awk 'NR<=1024 {print substr($0,index($0, ": ")+2,103)" "substr($0,0,24)}' >> $dumpfile
+		else
+			tac $datetimelog | grep -f $sysopt | awk 'NR<=1024 {print substr($0,index($0, ": ")+2,103)}' >> $dumpfile
+		fi
+        rm -rf $sysopt 2>/dev/null
+        rm -rf $datetimelog 2>/dev/null
+}
+
+dump_block_to_file()
+{
+        uptime_to_datetime $blockfile $datetimelog
+		if [ $NTP_SYNC == 1 ]
+		then
+			cat $datetimelog | awk 'NR<=1024 {print substr($0,index($0, ": ")+2,103)" "substr($0,0,24)}' >> $tmpfile
+		else
+			cat $datetimelog | awk 'NR<=1024 {print substr($0,index($0, ": ")+2,103)}' >> $tmpfile
+		fi
+        rm -rf $datetimelog 2>/dev/null
+}
+
+dump_option_to_file()
+{
+        while read -r line; do
+                if [ "${line:0:1}" == "Y" ]; then
+                    echo "${line:2}" >> $sysopt
+                fi
+        done < "$1"
+}
+
+# Import mail setting
+[ -e /var/mail.conf ] && source /var/mail.conf
+
+SUBJECT="NETGEAR $MODELNAME Log"
+tmpfile="/tmp/mail.txt"
+dumpfile="/tmp/dump.txt"
+blockfile="/tmp/block.txt"
+errfile="/tmp/error.txt"
+optfile="/var/syslog.option"
+sysopt="/tmp/syslog.option"
+logfile="/var/log/ntgr.log"
+bsnamefile="/tmp/bsname.lst"
+datetimelog="/tmp/datetimelog"
+
+#Get NTP info
+ntp_sync_file="/var/tmp/uptime_ntp_sync"
+NTP_SYNC=0
+NTP_UPTIME=0
+NTP_TIMESTAMP=0
+if [ -f $ntp_sync_file ]
+then
+	NTP_SYNC=1
+	NTP_UPTIME=`cat $ntp_sync_file|grep uptime|awk -F ':' '{printf $2}'`;
+	NTP_TIMESTAMP=`cat $ntp_sync_file|grep timestamp|awk -F ':' '{printf $2}'`;
+fi
+
+# Clear mail file
+cat /dev/null > $tmpfile
+
+# Clear dump file
+> $dumpfile
+
+case $1 in
+        "full" | "schedule" | "log")
+                dump_syslog_to_file
+                cat $dumpfile >> $tmpfile
+                ;;
+        "immediately")
+                dump_block_to_file
+                cat /dev/null > $blockfile
+                ;;
+        "dump")
+                dump_syslog_to_file
+                exit 0
+                ;;
+        *)
+                rm -f $tmpfile
+                exit 1
+                ;;
+esac
+
+if [ "$PORT" == "465" ]; then
+        SEC_METHOD="-ssl"
+elif [ "$PORT" == "587" ]; then
+        SEC_METHOD="-starttls"
+elif [ "$PORT" == "994" ]; then
+        SEC_METHOD="-ssl"
+else
+        SEC_METHOD=""
+fi
+
+# 
+flag=`echo $USERNAME|awk '{print match($0,"@163.com")}'`;
+if [ $flag -gt 0 ];then
+    FROM1=$USERNAME
+else
+    FROM1=$TO
+fi
+
+# Send mail
+if [ "$USERNAME" == "" ]; then
+    if [ "$TO2" == "" ];then
+        mailsend -4 -smtp "$SMTP" -port "$PORT" -f "$FROM1" -t "$TO" -sub "$SUBJECT" -H "Sender: $FROM" -log "$errfile" $SEC_METHOD < "$tmpfile"
+    else
+        mailsend -4 -smtp "$SMTP" -port "$PORT" -f "$FROM1" -t "$TO" -t "$TO2" -sub "$SUBJECT" -H "Sender: $FROM" -log "$errfile" $SEC_METHOD < "$tmpfile"
+    fi
+else
+    if [ "$TO2" == "" ];then
+        mailsend -4 -smtp "$SMTP" -port "$PORT" -f "$FROM1" -t "$TO" -sub "$SUBJECT" -H "Sender: $FROM" -log "$errfile" $SEC_METHOD -ehlo -auth -user "$USERNAME" -pass "$PASSWORD" < "$tmpfile"
+    else
+        mailsend -4 -smtp "$SMTP" -port "$PORT" -f "$FROM1" -t "$TO" -t "$TO2" -sub "$SUBJECT" -H "Sender: $FROM" -log "$errfile" $SEC_METHOD -ehlo -auth -user "$USERNAME" -pass "$PASSWORD" < "$tmpfile"
+    fi
+fi
+
+# Clear syslog.custom if success
+if [ $? == 1 ]; then
+        errStr=`cat $errfile | grep "Error: " | tail -n 1`
+        logger -p local5.info -t "t Router operation" "[email failed] ${errStr#*Error: },"
+else
+        if [ $1 == "full" ] || [ $1 == "schedule" ]; then
+                > $logfile
+        fi
+        logger -p local5.info -t "t Router operation" "[email sent to: $TO]"
+fi
+
+# Remove tmp file
+rm -f $tmpfile
+
+# Remove error msg
+rm -f $errfile 2>/dev/null
+

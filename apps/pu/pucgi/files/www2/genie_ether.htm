@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR   Genie</title>
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<link rel="stylesheet" href="CDL.css">
+<script type="text/javascript">
+var MacAddress;
+var DisableFixedIP = false;
+var DisableFixedDNS = false;
+var DisableFixedMAC = false;
+
+function isValidStr(str, start_char, end_char)
+{
+	for (i=0; i<str.length; i++)
+	{
+		var c = str.substring(i, i+1);
+		if (c < start_char || c > end_char)
+			return false;
+	}
+	return true;
+}
+
+function checkData()
+{
+	var cf = document.forms[0];
+	var msg = "";
+	
+
+   
+	if( checkMacStr(cf.Spoofmac) || MacStrallf(cf.Spoofmac) )
+	    msg+= "<% GetMultiLangStr("AAWE06") %>";
+	
+	if (msg.length > 1)
+	{
+		alert(msg);
+		return false;
+	}
+
+	//cf.wan_hwaddr2.value = cf.Spoofmac.value.toUpperCase;            
+	return sumvalue1(cf);
+}
+
+function showFWVer()
+{
+        ;   
+        if(top.parent.frames['topframe'] != null){             	          
+            top.parent.frames['topframe'].location="genie_top.htm";          
+        }
+}
+
+</script>
+ <link href="css/custom.css" rel="stylesheet" type="text/css"> 
+</head>
+<body bgcolor="#ffffff" onLoad="showFWVer();">
+<form name="formname" method="POST" action="genieether.cgi"> 
+<table border="0" cellpadding="0" cellspacing="0" width="99%">
+	<tr style="height:10px">
+		<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td class="centerTd pl-0">
+			<h2 class="subhead2 pl-0" style="color:#ff0000;"><% GetMultiLangStr("genie_104") %></h2>
+		</td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td class="textRow centerTd pl-0"><p><% GetMultiLangStr("genie_60") %></p></td>
+		<td>&nbsp;</td>
+        </tr>
+	<tr style="height:10px">
+		<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td class="textRow centerTd pl-0"><p><% GetMultiLangStr("genie_9") %></p><td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+        </tr>	
+	<tr>
+		<td>&nbsp;</td>
+		<td class="textRow centerTd pl-0"><p><% GetMultiLangStr("genie_40") %></p><td>
+		<td>&nbsp;</td>
+	</tr>	
+	<tr style="height:10px">
+		<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+	</tr>
+	<tr>	
+		<td>&nbsp;</td>
+		<td NOWRAP class="inputRow centerTd pl-0" ><input type="text" class="num input1" name="Spoofmac" size="17" maxlength="17" value="">&nbsp;&nbsp;&nbsp;<span><% GetMultiLangStr("genie_4") %></span></td>
+		<td>&nbsp;</td>
+	</tr>
+	<tr style="height:10px">
+		<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+	</tr>
+	<tr style="height:10px">
+		<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td>
+		<td class="textRow centerTd2">
+			<div ID="basbuttons">	
+				<button value="submit" class="button-sty1" name="Next" onClick="return checkData()" type="submit"><span><% GetMultiLangStr("OTH011") %></span></button>			
+			</div>
+		</td>
+		<td>&nbsp;</td>
+	</tr>
+</table>
+<INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+</form>
+</body>
+</html>

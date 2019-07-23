@@ -1,0 +1,180 @@
+
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<meta name="description" content="RAX40">
+
+<meta http-equiv="Content-Style-Type" content="text/css">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Cache-Control" content="no-cache">
+<meta http-equiv="Expires" content="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Genie</title>
+	
+<script type="text/javascript">
+<!--     
+function yesClick()
+{
+    document.forms[0].act.value="yes";
+    document.forms[0].submit();
+
+}
+
+function noClick()
+{
+    document.forms[0].act.value="no";
+    document.forms[0].submit();        
+
+}
+-->
+
+</script>
+<style>
+html, body 
+{
+	margin: 0;
+	padding: 0;
+	font-family:Arial; 	
+}
+
+h1{
+	padding-left:5%;
+	font-size:12px;
+	font-family:Arial;
+        font-weight:bold;
+        color:#F32A31;
+                
+}
+
+h2{
+	padding-left:0%;
+	font-size:20px;
+	font-family:Arial;
+        font-weight:bold;
+        color:#9d98ff;                
+}
+
+.topframe{
+	background-color:#2b2b2b;
+	color:#ffffff;
+	font-size:12px;
+	font-family:Arial;
+	margin:0;
+	padding: 0;	
+}
+
+
+.WNRTitle{
+	font-family:Arial;
+	padding-top:0px;
+        padding-bottom:40px;
+	margin-top: 0px;
+	padding-left:20px;
+        height: 50px;
+	line-height:80%;
+	font-weight:bold;
+	font-size:14px;
+}
+
+button 
+{
+	position: relative;
+	border: 0; 
+	padding: 0;
+	cursor: pointer;
+	overflow: visible; /* removes extra side padding in IE */
+}
+
+button::-moz-focus-inner 
+{
+	border: none;  /* overrides extra padding in Firefox */
+}
+
+button span 
+{ 
+	position: relative;
+	display: block; 
+	white-space: nowrap;	
+}
+
+@media screen and (-webkit-min-device-pixel-ratio:0) 
+{
+	/* Safari and Google Chrome only - fix margins */
+	button span 
+	{
+		margin-top: -1px;
+	}
+}
+
+
+
+.centerTd
+{
+	font-family:Arial;  
+	font-size:14px;
+	height:15px;
+        color:#404040;    
+	width:600px;
+	padding-left:20px;
+}
+
+.centerTd2
+{
+	font-family:Arial;  
+	font-size:10px;
+	height:15px;
+        color:#404040;    
+	width:600px;
+	text-align:center;
+}
+
+.textRow
+{
+	font-family:Arial;  
+	font-size:14px;
+	height:15px;
+        color:#404040;              
+}
+
+
+
+</style>
+ <link href="css/custom.css" rel="stylesheet" type="text/css"> 
+</head>
+<body style="background-color:#ffffff">
+ <table style="height:92px;width:100%;margin:0;padding:0" cellpadding="0" cellspacing="0" class="newtopframe">
+      <tbody><tr>
+          <td style="padding-left:20px; padding-top:15px;"><img style="position:relative;width: 216px" src="img/NightHawk.png"><br><b>RAX40<b></b></b></td>  
+     </tr>
+     <tr>
+         <td>&nbsp;</td>
+     </tr>
+ </tbody></table>
+
+<form action="multi_login.cgi" method="POST">
+	<table border="0" cellpadding="0" cellspacing="3" width="99%">
+	<tbody><tr style="height:10px">
+		<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+	</tr>
+	<tr>
+		<td>&nbsp;</td><td class="centerTd pl-0"><h2 class="subhead2 pl-0"><% GetMultiLangStr("genie_156") %></h2></td><td>&nbsp;</td>
+        </tr><tr>
+       	</tr><tr style="height:10px">
+		<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+	</tr>
+        <tr>
+
+		<td>&nbsp;</td>
+        	<td class="textRow centerTd" style="padding-left:250px;">		
+			<button class="button-apply apply_bt" style="width:100px" onclick="yesClick();" name="yes"><% GetMultiLangStr("SWP003") %></button>
+			<button class="button-apply apply_bt" style="width:100px" name="no" onclick="noClick();"><% GetMultiLangStr("SWP009") %></button>
+		</td>
+		<td>&nbsp;</td>
+	</tr>
+
+<input type="hidden" name="act" value="yes">
+<input type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+
+
+
+</tbody></table></form></body></html>

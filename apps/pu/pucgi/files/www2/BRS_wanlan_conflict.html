@@ -1,0 +1,76 @@
+<html>
+
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no" />
+	<meta name="title" content="NETGEAR">
+	<link type="image/vnd.microsoft.icon" rel="icon" href="images/favicon.ico" />
+	<link type="image/x-icon" rel="shortcut icon" href="images/favicon.ico" />
+	<script src="jquery-1.12.3.min.js"></script>
+	<script language="javascript" type="text/javascript" src="script/brs_hijack.js"></script>
+	<script src="materialize.min.js"></script>
+	<!-- <script src="common.js"></script> -->
+	<link href="style/material_styles.css" rel="stylesheet">
+	<title>NETGEAR Router <% GetPageCfg("modelName") %> </title>
+<!--[if IE]>
+	<style type="text/css">
+		.file-field input[type=file]{
+			margin-top:30px;
+		}
+	</style>
+<![endif]-->
+<!--[if lt IE 10]>
+	<style type="text/css">
+		.master-pin-wrapper{
+			display:inline-block;
+			margin-left:23%;
+		}
+	</style>
+<![endif]-->
+
+<!-- <script language="javascript" type="text/javascript" src="language/Chinese.js"></script> -->
+<!-- <script language="javascript" type="text/javascript" src="language/RU_flow_en.js"></script> -->
+
+
+<script language="javascript" type="text/javascript">
+var ip_addr = "<% GetPageCfg("targetIpAddr") %>";
+var toppic = "0";
+</script>
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+<!-- <form action="/apply.cgi?/continue.htm timestamp=61357495421" method="post"> -->
+<form action="/BRS_wanlan_conflict.cgi?" method="post">
+<input type="hidden" name="submit_flag" value="conflict">
+
+<div id="container">
+	<div class="dialog-content">
+		<!-- Important Update -->
+		<div id="card-important-udpate" class="install-card clearfix">
+			<div class="logos">
+				<img class="netgear-logo" src="images/svg/netgear.svg">
+								<span style="font-size:30px;color:black; margin-right:8px;">Nighthawk® AX4 <% GetPageCfg("modelName") %></span>
+
+			</div>
+		    <div class="content">
+			<div class="desc-title"><script>document.write("<% GetMultiLangStr("OTH004") %>");</script></div>
+			<div class="desc-text">
+				<script>document.write("<% GetMultiLangStr("OTH009") %>"+"<b>"+ip_addr+"</b>"+".");</script>
+			</div>
+		    </div>
+		    <div class="buttons">
+			<!-- <button class="waves-effect waves-light btn button-nav btn-icon icon-right" onclick="return true;"> -->
+			<button class="button-sty1" onclick="return true;">
+				<span><script>document.write("<% GetMultiLangStr("OTH021") %>");</script></span><i class="material-icons"></i>
+			</button>
+		     </div>
+		</div>
+	</div>
+</div>
+
+</form>
+</body>
+
+</html>

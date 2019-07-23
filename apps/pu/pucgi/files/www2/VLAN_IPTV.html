@@ -1,0 +1,661 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title>
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+<link rel="stylesheet" href="css/form.css">
+<link rel="stylesheet" href="css/custom.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!--
+  
+    $(document).ready(function()
+    {	
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+        
+        load_vlan_rule_enable();
+
+    });
+
+
+    function setHelpIframeVisible(){
+        $('.help-frame-div').css("visibility","visible");
+    }
+
+
+    function showHelpIframe() {
+
+
+        var imgSrc=document.getElementById('help-button');
+
+        if(imgSrc.src.search("up")>=0)
+        {
+            $(".help-frame-div").show();
+			window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
+            imgSrc.src="img/helparrowdown-icon.png";
+        }
+        else
+        {
+            $(".help-frame-div").hide();
+            imgSrc.src="img/helparrowup-icon.png";
+            setTimeout(setHelpIframeVisible,500);
+        }
+		if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
+             change_size();
+
+    }
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+
+    function loadhelp(fname,anchname)
+    {
+                var pane = window.frames["helpframe"].$('#content');
+                var imgSrc=document.getElementById('help-button');
+                if(imgSrc.src.search("up")<0)
+                {
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+
+                        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm";
+                                $(".help-frame-div").show();
+                        }
+                        else
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                                $(".help-frame-div").show();
+                        }
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+                }
+    }
+
+    function resize() {
+        if(get_browser()=="Chrome")
+            $(".scroll-pane").css("margin-top","-20px");
+    }
+
+function chgSel(index)
+{
+    document.forms[0].select.value = index;
+    return true;
+}
+
+function loadSettings()
+{
+    var cf = document.forms[0];
+    var iptv_interface=cf.iptv_interfaces.value;
+
+    if (cf.vlan_enable.value == "enable")
+    {
+        cf.vlan_iptv_enable.checked=true;
+        cf.vlan_iptv_select[1].checked=true;
+        document.getElementById("vlan_iptv_check").style.display="block";
+        document.getElementById("iptv_check").style.display="none";
+        document.getElementById("vlan_check").style.display="block";
+        document.getElementById("vlan_check_button").style.display="block";
+    }
+    else if(cf.iptv_enable.value == "1")
+    {
+        cf.vlan_iptv_enable.checked=true;
+        cf.vlan_iptv_select[0].checked=true;
+        document.getElementById("vlan_iptv_check").style.display="block";
+        document.getElementById("iptv_check").style.display="block";
+        document.getElementById("vlan_check").style.display="none";
+        document.getElementById("vlan_check_button").style.display="none";
+    }
+    else
+    {
+        cf.vlan_iptv_enable.checked=false;
+        document.getElementById("vlan_iptv_check").style.display="none";
+        document.getElementById("iptv_check").style.display="none";
+        document.getElementById("vlan_check").style.display="none";
+        document.getElementById("vlan_check_button").style.display="none";
+
+    }
+    
+    if(iptv_interface & 0x1)
+        cf.iptv_ports_0.checked=true;
+    else
+        cf.iptv_ports_0.checked=false;
+
+    if(iptv_interface & 0x2)
+        cf.iptv_ports_1.checked=true;
+    else
+        cf.iptv_ports_1.checked=false;
+    
+    if(iptv_interface & 0x4)
+        cf.iptv_ports_2.checked=true;
+    else
+        cf.iptv_ports_2.checked=false;
+        
+    if(iptv_interface & 0x8)
+        cf.iptv_ports_3.checked=true;
+    else
+        cf.iptv_ports_3.checked=false;
+        
+    if(iptv_interface & 0x10)
+        cf.iptv_ports_4.checked=true;
+    else
+        cf.iptv_ports_4.checked=false;
+
+    if(iptv_interface & 0x20)
+        cf.iptv_ports_5.checked=true;
+    else
+        cf.iptv_ports_5.checked=false;
+
+
+/*
+    if(iptv_interface & 0x40)
+        cf.iptv_ports_6.checked=true;
+    else
+        cf.iptv_ports_6.checked=false;
+*/
+
+
+}
+
+function load_vlan_rule_enable()
+{   
+    var cf = document.forms[0];
+    var vlan_rule=cf.vlan_rule_name.value.split(" ");
+    var vlan_rule_enable=cf.vlan_rule_enable.value.split(" ");
+    var i = 1;
+    while(typeof vlan_rule[i] != "undefined")
+    {
+    if(i == 1)
+    {
+        if((vlan_rule_enable[i] == 1))
+        {
+            cf.vlan_tag_checked_1.checked = true;
+        }
+        else
+        {
+            cf.vlan_tag_checked_1.checked = false;
+        }
+    }
+    
+    else if(i == 2)
+    {
+        if((vlan_rule_enable[i] == 1))
+        {
+            cf.vlan_tag_checked_2.checked = true;
+        }
+        else
+        {
+            cf.vlan_tag_checked_2.checked = false;
+        }
+    }
+    
+    else if(i == 3)
+    {
+        if((vlan_rule_enable[i] == 1))
+        {
+            cf.vlan_tag_checked_3.checked = true;
+        }
+        else
+        {
+            cf.vlan_tag_checked_3.checked = false;
+        }
+    }
+    
+    else if(i == 4)
+    {
+        if((vlan_rule_enable[i] == 1))
+        {
+            cf.vlan_tag_checked_4.checked = true;
+        }
+        else
+        {
+            cf.vlan_tag_checked_4.checked = false;
+        }
+    }
+    
+    else if(i == 5)
+    {
+        if((vlan_rule_enable[i] == 1))
+        {
+            cf.vlan_tag_checked_5.checked = true;
+        }
+        else
+        {
+            cf.vlan_tag_checked_5.checked = false;
+        }
+    }
+    
+    else if(i == 6)
+    {    
+        if((vlan_rule_enable[i] == 1))
+        {
+            cf.vlan_tag_checked_6.checked = true;
+        }
+        else
+        {
+            cf.vlan_tag_checked_6.checked = false;
+        }
+    }
+    
+    else if(i == 7)
+    {  
+        if((vlan_rule_enable[i] == 1))
+        {
+            cf.vlan_tag_checked_7.checked = true;
+        }
+        else
+        {
+            cf.vlan_tag_checked_7.checked = false;
+        }
+    }
+    
+    else if(i == 8)
+    {  
+        if((vlan_rule_enable[i] == 1))
+        {
+            cf.vlan_tag_checked_8.checked = true;
+        }
+        else
+        {
+            cf.vlan_tag_checked_8.checked = false;
+        }
+    }
+    
+    else if(i == 9)
+    {  
+        if((vlan_rule_enable[i] == 1))
+        {
+            cf.vlan_tag_checked_9.checked = true;
+        }
+        else
+        {
+            cf.vlan_tag_checked_9.checked = false;
+        }
+    }
+    i++;
+    }
+
+}
+
+function check_vlan_checkbox()
+{
+    var cf = document.forms[0];
+    document.getElementById("iptv_check").style.display="none";
+    document.getElementById("vlan_check").style.display="block";
+    document.getElementById("vlan_check_button").style.display="block";
+}
+
+function check_iptv_checkbox()
+{
+    var cf = document.forms[0];
+    document.getElementById("iptv_check").style.display="block";
+    document.getElementById("vlan_check").style.display="none";
+    document.getElementById("vlan_check_button").style.display="none";
+}
+
+function vlan_iptv_enable_click()
+{
+    var cf = document.forms[0];
+    if(cf.vlan_iptv_enable.checked==true)
+    {
+        document.getElementById("vlan_iptv_check").style.display="block";    	
+        if(!cf.vlan_iptv_select[1].checked)
+        {
+            cf.vlan_iptv_select[0].checked=true;
+            document.getElementById("iptv_check").style.display="block";
+            document.getElementById("vlan_check").style.display="none";
+            document.getElementById("vlan_check_button").style.display="none";
+        }
+    }
+    else
+    {
+        document.getElementById("vlan_iptv_check").style.display="none";    	
+    }
+}
+
+function checkData()
+{
+    var cf = document.forms[0];
+    if (cf.vlan_iptv_enable.checked && cf.vlan_iptv_select[0].checked)
+    {
+        if( (!cf.iptv_ports_0.checked) && (!cf.iptv_ports_1.checked) && (!cf.iptv_ports_2.checked) &&
+            (!cf.iptv_ports_3.checked) && (!cf.iptv_ports_4.checked) && (!cf.iptv_ports_5.checked)
+/*
+            (!cf.iptv_ports_6.checked)
+*/
+            )
+        {
+            alert("<% GetMultiLangStr("genie_1070") %>");
+            return false;
+        }
+    }
+
+    if (cf.vlan_iptv_enable.checked && cf.vlan_iptv_select[0].checked)
+    {
+        if( (cf.iptv_ports_0.checked) && (cf.iptv_ports_1.checked) && (cf.iptv_ports_2.checked) &&
+            (cf.iptv_ports_3.checked) && (cf.iptv_ports_4.checked) && (cf.iptv_ports_5.checked)
+/*
+            (cf.iptv_ports_6.checked) 
+*/
+            )
+        {
+            alert("<% GetMultiLangStr("genie_265") %>");
+            return false;
+        }
+    }
+        
+}
+
+function confirmDel()
+{
+    var cf = document.forms[0];
+    var rule_name;
+    var vlan_rule=cf.vlan_rule_name.value.split(" ");
+  
+    if(cf.select.value<0)
+    {
+        alert("<% GetMultiLangStr("genie_1068") %>");
+          return false;
+    }
+    
+    if ( cf.select.value == 0)
+        rule_name = vlan_rule[0];
+    if ( cf.select.value == 1)
+        rule_name = vlan_rule[1];
+    if ( cf.select.value == 2)
+        rule_name = vlan_rule[2];
+    if ( cf.select.value == 3)
+        rule_name = vlan_rule[3];
+    if ( cf.select.value == 4)
+        rule_name = vlan_rule[4];
+    if ( cf.select.value == 5)
+        rule_name = vlan_rule[5];
+    if ( cf.select.value == 6)
+        rule_name = vlan_rule[6];
+    if ( cf.select.value == 7)
+        rule_name = vlan_rule[7];    
+    if ( cf.select.value == 8)
+        rule_name = vlan_rule[8];    
+    if ( cf.select.value == 9)
+        rule_name = vlan_rule[9];
+    if ( cf.select.value == 10)
+        rule_name = vlan_rule[10];
+        
+    if(!confirm("Remove Group " + rule_name + " ?"))
+        return false;
+    return true;    
+}
+//-->
+</script> <link rel="stylesheet" type="text/css" href="css/custom.css">
+</head>
+<body  onload="change_size();loadSettings();resize();" class="page-body"  onResize="change_size();resize();" >
+<img class="cover-image" src="img/cover-image_noh.gif">
+<img class="body-image" src="img/subhead2-background_noh.jpg">
+  <div id="full-page-container">
+
+  <form id="target"  name="vlantag" method="POST" action="/vlan.cgi">
+  <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+  <img class="subtop-image" src="img/subhead2-top_noh.gif">
+  <div class="subhead2"><% GetMultiLangStr("genie_1075") %></div>
+    <table border="0"    style="height:370px"  class="subhead2-table">
+      <tr align="left" valign="middle">
+        <!-- <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
+&nbsp;&nbsp;&nbsp;<button value="Apply"  onclick="buttonClick(this,'Apply');return checkData();"  type="submit" name="apply" id="apply" class=button-apply > <span class="roundleft_apply" ><% GetMultiLangStr("LUP004") %>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="Cancel" onclick="buttonClick(this,'Cancel');location.href='VLAN_IPTV.html'"  type="button" name="cancel" id="cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<% GetMultiLangStr("UAS021") %></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+        </td> -->
+        <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border pt-31">
+        <div class="fix_button">
+	<button value="Cancel" onclick="buttonClick(this,'Cancel');location.href='VLAN_IPTV.html'"  type="reset" name="cancel" class="button-cancel cancel_bt" ><% GetMultiLangStr("UAS021") %></button>
+	<button value="Apply"  onclick="buttonClick(this,'Apply');return checkData();"  type="submit" name="apply" class="button-apply apply_bt" ><% GetMultiLangStr("LUP004") %>&nbsp;</button>
+    </div>
+        </td>
+  </tr>
+  <tr>
+  	<td class="scrollpane-table-seperate-border" colspan="2">
+  		<div class="scroll-pane" style="height:365px;width:620px;overflow:auto;scrolling:auto">
+  			<table style="border-collapse:collapse;width:97%">
+          <!-- <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr> -->
+          <tr>
+              <td> <label class="checkbox-container">
+         	  <input type="checkbox" name="vlan_iptv_enable" value="enable" onclick="vlan_iptv_enable_click();"><% GetMultiLangStr("genie_1076") %>
+                  <span class="checkbox-checkmark"></span> 
+                  </label>
+              </td>
+          </tr>
+          <tr>
+            <td colspan="2" nowrap style="padding-left:40px" class="pt-20"> 
+              <div id="vlan_iptv_check" style="display: block;">
+                <table border="0" cellpadding="2" cellspacing="0" width="100%">
+  	              <tr>
+  	                <td>
+                          <label class="checkbox-container">
+                          <input type="radio" name="vlan_iptv_select" value="iptv_enable" onClick="check_iptv_checkbox();"><b> <% GetMultiLangStr("genie_968") %></b> 
+		          <span class="radio-checkmark"></span>
+		          </label>
+                      
+                    </td>
+                  </tr>
+               
+                  <!-- <tr> -->
+                  <!--   <td colspan="2">&nbsp;</td> -->
+                  <!-- </tr> -->
+                  <tr>
+                    <!-- <td colspan="2" nowrap style="padding-left:20px"> -->
+                    <td colspan="2" nowrap>
+                      <div id="iptv_check" style="display: block;">
+                        <table id="iptv_check_Table" class="sortable tbWhite cmn-table-2 cmn-t-3 tblchk" border="1" cellpadding="2" cellspacing="0" width="100%" style="">
+                          <tr>
+                            <td nowrap align="center"><span class="thead"><% GetMultiLangStr("genie_1011") %></span></td>
+                            <td nowrap align="center"><span class="thead"><% GetMultiLangStr("genie_1061") %></span></td>
+                          </tr>
+                          <tr>            
+                            <td>
+                              <table border="0" cellpadding="2" cellspacing="0" width="100%">
+                                <tr>            
+                                  <td align="center">
+                                  <label class="checkbox-container">
+                                    <input type="checkbox" name="iptv_ports_0" id="iptv_ports_0">Port1
+                                      <span class="checkbox-checkmark"></span> 
+                                  </label>
+                                  <label class="checkbox-container">
+                                    <input type="checkbox" name="iptv_ports_1" id="iptv_ports_1">Port2
+	                              <span class="checkbox-checkmark"></span> 
+                                  </label>
+                                  
+                                  
+                                   </td>
+                                 </tr>
+                                <tr>            
+                                  <td align="center">
+                                  <label class="checkbox-container">
+                                    <input type="checkbox" name="iptv_ports_2" id="iptv_ports_2">Port3
+	                              <span class="checkbox-checkmark"></span> 
+                                  </label>
+                                  <label class="checkbox-container">
+                                    <input type="checkbox" name="iptv_ports_3" id="iptv_ports_3">Port4
+	                              <span class="checkbox-checkmark"></span> 
+                                  </label>
+                                  
+                                  
+                                   </td>
+                                 </tr> 
+				<!-- <%1483%>
+                                 <tr>            
+                                  <td align="center">
+                                    <label class="checkbox-container">
+	 <input type="checkbox" name="iptv_ports_10">Port5
+	<span class="checkbox-checkmark"></span> 
+  </label>
+                                    
+                                   </td>
+                                 </tr> 
+								 <%1491%>
+                                 <%3813%>
+                                 <%1492%>
+                                <tr>            
+                                  <td align="center">
+                                    <input type="checkbox" name="iptv_ports_0" style="<%3805%>display: none<%3806%>">Port1
+                                    <input type="checkbox" name="iptv_ports_1">Port2
+                                    <input type="checkbox" name="iptv_ports_2">Port3
+                                   </td>
+                                 </tr>
+                                 <tr>            
+                                  <td align="center">
+                                    <input type="checkbox" name="iptv_ports_3">Port4
+                                    <input type="checkbox" name="iptv_ports_10">Port5
+                                    <input type="checkbox" name="iptv_ports_11">Port6
+                                   </td>
+                                 </tr>
+                                 <%1495%> -->
+                              </table>
+                            </td>
+                            <td>
+                              <table border="0" cellpadding="2" cellspacing="0" width="100%">
+                                <tr>            
+                                  <td align="center">
+                                    <label class="checkbox-container">
+                                    <input type="checkbox" name="iptv_ports_4" id="iptv_ports_4">WiFi-2.4G
+	                                <span class="checkbox-checkmark"></span> 
+                                    </label>
+                                    <label class="checkbox-container">
+                                    <input type="checkbox" name="iptv_ports_5" id="iptv_ports_5">WiFi-5G
+                                        <span class="checkbox-checkmark"></span> 
+                                    </label>
+                                  
+                                 
+
+                                  </td>
+                                </tr>
+
+<!--
+                                    <input type="checkbox" name="iptv_ports_6">WiFi-5G-2
+                                  </td>
+                                </tr>
+-->          
+                              </table>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+                      <td colspan="2" nowrap class="pt-10">
+                          <label class="checkbox-container">
+                              <input type="radio" name="vlan_iptv_select" id="vlan_select" value="vlan_enable" onClick="check_vlan_checkbox();"><b><% GetMultiLangStr("genie_969") %></b> 
+		              <span class="radio-checkmark"></span>
+		          </label>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td colspan="2">&nbsp;</td>
+                  </tr>
+                  <tr>
+                    <td colspan="2" style="padding-left:20px">
+                      <div id="vlan_check" style="display: block;">
+                        <table id="vlan_check_Table" class="sortable tbWhite cmn-table-2" border="1" cellpadding="2" cellspacing="0" width="100%">
+                          <tr class="table_header">
+                            <td nowrap align="center" width="6%"></td>
+                            <td nowrap align="center" width="6%"><% GetMultiLangStr("SBS026") %></span></td>
+                            <td nowrap align="center"><span class="thead"><% GetMultiLangStr("ALS015") %></span></td>
+                            <td nowrap align="center"><span class="thead"><% GetMultiLangStr("genie_271") %></span></td>
+                            <td nowrap align="center"><span class="thead"><% GetMultiLangStr("AQS040") %></span></td>
+                            <td nowrap align="center"><span class="thead"><% GetMultiLangStr("genie_1011") %></span></td>
+                            <td nowrap align="center"><span class="thead"><% GetMultiLangStr("genie_1061") %></span></td>
+                          </tr>
+                          <% GetPageCfg("VlanTagTable") %>
+                        </table>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr>
+    	              <td colspan="2" align="center">
+    	                <div id="vlan_check_button" style="display: block;">
+                        &nbsp;&nbsp;&nbsp;<button type="Submit" value="Add" name="Add" id="add" class="button-sty1" onclick="buttonClick(this,'Add');return checkData();" ><span class="roundleft_button"><span class="add-icon">&nbsp;&nbsp;&nbsp;&nbsp;<% GetMultiLangStr("OTH012") %></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+                        &nbsp;&nbsp;&nbsp;<button type="Submit" value="Edit" name="Edit" id="edit" class="button-sty1" onclick="buttonClick(this,'Edit');return checkData();" ><span class="roundleft_button"><span class="edit-icon">&nbsp;&nbsp;&nbsp;&nbsp; <% GetMultiLangStr("UAS011") %></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+                        &nbsp;&nbsp;&nbsp;<button type="Submit" value="Delete" name="Delete" id="delete" class="button-sty1" onclick="buttonClick(this,'Delete');return confirmDel();" ><span class=roundleft_button><span class="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;  <% GetMultiLangStr("UAS013") %></span></span><span class=roundright_button>&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+                      </div>
+                    </td>
+                  </tr>
+                  <tr><td>&nbsp;</td></tr>
+                </table>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colspan="2" height="12" ><div style="background-image:url('seprator.gif');width:100%;background-repeat:repeat-x;">&nbsp;</div></td>
+          </tr>
+        </table>
+      </td>
+    </tr>
+  <tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe"  src="VLAN_IPTV_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
+</table>
+      <!-- <img class="subfooter-image" src="img/subhead2-bottom.gif"> -->
+      <div class="subhead2-bottom" >
+      <!--<span class="help_ico"><img src="img/help-icon.png" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span> -->
+      <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.png" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
+      <span class="subhead2-text help_center_text" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"></span>
+      <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"><% GetMultiLangStr("genie_51") %></span>
+      <span class="button-help-arrow">
+      <img src="img/helparrowdown-icon.png" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
+      <span class="subhead2-text help_right_text" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_123") %> </span>
+      <!-- <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"><% GetMultiLangStr("genie_123") %></span> -->
+    </div>
+	  
+<input type="hidden" name="select" value="-1">
+<INPUT name="vlan_enable" type="hidden" value= "<% GetPageCfg("vlanEnable") %>">
+<INPUT name="iptv_enable" type="hidden" value= "<% GetPageCfg("iptvEnable") %>">
+<INPUT name="iptv_interfaces" type="hidden" value= "<% GetPageCfg("iptvInterface") %>">
+<input type="hidden" name="vlan_rule_name" value="<% GetPageCfg("VlanRuleName") %>">
+<input type="hidden" name="vlan_rule_enable" value="<% GetPageCfg("VlanRuleEnable") %>">
+<INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+<a name="helpframe-anchor"></a>
+  </form>
+  </div>
+</body>
+ <head>
+  <META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+</head>
+
+</html>
+

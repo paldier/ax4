@@ -1,0 +1,14 @@
+#!/bin/sh /etc/rc.common
+
+/etc/preinit.d/scapi_utils.sh
+USE_PROCD=1
+START=11
+
+start_service() {
+        insmod /lib/modules/3.10.104/tun.ko
+        procd_open_instance
+        procd_set_param command openvpn /tmp/openvpn/server_tun.conf
+        procd_set_param respawn
+        procd_close_instance
+}
+

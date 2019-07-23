@@ -1,0 +1,549 @@
+<html style="width:550px">
+  
+<head>
+  <META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+ 
+  <script type="text/javascript" src="jquery.js"></script>
+  <script type="text/javascript">
+    var adjustPageHeight;
+    var page_contain_width;
+    var page_contain_height;
+  
+  $(document).ready(function(){
+      
+    var form=document.forms[0];
+    var gui_region = form.curlang.value;
+    adjustPageHeight = parent.adjustPageHeight;
+    page_contain_width = parent.document.body.clientWidth-270 > 735 ? parent.document.body.clientWidth-270 : 735;   
+    page_contain_height = parent.document.documentElement.clientHeight-160 > 470+adjustPageHeight ? parent.document.documentElement.clientHeight-160 : 470+adjustPageHeight;
+
+    
+      setInternetState();
+      setWirelessState();
+      setAttachedDevicesState();
+      setParentalControlsState();
+      setReadyShareState();
+      setGuestNetworkState();
+      
+      run_marquee();
+      
+      
+      $('.subtext').each(function(){
+         if(gui_region=="Chinese"){
+             $(this).addClass("subtext_pr"); 
+         }else{
+             $(this).removeClass("subtext_pr"); 
+         }
+         if(gui_region=="Japanese"){
+             $(this).addClass("font-family_jp"); 
+         }else{
+             $(this).removeClass("font-family_jp"); 
+         }
+         if(gui_region=="Japanese"){
+            if($(this).text().length >= 9){           
+                $(this).css("font-size","17"); 
+                $(this).css("position","relative"); 
+                $(this).css("top","6px");
+            }else{
+                $(this).css("font-size","20"); 
+            }         
+         }else{
+            if($(this).text().length >= 16){           
+                $(this).css("font-size","15"); 
+                $(this).css("position","relative"); 
+                $(this).css("top","6px");
+            }else{
+                $(this).css("font-size","20"); 
+            }
+         }
+     });
+
+    $('.Status-normal').each(function(){
+         if(gui_region=="Japanese"){
+             $(this).addClass("font-family_jp"); 
+         }else{
+             $(this).removeClass("font-family_jp"); 
+         }
+     });
+    $('.Status-unnormal').each(function(){
+         if(gui_region=="Japanese"){
+             $(this).addClass("font-family_jp"); 
+         }else{
+             $(this).removeClass("font-family_jp"); 
+         }
+     });
+    $('.Condition-normal').each(function(){
+         if(gui_region=="Japanese"){
+             $(this).addClass("font-family_jp"); 
+         }else{
+             $(this).removeClass("font-family_jp"); 
+         }
+     });
+    $('.Condition-unnormal').each(function(){
+         if(gui_region=="Japanese"){
+             $(this).addClass("font-family_jp"); 
+         }else{
+             $(this).removeClass("font-family_jp"); 
+         }
+     });
+    $('.Status-wireless-normal  ').each(function(){
+         if(gui_region=="Japanese"){
+             $(this).addClass("font-family_jp"); 
+         }else{
+             $(this).removeClass("font-family_jp"); 
+         }
+     });
+    $('.Status-wireless-unnormal').each(function(){
+         if(gui_region=="Japanese"){
+             $(this).addClass("font-family_jp"); 
+         }else{
+             $(this).removeClass("font-family_jp"); 
+         }
+     });
+     
+     function setInternetState()
+     {
+         var Internet_Result = <% GetPageCfg("Internet_Result") %>;
+ 
+         if(Internet_Result == 0){
+            
+         }else{
+             $('#Internet_head').addClass('error-head'); 
+             $('#Internet_bottom').addClass('error-bottom');
+             $('#Internet-status').addClass('Status-unnormal'); 
+         }
+        
+        if("BAS_basic.htm" != "") {
+            if(Internet_Result == 0){
+                $('#Internet').click(function(ev){ 
+                    location.href = "BAS_basic.html";
+                    
+                    parent.$('#page').width(parseInt(page_contain_width));
+                    parent.$('#page').height(parseInt(page_contain_height));
+                    $('#page').css("margin-top","0");
+                    $('#page').css("margin-left","30"); 
+                    
+                    parent.$('.menuActive').removeClass('menuActive');
+                    parent.$('#basic-int').addClass('menuActive'); 
+                });
+                parent.$('#INT_menu').attr("href","BAS_basic.html");
+            }else if(Internet_Result == 1){
+                $('#Internet').click(function(ev){ 
+                    location.href = "genie_down.html";
+                    
+                    parent.$('#page').width(parseInt(page_contain_width));
+                    parent.$('#page').height(parseInt(page_contain_height));
+                    parent.$('#page').css("margin-top","0");
+                    parent.$('#page').css("margin-left","30");
+                    
+                    parent.$('.menuActive').removeClass('menuActive');
+                    parent.$('#basic-int').addClass('menuActive');
+
+                });
+                parent.$('#INT_menu').attr("href","genie_down.html");
+            }else{
+                $('#Internet').click(function(ev){ 
+                    location.href = "BAS_basic.html";
+                    
+                    parent.$('#page').width(parseInt(page_contain_width));
+                    parent.$('#page').height(parseInt(page_contain_height));
+                    parent.$('#page').css("margin-top","0");
+                    parent.$('#page').css("margin-left","30");
+                    
+                    parent.$('.menuActive').removeClass('menuActive');
+                    parent.$('#basic-int').addClass('menuActive');
+
+                });
+                parent.$('#INT_menu').attr("href","BAS_basic.html");
+            }               
+        }
+                                 
+     }
+
+     function setWirelessState()
+     {
+          var Wireless_Radio_Result = "<% GetPageCfg("BasicHome_wifi_Wireless_Radio_Result") %>";
+          var Wireless_Security_Result = "<% GetPageCfg("BasicHome_wifi_Wireless_Security_Result") %>";   
+          var Wireless_Result=0;
+          var Wireless_Link_Result=0;
+          if(Wireless_Radio_Result == "none"){
+              Wireless_Result = 1;
+              Wireless_Link_Result=1;
+          }else if(Wireless_Security_Result == "none"){
+              Wireless_Result = 1;
+          }else if(Wireless_Radio_Result == Wireless_Security_Result){
+              Wireless_Result = 0;
+          }else if(Wireless_Radio_Result=="both" && Wireless_Security_Result!="none"){
+              Wireless_Result = 0;
+          }else if(Wireless_Security_Result=="both"){
+              if(Wireless_Radio_Result != "none"){
+                  Wireless_Result = 0;                  
+              }else{
+                  Wireless_Result = 1; 
+              }
+          }else if(Wireless_Radio_Result != Wireless_Security_Result){
+              Wireless_Result = 1;
+          }
+
+          if(Wireless_Result == 0){
+       
+          }else{
+              $('#Wireless_head').addClass('warning-head');                    
+              $('#Wireless_bottom').addClass('warning-bottom');
+              $('#Wireless-status').addClass('Status-wireless-unnormal');             
+          }
+			if(document.forms[0].sta_mode.value!=1){
+            if(Wireless_Link_Result == 0){
+                $('#Wireless').click(function(ev){  
+                    location.href = "WLG_wireless_dual_band_r10.html";
+                    
+                    parent.$('#page').width(parseInt(page_contain_width));
+                    parent.$('#page').height(parseInt(page_contain_height));
+                    parent.$('#page').css("margin-top","0");
+                    parent.$('#page').css("margin-left","30");
+                    
+                    parent.$('.menuActive').removeClass('menuActive');
+                    parent.$('#basic-wls').addClass('menuActive');   
+                });
+                parent.$('#WLS_menu').attr("href","WLG_wireless_dual_band_r10.html");
+            }else if(Wireless_Link_Result == 1){
+                
+                $('#Wireless').click(function(ev){  
+                    location.href = "WLG_adv_dual_band2.html";
+            
+                    parent.$('#page').width(parseInt(page_contain_width));
+                    parent.$('#page').height(parseInt(page_contain_height));
+                    parent.$('#page').css("margin-top","0");
+                    parent.$('#page').css("margin-left","30");                    
+               
+                    parent.$('.menuActive').removeClass('menuActive');
+                    parent.$('#basic-wls').addClass('menuActive');
+   
+
+                });
+                parent.$('#WLS_menu').attr("href","WLG_adv_dual_band2.html");
+
+            }
+			}
+
+
+     }
+
+     function setAttachedDevicesState()
+     {
+          
+          var AttachedDevices_Result = "";
+          var iqos_clicked=0;                    
+
+          $('#AttachedDevices').click(function(ev){
+              if(!iqos_clicked){
+              location.href = "DEV_redirect.html";
+              parent.$('#page').width(parseInt(page_contain_width));
+              parent.$('#page').height(parseInt(page_contain_height));
+              parent.$('#page').css("margin-top","0");
+              parent.$('#page').css("margin-left","30");
+             
+              parent.$('.menuActive').removeClass('menuActive');
+              parent.$('#basic-atd').addClass('menuActive'); 
+              }
+          });
+          if(document.forms[0].ap_mode.value!=1){                
+              $('#iqos_1').click(function(ev){     
+                  iqos_clicked=1;
+                  location.href = "QOS_down_streaming.html";
+                  
+                  parent.$('#page').width(parseInt(page_contain_width));
+                  parent.$('#page').height(parseInt(page_contain_height));
+                  parent.$('#page').css("margin-top","0");
+                  parent.$('#page').css("margin-left","30");
+                 
+                  parent.$('.menuActive').removeClass('menuActive');
+                  parent.$('#basic-qos').addClass('menuActive'); 
+              });
+          }
+       
+      }
+
+      function setParentalControlsState()
+     {
+          var ParentalControls_Result = 1;
+                     
+          var support = <% GetPageCfg("ParentalControlsState") %>;
+          
+
+		  
+          if(ParentalControls_Result == 2)
+              $('#ParentalControls-condition').text("Circle ENABLED"); 
+          else if(ParentalControls_Result == 1)
+          {
+          	  if(support == 1)
+                  $('#ParentalControls-condition').text("Standard ENABLED");
+              else
+                  $('#ParentalControls-condition').text("<% GetMultiLangStr("genie_87") %>");
+              
+          }else{ 
+              $('#ParentalControls-condition').text("<% GetMultiLangStr("genie_87") %>"); 
+          } 
+          
+          if("BAS_basic.htm" != ""){
+              if(support == 0){
+                  $('#ParentalControls').click(function(ev){     
+                       window.open("http://www.netgear.com/lpc",'_blank','fullscreen=yes,toolbar=yes,location=yes,scrollbars=yes');                      
+                  });         
+                  //location.href = "Parental_controls.html";
+                  parent.$('#PAR_menu').attr("href","Parental_controls.html"); 
+                  parent.$('#PAR_menu2').attr("href","Parental_controls.html");             
+              }else{ 
+                  if(ParentalControls_Result == 0){
+                      $('#ParentalControls').click(function(ev){  
+                           //location.href = "Parental_controls.html";
+                           window.open("http://www.netgear.com/lpc",'_blank','fullscreen=yes,toolbar=yes,location=yes,scrollbars=yes');
+                           parent.$('.menuActive').removeClass('menuActive');
+                           parent.$('#basic-par').addClass('menuActive');    
+                      });
+                      parent.$('#PAR_menu').attr("href","Parental_controls.html"); 
+                      parent.$('#PAR_menu2').attr("href","Parental_controls.html");
+                  }else{
+                      $('#ParentalControls').click(function(){
+                          window.open("http://netgear.opendns.com/",'_blank','fullscreen=yes,toolbar=yes,location=yes,scrollbars=yes');
+                          //location.href = "Parental_controls.html";
+                          parent.$('.menuActive').removeClass('menuActive');
+                          parent.$('#basic-par').addClass('menuActive');    
+                      });
+                      parent.$('#PAR_menu').attr("href","Parental_controls.html"); 
+                      parent.$('#PAR_menu2').attr("href","Parental_controls.html");
+                  }
+              }
+         }
+         
+          /*
+          if(support == 0){
+              $('#ParentalControls-condition').text("NOT SUPPORTED"); 
+          }else{ 
+              if(ParentalControls_Result == 1){
+                  $('#ParentalControls-condition').text("ENABLED");
+              }else{
+                  $('#ParentalControls-condition').text("NOT ENABLED");
+              }
+          } 
+          if("BAS_basic.htm" != ""){
+              if(support == 0){
+                  $('#ParentalControls').click(function(ev){     
+                       window.open("http://www.netgear.com/ lpc",'_blank','fullscreen=yes,toolbar=yes,location=yes,scrollbars=yes');                      
+                  });         
+                  parent.$('#PAR_menu').attr("href","http://www.netgear.com/lpc"); 
+                  parent.$('#PAR_menu2').attr("href","http://www.netgear.com/lpc");             
+              }else{ 
+                  if(ParentalControls_Result == 0){
+                      $('#ParentalControls').click(function(ev){  
+                           window.open("http://www.netgear.com/lpc",'_blank','fullscreen=yes,toolbar=yes,location=yes,scrollbars=yes');
+                           parent.$('.menuActive').removeClass('menuActive');
+                           parent.$('#basic-par').addClass('menuActive');    
+                      });
+                      parent.$('#PAR_menu').attr("href","http://www.netgear.com/lpc"); 
+                      parent.$('#PAR_menu2').attr("href","http://www.netgear.com/lpc");
+                  }else{
+                      $('#ParentalControls').click(function(){
+                          window.open("http://netgear.opendns.com/",'_blank','fullscreen=yes,toolbar=yes,location=yes,scrollbars=yes');
+                          parent.$('.menuActive').removeClass('menuActive');
+                          parent.$('#basic-par').addClass('menuActive');    
+                      });
+                      parent.$('#PAR_menu').attr("href","http://netgear.opendns.com/"); 
+                      parent.$('#PAR_menu2').attr("href","http://netgear.opendns.com/");
+                  }
+              }
+         }  
+          */
+  
+
+              
+         
+      }
+
+      function setReadyShareState()
+     {
+          var ReadyShare_Result = <% GetPageCfg("ReadyShareResult") %>;
+          
+          if(ReadyShare_Result == 1){
+              $('#ReadyShare-condition').text("<% GetMultiLangStr("genie_106") %>");
+          }else{
+              $('#ReadyShare-condition').text("<% GetMultiLangStr("genie_82") %>");
+          }
+
+          $('#ReadyShare').click(function(ev){     
+              location.href = "USB_basic_main.html";
+              
+              parent.$('#page').width(parseInt(page_contain_width));
+              parent.$('#page').height(parseInt(page_contain_height));
+              parent.$('#page').css("margin-top","0");
+              parent.$('#page').css("margin-left","30");
+              
+              parent.$('.menuActive').removeClass('menuActive');
+              parent.$('#basic-rea').addClass('menuActive');   
+
+          });
+          
+               
+      }
+
+       function setGuestNetworkState()
+     {
+          var GuestNetwork_Result = "";
+           if(document.forms[0].sta_mode.value!=1){                
+          $('#GuestNetwork').click(function(ev){     
+            location.href = "WLG_wireless_dual_band_2.html";
+           
+            parent.$('#page').width(parseInt(page_contain_width));
+            parent.$('#page').height(parseInt(page_contain_height));
+            parent.$('#page').css("margin-top","0");
+            parent.$('#page').css("margin-left","30");
+          
+            parent.$('.menuActive').removeClass('menuActive');
+            parent.$('#basic-gst').addClass('menuActive');  
+
+          });
+          }
+         
+                   
+      }      
+           
+  });
+  </script>
+  <link href="css/custom.css" rel="stylesheet" type="text/css">
+  </head>
+  <body style="background-color:#fff;margin:0;padding:0;width:605px;height:405px;">
+         <table CELLSPACING="15" CELLPADDING="0">
+         <tr>
+         <td class="basic_home_icon" id="Internet">
+             <div>
+                <div class="top-spacing"><span style="display:-moz-inline-box;display:inline-block;width:20px;height:100%;">&nbsp;</span><span style="height:100%;display:-moz-inline-box;display:inline-block;width:30px;" id="Internet_head">&nbsp;</span></div>
+             </div>
+              <div class="icon-top">
+                  <div class="icon-top-inside"><div style="height: 61px;width: 50px;"><div id="internet_icon"></div></div><br><span class="subtext" style="font-size:15px;position:relative;top:6px;"><% GetMultiLangStr("genie_69") %></span></div> 
+             </div>
+             <div style="height:41px;width:192px;background-image:url('DashBackBottom.gif'); background-repeat: no-repeat;align:center">
+                   <div id="Internet_bottom" class="normal-bottom">
+                        <table class="caption-1line">
+                        <tr>
+                        <td id="internet1" style="valign:middle;text-align:center">
+                        <% GetPageCfg("Internet-status") %>
+                        </td>
+                        <td id="internet2"></td>
+                        </tr>
+                        </table>
+                  </div>
+             </div>
+         </td>
+         
+          <td class="basic_home_icon" id="Wireless">
+             <div>
+                <div class="top-spacing"><span style="display:-moz-inline-box;display:inline-block;width:20px;height:100%;">&nbsp;</span><span style="height:100%;display:-moz-inline-box;display:inline-block;width:30px;" id="Wireless_head">&nbsp;</span></div>
+             </div>
+              <div class="icon-top">
+                  <div class="icon-top-inside"><div id="wireless_icon"></div><span class="subtext" style="font-size:15px;position:relative;top:9px;"><% GetMultiLangStr("genie_154") %></span></div> 
+             </div>
+             <div style="height:36px;width:192px;background-image:url('DashBackBottom.gif'); background-repeat: no-repeat;align:center;padding-top:5px;">
+                   <div id="Wireless_bottom" class="normal-bottom" style="height:125%">
+                        <table style="width:100%;height:100%" CELLPADDING=0 CELLSPACING=0>
+                        <% GetPageCfg("BasicHome_wifi_pri") %>
+                        </table>
+                   </div>
+             </div>
+         </td>
+          <td class="basic_home_icon" id="AttachedDevices">
+             <div>
+                <div class="top-spacing"><span style="display:-moz-inline-box;display:inline-block;width:20px;height:100%;">&nbsp;</span><span style="height:100%;display:-moz-inline-box;display:inline-block;width:30px;" id="AttachedDevices-head">&nbsp;</span></div>
+             </div>
+              <div class="icon-top">
+                  <div class="icon-top-inside"><div style="height: 61px;width: 50px;"><div id="attached"></div></div><br><span class="subtext" style="font-size:15px;position:relative;top:6px;"><% GetMultiLangStr("LUP023") %></span></div> 
+             </div>
+             <div style="height:36px;padding-top:5px;">
+                   <div id="AttachedDevices-bottom" class="normal-bottom" style="height:120%;"><table style="width:100%;height:100%">
+                        <tr>
+                        <td id="attached1" style="valign:middle;text-align:center">
+							<span id="AttachedDevices-status" class="Status-normal"><% GetMultiLangStr("genie_89") %> :&nbsp;&nbsp;&nbsp;<span id="AttachedDevices-condition" class="Condition-normal"><% GetPageCfg("Num_AttachedDevices") %></span></span>
+                        </td>
+                        <td id="attached2"></td>
+                        </tr>
+                        <tr>
+                        <td id="iqos_1" style="valign:middle;text-align:center">
+							<span id="qos-status" class="Status-normal">QoS :&nbsp;&nbsp;&nbsp;<span id="qos-condition" class="Condition-normal"><% GetPageCfg("DqosState") %></span></span>
+                        </td>
+                        <td id="iqos_2"></td>
+                        </tr>
+                        </table></div>
+             </div>
+         </td>
+         </tr>
+         <tr>
+         <td class="basic_home_icon" id="ParentalControls">
+             <div>
+                <div class="top-spacing"><span style="display:-moz-inline-box;display:inline-block;width:20px;height:100%;">&nbsp;</span><span style="height:100%;display:-moz-inline-box;display:inline-block;width:30px;" id="ParentalControls-head">&nbsp;</span></div>
+             </div>
+              <div class="icon-top">
+                  <div class="icon-top-inside"><div style="height: 56px;width: 50px;"><div id="parental"></div></div><br><span class="subtext"><% GetMultiLangStr("genie_92") %></span></div> 
+             </div>
+             <div style="height:41px;width:192px;background-image:url('DashBackBottom.gif'); background-repeat: no-repeat;align:center">
+                   <div id="ParentalControls-bottom" class="normal-bottom"><table class="caption-1line">
+                        <tr>
+                        <td id="parental1" style="valign:middle;text-align:center">
+							<span id="ParentalControls-status" class="Status-normal"><% GetMultiLangStr("D-genie_25") %>:&nbsp;&nbsp;&nbsp;<span id="ParentalControls-condition" class="Condition-normal"></span></span>
+                        </td>
+                        <td id="parental2"></td>
+                        </tr>
+                        </table>
+                        </div>
+             </div>
+         </td>
+         <td class="basic_home_icon" id="ReadyShare" >
+             <div>
+                <div class="top-spacing"><span style="display:-moz-inline-box;display:inline-block;width:20px;height:100%;">&nbsp;</span><span style="height:100%;display:-moz-inline-box;display:inline-block;width:30px;" id="ReadyShare-head" >&nbsp;</span></div>
+             </div>
+              <div class="icon-top">
+                 <div class="icon-top-inside"><div style="height: 59px;width: 50px;"><div id="readyShare_icon"></div></div><br><span class="subtext" style="font-size:15px;position:relative;top:3px;"><% GetMultiLangStr("genie_811") %></span></div> 
+             </div>
+             <div style="height:41px;width:192px;background-image:url('DashBackBottom.gif'); background-repeat: no-repeat;align:center">
+                   <div  id="ReadyShare-bottom" class="normal-bottom" ><table class="caption-1line">
+                   <tr>
+				       <td id="readyshare1" style="valign:middle;text-align:center"><span id="ReadyShare-status" class="Status-normal" ><% GetMultiLangStr("D-genie_25") %>:&nbsp;&nbsp;&nbsp;<span id="ReadyShare-condition" class="Condition-normal"></span></span></td>
+                    <td id="readyshare2"></td>
+                    </tr></table></div>
+             </div>
+         </td>
+          <td class="basic_home_icon" id="GuestNetwork">
+             <div>
+                <div class="top-spacing"><span style="display:-moz-inline-box;display:inline-block;width:20px;height:100%;">&nbsp;</span><span style="height:100%;display:-moz-inline-box;display:inline-block;width:30px;">&nbsp;</span></div>
+             </div>
+              <div class="icon-top">
+                  <div class="icon-top-inside"><div style="height: 59px;width: 50px;"><div id="guest"></div></div><br><span class="subtext" style="font-size:15px;position:relative;top:3px;"><% GetMultiLangStr("LUP010") %></span></div>
+             </div>
+             <div style="height:41px;width:192px;background-image:url('DashBackBottom.gif'); background-repeat: no-repeat;align:center">               
+                   <div id="GuestNetwork-bottom" class="normal-bottom"><table class="caption-1line" CELLPADDING="0" CELLSPACING="0"><% GetPageCfg("BasicHome_wifi_guest") %></table>
+                   </div>
+             </div>
+         </td>
+         </tr>
+         </table> 
+         <form>
+          <input type="hidden" name="curlang" value="English">  
+          <input type="hidden" name="sta_mode" value="0">  
+          <input type="hidden" name="ap_mode" value="0">  
+         </form>
+  </body>
+ <head>
+  <META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+</head> 
+</html>

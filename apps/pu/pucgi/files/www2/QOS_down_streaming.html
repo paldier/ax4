@@ -1,0 +1,2506 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title> 
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+<link rel="stylesheet" type="text/css" href="css/qos_tabs.css">
+<link rel="stylesheet" type="text/css" href="css/mainpage.css">
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<STYLE TYPE="text/javascript">
+classes.num.all.fontFamily = "Courier";
+classes.num.all.fontSize = "10pt" ;
+</style>
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!--
+//
+  
+    $(document).ready(function()
+    {	
+      var cf = document.forms[0];
+//    $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+      $("#target").submit(function() {
+          buttonFilter();
+      });
+      
+      if ((cf.enable_apmode.value == "0") && (cf.enable_stamode.value == "0")) {
+          $("ul.tabs").tabs("> .pane");     
+      }
+  	
+      if(cf.enable_apmode.value == "1" || cf.enable_stamode.value == "1") {   
+       // $('#WMMTab').css("background","url(img/qos-tab-active.gif) no-repeat 0");
+       // $("#UpstreamTab").css("background","url(img/qos-tab-active.gif) no-repeat 0");   
+        $("#UpstreamTab").css("color","#B1B1B1");
+        $("#UpstreamTab").css("cursor","default"); 			
+        $("#wmm-pane").show();
+        $("#WMMTab").click();
+        $("#upstream-pane").hide();  
+      } else if(cf.apply_page.value=="WMM") {   
+       // $('#WMMTab').css("background","url(img/qos-tab-active.gif) no-repeat 0");
+       // $("#UpstreamTab").css("background","url(img/qos-tab-nonactive.gif) no-repeat 0");   
+        $("#wmm-pane").show();
+        $("#WMMTab").click();
+        $("#upstream-pane").hide();  
+      } else if(cf.apply_page.value=="UP_QOS") {
+       // $('#WMMTab').css("background","url(img/qos-tab-nonactive.gif) no-repeat 0");
+       // $("#UpstreamTab").css("background","url(img/qos-tab-active.gif) no-repeat 0");   
+        $("#wmm-pane").hide();
+        $("#upstream-pane").show();  
+        $("#UpstreamTab").click();
+      } else {
+      //  $('#WMMTab').css("background","url(img/qos-tab-nonactive.gif) no-repeat 0");
+      //  $("#UpstreamTab").css("background","url(img/qos-tab-active.gif) no-repeat 0");   
+        $("#wmm-pane").hide();
+        $("#upstream-pane").show();  
+        $("#UpstreamTab").click();
+		  }
+      liveMenuClick();
+      $('.subHeader').hide();
+ 
+    });
+
+    var qosType;
+    var skipHelpFile=0;
+    function setHelpIframeVisible(){
+        $('.help-frame-div').css("visibility","visible");
+    }
+
+    function showHelpIframe() {
+
+      var imgSrc=document.getElementById('help-button');
+			getQosHelpFile();
+			if(skipHelpFile == 1)
+			{
+			    $(".help-frame-div").hide();
+			    imgSrc.src="img/helparrowup-icon.png";
+			    setTimeout(setHelpIframeVisible,500);
+			    skipHelpFile = 0;
+			}
+			else
+			{
+			    if(imgSrc.src.search("up")>=0)
+			    {
+			        $(".help-frame-div").show();
+			        imgSrc.src="img/helparrowdown-icon.png";
+			    }
+			    else
+			    {
+			        $(".help-frame-div").hide();
+			        imgSrc.src="img/helparrowup-icon.png";
+			        setTimeout(setHelpIframeVisible,500);
+			    }
+      }
+      change_size();
+
+    }
+
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+    function loadhelp(fname,anchname)
+    {
+                var pane = window.frames["helpframe"].$('#content');
+                var imgSrc=document.getElementById('help-button');
+                change_size();
+                if(imgSrc.src.search("up")<0)
+                {
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+                        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.html";
+                                $(".help-frame-div").show();
+                        }
+                        else
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.html#" + anchname;
+                                $(".help-frame-div").show();
+                        }
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+                }
+                change_size();
+    }
+
+
+
+
+function checkMenuDisable()
+{	//alert("2");
+    var basic_page = document.getElementById('page').contentWindow;
+    var advanced_page = document.getElementById('page2').contentWindow;
+
+	try {
+		if(basic_page.document.getElementsByName("disable_menu")[0]) {
+			dieMenuClick();
+			setTimeout('checkMenuDisable()',1500); 
+		} else if(advanced_page.document.getElementsByName("disable_menu")[0]) {
+			dieMenuClick();
+			setTimeout('checkMenuDisable()',1500); 
+		} else {
+			liveMenuClick();
+		}
+	}
+    catch (e){
+		liveMenuClick();
+	}
+}
+
+function dieMenuClick()
+{	//alert("3");
+    $('.noSub').die("click");
+    $('.noSubLarge').die("click");
+    $('.noSubActive').die("click");
+    $('.noSubActiveLarge').die("click");
+    $('.SubMenu').die("click");
+    $('.SubMenuLarge').die("click");
+    $('.SubMenuActive').die("click");
+    $('.SubMenuActiveLarge').die("click");
+
+    $("#WMMTab").die("click");
+    $("#UpstreamTab").die("click");
+    $('.basic-menu-div').die("click");
+    
+    $('.basic-menu-div').live("click", function(ev){ 
+        return false;
+    });
+    $('.noSub , .noSubLarge , .noSubActive, .noSubActiveLarge').live("click", function(ev){ 
+        return false;
+    }); 
+ 
+    return true;
+}
+
+function liveMenuClick()
+{	
+	var cf = document.forms[0];
+	$('#WMMTab').live("click", function(ev){
+	    if ((cf.enable_apmode.value == "1") || (cf.enable_stamode.value == "1")) {
+		  $("#upstream-pane").hide();  
+		  $("#wmm-pane").show(); 
+		  //$('.subHeader').hide(); 
+		 // $(this).css("background","url(img/qos-tab-active.gif) no-repeat 0");                       
+		//  $("#UpstreamTab").css("background","url(img/qos-tab-active.gif) no-repeat 0");    
+		  cf.apply_page.value = "UP_QOS";
+		  qosType ="QOS_UP_QOS_h.html";
+		  skipHelpFile = 1;
+		  showHelpIframe();
+		}else{
+		  $("#upstream-pane").hide();  
+		  $("#wmm-pane").show(); 
+	//	$(this).css("background","url(img/qos-tab-active.gif) no-repeat 0");
+	//	$("#UpstreamTab").css("background","url(img/qos-tab-nonactive.gif) no-repeat 0");    
+		cf.apply_page.value = "WMM";
+		qosType ="QOS_WMM_h.html";
+		skipHelpFile = 1;
+		showHelpIframe();
+		}
+	});
+	$('#UpstreamTab').live("click", function(ev){         
+    if ((cf.enable_apmode.value == "0") && (cf.enable_stamode.value == "0")) {
+      $("#upstream-pane").show();  
+		  $("#wmm-pane").hide(); 
+
+		  //$('.subHeader').hide(); 
+		//  $(this).css("background","url(img/qos-tab-active.gif) no-repeat 0");                       
+		 // $("#WMMTab").css("background","url(img/qos-tab-nonactive.gif) no-repeat 0");     
+		  cf.apply_page.value = "UP_QOS";
+		  qosType ="QOS_UP_QOS_h.html";
+		  skipHelpFile = 1;
+		  showHelpIframe();
+		}
+	});
+
+	return 0;
+}
+
+function check_mac()
+{
+    var cf = document.forms[0];
+    var msg = "";
+    var m1;
+    var mac = cf.qos_mac_address.value.split(":");
+        
+    cf.mac1.value = mac[0];
+    cf.mac2.value = mac[1];
+    cf.mac3.value = mac[2];
+    cf.mac4.value = mac[3];
+    cf.mac5.value = mac[4];
+    cf.mac6.value = mac[5];
+    if(checkMacAddress(cf.mac1, cf.mac2, cf.mac3, cf.mac4, cf.mac5, cf.mac6))
+        msg += "<% GetMultiLangStr("AAWE06") %>\n";
+    else if (cf.mac1.value == "00" && cf.mac2.value == "00" && cf.mac3.value == "00" && 
+        cf.mac4.value == "00" && cf.mac5.value == "00" && cf.mac6.value == "00")
+        msg += "<% GetMultiLangStr("AAWE06") %>\n";
+    else if (cf.mac1.value == "FF" && cf.mac2.value == "FF" && cf.mac3.value == "FF" && 
+        cf.mac4.value == "FF" && cf.mac5.value == "FF" && cf.mac6.value == "FF")
+        msg += "<% GetMultiLangStr("AAWE06") %>\n";
+    else{
+        m1 = parseInt(cf.mac1.value, 16);
+        if (m1 & 1)
+            msg += "<% GetMultiLangStr("AAWE06") %>\n";
+    }
+    if (msg.length > 1) {
+        alert(msg);
+        return false;
+    }
+    return true;
+}
+
+
+function qosTypeClick()
+{
+    var cf = document.forms[0];
+    if (cf.qosTypeSelect[1].checked==true)
+	  {
+        
+        document.getElementById("manual_upstream").style.display="none";
+        document.getElementById("dynamic_upstream").style.display="block";
+	  }
+	  else
+	  {
+        document.getElementById("manual_upstream").style.display="block";
+        document.getElementById("dynamic_upstream").style.display="none";		      
+ 	  }
+}
+
+function checkQosMode()
+{
+    var cf = document.forms[0];
+    if (cf.quick_qos_mode_value.value == "0")  
+    {
+        cf.quick_qos_mode[0].checked = true;
+        document.getElementById("qos_rule_mode").style.display="block";
+        document.getElementById("qos_fast_track").style.display="none";
+        if (cf.quick_qos_rule_value.value == "0")
+        {
+            cf.quick_qos_rule[0].checked = true;
+            document.getElementById("qos_by_service").style.display="block";
+            document.getElementById("qos_by_device").style.display="none";
+            document.getElementById("qos_service_rule").style.display="block";
+            document.getElementById("qos_device_rule").style.display="none";
+        }
+        else
+        {
+            cf.quick_qos_rule[1].checked = true; 
+            document.getElementById("qos_by_device").style.display="block";
+            document.getElementById("qos_by_service").style.display="none";
+            document.getElementById("qos_device_rule").style.display="block";
+            document.getElementById("qos_service_rule").style.display="none";
+        }
+    }
+    else
+    {
+        cf.quick_qos_mode[1].checked = true; 
+        document.getElementById("qos_fast_track").style.display="block";
+        document.getElementById("qos_rule_mode").style.display="none";
+        document.getElementById("qos_by_service").style.display="none";
+        document.getElementById("qos_by_device").style.display="none";
+        document.getElementById("qos_service_rule").style.display="none";
+        document.getElementById("qos_device_rule").style.display="none";
+    }
+    return true;
+}
+
+
+
+function add_service_rule()
+{
+    var cf = document.forms[0];
+    if(cf.serviceList.value == "qos_add_application")
+    {
+        cf.add_new_service.value = "1";
+        buttonFilter();
+        cf.submit();
+    }
+    else
+        cf.add_new_service.value = "0";
+    return true;
+}
+
+
+function getQosHelpFile()
+{
+
+	if(qosType == "QOS_UP_QOS_h.html")
+	{
+		document.getElementById("qosHelpFile").innerHTML="<iframe id=helpframe  src=QOS_UP_QOS_h.html class=help-iframe scrolling=no name=helpframe frameborder=0  ></iframe>";
+
+	}else if (qosType == "QOS_DOWN_QOS_h.html")
+	{
+		document.getElementById("qosHelpFile").innerHTML="<iframe id=helpframe  src=QOS_DOWN_QOS_h.html class=help-iframe scrolling=no name=helpframe frameborder=0  ></iframe>";
+
+	}else if (qosType == "QOS_WMM_h.html")
+	{
+		document.getElementById("qosHelpFile").innerHTML="<iframe id=helpframe  src=QOS_WMM_h.html class=help-iframe scrolling=no name=helpframe frameborder=0  ></iframe>";	
+
+	}else
+	{
+		document.getElementById("qosHelpFile").innerHTML="<iframe id=helpframe  src=QOS_UP_QOS_h.html class=help-iframe scrolling=no name=helpframe frameborder=0  ></iframe>";
+
+	}
+}
+function loadSettings(onCancelClick)
+{
+    var cf = document.forms[0];
+
+    if(cf.WMM_value_2g.value == "1")
+        cf.wmm_enable_2g.checked = true;
+    else
+        cf.wmm_enable_2g.checked = false;
+
+    if(cf.WMM_value_5g.value == "1")
+        cf.wmm_enable_5g.checked = true;
+    else
+        cf.wmm_enable_5g.checked = false;
+
+  
+    if (cf.qos_dynamic_enable.value == "1" || cf.qos_manual_enable.value == "1")
+    {
+        cf.qosEnable.checked = true;
+        if (cf.qos_dynamic_enable.value == "1" || cf.qos_manual_enable.value == "")
+	      {
+            cf.qosTypeSelect[1].checked=true;
+            document.getElementById("manual_upstream").style.display="none";
+            document.getElementById("dynamic_upstream").style.display="block";
+	      }
+	      else
+	      {
+		        cf.qosTypeSelect[0].checked = true;
+            document.getElementById("manual_upstream").style.display="block";
+            document.getElementById("dynamic_upstream").style.display="none";		      
+ 	      }
+	  }
+	  else
+	  {
+        cf.qosEnable.checked = false;
+        cf.qosTypeSelect[1].checked=true;
+        document.getElementById("manual_upstream").style.display="none";
+        document.getElementById("dynamic_upstream").style.display="block";
+	  }
+		
+    if(onCancelClick==0)
+        document.getElementById("qosHelpFile").innerHTML="<iframe id=helpframe  src=QOS_WMM_h.html class=help-iframe scrolling=no name=helpframe frameborder=0  onload=showHelpIframe();></iframe>";;
+
+    /* loadsettings for up stream */   
+
+    if (cf.qos_fasttrack_enable.value == "0")  
+        cf.fast_track_enable.checked = false;
+    else
+        cf.fast_track_enable.checked = true;
+            
+    if (cf.wps_fasttrack_button_status.value == "0")  
+    {
+        cf.wps_fasttrack_button[0].checked = true;
+        cf.wps_fasttrack_button[1].checked = false;
+    }
+    else
+    {
+        cf.wps_fasttrack_button[1].checked = true;
+        cf.wps_fasttrack_button[0].checked = false;
+    }
+
+    if(cf.quick_qos_firstlogin.value == "true")
+        alert("<% GetMultiLangStr("AQS066") %>");
+        
+    if(cf.fast_track_hid.value == "true")
+        document.getElementById("fasttrack_hidden").style.display="none";
+    else
+        document.getElementById("fasttrack_hidden").style.display="block";
+        
+    checkQosMode();
+
+    if(cf.rate_manual.value==1000000)
+        cf.rate.selectedIndex=1;
+    else
+        cf.rate.selectedIndex=0;
+
+    getBdUnitManual(cf.qos_uplink_bw.value);
+    if (cf.enable_apmode.value == "1" || (cf.enable_stamode.value == "1") || (cf.enable_extmode.value == "1")) 
+    {
+        cf.qosEnable.disabled = true;
+        //cf.bwEnable.disabled = true;
+        cf.bandwidth.disabled = true;
+        cf.rate.disabled = true;
+        //cf.setup_qos_rule.disabled = true;
+        //cf.bw_sel.disabled = true;
+        cf.check_bw.disabled = true;
+        
+        //var setButton=document.getElementsByName("setup_qos_rule");
+        // setButton[0].outerHTML='<button type="submit" disabled value="qos_setrule_mark" name="setup_qos_rule" class="button-grey" onclick="buttonClick(this,\'qos_setrule_mark\');" ><span class="roundleft_grey">&nbsp;&nbsp; Setup QoS rule</span><span class="roundright_grey">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>';
+        //setButton[0].style.cursor='default'; 
+
+        setDisabled(true,cf.quick_qos_mode[0],cf.quick_qos_mode[1],cf.quick_qos_rule[0],
+            cf.quick_qos_rule[1],cf.quick_qos_rule[2],cf.add_rule,cf.reset_rule,cf.edit_rule,cf.delete_rule,cf.delete_all_rule);
+        setDisabled(true,cf.serviceList,cf.service_priorityList,cf.highestserviceList,
+            cf.highserviceList,cf.normalserviceList,cf.lowserviceList,cf.qos_policy_name,cf.qos_mac_address,cf.qos_device_name,cf.device_priorityList);
+        setDisabled(true,cf.fast_track_enable,cf.priorityList,cf.wps_fasttrack_button[0],cf.wps_fasttrack_button[1]);
+    }
+    else
+    {
+        if (cf.repeater.value == "1" || cf.repeater_an.value == "1") 
+        {
+            cf.qosEnable.disabled = true;
+            //cf.bwEnable.disabled = true;
+            cf.bandwidth.disabled = true;
+            cf.rate.disabled = true;
+            //cf.setup_qos_rule.disabled = true;
+
+           // cf.bw_sel.disabled = true;
+            //cf.check_bw.disabled = true;
+            
+            var checkButton=document.getElementsByName("check_bw");
+            checkButton[0].outerHTML='<button type="submit" disabled value="Check" name="check_bw" class="button-grey" onClick="buttonClick(this,\'Check\');return checkWanBandWidth();"><span class="roundleft_grey">&nbsp;&nbsp; <% GetMultiLangStr("MRU006") %></span><span class="roundright_grey">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>';
+            checkButton[0].style.cursor='default';       
+            
+            setDisabled(true,cf.quick_qos_mode[0],cf.quick_qos_mode[1],cf.quick_qos_rule[0],
+                cf.quick_qos_rule[1],cf.quick_qos_rule[2],cf.add_rule,cf.reset_rule,cf.edit_rule,cf.delete_rule,cf.delete_all_rule);
+            setDisabled(true,cf.serviceList,cf.service_priorityList,cf.highestserviceList,
+                cf.highserviceList,cf.normalserviceList,cf.lowserviceList,cf.qos_policy_name,cf.qos_mac_address,cf.qos_device_name,cf.device_priorityList,cf.qos_lan_port_name,cf.qos_lan_port_num);
+            setDisabled(true,cf.fast_track_enable,cf.priorityList,cf.wps_fasttrack_button[0],cf.wps_fasttrack_button[1]);
+
+        }
+    }
+    
+            
+	//uplink
+	var bw = cf.uplink_bw.value.split(" ");
+	var iqos_bw;
+    iqos_bw = parseFloat(bw[0]);
+	if (bw[1] == "kbps" || bw[1] == "" ) {
+        iqos_bw = iqos_bw/1000;
+        cf.bandwidthUp.value = 0;
+        cf.bandwidthUp.value = iqos_bw.toFixed(2);
+    }
+	else if (bw[1] == "Mbps")
+		cf.bandwidthUp.value = iqos_bw.toFixed(2);
+    //downlink
+	bw = cf.downlink_bw.value.split(" ");
+	iqos_bw = parseFloat(bw[0]);
+	if (bw[1] == "kbps" || bw[1] == "") {
+        iqos_bw = iqos_bw/1000;
+        cf.bandwidthDown.value = iqos_bw.toFixed(2);    //cf.rate.selectedIndex = 0;
+    }
+	else if (bw[1] == "Mbps")
+		cf.bandwidthDown.value = iqos_bw.toFixed(2);    //cf.rate.selectedIndex = 1;
+
+    document.getElementById('uplink_bd').innerHTML = cf.bandwidthUp.value + " Mbps";	
+    document.getElementById('downlink_bd').innerHTML = cf.bandwidthDown.value + " Mbps";
+// foxconn ken add for iQos start
+	var iqos_bw_manual;
+    if ( cf.uplink_bw_manual.value == "0" )   // this only happened when loaddefault
+        cf.bandwidth_manual.value = "";
+    else {
+        iqos_bw_manual = parseFloat(cf.uplink_bw_manual.value)
+        //iqos_bw_manual = iqos_bw_manual/1000000;
+        cf.bandwidth_manual.value = iqos_bw_manual.toFixed(2);
+    }
+    //downlink
+    if ( cf.downlink_bw_manual.value == "0" )   // this only happened when loaddefault
+       cf.bandwidthDown_manual.value = "";
+    else {
+        iqos_bw_manual = parseFloat(cf.downlink_bw_manual.value)
+        //iqos_bw_manual = iqos_bw_manual/1000000;
+        cf.bandwidthDown_manual.value = iqos_bw_manual.toFixed(2);
+    }
+// foxconn ken add for iQos end
+    if (cf.enable_apmode.value == "1" || (cf.enable_stamode.value == "1")) 
+    {
+		cf.qosEnable.disabled = true;
+		//cf.bwEnable.disabled = true;
+		cf.bandwidth.disabled = true;
+		cf.rate.disabled = true;
+		cf.setup_qos_rule.disabled = true;
+
+		cf.bw_sel.disabled = true;
+		//cf.bw_sel[1].disabled = true;
+        cf.check_bw.disabled = true;
+        
+        var setButton=document.getElementsByName("setup_qos_rule");
+        setButton[0].outerHTML='<button type="submit" disabled value="qos_setrule_mark" name="setup_qos_rule" class="button-grey" onclick="buttonClick(this,\'qos_setrule_mark\');" ><span class="roundleft_grey">&nbsp;&nbsp; <% GetMultiLangStr("LUP007") %> QoS <% GetMultiLangStr("RS-Vault_084") %></span><span class="roundright_grey">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>';
+        setButton[0].style.cursor='default';          
+	}
+    else
+    {
+        if (cf.repeater.value == "1" || cf.repeater_an.value == "1") {
+            cf.qosEnable.disabled = true;
+            //cf.bwEnable.disabled = true;
+            cf.bandwidth.disabled = true;
+            cf.rate.disabled = true;
+            cf.setup_qos_rule.disabled = true;
+
+            cf.bw_sel.disabled = true;
+            //cf.bw_sel[1].disabled = true;
+            //cf.check_bw.disabled = true;
+            
+            var checkButton=document.getElementsByName("check_bw");
+            checkButton[0].outerHTML='<button type="submit" disabled value="Check" name="check_bw" class="button-grey" onClick="buttonClick(this,\'Check\');return checkWanBandWidth();"><span class="roundleft_grey">&nbsp;&nbsp; <% GetMultiLangStr("MRU006") %></span><span class="roundright_grey">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>';
+            checkButton[0].style.cursor='default';        
+        }
+    }
+	
+		
+    if ( cf.qos_manual.value == 0 ) {
+        cf.qosSetting[0].checked = true;
+    }
+	else {
+        cf.qosSetting[1].checked = true;
+    }
+	
+  doQosCheck();
+	chk_qosrule_display();
+	enable_auto_update();
+}
+
+var isApply;
+function checkData(btn,value)
+{
+    var cf = document.forms[0];
+    var qos_up_bw_limit = "1000";
+    var interval_up = parseFloat(cf.bandwidthUp.value);
+    var interval_down = parseFloat(cf.bandwidthDown.value);
+    //check wan status
+
+    if(cf.qosEnable.checked == true && cf.qosTypeSelect[1].checked==true )
+    {
+        if ( cf.qosEnable.checked == true && cf.wan_status.value=='down'){
+            alert("<% GetMultiLangStr("ADDE10") %>");
+            return false;
+        }
+ 
+        if (cf.qosEnable.checked == true && cf.qosSetting[0].checked == true && cf.uplink_bw.value == "0 kbps" && cf.downlink_bw.value == "0 kbps"
+            && cf.bandwidth_speedtest.value=="" && cf.bandwidth_speedtest.value=="" ){
+            if (confirm("<% GetMultiLangStr("AQS111") %>") == true){
+                isApply=1;
+                checkWanBandWidth();
+            }
+
+            if(cf.bandwidth_speedtest.value=="" && cf.bandwidth_speedtest.value==""){
+                return false;
+            }else if(confirm("<% GetMultiLangStr("AQS130") %>") == false){
+                    return false;
+            }
+        }
+        if ( (cf.qosSetting[0].checked == true) && (cf.qosEnable.checked == true) && (cf.qosTypeSelect[1].checked==true)) {
+            if  ( isNaN(interval_up) ||
+                (interval_up < 0.10) || (interval_up > qos_up_bw_limit) ||
+                !(/^[0-9]+(\.[0-9]{1,4})?$/).test(cf.bandwidthUp.value))
+            {
+                if( (interval_up < 0.10)){
+                    alert("Invalid Uplink/Download Bandwidth, the Uplink Bandwidth should be greater than 100Kbps");
+                }else{
+                    alert("<% GetMultiLangStr("AQSE03") %>");
+                }
+                return false;
+            }
+            else if  (isNaN(interval_down) ||
+                (interval_down < 0.10) || (interval_down > qos_up_bw_limit) ||
+                !(/^[0-9]+(\.[0-9]{1,4})?$/).test(cf.bandwidthDown.value) 
+            )
+            {
+                if( interval_down < 0.10){
+                    alert("Invalid Uplink/Download Bandwidth, the Downlink Bandwidth should be greater than 100Kbps");
+                }else{
+                    alert("Invalid Downlink Bandwidth");
+                }
+                return false;
+            }
+            else
+                if((cf.qosEnable.checked) && ((cf.bandwidthUp.value) == "" || (cf.bandwidthDown.value) == ""))
+                {
+                    checkWanBandWidth();
+                }else
+                {
+                    if(value=='Apply'){
+                        buttonClick(btn,'Apply');
+                        buttonFilter();
+                    }
+                    cf.submit();
+
+                }
+        }
+        else if ( cf.qosSetting[1].checked == true && cf.qosEnable.checked == true ) {
+            interval_up = parseFloat(cf.bandwidth_manual.value);
+            interval_down = parseFloat(cf.bandwidthDown_manual.value);
+        
+            if  ( isNaN(interval_up) || isNaN(interval_down) )
+            {
+                alert("<% GetMultiLangStr("AQSE18") %>");
+            }
+            else if( (interval_up < 0.10) || (interval_up > qos_up_bw_limit) ||                    
+                    !(/^[0-9]+(\.[0-9]{1,4})?$/).test(cf.bandwidth_manual.value)) 
+            {
+                if( (interval_up < 0.10) ){
+                    alert("Invalid Uplink/Download Bandwidth, the Uplink Bandwidth should be greater than 100Kbps");
+                }else{
+                    alert("<% GetMultiLangStr("AQSE03") %>");
+                }
+                return false;
+            }
+            else if( (interval_down < 0.10) || (interval_down > qos_up_bw_limit) ||
+                    !(/^[0-9]+(\.[0-9]{1,4})?$/).test(cf.bandwidthDown_manual.value)) 
+            {
+                if(  (interval_down < 0.10)){
+                    alert("Invalid Uplink/Download Bandwidth, the Downlink Bandwidth should be greater than 100Kbps");
+                }else{
+                    alert("Invalid Downlink Bandwidth");
+                }
+                return false;
+            }
+            else
+            {
+                if(value=='Apply'){
+                    buttonClick(btn,'Apply');
+                    buttonFilter();
+                }
+                cf.submit();  
+            }
+        }
+    }
+    else if(cf.qosEnable.checked == true && cf.qosTypeSelect[0].checked==true )
+    {
+        var qos_up_bw_limit = "1000";
+        interval = parseInt(cf.bandwidth.value);
+
+        if(cf.quick_qos_mode[0].checked == true)
+            cf.quick_qos_mode_value.value = "0"
+        else 
+            cf.quick_qos_mode_value.value = "1"
+        
+    if(cf.quick_qos_rule[0].checked == true)
+        cf.quick_qos_rule_value.value = "0"
+    else if(cf.quick_qos_rule[1].checked == true)
+        cf.quick_qos_rule_value.value = "1"
+    else
+        cf.quick_qos_rule_value.value = "2"
+        
+        if(cf.fast_track_enable.checked == true)
+            cf.qos_fasttrack_enable.value = "1";
+        else
+            cf.qos_fasttrack_enable.value = "0";
+    
+        if(cf.wps_fasttrack_button[0].checked == true)
+            cf.wps_fasttrack_button_status.value = "0";
+        else
+            cf.wps_fasttrack_button_status.value = "1";
+        if (cf.qos_fasttrack_select_device.value == "") 
+        {
+            cf.qos_fasttrack_select_device.value = "D0:17:C2:1E:68:E8";
+        }
+        
+        if(cf.quick_qos_mode_value.value == "1")
+        {
+            if(cf.priorityList.selectedIndex != -1)   
+                cf.quick_qos_select_priority.value = cf.priorityList.value; 
+        }
+
+        if  ( isNaN(interval) ||
+		          ((cf.rate.selectedIndex == 0) && (interval < 100)) ||
+		          ((cf.rate.selectedIndex == 1) && (interval > qos_up_bw_limit) ) ||
+		          !(/^[0-9]+(\.[0-9]{1,4})?$/).test(cf.bandwidth.value)		)
+		    {
+            if((cf.rate.selectedIndex == 0) && (interval < 100)){
+                alert("Invalid Uplink Bandwidth, the Uplink Bandwidth should be greater than 100Kbps");
+            }
+            else
+            {
+                alert("<% GetMultiLangStr("AQSE03") %>");
+            }
+            
+            return false;
+        }
+        else if(cf.bandwidth.value == "0")
+        {
+            checkWanBandWidth();
+        }else
+        {
+            if(value=='Apply')
+                buttonClick(btn,'Apply');
+                buttonFilter();
+        }
+		    cf.submit();
+    }
+    else if(cf.qosEnable.checked == false){
+        if(value=='Apply'){
+            buttonClick(btn,'Apply');
+            buttonFilter();
+        }
+        cf.submit();      
+    }
+    return true;
+}
+
+function getBdUnitManual(bw)
+{
+	var cf = document.forms[0];
+	var ubd = bw.split(" ");
+	var bandwidth=ubd[0].split(";");
+  if(cf.rate.selectedIndex==1)
+	{
+  	cf.bandwidth.value = bandwidth[0]/1000000;
+ }
+ else
+  {
+  	cf.bandwidth.value = bandwidth[0]/1000;//
+	}
+ 
+}
+
+
+function getBdUnit(msg)
+{
+	var cf = document.forms[0];
+    var bw = msg.split(";");
+    var iqos_bw;
+	//uplink
+    iqos_bw = parseFloat(bw[0]);                   //cf.bandwidth.value = ubd[0];
+    iqos_bw = iqos_bw/1000000;
+    cf.bandwidth_speedtest.value = iqos_bw.toFixed(2);    //cf.rate.selectedIndex = 0;
+
+    //downlink
+    iqos_bw = parseFloat(bw[1]);                   //cf.bandwidth.value = ubd[0];
+    iqos_bw = iqos_bw/1000000;
+    cf.bandwidthDown_speedtest.value = iqos_bw.toFixed(2);    //cf.rateDown.selectedIndex = 0;
+
+  	document.getElementById('speedtest_time').innerHTML = bw[2];	
+
+}
+
+var pchar = "|"; // progress char
+var maxchars = 75;
+var delay_time=1000; // msecs
+var charcount = 0; 
+var authtimer = 0;
+
+function sel(mac_index, policy_name, dev_name, macaddr, priority)
+{
+    var cf = document.forms[0];
+    if (cf.quick_qos_mode_value.value == "0")  
+    {
+        cf.qos_policy_name.value = policy_name;
+        cf.qos_device_name.value = dev_name;
+        cf.qos_mac_address.value = macaddr;
+        cf.device_priorityList.selectedIndex = 3 - priority;
+        cf.select.value = mac_index;
+    }
+    else
+    {
+        document.getElementById('trust_mac_label').innerHTML=macaddr;
+        cf.qos_fasttrack_select_device.value = macaddr;
+    }
+}
+
+function checkWanBandWidth()
+{
+    
+	var cf = document.forms[0];
+	var ckbandwidth=cf.bandwidthUp.value;
+	var check_bw = "check_bw=check&USER_SET_TOKEN=<% GetCommonCfg("USER_SET_TOKEN") %>";
+	if(authtimer >=300)
+	{
+		window.location.href="QOS_down_streaming.html";
+		return;
+	}
+	
+  if (cf.qosTypeSelect[0].checked==true)
+  {
+    document.getElementById("check_info_manual").style.display="block";	
+	  document.getElementById("check_result_manual").style.display="none";
+	  document.getElementById("check_nowan_manual").style.display="none";
+	  document.getElementById("check_unreach_manual").style.display="none";
+	}
+	else
+  {
+    document.getElementById("check_info").style.display="block";	
+	  document.getElementById("check_result").style.display="block";
+	  document.getElementById("check_nowan").style.display="none";
+	  document.getElementById("check_unreach").style.display="none";
+  }
+	charcount = 0;
+    grayout_allBtn();	
+	updateProgress();
+	
+		if(ckbandwidth != "")
+		{	
+			xmlHttp = GetXmlHttpObject();
+  
+			if (xmlHttp==null)
+			   return false;
+			
+			xmlHttp.onreadystatechange=function()
+			{ 
+				if((xmlHttp.readyState==4) && (xmlHttp.status == 200))
+				{
+				var msg = xmlHttp.responseText;
+				
+			
+					if(msg == "unreachServer")
+					{
+              if (cf.qosTypeSelect[0].checked==true)
+              {
+    							document.getElementById("check_result_manual").style.display="block";
+				    			document.getElementById("check_info_manual").style.display="none";
+						    	document.getElementById("check_nowan_manual").style.display="none";
+							    document.getElementById("check_unreach_manual").style.display="block";
+              }
+              else
+              {
+    							document.getElementById("check_result").style.display="block";
+				    			document.getElementById("check_info").style.display="none";
+						    	document.getElementById("check_nowan").style.display="none";
+							    document.getElementById("check_unreach").style.display="block";
+							}
+							ungrayout_allBtn();
+							
+					}else if(msg == "noWanLink")
+					{
+              if (cf.qosTypeSelect[0].checked==true)
+              {
+		    					document.getElementById("check_result_manual").style.display="block";
+				    			document.getElementById("check_info_manual").style.display="none";
+						    	document.getElementById("check_nowan_manual").style.display="block";
+							    document.getElementById("check_unreach_manual").style.display="none";
+              }
+              else
+              {
+    							document.getElementById("check_result").style.display="block";
+				    			document.getElementById("check_info").style.display="none";
+						    	document.getElementById("check_nowan").style.display="block";
+							    document.getElementById("check_unreach").style.display="none";
+							}
+							ungrayout_allBtn();
+					}else if(msg == "otherType")
+					{
+              if (cf.qosTypeSelect[0].checked==true)
+              {
+		    					document.getElementById("check_result_manual").style.display="block";
+				    			document.getElementById("check_info_manual").style.display="none";
+						    	document.getElementById("check_nowan_manual").style.display="none";
+							    document.getElementById("check_unreach_manual").style.display="none";	
+              }
+              else
+              {
+    							document.getElementById("check_result").style.display="block";
+				    			document.getElementById("check_info").style.display="none";
+						    	document.getElementById("check_nowan").style.display="none";
+							    document.getElementById("check_unreach").style.display="none";	
+							}
+							ungrayout_allBtn();			
+					}else
+					{	
+              if (cf.qosTypeSelect[0].checked==true)
+              {
+    							getBdUnitManual(msg);
+					
+
+                  if (cf.rate.selectedIndex == 1)
+                  {
+
+        							document.getElementById('uplink_bd_manual').innerHTML = cf.bandwidth.value+"Mbps";	
+     							}
+     							else
+     						  {
+    							    document.getElementById('uplink_bd_manual').innerHTML = cf.bandwidth.value+ " Kbps";	
+    							}
+						    	document.getElementById("check_result_manual").style.display="block";
+							    document.getElementById("check_info_manual").style.display="none";
+							    document.getElementById("check_nowan_manual").style.display="none";
+							    document.getElementById("check_unreach_manual").style.display="none";
+              }
+              else
+              {
+    							getBdUnit(msg);
+    							document.getElementById('uplink_bd').innerHTML = cf.bandwidth_speedtest.value + "Mbps";	
+		    					document.getElementById('downlink_bd').innerHTML = cf.bandwidthDown_speedtest.value + "Mbps";
+				    			document.getElementById("check_result").style.display="block";
+							    document.getElementById("check_info").style.display="none";
+							    document.getElementById("check_nowan").style.display="none";
+							    document.getElementById("check_unreach").style.display="none";
+							    cf.bandwidthUp.value = cf.bandwidth_speedtest.value;    //cf.rate.selectedIndex = 0;
+							    cf.bandwidthDown.value = cf.bandwidthDown_speedtest.value;    //cf.rateDown.selectedIndex = 0;
+	    						document.getElementById('uplink_bd').innerHTML = cf.bandwidthUp.value + "Mbps";	
+ 			    				document.getElementById('downlink_bd').innerHTML = cf.bandwidthDown.value + "Mbps";
+							}
+							ungrayout_allBtn();
+							if(isApply==1){
+								if (confirm("<% GetMultiLangStr("AQS130") %>") == true) {
+									buttonClick(document.getElementById("applyBtn"),'Apply');
+									buttonFilter();
+									cf.submit();
+								}
+							}
+					}
+				}
+			}
+			xmlHttp.open("POST","qos_uplink_check.cgi",true);
+			xmlHttp.send(check_bw);
+            	
+		}
+		else
+		{		
+        if (cf.qosTypeSelect[0].checked==true)
+        {
+            document.getElementById("check_result_manual").style.display="none";
+            document.getElementById("check_info_manual").style.display="none";
+            document.getElementById("check_nowan_manual").style.display="none";
+            document.getElementById("check_unreach_manual").style.display="none";
+        }
+        else
+        {
+            document.getElementById("check_result").style.display="block";
+            document.getElementById("check_info").style.display="none";
+            document.getElementById("check_nowan").style.display="none";
+            document.getElementById("check_unreach").style.display="none";
+        }
+		}
+		return true;		
+	
+}
+
+
+
+function makeStr(strsize, fillchar)
+{
+    var temp = "";
+    for (i=0; i < strsize ; i ++)
+        temp = temp + fillchar;
+    return temp;
+}
+function updateProgress()
+{
+	var cf = document.forms[0];
+	
+	if (charcount < maxchars)
+	{
+		charcount ++;
+    if (cf.qosTypeSelect[0].checked==true)
+        cf.progress_manual.value = makeStr(charcount,pchar);
+		else
+        cf.progress_dynamic.value = makeStr(charcount,pchar);
+
+		setTimeout("updateProgress()",delay_time);
+	}
+	else if(((document.getElementById("check_info").style.display)=="block") || ((document.getElementById("check_info_manual").style.display)=="block"))
+	{	
+		charcount = 0;
+		setTimeout("updateProgress()",delay_time);
+	}
+	
+}
+function authtimeout()
+{
+	if (authtimer < 300)
+	{
+		authtimer ++;
+		setTimeout("authtimeout()",1000);
+	}
+}
+function grayout_allBtn()
+{
+	grayout_applybtn("applyBtn");
+	grayout_button("cancelBtn");
+	grayout_button("checkBtn");
+	grayout_button("checkBtn_manual");
+	grayout_button("updateBtn");
+
+}
+
+function ungrayout_allBtn()
+{
+	ungrayout_applybtn("applyBtn");
+	ungrayout_button("cancelBtn");
+	ungrayout_button("checkBtn");
+	ungrayout_button("checkBtn_manual");
+	ungrayout_button("updateBtn");
+}
+function loadAlert()
+{
+    var cf = document.forms[0];
+    var dflag;
+    dflag= !cf.qosEnable.checked;
+
+    var user="admin";
+    if(user=="guest")
+    {
+        var guest_dflag=true;
+        setDisabled(guest_dflag,cf.quick_qos_mode[0],cf.quick_qos_mode[1],cf.quick_qos_rule[0],
+            cf.quick_qos_rule[1],cf.quick_qos_rule[2],cf.add_rule,cf.reset_rule,cf.edit_rule,cf.delete_rule,cf.delete_all_rule);
+        if(cf.qosEnable.checked)
+            cf.edit_rule.disabled=false;
+
+    }
+    else    
+        setDisabled(dflag,cf.quick_qos_mode[0],cf.quick_qos_mode[1],cf.quick_qos_rule[0],
+            cf.quick_qos_rule[1],cf.quick_qos_rule[2],cf.add_rule,cf.reset_rule,cf.edit_rule,cf.delete_rule,cf.delete_all_rule);
+    
+    setDisabled(dflag,cf.serviceList,cf.service_priorityList,cf.highestserviceList,
+        cf.highserviceList,cf.normalserviceList,cf.lowserviceList,cf.qos_policy_name,cf.qos_mac_address,cf.qos_device_name,cf.device_priorityList,cf.qos_lan_port_name);
+    setDisabled(dflag,cf.fast_track_enable,cf.priorityList,cf.wps_fasttrack_button[0],cf.wps_fasttrack_button[1]);
+   
+}
+
+function GetXmlHttpObject()
+{
+   var xmlHttp=null;
+   try
+   {
+       xmlHttp=new XMLHttpRequest();
+   }
+   catch (e)
+   {
+      try
+      {
+         xmlHttp=new ActiveXObject("Msxml2.XMLHTTP");
+      }
+      catch (e)
+      {
+         xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+      }
+    }
+	return xmlHttp;
+}
+
+
+function loadSettings2()
+{
+	var cf = document.forms[0];
+
+	if (cf.qos_down_streaming_enable.value == "1"){
+		cf.qos_down_streaming_enable.checked = true; 
+		document.getElementById("radio_selection").style.display="block";
+		document.getElementById("qos_name").style.display="block";
+		if(cf.choose_selection.value == "0") 
+			document.getElementById("qos_keyword").style.display="block";
+		else{
+			document.getElementById("mac_list").style.display="block";
+			document.getElementById("qos_macaddress").style.display="block";
+		}
+		document.getElementById("selection_button").style.display="block";
+	}else{
+		cf.qos_down_streaming_enable.checked = false;
+	}
+}
+
+function enable_auto_update()
+{
+	var cf = document.forms[0];
+	if (cf.qos_update_enable.value == 1)
+		cf.AutoUpdateEnable.checked = true;
+	else
+		cf.AutoUpdateEnable.checked = false;
+}
+
+function check_start(){
+	window.location.href="QOS_upgrade_ver_check.htm";
+}
+
+function chgSel(){ 
+	var cf = document.forms[0];
+	if(cf.ruleSelect[0].checked == true){
+		cf.choose_selection.value=0;
+		document.getElementById("mac_list").style.display="none";
+		document.getElementById("qos_keyword").style.display="block";
+		document.getElementById("qos_macaddress").style.display="none";
+	}else{
+		cf.choose_selection.value=1;
+		document.getElementById("mac_list").style.display="block";
+		document.getElementById("qos_keyword").style.display="none";
+		document.getElementById("qos_macaddress").style.display="block";
+	}
+		
+}
+function reset(){
+	var cf = document.forms[0];
+	cf.name.value="";
+	cf.keyword.value="";
+	cf.mac.value="";
+	cf.device_name.value="";
+}
+
+function qos_reset(){
+	var cf = document.forms[0];
+	cf.name.value="";
+	cf.keyword.value="";
+	cf.mac.value="";
+	cf.device_name.value="";
+}
+function checkBlankEntry(entryValue)
+{
+	var msg="";
+	if(entryValue.length<1){
+		msg="User input is empty";
+	}
+	return msg;
+}
+
+function checkMacMainQos(mac) {
+    if(mac.length == 0)
+        return true;
+    
+    for(i=0; i<mac.length;i++) {
+        var c = mac.substring(i, i+1)
+        if(("0" <= c && c <= "9") || ("a" <= c && c <= "f") || ("A" <= c && c <= "F")) {
+            continue;
+        }
+        return true;
+    }
+    if(mac.length == 1) {
+        mac = "0"+mac;
+    }
+    mac = mac.toUpperCase();
+    return false;
+}
+function checkMacAddressQos(mac1, mac2, mac3, mac4, mac5, mac6) {
+    if(checkMacMainQos(mac1)) return true;
+    if(checkMacMainQos(mac2)) return true;
+    if(checkMacMainQos(mac3)) return true;
+    if(checkMacMainQos(mac4)) return true;
+    if(checkMacMainQos(mac5)) return true;
+    if(checkMacMainQos(mac6)) return true;
+    var mac_str = new String("");
+    mac_str.value =  mac1 + mac2 + mac3 + mac4 + mac5 + mac6;
+    if(checkMulticastMAC(mac_str) || MacStrallf(mac_str))
+        return true;
+    
+    return false;
+}
+
+function check_data_add()
+{
+	var cf = document.forms[0];
+	var msg = "";
+	var m1,i,lower,upper;
+
+	msg = checkBlankEntry(cf.name.value);
+	if(msg.length >1){
+		alert(msg);
+		return false;
+	}else if(cf.name.length>32){
+		msg = "The input name is too long!\n";
+		alert(msg);
+		return false;
+	} else if((parseInt(cf.custom_idx.value)+parseInt(cf.custom_mac_idx.value)+2) >= 32) {
+		msg = "Maximum rule number is 32!\n";
+		alert(msg);
+		return false;
+	} else {
+		lower=parseInt(cf.office_idx.value)+1;
+		upper=parseInt(cf.office_idx.value)+parseInt(cf.custom_idx.value)+parseInt(cf.custom_mac_idx.value)+3;
+		for(i=lower;i<upper;i++){
+			if(cf.name.value==cf.QosDatabaseList.options[i].value){
+				alert("The input name is the same as existing one, please entry another name!");
+				return false;
+			}
+		}
+	}
+	
+	if(cf.ruleSelect[0].checked == true){
+		msg = checkBlankEntry(cf.keyword.value);
+		if(msg.length >1){
+			alert(msg);
+			return false;
+		}else if(cf.keyword.length>101){
+			msg = "The input keyword is too long!\n";
+			alert(msg);
+			return false;
+		}else{
+			if(cf.keyword.value=="-"){
+				alert("<% GetMultiLangStr("CBSE01") %>!");
+				return false;
+			}
+			
+			var key=cf.keyword.value.split(",");
+			for(i=0;i<key.length;i++){
+				if(key[i].length>16){
+					alert("Some Keyword length is too long!");
+					return false;
+				}
+			}
+		}
+	}else{
+		msg = checkBlankEntry(cf.device_name.value);
+		if(msg.length >1){
+			alert(msg);
+			return false;
+		}else if(cf.name.length>32){
+			msg = "The device name is too long!\n";
+			alert(msg);
+			return false;
+		}
+		
+		upper=parseInt(cf.office_idx.value)+parseInt(cf.custom_idx.value)+parseInt(cf.custom_mac_idx.value)+3;
+		for(i=0;i<upper;i++){
+			temp="table"+i;
+			if(cf.mac.value==document.getElementsByName(temp)[0].value){
+				alert("Can't add the rule with the same mac address as previous rule.");
+				return false;
+			}
+		}
+	
+		msg = checkBlankEntry(cf.mac.value);
+		if (msg.length > 1) {
+			msg += "<% GetMultiLangStr("AAWE06") %>\n";
+			alert(msg);
+			return false;
+		}
+		
+		if( checkMacStr(cf.mac) || MacStrallf(cf.mac) )
+			msg += "<% GetMultiLangStr("AAWE06") %>\n";
+	}
+
+	if (msg.length > 1) {
+		alert(msg);
+		return false;
+	}
+
+	return true;
+}
+
+function check_data_edit()
+{
+	var cf = document.forms[0];
+	var msg = "";
+	var m1,i,lower,upper;
+
+	msg = checkBlankEntry(cf.name.value);
+	if(msg.length >1){
+		alert(msg);
+		return false;
+	}else if(cf.name.length>32){
+		msg = "The input name is too long!\n";
+		alert(msg);
+		return false;
+	}
+	
+	if(cf.ruleSelect[0].checked == true){
+		msg = checkBlankEntry(cf.keyword.value);
+		if(msg.length >1){
+			alert(msg);
+			return false;
+		}else if(cf.name.length>101){
+			msg = "The input keyword is too long!\n";
+			alert(msg);
+			return false;
+		}else{
+			if(cf.keyword.value=="-"){
+				alert("invalid keyword!");
+				return false;
+			}
+			
+			var key=cf.keyword.value.split(",");
+			for(i=0;i<key.length;i++){
+				if(key[i].length>16){
+					alert("Some Keyword length is too long!");
+					return false;
+				}
+			}
+		}
+	}else{
+		msg = checkBlankEntry(cf.device_name.value);
+		if(msg.length >1){
+			alert(msg);
+			return false;
+		}else if(cf.name.length>32){
+			msg = "The device name is too long!\n";
+			alert(msg);
+			return false;
+		}
+	
+		msg = checkBlankEntry(cf.mac.value);
+		if (msg.length > 1) {
+			msg += "<% GetMultiLangStr("AAWE06") %>\n";
+			alert(msg);
+			return false;
+		}
+		
+		if( checkMacStr(cf.mac) || MacStrallf(cf.mac) )
+			msg += "<% GetMultiLangStr("AAWE06") %>\n";
+	}
+
+	if (msg.length > 1) {
+		alert(msg);
+		return false;
+	}
+
+	return true;
+}
+
+function selectCustomTab(){
+	var cf = document.forms[0];
+	var temp,idx,tmp_idx;
+
+	if(cf.QosDatabaseList.selectedIndex == -1)
+		return 0;
+	reset();
+	if(cf.choose_selection.value==0){
+		cf.select.value=cf.QosDatabaseList.selectedIndex;
+		idx=cf.select.value;
+		tmp_idx=parseInt(cf.office_idx.value,10)+parseInt(cf.custom_idx.value,10)+2;
+		if(idx<tmp_idx){
+			cf.name.value=cf.QosDatabaseList.options[cf.QosDatabaseList.selectedIndex].value;
+			temp="table"+cf.QosDatabaseList.selectedIndex;
+			cf.keyword.value=document.getElementsByName(temp)[0].value;
+		}
+	}else{
+		cf.select.value=cf.QosDatabaseList.selectedIndex;
+		idx=cf.select.value;
+		tmp_idx=parseInt(cf.office_idx.value,10)+parseInt(cf.custom_idx.value,10)+2;
+		if(idx>=tmp_idx){
+			cf.name.value=cf.QosDatabaseList.options[cf.QosDatabaseList.selectedIndex].value;
+			idx=idx-tmp_idx;
+			temp="devicename"+idx;
+			cf.device_name.value=document.getElementsByName(temp)[0].value;
+			temp="table"+cf.QosDatabaseList.selectedIndex;
+			cf.mac.value=document.getElementsByName(temp)[0].value;
+		}
+	}
+}
+
+function selMACTab(idx,policy,devName,mac){
+	var cf = document.forms[0];
+	reset();
+	cf.name.value=policy;
+	cf.mac.value=mac;
+	cf.device_name.value=devName;
+}
+
+function chg_quick_qos_mode()
+{
+    var cf = document.forms[0];
+    if(cf.quick_qos_mode[0].checked == true)
+        cf.quick_qos_mode_value.value = "0"
+    else
+        cf.quick_qos_mode_value.value = "1"
+    checkQosMode();
+}
+
+function checkQosMode()
+{
+    var cf = document.forms[0];
+    if (cf.quick_qos_mode_value.value == "0")  
+    {
+        cf.quick_qos_mode[0].checked = true;
+        document.getElementById("qos_rule_mode").style.display="block";
+        document.getElementById("qos_fast_track").style.display="none";
+        if (cf.quick_qos_rule_value.value == "0")
+        {
+            cf.quick_qos_rule[0].checked = true;
+            document.getElementById("qos_by_service").style.display="block";
+            document.getElementById("qos_by_device").style.display="none";
+            document.getElementById("qos_by_lan_port").style.display="none";
+            document.getElementById("qos_service_rule").style.display="block";
+            document.getElementById("qos_device_rule").style.display="none";
+            document.getElementById("qos_lan_port_rule").style.display="none";
+        }
+        else if (cf.quick_qos_rule_value.value == "1")
+        {
+            cf.quick_qos_rule[1].checked = true; 
+            document.getElementById("qos_by_service").style.display="none";
+            document.getElementById("qos_by_device").style.display="block";
+            document.getElementById("qos_by_lan_port").style.display="none";
+            document.getElementById("qos_service_rule").style.display="none";
+            document.getElementById("qos_device_rule").style.display="block";
+            document.getElementById("qos_lan_port_rule").style.display="none";
+        }
+        else
+        {
+            cf.quick_qos_rule[2].checked = true; 
+            document.getElementById("qos_by_service").style.display="none";
+            document.getElementById("qos_by_device").style.display="none";
+            document.getElementById("qos_by_lan_port").style.display="block";
+            document.getElementById("qos_service_rule").style.display="none";
+            document.getElementById("qos_device_rule").style.display="none";
+            document.getElementById("qos_lan_port_rule").style.display="block";
+        }
+        
+    }
+    else
+    {
+        cf.quick_qos_mode[1].checked = true; 
+        document.getElementById("qos_fast_track").style.display="block";
+        document.getElementById("qos_rule_mode").style.display="none";
+        document.getElementById("qos_by_service").style.display="none";
+        document.getElementById("qos_by_device").style.display="none";
+        document.getElementById("qos_by_lan_port").style.display="none";
+        document.getElementById("qos_service_rule").style.display="none";
+        document.getElementById("qos_device_rule").style.display="none";
+        document.getElementById("qos_lan_port_rule").style.display="none";
+    }
+    return true;
+}
+
+function chg_quick_qos_rule()
+{
+    var cf = document.forms[0];
+    if(cf.quick_qos_rule[0].checked == true)
+        cf.quick_qos_rule_value.value = "0";
+    else if(cf.quick_qos_rule[1].checked == true)
+        cf.quick_qos_rule_value.value = "1";
+    else
+        cf.quick_qos_rule_value.value = "2";
+    checkQosMode();
+}
+
+function add_service_rule()
+{
+    var cf = document.forms[0];
+    if(cf.serviceList.value == "qos_add_application")
+    {
+        cf.add_new_service.value = "1";
+        buttonFilter();
+        cf.submit();
+    }
+    else
+        cf.add_new_service.value = "0";
+    return true;
+}
+
+function chk_qosrule_display(){
+    var cf = document.forms[0];
+	//20181108, hidden autoupdate
+    if (cf.qosEnable.checked == true) {
+        document.getElementById("qos_devlist").style.display="none";
+    }
+	else {
+        document.getElementById("qos_devlist").style.display="none";
+    }
+    if (cf.qosSetting[0].checked == true) {
+        document.getElementById("qos_rule1").style.display="block";
+        document.getElementById("qos_rule2").style.display="none";
+    }
+    else if (cf.qosSetting[1].checked == true) {
+        document.getElementById("qos_rule1").style.display="none";
+        document.getElementById("qos_rule2").style.display="block";
+    }
+}
+
+function chg_rule_reset()
+{
+    var cf = document.forms[0];
+    if(cf.quick_qos_rule_value.value == "1")
+    {  
+        cf.qos_mac_address.value = ""; 
+        cf.qos_policy_name.value = "";
+        cf.qos_device_name.value = "";
+        cf.device_priorityList.selectedIndex = 0;
+        return false;
+    }
+    else
+        chg_qos_rule();
+    
+    return true;
+}
+
+
+function chg_qos_rule()
+{
+    var cf = document.forms[0];
+    if (cf.quick_qos_rule_value.value == "0")
+    {
+        cf.quick_qos_select_rule.value = cf.serviceList.value;
+        cf.quick_qos_select_priority.value = cf.service_priorityList.value;
+    }
+    else if(cf.quick_qos_rule_value.value == "1")
+    {
+        if (cf.qos_policy_name.value == "") 
+        { 
+            alert("<% GetMultiLangStr("AQSE05") %>");
+            return false;
+        }
+        if (cf.qos_policy_name.value == "") 
+        { 
+            alert("<% GetMultiLangStr("ALSE02") %>");
+            return false;
+        }
+        if (!check_mac())
+        {
+            alert("<% GetMultiLangStr("AAWE06") %>");
+            return false;
+        }
+        cf.quick_qos_select_rule.value = [cf.qos_mac_address.value,cf.qos_policy_name.value,cf.qos_device_name.value].join("&");
+        cf.quick_qos_select_priority.value = cf.device_priorityList.value;
+    }
+    else if(cf.quick_qos_rule_value.value == "2")
+    {
+        if (cf.qos_lan_port_name.value == "") 
+        { 
+            alert("<% GetMultiLangStr("AQSE05") %>");
+            return false;
+        }
+        if (cf.qos_lan_port_num.value == "") 
+        { 
+            alert("<% GetMultiLangStr("ALSE02") %>");
+            return false;
+        }
+        cf.quick_qos_select_rule.value = [cf.qos_lan_port_name.value,cf.qos_lan_port_num.value].join("&");
+        cf.quick_qos_select_priority.value = cf.lan_port_priority_list.value;
+    }
+}
+
+
+function doQosCheck()
+{
+    var cf = document.forms[0];
+
+    if(cf.qosEnable.checked==true){
+        document.getElementById("upstream-menu").style.display="none";
+		
+        if(cf.qosTypeSelect[0].checked==true)
+        {
+          document.getElementById("manual_upstream").style.display="block";
+          document.getElementById("dynamic_upstream").style.display="none";
+        }
+        else
+        {
+          document.getElementById("manual_upstream").style.display="none";
+          document.getElementById("dynamic_upstream").style.display="block";
+        }
+		document.getElementById("advancedQoS").style.display="none";
+    }
+    else
+    {
+      document.getElementById("upstream-menu").style.display="none";
+      document.getElementById("manual_upstream").style.display="none";
+      document.getElementById("dynamic_upstream").style.display="none";
+    }
+}
+
+function click_service(priority)
+{
+    var cf = document.forms[0]; 
+    if (cf.quick_qos_rule_value.value == "0")
+    {
+        if(priority == 0)
+        {            
+            if(cf.highestserviceList.selectedIndex != -1)   
+                cf.quick_qos_click_rule.value = cf.highestserviceList.value;
+            cf.quick_qos_click_priority.value = "0";
+            cf.highserviceList.selectedIndex = -1;
+            cf.normalserviceList.selectedIndex = -1;
+            cf.lowserviceList.selectedIndex = -1;
+        }
+        else if (priority == 1)
+        {
+            if(cf.highserviceList.selectedIndex != -1)   
+                cf.quick_qos_click_rule.value = cf.highserviceList.value;
+            cf.quick_qos_click_priority.value = "1";
+            cf.highestserviceList.selectedIndex = -1;
+            cf.normalserviceList.selectedIndex = -1;
+            cf.lowserviceList.selectedIndex = -1;
+        }
+        else if (priority == 2)
+        {
+            if(cf.normalserviceList.selectedIndex != -1)  
+                cf.quick_qos_click_rule.value = cf.normalserviceList.value;
+            cf.quick_qos_click_priority.value = "2";
+            cf.highestserviceList.selectedIndex = -1;
+            cf.highserviceList.selectedIndex = -1;
+            cf.lowserviceList.selectedIndex = -1;
+        }
+        else if (priority == 3)
+        {
+            if(cf.lowserviceList.selectedIndex != -1)   
+                cf.quick_qos_click_rule.value = cf.lowserviceList.value; 
+            cf.quick_qos_click_priority.value = "3";
+            cf.highestserviceList.selectedIndex = -1;
+            cf.highserviceList.selectedIndex = -1;
+            cf.normalserviceList.selectedIndex = -1;
+        }
+        cf.highestdeviceList.selectedIndex = -1;
+        cf.highdeviceList.selectedIndex = -1;
+        cf.normaldeviceList.selectedIndex = -1;
+        cf.lowdeviceList.selectedIndex = -1;
+        cf.highestLanPortList.selectedIndex = -1;
+        cf.highLanPortList.selectedIndex = -1;
+        cf.normalLanPortList.selectedIndex = -1;
+        cf.lowLanPortList.selectedIndex = -1;
+    }
+    else  if(cf.quick_qos_rule_value.value == "1")
+    {
+        if(priority == 0)
+        {            
+            if(cf.highestdeviceList.selectedIndex != -1)   
+                cf.quick_qos_click_rule.value = cf.highestdeviceList.value;
+            cf.quick_qos_click_priority.value = "0";
+            cf.highdeviceList.selectedIndex = -1;
+            cf.normaldeviceList.selectedIndex = -1;
+            cf.lowdeviceList.selectedIndex = -1;
+        }
+        else if (priority == 1)
+        {
+            if(cf.highdeviceList.selectedIndex != -1)   
+                cf.quick_qos_click_rule.value = cf.highdeviceList.value;
+            cf.quick_qos_click_priority.value = "1";
+            cf.highestdeviceList.selectedIndex = -1;
+            cf.normaldeviceList.selectedIndex = -1;
+            cf.lowdeviceList.selectedIndex = -1;
+        }
+        else if (priority == 2)
+        {
+            if(cf.normaldeviceList.selectedIndex != -1)  
+                cf.quick_qos_click_rule.value = cf.normaldeviceList.value;
+            cf.quick_qos_click_priority.value = "2";
+            cf.highestdeviceList.selectedIndex = -1;
+            cf.highdeviceList.selectedIndex = -1;
+            cf.lowdeviceList.selectedIndex = -1;
+        }
+        else if (priority == 3)
+        {
+            if(cf.lowdeviceList.selectedIndex != -1)   
+                cf.quick_qos_click_rule.value = cf.lowdeviceList.value;
+            cf.quick_qos_click_priority.value = "3";
+            cf.highestdeviceList.selectedIndex = -1;
+            cf.highdeviceList.selectedIndex = -1;
+            cf.normaldeviceList.selectedIndex = -1;
+        }
+        cf.highestserviceList.selectedIndex = -1;
+        cf.highserviceList.selectedIndex = -1;
+        cf.normalserviceList.selectedIndex = -1;
+        cf.lowserviceList.selectedIndex = -1;
+        cf.highestLanPortList.selectedIndex = -1;
+        cf.highLanPortList.selectedIndex = -1;
+        cf.normalLanPortList.selectedIndex = -1;
+        cf.lowLanPortList.selectedIndex = -1;
+    }
+    else if(cf.quick_qos_rule_value.value == "2")
+    {
+        if(priority == 0)
+        {            
+            if(cf.highestLanPortList.selectedIndex != -1)   
+                cf.quick_qos_click_rule.value = cf.highestLanPortList.value;
+            cf.quick_qos_click_priority.value = "0";
+            cf.highLanPortList.selectedIndex = -1;
+            cf.normalLanPortList.selectedIndex = -1;
+            cf.lowLanPortList.selectedIndex = -1;
+        }
+        else if (priority == 1)
+        {
+            if(cf.highLanPortList.selectedIndex != -1)   
+                cf.quick_qos_click_rule.value = cf.highLanPortList.value;
+            cf.quick_qos_click_priority.value = "1";
+            cf.highestLanPortList.selectedIndex = -1;
+            cf.normalLanPortList.selectedIndex = -1;
+            cf.lowLanPortList.selectedIndex = -1;
+        }
+        else if (priority == 2)
+        {
+            if(cf.normalLanPortList.selectedIndex != -1)  
+                cf.quick_qos_click_rule.value = cf.normalLanPortList.value;
+            cf.quick_qos_click_priority.value = "2";
+            cf.highestLanPortList.selectedIndex = -1;
+            cf.highLanPortList.selectedIndex = -1;
+            cf.lowLanPortList.selectedIndex = -1;
+        }
+        else if (priority == 3)
+        {
+            if(cf.lowLanPortList.selectedIndex != -1)   
+                cf.quick_qos_click_rule.value = cf.lowLanPortList.value;
+            cf.quick_qos_click_priority.value = "3";
+            cf.highestLanPortList.selectedIndex = -1;
+            cf.highLanPortList.selectedIndex = -1;
+            cf.normalLanPortList.selectedIndex = -1;
+        }
+        cf.highestserviceList.selectedIndex = -1;
+        cf.highserviceList.selectedIndex = -1;
+        cf.normalserviceList.selectedIndex = -1;
+        cf.lowserviceList.selectedIndex = -1;
+        cf.highestdeviceList.selectedIndex = -1;
+        cf.highdeviceList.selectedIndex = -1;
+        cf.normaldeviceList.selectedIndex = -1;
+        cf.lowdeviceList.selectedIndex = -1;
+    }
+    return false;
+}
+
+
+function show_fasttrack_warning()
+{
+    var cf = document.forms[0];
+    if(cf.wps_fasttrack_button_status.value == "0")
+    alert("WPS function can still be setup on GUI, and the soft button can be used instead of the physical button.");
+}
+
+
+//-->
+</script> 
+
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+</head>
+<body  onload="change_size();loadSettings(0);loadAlert();authtimeout();" class="page-body"  onResize="change_size();" >
+  <img class="cover-image" src="img/cover-image_noh.gif">
+  <img class="body-image" src="img/subhead2-background_noh.jpg">
+  <div id="full-page-container">
+    <form id="target"  name="frmRules" method="POST" action="qos_main.cgi">
+      <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+      <img class="subtop-image" src="img/subhead2-top_noh.gif">
+      <div class="subhead2"> QoS</div>
+      <table border="0"   style="height:640px"  class="subhead2-table">
+        <tr align="left" valign="middle">
+        
+          <td  colspan="2" class="table-seperate-border">
+<div class="fix_button">
+<button id="cancelBtn" value="Cancel" onclick="buttonClick(this,'Cancel');buttonFilter();location.href='QOS_down_streaming.html'" type="button" name="cancel" class="button-cancel cancel_bt" ><% GetMultiLangStr("UAS021") %></button>
+<button id="applyBtn" value="Apply"  onclick="return checkData(this,'Apply');"  type="button" name="apply" class="button-apply apply_bt" ><% GetMultiLangStr("LUP004") %></button>
+</div>
+</td>
+          
+          
+        </tr>
+        <tr>
+          <td class="scrollpane-table-seperate-border scroll_container pt-30" colspan="2">
+            <div class="scroll-pane qos_page" style="height:630px;width:786px;overflow:auto;scrolling:auto">
+              <table style="border-collapse:collapse;width:97%">
+                <tr>
+                  <td>
+                    <!-- tabs -->
+                    <ul class="tabs" width="100%" >
+                      <li><a id="UpstreamTab" onFocus="this.blur()" href="#"><span><font size='2'>QoS</font></span></a></li>   
+                      <li><a id="WMMTab" onFocus="this.blur()" href="#"><span>WMM</span></a></li>      
+                    </ul>
+                    <div class="tab_bdr_1"></div>
+                    <!-- tab "panes" -->
+                    <div class="pane" id="upstream-pane">
+                      <table width="100%" CELLPADDING=0 CELLSPACING=0 id="upstream-table" style="padding:0;margin:0;border:0;">
+                        
+                      </table>
+                      <!-- content of upstream start -->
+                      <table CELLPADDING=0 CELLSPACING=0 id="upstream-table" class="pt-15">
+                        <tr style="height:30px">
+                          <td colspan="2">
+                           
+                            <label class="checkbox-container"><input type="checkbox" name="qosEnable" id="qos_enable" value="1" onClick="doQosCheck();"><a href="javascript:loadhelp('QOS_UP_QOS','enable_qos')" tabindex="-1"><b><% GetMultiLangStr("D-genie_479") %></b></a>
+		<span class="checkbox-checkmark"></span> 
+	  </label>
+                            
+                            
+                          </td>
+                          <td></td>
+                        </tr>
+                      </table>
+                      <table CELLPADDING=0 CELLSPACING=0 id="upstream-menu" style="padding:0;margin:0;">
+                        <tr style="height:30px" id="advancedQoS" style="display:none">
+                          <td colspan="2" style="padding-left:40px">
+                            
+                            
+                            <label class="checkbox-container d-inline-block"><input type="radio" name="qosTypeSelect" value="manual" onClick="qosTypeClick();"><b><% GetMultiLangStr("D-genie_562") %></b>
+		<span class="radio-checkmark"></span> 
+	  </label>
+                            
+                          </td>
+                          <td></td>
+                        </tr>
+                        <tr style="height:30px">
+                          <td colspan="2" class="pl-30 pt-15 pb-20">
+                         
+                         <label class="checkbox-container"><% GetMultiLangStr("D-genie_563") %>
+				  <input type="radio" name="qosTypeSelect" value="dynamic" onClick="qosTypeClick();">
+				  <span class="radio-checkmark"></span></label>
+                         
+                          </td>
+                          <td></td>
+                        </tr>
+                       <!--20190220,modify typesetting <tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>-->
+                      </table>
+                      <!--20190220,modify typesetting <table CELLPADDING=0 CELLSPACING=0 style="padding:0;margin:0;">
+                        <tr style="height:30px">
+                          <td colspan="2" style="padding-left:40px">&nbsp;
+                            
+                          </td>
+                          <td></td>
+                        </tr>
+                      </table>-->
+                      <div id="manual_upstream">  
+                        <table width="100%" CELLPADDING=0 CELLSPACING=0 id="manual-table" style="padding:0;margin:0;border:0;">
+                          <tr>
+                            <td><img src="spacer.gif" height="30" width="23" border="0"></td>
+                            <td> 
+                              <label id ="bw_sel" for="bw_sel"><b><% GetMultiLangStr("AQS045") %>:&nbsp;<% GetMultiLangStr("AQS046") %></b></label>
+                              <input type="text" name="bandwidth" size="6" maxlength="6" value="">
+                              <select name="rate" size=1>
+                                <option value="1000">Kbps</option>
+                                <option value="1000000">Mbps</option>
+                              </select>
+                              &nbsp;&nbsp;&nbsp;<button type="button" id="checkBtn_manual" value="Speed Test" name="check_bw" class="button-rule" onclick="buttonClick(this,'Speed Test');return checkWanBandWidth();"><span class="roundleft_button">&nbsp;&nbsp; <% GetMultiLangStr("D-genie_159") %></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+                            </td>
+                          </tr>
+                        </table>
+                        <table CELLPADDING=0 CELLSPACING=0 id="upstream-table" style="padding:0;margin:0;border:0;">
+                          <tr>
+                            <td><img src="spacer.gif" height="12" width="23" border="0"></td>
+                            <td colspan="3" id="check_info_manual" style="display: none;"><b><font color=#ADA7D7><% GetMultiLangStr("AQS089") %></font></b>
+                              <input type="text" name="progress_manual" class="prgbar" value="" style="color: blue" size="20"
+                                   contentEditable="false" onkeydown="return false;" onbeforeeditfocus="return false;" onpaste="return false;">	
+                            </td>
+                            <td colspan="3" id="check_result_manual" style="display: none;">
+                              <b><font color=#ADA7D7><% GetMultiLangStr("AQS090") %></font></b>&nbsp;<font color=#ADA7D7><b id="uplink_bd_manual"></b></font>
+                            </td>
+                            <td colspan="3" id="check_nowan_manual" style="display: none;"><b><font color=#FFOOOO><% GetMultiLangStr("AQSE16") %></font></b></td>
+                            <td colspan="3" id="check_unreach_manual" style="display: none;"><b><font color=#FFOOOO><% GetMultiLangStr("AQSE17") %></font></b></td>
+                          </tr>
+                        </table>
+                        <table width="100%" CELLPADDING=0 CELLSPACING=0 id="upstream-table" style="padding:0;margin:0;border:0;">
+                          <tr>
+                            <td>
+                              <table cellspacing="3" cellpadding="0" width="100%">
+                              	<tr>
+                              	  <td><b><% GetMultiLangStr("AQS065") %></b></td>
+                              	  <td>
+                                  <label class="checkbox-container"><% GetMultiLangStr("AQS062") %>
+				<input type="radio" name="quick_qos_mode" value="rule_mode" onClick="chg_quick_qos_mode();" >
+				  <span class="radio-checkmark"></span></label>
+                                  
+                                  
+                                  </td>
+                              	  <td>
+                              	    <div id="fasttrack_hidden" style="display: block;">
+                              	      <table cellpadding="0" cellspacing="3" width="100%">
+                              	        <tr><td>
+                            	          
+                                            <label class="checkbox-container"><% GetMultiLangStr("TVM_001") %>
+				<input type="radio" name="quick_qos_mode" value="fasttrack_mode" onClick="chg_quick_qos_mode();">
+				  <span class="radio-checkmark"></span></label>
+                                            
+                            	          </td></tr>
+                            	        </table>
+                              	    </div>
+                              	  </td>
+                              	</tr>
+                              </table>
+                            </td>
+                          </tr>
+                         <tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+                          <tr>
+                            <td colspan="2">
+                              <div id="qos_rule_mode" style="display: block;">
+                                <table cellpadding="0" cellspacing="3" width="100%">
+                                  <tr><td>
+                                    <table cellspacing="3" cellpadding="0" width="80%">
+                                      <tr>
+                                        <td width="25%"><b><% GetMultiLangStr("AQS061") %>:</b></td>
+                                        <td width="25%">
+                                       
+                                           <label class="checkbox-container"><% GetMultiLangStr("AQS093") %>
+                                   <input type="radio" name="quick_qos_rule" value="qos_service" onClick="chg_quick_qos_rule();" >
+                                      <span class="radio-checkmark"></span></label>
+                                        
+                                        </td>
+                                        <td >
+                                           <label class="checkbox-container"><% GetMultiLangStr("AQS094") %>
+                                   <input type="radio" name="quick_qos_rule" value="qos_device" onClick="chg_quick_qos_rule();">
+                                      <span class="radio-checkmark"></span></label>
+                                        
+                                        
+                                        </td>
+                                        <td >
+                                           <label class="checkbox-container">Qos by LAN Port
+                                   <input type="radio" name="quick_qos_rule" value="qos_lan_port" onClick="chg_quick_qos_rule();">
+                                      <span class="radio-checkmark"></span></label>
+                                        
+                                        
+                                        </td>
+										
+                                      </tr>
+                                    </table>
+                                  </td></tr>
+                                  <tr>
+                                    <td colspan="2">
+                                      <div id="qos_by_service" style="display: block;">
+                                        <table cellpadding="0" cellspacing="3" width="80%">
+                                          <tr><td width="25%"><b><% GetMultiLangStr("AQS004") %></b></td>
+                                            <td>
+                                            	<select name="serviceList" size="1" onChange="add_service_rule();" style="height:20px;width:200px">
+                                                <option value="qos_msn"> MSN Messenger </option><option value="qos_skype"> Skype </option><option value="qos_yahoo"> Yahoo Messenger </option><option value="qos_ipphone"> IP Phone </option><option value="qos_vonage"> Vonage IP Phone </option><option value="block_ser_setup_netmeet"> NetMeeting </option><option value="qos_aim"> AIM </option><option value="qos_google"> Google Talk </option><option value="qos_eva"> Netgear EVA </option><option value="qos_apps_ssh"> SSH </option><option value="block_ser_setup_telnet"> Telnet </option><option value="qos_apps_vpn"> VPN </option><option value="block_ser_setup_ftp"> FTP </option><option value="qos_apps_smtp"> SMTP </option><option value="qos_apps_www"> WWW </option><option value="qos_apps_dns"> DNS </option><option value="qos_apps_icmp"> ICMP </option><option value="qos_apps_emule"> eMule / eDonkey </option><option value="qos_apps_kazaa"> Kazaa </option><option value="qos_apps_gnutella"> Gnutella </option><option value="qos_apps_bt"> BT / Azureus </option><option value="qos_apps_xbox"> Xbox </option><option value="qos_counter_strike"> Counter Strike </option><option value="qos_ageof_empires"> Ages of Empires </option><option value="qos_everquest"> Everquest </option><option value="qos_quake2"> Quake 2 </option><option value="qos_quake3"> Quake 3 </option><option value="qos_unreal"> Unreal Tournament </option><option value="qos_warcraft"> Warcraft </option><option value="qos_add_application"> Others </option>
+                                              </select>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td width="25%"><b><% GetMultiLangStr("AQS134") %></b></td>
+                                            <td>
+                                            	<select name="service_priorityList" size="1" style="height:20px;width:80px">
+                                                <option value="0"><% GetMultiLangStr("AQS032") %></option><option value="1"><% GetMultiLangStr("AQS031") %></option><option value="2"><% GetMultiLangStr("MAD012") %></option><option value="3"><% GetMultiLangStr("AQS034") %></option>
+                                              </select>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td colspan="2">
+                                      <div id="qos_by_device" style="display: block;">
+                                        <table cellpadding="0" cellspacing="3" width="100%">
+                                          
+                                          <tr><td colspan="2"><b><% GetMultiLangStr("AQS048") %></b></td></tr>
+                                          <tr><td colspan="2">
+                                            <table border="1" cellpadding="0" cellspacing="0" width="100%">
+                                              <tr><td nowrap align=center width=6%>&nbsp; </td><td nowrap align=center><span class=thead><% GetMultiLangStr("AQS038") %></span></td><td nowrap align=center><span class=thead><% GetMultiLangStr("AQS134") %></span></td><td nowrap align=center><span class=thead><% GetMultiLangStr("MAD001") %></span></td><td nowrap align=center><span class=thead><% GetMultiLangStr("MRS015") %></span></td></tr><tr><td nowrap align="center">
+                                              
+                                              
+                                                <label class="checkbox-container">
+                                   <input type="radio" "" name="MacSelect" onclick="sel('0','Pri_MAC_1E68E8','&lt;script&gt;alert&#40;&#39;xs','D0:17:C2:1E:68:E8','1')">
+                                      <span class="radio-checkmark"></span></label>
+                                              
+                                              
+                                              </td><td nowrap align=center><span class=thead>Pri_MAC_1E68E8</span></td><td nowrap align=center><span class=ttext>Medium</span></td><td nowrap align=center><span class=ttext>&lt;script&gt;alert&#40;&#39;xs</span></td><td nowrap align=center><span class=ttext>D0:17:C2:1E:68:E8</span></td></tr>
+                                            </table>
+                                          </td></tr>
+                                          <tr><td>&nbsp;</td></tr>
+                                          <tr>
+                                            <td width="40%"><b><% GetMultiLangStr("AQS039") %></b></td>
+                                            <td><input type="text" class="input1" name="qos_policy_name" size="20" maxlength="32"></td>
+                                          </tr>
+                                          <tr>
+                                            <td width="40%"><b><% GetMultiLangStr("MRS015") %></b></td>
+                                            <td><input type="text" class="input1" name="qos_mac_address" size="20" maxlength="32"></td>
+                                          </tr>
+                                          <tr>
+                                            <td width="40%"><b><% GetMultiLangStr("MAD001") %></b></td>
+                                            <td><input type="text" class="input1" name="qos_device_name" size="20" maxlength="32"></td>
+                                          </tr>
+                                          <tr>
+                                            <td width="25%"><b><% GetMultiLangStr("AQS134") %></b></td>
+                                            <td>
+                                              <select name="device_priorityList" size="1" style="height:20px;width:100px">
+                                                <option value="0"><% GetMultiLangStr("AQS032") %></option><option value="1"><% GetMultiLangStr("AQS031") %></option><option value="2"><% GetMultiLangStr("MAD012") %></option><option value="3"><% GetMultiLangStr("AQS034") %></option>
+                                              </select>
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </div>
+                                    </td>
+                                  </tr>   
+                                  <tr>
+                                    <td colspan="2"><div id="qos_by_lan_port" style="display: block;">
+                                      <table cellpadding="0" cellspacing="3" width="80%">
+                                        <tr>
+                                          <td width="40%"><b><% GetMultiLangStr("AQS039") %></b></td>
+                                          <td><input type="text" class="input1" name="qos_lan_port_name" size="20" maxlength="32"></td>
+                                        </tr>
+                                        <tr>
+                                          <td width="40%"><b><% GetMultiLangStr("AQS011") %></b></td>
+                                          <td><select name=qos_lan_port_num><option value=1>1</option><option value=2>2</option><option value=3>3</option><option value=4>4</option></select></td>
+                                        </tr>
+                                        <br>
+                                        <tr>
+                                          <td width="25%"><b><% GetMultiLangStr("AQS134") %></b></td>
+                                          <td><select name="lan_port_priority_list" size="1" style="height:20px;width:80px">
+                                            <option value="0"><% GetMultiLangStr("AQS032") %></option><option value="1"><% GetMultiLangStr("AQS031") %></option><option value="2"><% GetMultiLangStr("MAD012") %></option><option value="3"><% GetMultiLangStr("AQS034") %></option>
+                                              </select>
+                                          </td>
+                                        </tr>
+                                      </table>
+                                    </td>
+                                  </tr>
+                                  <tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+                                	<tr>
+                                	  <td colspan="2" align="center">
+                                	   <button type="submit" value="Add" name="add_rule" class="button-rule" onclick="buttonClick(this,'Add');chg_qos_rule();" ><span class=roundleft_button><% GetMultiLangStr("OTH012") %></button>
+                                	    <button type="submit" value="Reset" name="reset_rule" class="button-rule" onclick="buttonClick(this,'Reset');return chg_rule_reset();" ><span class=roundleft_button><% GetMultiLangStr("GD15") %></button>
+                                	  </td>
+                                	</tr>
+                                	<tr>
+                                	  <td colspan="2">
+                                	    <div id="qos_service_rule" style="display: block;">
+                                	      <table border="1" cellpadding="0" cellspacing="0" width="100%">
+                          	              <span class="thead"><% GetMultiLangStr("AQS062") %></span>
+                        	                <tr>
+                              	            <td nowrap width="25%" align="center">
+                              	              <span class="thead"><% GetMultiLangStr("AQS097") %></span>
+                              	            </td>
+                              	            <td nowrap width="25%" align="center">
+                              	              <span class="thead"><% GetMultiLangStr("AQS098") %></span>
+                        	                  </td>
+                        	                  <td nowrap width="25%" align="center">
+                                              <span class="thead"><% GetMultiLangStr("AQS099") %></span>
+                                            </td>
+                                             <td nowrap width="25%" align="center">
+                                              <span class="thead"><% GetMultiLangStr("AQS100") %></span>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td nowrap width="25%" align="center">
+                                               <select name="highestserviceList" size=9 onchange="click_service(0);" style="height:150px;width:100%;">
+                                                 <option value="qos_ipphone"> IP Phone </option><option value="qos_skype"> Skype </option><option value="qos_eva"> Netgear EVA </option><option value="qos_vonage"> Vonage IP Phone </option><option value="qos_google"> Google Talk </option>
+                                               </select> 
+                                            </td>
+                                            <td nowrap width="25%" align="center">
+                                              <select name="highserviceList" size=9 onchange="click_service(1);" style="height:150px;width:100%;">
+                                                <option value="qos_msn"> MSN Messenger </option><option value="qos_yahoo"> Yahoo Messenger </option><option value="block_ser_setup_netmeet"> NetMeeting </option><option value="qos_aim"> AIM </option><option value="qos_apps_ssh"> SSH </option><option value="block_ser_setup_telnet"> Telnet </option><option value="qos_apps_vpn"> VPN </option><option value="qos_apps_xbox"> Xbox </option><option value="qos_counter_strike"> Counter Strike </option><option value="qos_ageof_empires"> Ages of Empires </option><option value="qos_everquest"> Everquest </option><option value="qos_quake2"> Quake 2 </option><option value="qos_quake3"> Quake 3 </option><option value="qos_unreal"> Unreal Tournament </option><option value="qos_warcraft"> Warcraft </option>
+                                              </select> 
+                                            </td>
+                                            <td nowrap width="25%" align="center">
+                                              <select name="normalserviceList" size=9 onchange="click_service(2);" style="height:150px;width:100%;">
+                                                <option value="block_ser_setup_ftp"> FTP </option><option value="qos_apps_smtp"> SMTP </option><option value="qos_apps_www"> WWW </option><option value="qos_apps_dns"> DNS </option><option value="qos_apps_icmp"> ICMP </option>
+                                              </select> 
+                                            </td>
+                                            <td nowrap width="25%" align="center">
+                                              <select name="lowserviceList" size=9 onchange="click_service(3);" style="height:150px;width:100%;">
+                                                <option value="qos_apps_emule"> eMule / eDonkey </option><option value="qos_apps_kazaa"> Kazaa </option><option value="qos_apps_gnutella"> Gnutella </option><option value="qos_apps_bt"> BT / Azureus </option>
+                                              </select> 
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td colspan="2">
+                                      <div id="qos_device_rule" style="display: block;">
+                                        <table border="1" cellpadding="0" cellspacing="0" width="100%">
+                                          <span class="thead"><% GetMultiLangStr("AQS062") %></span>
+                                          <tr>
+                                            <td nowrap width="25%" align="center">
+                                              <span class="thead"><% GetMultiLangStr("AQS097") %></span>
+                                            </td>
+                                            <td nowrap width="25%" align="center">
+                                              <span class="thead"><% GetMultiLangStr("AQS098") %></span>
+                                            </td>
+                                            <td nowrap width="25%" align="center">
+                                              <span class="thead"><% GetMultiLangStr("AQS099") %></span>
+                                            </td>
+                                            <td nowrap width="25%" align="center">
+                                              <span class="thead"><% GetMultiLangStr("AQS100") %></span>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                          	<td nowrap width="25%" align="center">
+                                      	      <select name="highestdeviceList" size=9 onchange="click_service(0);" style="height:150px;width:100%;">
+                                          	    
+                                          	  </select> 
+                                          	</td>
+                                            <td nowrap width="25%" align="center">
+                                              <select name="highdeviceList" size=9 onchange="click_service(1);" style="height:150px;width:100%;">
+                                                
+                                              </select> 
+                                            </td>
+                                            <td nowrap width="25%" align="center">
+                                              <select name="normaldeviceList" size=9 onchange="click_service(2);" style="height:150px;width:100%;">
+                                                
+                                              </select> 
+                                            </td>
+                                            <td nowrap width="25%" align="center">
+                                              <select name="lowdeviceList" size=9 onchange="click_service(3);" style="height:150px;width:100%;">
+                                                
+                                              </select> 
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+                                  <tr>
+                                    <td colspan="2">
+                                      <div id="qos_lan_port_rule" style="display: none;">
+                                        <table border="1" cellpadding="0" cellspacing="0" width="100%">
+                                          <span class="thead">Qos Lan Port</span>
+                                          <tr>
+                                            <td nowrap width="25%" align="center">
+                                              <span class="thead"><% GetMultiLangStr("AQS097") %></span>
+                                            </td>
+                                            <td nowrap width="25%" align="center">
+                                              <span class="thead"><% GetMultiLangStr("AQS098") %></span>
+                                            </td>
+                                            <td nowrap width="25%" align="center">
+                                              <span class="thead"><% GetMultiLangStr("AQS099") %></span>
+                                            </td>
+                                            <td nowrap width="25%" align="center">
+                                              <span class="thead"><% GetMultiLangStr("AQS100") %></span>
+                                            </td>
+                                          </tr>
+                                          <tr>
+                                            <td nowrap width="25%" align="center">
+                                              <select name="highestLanPortList" multiple onchange="click_service(0);" style="height:150px;width:100%;">
+                                                
+                                              </select> 
+                                            </td>
+                                            <td nowrap width="25%" align="center">
+                                              <select name="highLanPortList" multiple onchange="click_service(1);" style="height:150px;width:100%;">
+                                                
+                                              </select> 
+                                            </td>
+                                            <td nowrap width="25%" align="center">
+                                              <select name="normalLanPortList" multiple onchange="click_service(2);" style="height:150px;width:100%;">
+                                                
+                                              </select> 
+                                            </td>
+                                            <td nowrap width="25%" align="center">
+                                              <select name="lowLanPortList" multiple onchange="click_service(3);" style="height:150px;width:100%;">
+                                                
+                                              </select> 
+                                            </td>
+                                          </tr>
+                                        </table>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                  <tr>
+                                    <td colspan="2" align="center">
+                                      <button type="submit" value="Edit" name="edit_rule" class="button-rule" onclick="buttonClick(this,'Edit');" ><% GetMultiLangStr("UAS011") %></button>
+                                     <button type="submit" value="Delete" name="delete_rule" class="button-rule" onclick="buttonClick(this,'Delete');" ><% GetMultiLangStr("UAS013") %></button>
+                                      <button type="submit" value="Delete All" name="delete_all_rule" class="button-rule" onclick="buttonClick(this,'Delete All');" ><% GetMultiLangStr("AQS001") %></button>
+                                    </td>
+                                  </tr>
+                                </table>
+                              </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colspan="2">
+                              <div id="qos_fast_track" style="display:block;">
+                                <table cellpadding="0" cellspacing="3" width="100%">
+                                  <tr>
+                                    <td width="20%"><b><% GetMultiLangStr("TVM_002") %>:</b></td>
+                                    <td><% GetMultiLangStr("ANM004") %></td>
+                                  </tr>
+                                  <tr>
+                                    <td>	
+                                    
+                                    
+                                    <label class="checkbox-container"><b ><% GetMultiLangStr("TVM_003") %></b>
+                                                  <input type="checkbox" name="fast_track_enable" value="1">
+                                                  <span class="checkbox-checkmark"></span>
+                                    </label>
+                                    
+                                    
+                                    </td>
+                                  </tr>
+                                 
+                                  <tr><td colspan="2"><b><% GetMultiLangStr("AQS048") %></b></td></tr>
+                                  <tr><td colspan="2">
+                                    <table border="1" cellpadding="0" cellspacing="0" width="100%">
+                                      <tr><td nowrap align=center width=6%>&nbsp; </td><td nowrap align=center><span class=thead><% GetMultiLangStr("AQS038") %></span></td><td nowrap align=center><span class=thead><% GetMultiLangStr("AQS134") %></span></td><td nowrap align=center><span class=thead><% GetMultiLangStr("MAD001") %></span></td><td nowrap align=center><span class=thead><% GetMultiLangStr("MRS015") %></span></td></tr><tr><td nowrap align="center">
+                                      <label class="checkbox-container">
+                                  <input type="radio" "" name="MacSelect" onclick="sel('0','Pri_MAC_1E68E8','&lt;script&gt;alert&#40;&#39;xs','D0:17:C2:1E:68:E8','1')">
+                                  <span class="radio-checkmark"></span>
+									</label>
+                                      
+                                      
+                                      
+                                      </td><td nowrap align=center><span class=thead>Pri_MAC_1E68E8</span></td><td nowrap align=center><span class=ttext>Medium</span></td><td nowrap align=center><span class=ttext>&lt;script&gt;alert&#40;&#39;xs</span></td><td nowrap align=center><span class=ttext>D0:17:C2:1E:68:E8</span></td></tr>
+                                    </table>
+                                  </td></tr>
+                                  <tr>
+                                    <td width="25%"><b><% GetMultiLangStr("AQS068") %>:</b></td>
+                                    <td><label id="trust_mac_label">00:00:00:00:00:00</label></td>
+                                  </tr>
+                                  <tr>
+                           	        <td width="25%"><b><% GetMultiLangStr("AQS064") %></b></td>
+                                    <td>
+                                      <select name="priorityList" size="1" style="height:20px;width:80px">
+                                       <option value="50%" selected >50%</option><option value="60%" >60%</option><option value="70%" >70%</option><option value="80%" >80%</option>
+                                      </select>
+                                    </td>
+                                  </tr>
+                                  <tr><td colspan="2"><b><% GetMultiLangStr("AQS092") %><b></td></tr>
+                                  <tr>
+                                    <td>
+                                    <B>WPS</a></B>
+                                    
+                                     <label class="checkbox-container">
+                                 <input type="radio" name="wps_fasttrack_button" value="wps">
+                                  <span class="radio-checkmark"></span>
+									</label>
+                                    
+                                    </td>
+                                  </tr> 
+                                  <tr>
+                                    <td>
+                                      <label class="checkbox-container"><% GetMultiLangStr("TVM_001") %>
+				   <input type="radio" name="wps_fasttrack_button" value="fasttrack" onClick="show_fasttrack_warning();" >
+				  <span class="radio-checkmark"></span>
+</label>
+                                       
+                                    </td>
+                                  </tr>   
+                                </table>
+                              </div>
+                            </td>
+                          </tr>
+                        </table>
+                      </div>
+                      <div id="dynamic_upstream">                        
+                        <table width="100%" CELLPADDING=0 CELLSPACING=0 id="manual-table" style="padding:0;margin:0;border:0;">
+                          <tr>
+                            <td colspan="2" style="height:30px;padding-left:23px"><% GetMultiLangStr("AQSH13") %></td>
+                          </tr>
+                          <tr>
+                            <td colspan="2" class="pt-15 pl-20 pb-20"><b><% GetMultiLangStr("AQS105") %></b></td>
+                          </tr>
+<!------------------------------------------  auto det---->
+                          <tr style="height:30px">
+                            <td colspan="2" class="pl-30">
+                               <label class="checkbox-container"><a href="javascript:loadhelp('QOS_UP_QOS','ookla_detect')" tabindex="-1"><% GetMultiLangStr("AQS106") %></a>
+                            <input type="radio" name="qosSetting" id="qos_speedtest" value="1" onClick="chk_qosrule_display();">
+                              <span class="radio-checkmark"></span>
+							</label>
+                                
+                                </td>
+                            <td></td>
+                          </tr>
+                          <tr>
+	                          <td colspan="2" class="pl-30 pt-15"><% GetMultiLangStr("AQS129") %></td>
+                       	    <td></td>
+                          </tr>
+                        </table>
+                        <div id="qos_rule1" style="display: block;">
+                          <table  CELLPADDING=8 CELLSPACING=8 >
+                            
+                            <tr>
+                              <td align="center" class="pl-25">
+                              <button type="button" id="checkBtn" value="Speed Test" name="check_bw" id="speedtest" class="button-sty1" onclick="buttonClick(this,'Speed Test');return checkWanBandWidth();"><% GetMultiLangStr("AQSE22") %></button></td>
+                            </tr>
+                            <tr>
+                            	<td style="vertical-align:top;" align="right">
+                            	  <div><img src="img/ookla_speedtest.jpg"></div>
+                            	  <div><a href="http://www.speedtest.net/privacy" target="_blank"><u><% GetMultiLangStr("genie_322") %></u></a></div>
+                            	</td>
+                              <td  style="vertical-align:top;">
+                                <font color="#408080"><% GetMultiLangStr("AQSE24") %>: <span id="speedtest_time">(<% GetPageCfg("DQoS_last_date") %>
+)</span></font>
+                                <table  style="padding:0;margin:0;" id="check_result" style="display: block;">
+                                  <tr style="vertical-align:top;">
+                                    <td> <img src="img/speedtest_download.jpg"> </td>
+                                    <td> <img src="img/speedtest_upload.jpg"> </td>                                    	
+                                  </tr>
+                                  <tr>
+                                    <td> <b>&nbsp;<span id="downlink_bd"></span></b> </td>
+                                    <td> <b>&nbsp;<span id="uplink_bd"></span></b> </td>
+                                  </tr>
+                                </table>
+                                <div colspan="2" id="check_info" style="display: none;" valign="middle">
+                                  <p><b><font color=#ADA7D7><% GetMultiLangStr("AQS089") %></font></b></p>
+                                  <p><input type="text" name="progress_dynamic" class="prgbar" value="" style="color: blue" size="20"
+                                   contentEditable="false" onkeydown="return false;" onbeforeeditfocus="return false;" onpaste="return false;">
+                                </div>
+                                <div id="check_nowan" style="display: none;"><p>&nbsp;</p><b><font color=#FFOOOO><% GetMultiLangStr("AQSE16") %></font></b></div>
+                                <div id="check_unreach" style="display: none;"><p>&nbsp;</p><b><font color=#FFOOOO><% GetMultiLangStr("AQSE17") %></font></b></div>
+                              </td>
+                                                        
+                            </tr>
+                            <!-- content of upstream end -->
+                          </table>
+                        </div>
+<!--------------------------------------  user define ---->
+                          
+                        <table CELLPADDING=0 CELLSPACING=0  style="padding:0;margin:0;">
+                          <tr style="height:30px">
+                            <td colspan="2" class="pl-30">
+                            
+                            
+                            
+                            <label class="checkbox-container"><a href="javascript:loadhelp('QOS_UP_QOS','manual_define')" tabindex="-1"><% GetMultiLangStr("AQS109") %></a>
+				  <input type="radio" name="qosSetting" value="2" onClick="chk_qosrule_display();alert('Setting a download and upload speed larger than your ISP provided will make Dynamic QoS service ineffective. \n Setting a download and upload speed smaller than your ISP provided will yield a smaller total bandwidth. You will not enjoy the full internet bandwidth that your ISP provided.');">
+				  <span class="radio-checkmark"></span>
+</label>
+                      </td>      
+                            <td></td>
+                          </tr>
+                          <tr><td colspan="2" height="12"></td></tr>
+<tr><td colspan="2" height="12"></td></tr><tr><td colspan="2" height="12"></td></tr><tr><td colspan="2" height="12"></td></tr>
+                        </table>
+                        <div id="qos_rule2" style="display: none;">
+                          <table CELLPADDING=0 CELLSPACING=0 id="upstream-table" style="padding:0;margin:0;">
+                            <tr>
+                              <td><img src="spacer.gif" height="25" width="80" border="0"></td>
+                              <td> 
+                                <label id ="bw_sel" for="bw_sel"><% GetMultiLangStr("AQS145") %></label><img src="spacer.gif" height="20" width="30" border="0">
+                              </td>
+                              <td>  
+                                <input type="text" class="input1" name="bandwidthDown_manual" size="6" maxlength="6" value="">
+                              </td>
+                              <td></td>
+                            </tr>
+                            <tr>
+                              <td><img src="spacer.gif" height="25" width="80" border="0"></td>
+                              <td> 
+                                <label id ="bw_sel" for="bw_sel"><% GetMultiLangStr("AQS146") %></label><img src="spacer.gif" height="20" width="30" border="0">
+                              </td>
+                              <td>
+                                <input type="text" class="input1" name="bandwidth_manual" size="6" maxlength="6" value="">
+                              </td>
+                              <td></td>
+                            </tr>
+                          </table>
+                        </div>
+                        <div id="qos_devlist" style="display: block;">
+                          <table CELLPADDING=0 CELLSPACING=0 id="upstream-table" style="padding:0;margin:0;">
+                            <tr>
+                              <td colspan="2" height=45px>&nbsp;&nbsp;&nbsp;<input type="checkbox" name="AutoUpdateEnable" value="1"><b><% GetMultiLangStr("AQS118") %> </b>
+                                &nbsp;&nbsp;&nbsp;<button type="button" id="updateBtn" value="<% GetMultiLangStr("AQS074") %>" name="check_update" class="button-rule" onclick="check_start();"><span class="roundleft_button"><% GetMultiLangStr("AQS121") %></button>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="2" style="padding-left:35px;"><% GetMultiLangStr("AQS122") %></td>
+                            </tr>
+                            <tr>
+                              <td colspan="2" style="padding-left:60px;padding-top:10px;"><% GetMultiLangStr("AQS119") %> v<% GetPageCfg("DQoS_DBVersion") %>,</td>
+                            </tr>
+                            <tr>
+                              <td colspan="2" style="padding-left:60px;padding-top:10px;"><% GetMultiLangStr("AQS120") %>  <% GetPageCfg("DQoS_DBDate") %></td>
+                            </tr>
+                            <tr style="display: none;">
+                              <td colspan="2" height=45px>
+                              
+                              &nbsp;&nbsp;&nbsp;
+                             
+                             <label class="checkbox-container"><b><% GetMultiLangStr("AQS123") %></b>
+                                         <input type="checkbox" name="QosAnalyticsEnable" value="1" >
+                                          <span class="checkbox-checkmark"></span>
+                            </label>
+                             
+                              </td>
+                            </tr>
+                            <!--20181031 hidden link, Unable to see bandwidth utilization and set Qos priority in attached device.-->
+                            <tr style="display: none;">
+                              <td><img src="spacer.gif" height="30" width="23" border="0"></td>
+                              <td><a class="linktype" target="_self" href="DEV_redirect.html"><u><font color="#0000ff"><% GetMultiLangStr("AQS110") %></font></u></a></td>
+                            </tr>
+                          </table>
+                        </div>
+
+                      </div>
+                    </div>
+<!--ontent of WMM start -->
+                    <div class="pane" id="wmm-pane">
+                      <table width="100%" CELLPADDING="0" CELLSPACING="0" id="wmm-table" class="pt-20 pb-20">
+                      
+                        <tr>
+                          <td colspan="2" class="pb-15">
+                          <label class="checkbox-container"><a href="javascript:loadhelp('QOS_WMM','wifi')" tabindex="-1"> <b><% GetMultiLangStr("AQS010") %> (2.4GHz b/g/n/ax)</b></a>
+                                 <input type="checkbox" name="wmm_enable_2g" id="wmm_enable_2g" value="1">
+                                  <span class="checkbox-checkmark"></span>
+                    </label>
+                          
+                          </td>
+                        </tr>
+                        <tr>
+                          <td colspan="2">
+                           <label class="checkbox-container"><a href="javascript:loadhelp('QOS_WMM','wifi')" tabindex="-1"> <b><% GetMultiLangStr("AQS010") %> (5GHz a/n/ac/ax)</b></a>
+                                <input type="checkbox" name="wmm_enable_5g" id="wmm_enable_5g" value="1">
+                                  <span class="checkbox-checkmark"></span>
+                    </label>
+                          
+                          </td>
+                        </tr>
+<!-- content of WMM end -->
+                      </table>
+                    </div>
+                  </td>
+                </tr>
+               <tr><td colspan="2" height="12"></td></tr>
+<tr><td colspan="2" height="12"></td></tr>
+<tr><td colspan="2" height="12"></td></tr>
+<tr><td colspan="2" height="12"></td></tr>
+<tr><td colspan="2" height="12"></td></tr>
+                <tr>
+                  
+                </tr>
+              </table>
+            </div>
+          </td>
+        </tr>
+        <tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <p id="qosHelpFile"> </p> </div> </td> 
+        </tr>
+      </table>
+     <div class="subhead2-bottom" >
+    <span class="help_ico"><img src="img/help-icon.png" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
+        <span class="subhead2-text help_center_text" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_51") %> </span>
+    <span class="button-help-arrow">
+      <img src="img/helparrowdown-icon.png" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
+        <span class="subhead2-text help_right_text" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_123") %> </span>
+      </div>
+
+      <a name="helpframe-anchor"></a>
+      <input type="hidden" name="select" value="-1">
+      <input type="hidden" name="priority_sel" value="-1">
+      <INPUT type="hidden" name="WMM_value_2g" value="<% GetPageCfg("WMM_value_2g") %>">
+      <INPUT type="hidden" name="WMM_value_5g" value="<% GetPageCfg("WMM_value_5g") %>">
+      <INPUT type="hidden" name="WMM_value_5g_2" value="">
+      <input type="hidden" name="wifi_dual_5g_band" value="">
+      <input type="hidden" name="qos_manual_enable" value="0">
+      <input type="hidden" name="qos_dynamic_enable" value="<% GetPageCfg("DQoS_qos_dynamic_enable") %>">
+      <input type="hidden" name="qos_bw_enable" value="">
+      <input type="hidden" name="uplink_bw" value="<% GetPageCfg("DQoS_uplink_bw") %> Mbps">
+      <input type="hidden" name="downlink_bw" value="<% GetPageCfg("DQoS_downlink_bw") %> Mbps"> 
+      <!-- <input type="hidden" name="uplink_bw" value="62 Mbps">
+      <input type="hidden" name="downlink_bw" value="45 Mbps">-->
+      <input type="hidden" name="repeater" value="0">
+      <input type="hidden" name="repeater_an" value="0">
+      <input type="hidden" name="bw_set_sel" value="1">
+      <input type="hidden" name="qos_down_streaming_enable" value="">
+      <input type="hidden" name="qos_update_enable" value="<% GetPageCfg("DQoS_qos_update_enable") %>">
+      <input type="hidden" name="choose_selection" value="0">
+      <input type="hidden" name="office_idx" value="-1">
+      <input type="hidden" name="custom_idx" value="-1">
+      <input type="hidden" name="custom_mac_idx" value="-1">
+      <input type="hidden" name="apply_page" value="">
+      <input type="hidden" name="qos_manual" value="<% GetPageCfg("DQoS_qos_manual") %>">
+      <input type="hidden" name="uplink_bw_manual" value="<% GetPageCfg("DQoS_uplink_bw_manual") %>">
+      <input type="hidden" name="qos_uplink_bw" value="">
+      <input type="hidden" name="downlink_bw_manual" value="<% GetPageCfg("DQoS_downlink_bw_manual") %>">
+      <input type="hidden" name="bandwidthDown" value="">
+      <input type="hidden" name="bandwidthUp" value="">
+      <input type="hidden" name="bandwidthDown_speedtest" value="">
+      <input type="hidden" name="bandwidth_speedtest" value="">
+      <input type="hidden" name="rate_manual" value="">
+      <input type="hidden" name="rateUp" value="1000000">
+      <input type="hidden" name="rateDown" value="1000000">
+      <input type="hidden" name="wan_status" value="<% GetPageCfg("wan_status") %>">
+      <input type="hidden" name="fast_track_hid" value="true">
+      <input type="hidden" name="quick_qos_mode_value" value="0">
+      <input type="hidden" name="quick_qos_rule_value" value="0">
+      <input type="hidden" name="wps_fasttrack_button_status" value="0">
+      <input type="hidden" name="add_new_service" value="0">
+      <input type="hidden" name="quick_qos_click_rule" value="">
+      <input type="hidden" name="quick_qos_click_priority" value="">
+      <input type="hidden" name="quick_qos_select_rule" value="">
+      <input type="hidden" name="quick_qos_select_priority" value="">
+      <input type="hidden" name="qos_fasttrack_select_device" value="">
+      <input type="hidden" name="qos_fasttrack_enable" value="0">
+      <input type="hidden" name="quick_qos_firstlogin" value="false">
+      <input type="hidden" name="enable_apmode" value="0">
+      <input type="hidden" name="enable_stamode" value="0">
+      <input type="hidden" name="enable_extmode" value="0">
+      <input type="hidden" name="mac1" value="">
+      <input type="hidden" name="mac2" value="">
+      <input type="hidden" name="mac3" value="">
+      <input type="hidden" name="mac4" value="">
+      <input type="hidden" name="mac5" value="">
+      <input type="hidden" name="mac6" value="">
+	  <INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+    </form>
+  </div>
+</body>
+
+</html>
+
+

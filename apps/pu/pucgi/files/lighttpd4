@@ -1,0 +1,48 @@
+#!/bin/sh /etc/rc.common
+
+/etc/preinit.d/scapi_utils.sh
+USE_PROCD=1
+START=11
+
+start_service() {
+        file="/tmp/lighttpd4.conf"
+        apModeFile="/tmp/apmode"
+        if [ -f "$file" ]
+        then
+            echo "$file exist."
+        else
+            cp /opt/vendor/www2/lighttpd4.conf "$file"
+        fi
+        tar zxvf /opt/vendor/www2/www2.tgz -C /tmp > /dev/null 
+        tar zxvf /opt/vendor/www2/www2-lang.tgz -C /tmp > /dev/null
+        tar zxvf /opt/vendor/www2/www2-tnc.tgz -C /tmp > /dev/null
+        if [ -f "$apModeFile" ]
+        then
+            cp -rf /tmp/www2/ApMode/* /tmp/www2/
+            rm /tmp/www2/WIZ_sel.html
+            rm /tmp/www2/WAN_wan.html
+            rm /tmp/www2/LAN_lan.html
+            rm /tmp/www2/BKS_keyword.html
+            rm /tmp/www2/BKS_service.html
+            rm /tmp/www2/FW_forward3.html
+            rm /tmp/www2/FW_pt.htm
+            rm /tmp/www2/OPENVPN.html
+            rm /tmp/www2/FW_remote.html
+            rm /tmp/www2/UPNP_upnp.html
+            rm /tmp/www2/IPV6_disable.htm
+            rm /tmp/www2/IPV6_auto.htm
+            rm /tmp/www2/IPV6_tunnel.htm
+            rm /tmp/www2/IPV6_passthrough.htm
+            rm /tmp/www2/IPV6_fixed.htm
+            rm /tmp/www2/IPV6_dhcp.htm
+            rm /tmp/www2/IPV6_pppoe.htm
+            rm /tmp/www2/IPV6_autoconfig.htm
+            rm /tmp/www2/IPV6_6rd.htm
+            rm /tmp/www2/traffic_meter.html
+            rm /tmp/www2/VLAN_IPTV.html
+        fi
+        procd_open_instance
+        procd_set_param command lighttpd-angel -D -f "$file"
+        procd_set_param respawn
+        procd_close_instance
+}

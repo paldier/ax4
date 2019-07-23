@@ -1,0 +1,22 @@
+#!/bin/sh
+#
+# Iface hotplug script to record uptime for ethernet ports.
+#
+
+local connname="$INTERFACE"
+local device="$DEVICE"
+#save the current timestemp for each interface in /ramdisk/var/tmp/
+if [ "${connname::9}" = "iface_eth" ]; then
+  if [ "$ACTION" = "ifup" ]; then
+    echo "status:up" > /var/tmp/uptime_"$device"
+    cat /proc/uptime | awk '{print "uptime:" $1}' >> /var/tmp/uptime_"$device"
+    ifconfig $device | grep "RX packets:" | awk -F ':' '{print $2}' | awk '{print "rxpkts:" $1}' >> /var/tmp/uptime_"$device"
+    ifconfig $device | grep "TX packets:" | awk -F ':' '{print $2}' | awk '{print "txpkts:" $1}' >> /var/tmp/uptime_"$device"
+    ifconfig $device | grep "RX bytes:" | awk -F ':' '{print $2}' | awk '{print "rxbytes:" $1}' >> /var/tmp/uptime_"$device"
+    ifconfig $device | grep "TX bytes:" | awk -F ':' '{print $3}' | awk '{print "txbytes:" $1}' >> /var/tmp/uptime_"$device"
+    ifconfig $device | grep "collisions:" | awk -F ':' '{print $2}' | awk '{print "collisions:" $1}' >> /var/tmp/uptime_"$device"
+  elif [ "$ACTION" = "ifdown" ]; then
+    echo "status:down" > /var/tmp/uptime_"${connname:6}"
+  fi
+fi
+

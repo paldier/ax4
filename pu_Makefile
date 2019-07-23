@@ -1,0 +1,179 @@
+# Makefile for pu
+#
+
+include .pu_config
+
+TOPDIR:=$(shell pwd)
+LC_ALL:=C
+LANG:=C
+export TOPDIR LC_ALL LANG
+
+include $(TOPDIR)/rules.mk
+
+
+ifndef FW_TYPE
+FW_TYPE = WW
+endif
+export FW_TYPE
+
+ifndef ARCH
+ARCH = mips
+endif
+export ARCH
+
+ifndef PROFILE
+PROFILE=RAX40
+endif
+export PROFILE
+
+ifndef FW_NAME
+FW_NAME=RAX40
+endif
+export FW_NAME
+
+
+# Source bases
+#export PLATFORM := 
+#export TOP := $(shell pwd)
+export SRCBASE := ${CURDIR}
+export BASEDIR := ${CURDIR}
+export PUTOPDIR := $(TOPDIR)/apps/pu
+export COMMON_KERNELPATH := $(TOPDIR)/build_dir/target-mips_mips32_uClibc-0.9.33.2_grx350_1600_mr_vdsl_lte_sec_gw_711/linux-lantiq_xrx500/linux-3.10.102
+export PATH:=$(TOPDIR)/staging_dir/host/bin:$(PATH)
+export CONFIG_INTEL_SDK = y
+
+
+# Build platform
+export BUILD := x86_64-unknown-linux-gnu
+export HOSTCC := gcc
+export PLATFORM := mips-openwrt
+
+ifeq ($(PLATFORM),arm-openwrt)
+export CROSS_COMPILE := arm-openwrt-linux-uclibcgnueabi-
+export CONFIGURE := --build=$(BUILD) –host=arm-openwrt-linux-uclibc
+export TOOLCHAIN := $(shell cd $(dir $(shell which $(CROSS_COMPILE)gcc))/.. && pwd -P)
+export CFLAGS += -fno-strict-aliasing
+endif
+CFLAGS = -Os -O2
+
+
+ifeq ($(PROFILE),D7000v2)
+BOARDID_FILE=compatible_intel.txt
+export CFLAGS += -DD7000v2
+export CFLAGS += -DINCLUDE_INTEL_SDK
+export CFLAGS += -DSINGLE_FIRMWARE
+endif
+
+
+ifeq ($(PLATFORM),mips-openwrt)
+export CROSS_COMPILE := $(TARGET_CROSS)
+export TOOLCHAIN := $(TOOLCHAIN_DIR)
+CFLAGS += -fno-strict-aliasing
+CFLAGS += -DNO_PU_NAT
+endif
+
+
+CFLAGS = -Os -O2
+
+ifeq ($(FW_TYPE),NA)
+export CFLAGS += -DFW_VERSION_NA
+endif
+
+
+export CC := $(CROSS_COMPILE)gcc
+export CXX := $(CROSS_COMPILE)g++
+export AR := $(CROSS_COMPILE)ar
+export AS := $(CROSS_COMPILE)as
+export LD := $(CROSS_COMPILE)ld
+export NM := $(CROSS_COMPILE)nm
+export RANLIB := $(CROSS_COMPILE)ranlib
+export STRIP := $(CROSS_COMPILE)strip
+export SIZE := $(CROSS_COMPILE)size
+export OBJCOPY := $(CROSS_COMPILE)objcopy
+
+#
+# Install and target directories
+#
+# reference qsdk/rules.mk
+
+#BUILD_DIR_BASE:=$(TOPDIR)/build_dir
+#BUILD_DIR_HOST:=$(BUILD_DIR_BASE)/host
+#STAGING_DIR_HOST:=$(TOPDIR)/staging_dir/host
+TARGET_DIR_NAME := target-mips_mips32_uClibc-0.9.33.2_grx350_1600_mr_vdsl_lte_sec_gw_711
+TOOLCHAIN_DIR_NAME := toolchain-mips_mips32_gcc-4.8-linaro_uClibc-0.9.33.2
+
+BUILD_DIR:=$(TOPDIR)/build_dir
+STAGING_DIR:=$(TOPDIR)/staging_dir/$(TARGET_DIR_NAME)
+TOOLCHAIN_DIR:=$(TOPDIR)/staging_dir/$(TOOLCHAIN_DIR_NAME)
+#TARGET_DIR:=$(BUILD_DIR)/root-$(BOARD)
+#STAGING_DIR_ROOT:=$(STAGING_DIR)/root-$(BOARD)
+#export STAGING_DIR
+
+#export INSTALLDIR:=$(STAGING_DIR)
+export TARGETDIR:=$(TARGET_DIR)
+export COMMON_KERNEL_MODULE_TARGETDIR:=$(TARGETDIR)/lib/modules/3.10.102/pu
+
+
+ifeq ($(CONFIG_PU_MODULES),y)
+obj-y += pu
+obj-y += gpl
+obj-y += intel_lgpl
+endif
+
+obj-clean := $(foreach obj,$(obj-y) $(obj-n),$(obj)-clean)
+obj-install := $(foreach obj,$(obj-y),$(obj)-install)
+
+all: pu_link $(obj-y)
+
+install: pu-install gpl-install intel_lgpl-install
+
+clean: $(obj-clean)
+
+pu_link:
+ifneq ($(PROFILE),)
+#	rm apps/pu/httpd/cgi/mnuCgi.c; ln -s $(TOPDIR)/project/pu/httpd/cgi/mnuCgi_$(PROFILE).c $(TOPDIR)/apps/pu/httpd/cgi/mnuCgi.c
+#	rm apps/pu/www/start.htm; ln -s $(TOPDIR)/project/pu/www/start_$(PROFILE).htm $(TOPDIR)/apps/pu/www/start.htm
+#	cp project/pu/config_$(PROFILE).in project/pu/config.in
+#	cp project/pu/config_$(PROFILE).mk project/pu/config.mk
+#	cp project/pu/Makefile_$(PROFILE) project/pu/Makefile
+endif
+
+
+pu-install:
+	$(MAKE) -C apps/pu install
+
+intel_lgpl-install:
+	$(MAKE) -C apps/intel_lgpl install
+
+
+gpl:
+	$(MAKE) -C apps/gpl
+
+gpl-install:
+	$(MAKE) -C apps/gpl install
+
+gpl-clean:
+	$(MAKE) -C apps/gpl clean
+
+#
+# Generic rules
+#
+# make -f pu_Makefile apps/pu/abFifo-all
+# make -f pu_Makefile apps/pu/abFifo-install
+# make -f pu_Makefile apps/pu/abFifo-clean
+#
+
+%-all:
+	[ ! -d $* ] || $(MAKE) -C $*
+
+%-clean:
+	[ ! -d $* ] || $(MAKE) -C $* clean
+
+%-install:
+	[ ! -d $* ] || $(MAKE) -C $* install
+
+$(obj-y) $(obj-n) $(obj-clean) $(obj-install): dummy
+
+.PHONY: all clean distclean mrproper install package
+.PHONY: dummy
+

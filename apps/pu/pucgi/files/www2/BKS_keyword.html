@@ -1,0 +1,532 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title> 
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<STYLE TYPE="text/javascript">
+	classes.num.all.fontFamily = "Courier";
+	classes.num.all.fontSize = "10pt" ;
+</style>
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!-- 
+
+    $(document).ready(function()
+    {	
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+    function setHelpIframeVisible(){
+        $('.help-frame-div').css("visibility","visible");
+    }
+
+
+    function showHelpIframe() {
+
+        var imgSrc=document.getElementById('help-button');
+
+        if(imgSrc.src.search("up")>=0)
+        {
+            $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
+            imgSrc.src="img/helparrowdown-icon.png";
+        }
+        else
+        {
+            $(".help-frame-div").hide();
+            imgSrc.src="img/helparrowup-icon.png";
+            setTimeout(setHelpIframeVisible,500);
+        }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
+             change_size();
+
+    }
+
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+
+    function loadhelp(fname,anchname)
+    {
+                var pane = window.frames["helpframe"].$('#content');
+                var imgSrc=document.getElementById('help-button');
+                if(imgSrc.src.search("up")<0)
+                {
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+
+                        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm";
+                                $(".help-frame-div").show();
+                        }
+                        else
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                                $(".help-frame-div").show();
+                        }
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+                }
+    }
+
+   
+
+function checkData()
+{
+ 	var cf = document.forms[0];
+	var msg = "";
+	
+	if (cf.skeyword[0].checked)
+		cf.bs_enable.value = 0;
+	else if (cf.skeyword[1].checked)
+		cf.bs_enable.value = 1;	
+	else	
+		cf.bs_enable.value = 2;			
+		
+	if (cf.trustipenble.checked)
+		cf.bs_trustedip_enable.value = 1;
+	else
+		cf.bs_trustedip_enable.value = 0;			
+		
+	cf.bs_trustedip.value = cf.cfTrusted_IPAddress1.value+'.'+cf.cfTrusted_IPAddress2.value+'.'+cf.cfTrusted_IPAddress3.value+'.'+cf.cfTrusted_IPAddress4.value;		
+	
+	var str_lan_ip = "<% GetPageCfg("BlockSite_lan_ip") %>";
+	var str_lan_netmask = "<% GetPageCfg("BlockSite_lan_mask") %>";
+	var lan_ip = str_lan_ip.split(".");
+	var lan_netmask = str_lan_netmask.split(".");
+	var lan_ipaddr = (lan_ip[0] << 24) | (lan_ip[1] << 16) | (lan_ip[2] << 8)| (lan_ip[3]);
+	var lan_netmaskaddr = (lan_netmask[0] << 24) | (lan_netmask[1] << 16) | (lan_netmask[2] << 8)| (lan_netmask[3]);
+
+	if(cf.trustipenble.checked)
+	{
+		var trusted_ipaddr = (cf.cfTrusted_IPAddress1.value << 24) | (cf.cfTrusted_IPAddress2.value << 16)
+							 | (cf.cfTrusted_IPAddress3.value << 8)| cf.cfTrusted_IPAddress4.value;
+		if(checkIP(cf.cfTrusted_IPAddress1,cf.cfTrusted_IPAddress2,cf.cfTrusted_IPAddress3,cf.cfTrusted_IPAddress4,254)
+			|| (parseInt(cf.cfTrusted_IPAddress4.value,10)==0)
+			|| ( (trusted_ipaddr & lan_netmaskaddr) != (lan_ipaddr & lan_netmaskaddr) ) )
+			msg+= "<% GetMultiLangStr("SWPE05") %>";
+		else
+		{
+			cf.cfTrusted_IPAddress1.value = parseInt(cf.cfTrusted_IPAddress1.value,10);
+			cf.cfTrusted_IPAddress2.value = parseInt(cf.cfTrusted_IPAddress2.value,10);
+			cf.cfTrusted_IPAddress3.value = parseInt(cf.cfTrusted_IPAddress3.value,10);
+			cf.cfTrusted_IPAddress4.value = parseInt(cf.cfTrusted_IPAddress4.value,10);
+			cf.bs_trustedip.value = cf.cfTrusted_IPAddress1.value+'.'+cf.cfTrusted_IPAddress2.value+'.'
+								+cf.cfTrusted_IPAddress3.value+'.'+cf.cfTrusted_IPAddress4.value;	
+		}
+	}		
+	if (msg.length > 1)
+	{
+		alert(msg);
+		return false;
+	}
+	if (cf.cfKeyWord_DomainList.length > 0)
+	{
+		for(i=0 ;i < cf.cfKeyWord_DomainList.length - 1;i++)
+		{
+			if(cf.cfKeyWord_DomainList.options[i].text != "")
+			{
+				//var encode_option = piplineEncodeForBlockSite(cf.cfKeyWord_DomainList.options[i].text);
+				//cf.Text.value += encode_option + "|";
+				cf.Text.value += cf.cfKeyWord_DomainList.options[i].text + '|';
+			}
+		}
+		cf.Text.value += cf.cfKeyWord_DomainList.options[i].text;
+	}
+	
+	return true;	
+}
+
+function checkKeyWord()
+{
+	var cf = document.forms[0];
+	var msg = "";
+	msg+= checkBlank(cf.cfKeyWord_Domain, "");
+
+    var bs_temp_rules_number = cf.cfKeyWord_DomainList.length;
+    // check number of rules, if over 255 return fault.
+
+    if (bs_temp_rules_number >= 255){
+        alert("<% GetMultiLangStr("CBSE02") %>");
+        return false;
+    }
+
+	if (msg.length > 1)
+	{
+		cf.cfKeyWord_Domain.focus();
+		//alert(msg);
+		return false;
+	}
+	if (cf.cfKeyWord_Domain.value.match( /[^\x20-\x7E]/ ))
+	{
+		alert("<% GetMultiLangStr("CBSE01") %>");
+		return false;
+	}
+/*
+	if (cf.skeyword[0].checked)
+		cf.bs_enable.value = 0;
+	else if (cf.skeyword[1].checked)
+		cf.bs_enable.value = 1;	
+	else	
+		cf.bs_enable.value = 2;			
+		
+	if (cf.trustipenble.checked)
+		cf.bs_trustedip_enable.value = 1;
+	else
+		cf.bs_trustedip_enable.value = 0;							
+							
+	cf.bs_trustedip.value = cf.cfTrusted_IPAddress1.value+'.'+cf.cfTrusted_IPAddress2.value+'.'+cf.cfTrusted_IPAddress3.value+'.'+cf.cfTrusted_IPAddress4.value;	
+*/
+    // add keyword to block option list
+	var	word = cf.cfKeyWord_Domain.value;
+	for (var i=0; i<cf.cfKeyWord_DomainList.length;i++ )
+		if (word == cf.cfKeyWord_DomainList.options[i].text)
+			{
+				alert("duplicate name");
+				cf.cfKeyWord_Domain.value = "";
+				return false;
+			}
+	var Select_list_length = 	cf.cfKeyWord_DomainList.length;
+	drawSelectOption("cfKeyWord_DomainList",Select_list_length ,word);
+	cf.cfKeyWord_Domain.value = "";
+	return true;	
+}
+
+function checkTrustIP()
+{
+	var cf = document.forms[0];
+	if(!cf.trustipenble.checked)
+	{
+		cf.cfTrusted_IPAddress1.disabled = true;
+		cf.cfTrusted_IPAddress2.disabled = true;
+		cf.cfTrusted_IPAddress3.disabled = true;
+		cf.cfTrusted_IPAddress4.disabled = true;
+		
+	}
+	else
+	{
+		cf.cfTrusted_IPAddress1.disabled = false;
+		cf.cfTrusted_IPAddress2.disabled = false;
+		cf.cfTrusted_IPAddress3.disabled = false;
+		cf.cfTrusted_IPAddress4.disabled = false;
+	}
+}
+
+function checkTrustIP1()
+{
+	var cf = document.forms[0];
+    var ip = document.forms[0].bs_trustedip.value.split(".");
+
+    cf.cfTrusted_IPAddress1.value = ip[0];           
+    cf.cfTrusted_IPAddress2.value = ip[1];          
+    cf.cfTrusted_IPAddress3.value = ip[2];         
+    cf.cfTrusted_IPAddress4.value = ip[3];	
+	
+	if(!cf.trustipenble.checked)
+	{
+		cf.cfTrusted_IPAddress1.disabled = true;
+		cf.cfTrusted_IPAddress2.disabled = true;
+		cf.cfTrusted_IPAddress3.disabled = true;
+		cf.cfTrusted_IPAddress4.disabled = true;
+		
+	}
+	else
+	{
+		cf.cfTrusted_IPAddress1.disabled = false;
+		cf.cfTrusted_IPAddress2.disabled = false;
+		cf.cfTrusted_IPAddress3.disabled = false;
+		cf.cfTrusted_IPAddress4.disabled = false;
+	}
+}
+
+function checkKeyWordDomainList(act)
+{
+	var cf = document.forms[0];
+	
+    cf.cfKeyWord_Domain.value = "";
+    
+	if(cf.cfKeyWord_DomainList.options[0] == null)
+	{
+		return false;
+	}
+	// if no select any keyword to delete, pop up warning message.
+	if (act=='delete' && cf.cfKeyWord_DomainList.selectedIndex==-1)
+	{	
+		alert("<% GetMultiLangStr("AAWE07") %>");
+		return false;
+	}
+	if (act=='delete' && cf.cfKeyWord_DomainList.selectedIndex!=-1)
+	{
+		cf.cfKeyWord_DomainList.options[cf.cfKeyWord_DomainList.selectedIndex]=null;
+	}
+	if (act=='clear')
+	{
+		var DomainList_length=cf.cfKeyWord_DomainList.length;
+		for (var i=0;i<DomainList_length;i++)
+		{
+			cf.cfKeyWord_DomainList.options[0]=null;
+		}
+	}
+/*
+	if (cf.skeyword[0].checked)
+		cf.bs_enable.value = 0;
+	else if (cf.skeyword[1].checked)
+		cf.bs_enable.value = 1;	
+	else	
+		cf.bs_enable.value = 2;			
+		
+	if (cf.trustipenble.checked)
+		cf.bs_trustedip_enable.value = 1;
+	else
+		cf.bs_trustedip_enable.value = 0;							
+							
+	cf.bs_trustedip.value = cf.cfTrusted_IPAddress1.value+'.'+cf.cfTrusted_IPAddress2.value+'.'+cf.cfTrusted_IPAddress3.value+'.'+cf.cfTrusted_IPAddress4.value;
+*/
+	return true;	
+}
+function drawSelectOptions(SelectName, tags)
+{
+    for (i = 0; i < tags.length; i++)
+    {
+        if (tags[i].length == 0)
+        {
+            // Skip null string
+            continue;
+        }
+        drawSelectOption(SelectName, i, tags[i]);
+    }
+}
+
+function drawSelectOption(SelectName, index, tag)
+{
+    var Select =  document.getElementsByName(SelectName)[0];
+
+    var Opt = document.createElement('option');
+    Opt.text = tag;
+    Opt.value = index;
+
+    try {
+       Select.add(Opt, SelectName[null]); // standards compliant; doesn't work in IE
+    }
+    catch(ex) {
+       Select.add(Opt, null); // IE only
+    }
+}
+// Nick 20111005, it's hard to search the keyword list from cgi.
+
+function BodyInit()
+{	
+	var cf = document.forms[0];
+		
+	if (cf.bs_enable.value == 0)
+		cf.skeyword[0].checked = true;
+	else if (cf.bs_enable.value == 1)
+		cf.skeyword[1].checked = true;
+	else	
+		cf.skeyword[2].checked = true;
+
+	if(cf.bs_trustedip_enable.value == 1)
+		cf.trustipenble.checked = true;
+	else
+		cf.trustipenble.checked = false;
+	
+	checkTrustIP1();	
+	
+	//var tagValueList ="aaa|bbb|ccc"
+    var tagValueList = "<% GetPageCfg("BlockSite_KeywordList") %>";
+    //tagValueList.split("|");
+    drawSelectOptions ("cfKeyWord_DomainList", tagValueList.split("|"));
+}
+/*
+function chSession(newsession)
+{
+    if(newsession == 2)
+        location.href = "BKS_keyword_ppp2.htm";		
+    else if(newsession == 1)
+        location.href = "BKS_keyword.htm";		
+}
+*/
+//-->
+</script> 
+	<link href="css/custom.css" rel="stylesheet" type="text/css">
+</head>
+<body  onload="change_size();BodyInit();" class="page-body"  onResize="change_size();" >
+<img class="cover-image" src="img/cover-image_noh.gif">
+<!--<img class="body-image" src="img/subhead2-background_noh.jpg">-->
+<div id="full-page-container">
+
+<form id="target"  method="POST" action="keyword.cgi">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+	<img class="subtop-image" src="img/subhead2-top_noh.gif">
+<div class="subhead2"> <% GetMultiLangStr("LUP017") %></div>
+<table border="0"    style="height:370px"  class="subhead2-table mt-15">
+
+<tr align="left" valign="middle">
+<td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
+	<div class="fix_button">
+<button value="Cancel" onclick="buttonClick(this,'Cancel');location.href='BKS_keyword.html'"  type="button" name="Cancel" id="cancel" class="button-cancel cancel_bt" ><% GetMultiLangStr("UAS021") %></button>
+<button value="Apply" onClick="buttonClick(this,'Apply');return checkData()" type="SUBMIT" name="Apply" id="apply" class="button-apply apply_bt" > <% GetMultiLangStr("LUP004") %></button>
+	</div>
+</td>
+</tr>
+
+<tr><td class="scrollpane-table-seperate-border" colspan="2"><div class="scroll-pane main_bas" style="height:365px;width:620px;overflow:auto;scrolling:auto"><table style="border-collapse:collapse;width:97%">
+<!--
+	<input checked type="radio" name=pppoesession value=session1 onClick="chSession(1);"><% GetMultiLangStr("CBS010") %>
+	<input type="radio" name=pppoesession value=session2 onClick="chSession(2);"><% GetMultiLangStr("CBS011") %><br>
+-->	
+<tr><td colspan="2" height="12"></td></tr>
+<tr>
+	<td colspan="2">
+	<% GetMultiLangStr("CBS015") %></td>
+</tr>
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+
+<tr>
+	 <td colspan="2" height="18"><a href="javascript:loadhelp('BKS_keyword','blocking')" tabindex="-1"><b><% GetMultiLangStr("CBS007") %></b></a>
+		 </td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		
+		 <label class="checkbox-container"><% GetMultiLangStr("CBS012") %>
+			<input checked type="radio" name="skeyword" id="skeyword_never" value="never">
+			<span class="radio-checkmark"></span>
+		</label>
+	</td>
+	</tr>
+	<tr>
+		<td colspan="2" class="pt-0 pb-0">
+		 <label class="checkbox-container"><% GetMultiLangStr("CBS013") %>
+			<input  type="radio" name="skeyword" id="skeyword_sched" value="perschedule">
+			<span class="radio-checkmark"></span>
+		</label>
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+		 <label class="checkbox-container"><% GetMultiLangStr("CBS001") %>
+			<input  type="radio" name="skeyword" id="skeyword_always" value="always">
+			<span class="radio-checkmark"></span>
+		</label>
+		
+	 </td>
+</tr>
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+
+<tr>
+ <td colspan="2"><a href="javascript:loadhelp('BKS_keyword','toaddword')" tabindex="-1"><b><% GetMultiLangStr("CBS008") %></b></a></td>
+</tr>
+
+<tr>
+	<td colspan="2" class="pt-0"><input type="text" name="cfKeyWord_Domain" id="keyword_domain" size="32" maxlength="60" value="" class="input1"></td>
+</tr>
+
+<tr>
+	<td width="50%" align="left" colspan="2" >
+		<button type="button" value="<% GetMultiLangStr("CBS002") %>" name="cfKeyWord_AddKeyword" id="keyword_addkeyword" class="button-sty1" onClick="buttonClick(this,'<% GetMultiLangStr("CBS002") %>');if(!checkKeyWord()) return false;">
+		<% GetMultiLangStr("CBS002") %>
+		</button></td>
+</tr>		
+
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+		<tr>
+			<td colspan="2"><a href="javascript:loadhelp('BKS_keyword','blocklist')" tabindex="-1"><b><% GetMultiLangStr("CBS005") %></b></a></td>
+		</tr>
+		<tr>
+			<td colspan="2">
+				<select name="cfKeyWord_DomainList" id="keyword_domainlist" size="6" multiple class="mb-15"></select> 
+			</td>
+		</tr>
+		<tr>
+			<td colspan="2" class="pt-0">
+				<button type="button" value="<% GetMultiLangStr("CBS006") %>" name="cfKeyWord_DeleteKeyword" id="keyword_deletekeyword" class="button-sty1" onclick="buttonClick(this,'<% GetMultiLangStr("CBS006") %>');if(!checkKeyWordDomainList('delete')) return false;"><% GetMultiLangStr("CBS006") %></button> 
+			<button type="button" value="<% GetMultiLangStr("CBS004") %>" name="cfKeyWord_ClearList" id="keyword_clearlist" class="button-sty1" onclick="buttonClick(this,'<% GetMultiLangStr("CBS004") %>');if(!checkKeyWordDomainList('clear')) return false;"><% GetMultiLangStr("CBS004") %></button></td>
+		</tr>
+		
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+	<tr>
+	<td nowrap colspan="2">
+		<label class="checkbox-container">
+			<input CHECKED type="checkbox" name="trustipenble" id="trust_ip_enble" value="" onclick= "checkTrustIP();">
+			<a href="javascript:loadhelp('BKS_keyword','trusted')" tabindex="-1"><b><% GetMultiLangStr("CBS003") %></b></a>
+			<span class="checkbox-checkmark"></span> 
+		</label> 
+		
+		</td>
+</tr>
+		<tr>
+				<td width="50%"><a href="javascript:loadhelp('BKS_keyword','trusted')" tabindex="-1"><b><% GetMultiLangStr("CBS014") %></b></a></td>
+				<td width="50%" align="right" class="num ip-input-row"><input type="text" name="cfTrusted_IPAddress1" id="trusted_ipaddress1" class="num" size="4" maxlength="3" value="192" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.<input type="text" name="cfTrusted_IPAddress2" id="trusted_ipaddress2" class="num" size="4" maxlength="3" value="168" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="cfTrusted_IPAddress3" id="trusted_ipaddress3" class="num" size="4" maxlength="3" value="0" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="cfTrusted_IPAddress4" id="trusted_ipaddress4" class="num" size="4" maxlength="3" value="0" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
+			</tr>
+	<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+<tr><td colspan="2" height="12"></td></tr>
+	<tr><td colspan="2" height="12"></td></tr>	
+
+ 
+</table></div></td></tr>
+<tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe"  src="BKS_keyword_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
+</table>
+<!--   <img class="subfooter-image" src="img/subhead2-bottom.gif">-->
+<div class="subhead2-bottom" >
+    <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.png" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();" alt=""></span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_51") %> </span>
+    <span class="button-help-arrow">
+      <img src="img/helparrowdown-icon.png" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" alt=""></span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_123") %> </span>
+      </div>
+
+
+
+
+<input name=bs_enable type=hidden value= "<% GetPageCfg("BlockSite_enable") %>">
+<input name=bs_trustedip_enable type=hidden value= "<% GetPageCfg("BlockSite_TrustIPEnable") %>">
+<input name=bs_trustedip type=hidden value= "<% GetPageCfg("BlockSite_TrustIP") %>">
+<input type="hidden" name="Text" value="">
+<input type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+<a name="helpframe-anchor"></a>
+</form>
+
+</div>
+</body>
+
+</html>
+
+

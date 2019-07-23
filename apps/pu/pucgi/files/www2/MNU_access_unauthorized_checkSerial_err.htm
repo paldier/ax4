@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>401 Unauthorized</title>
+<link rel="stylesheet" href="css/MNUAccess.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="script/script.js"></script>
+<script language="javascript" type="text/javascript"><!--
+
+  
+//--></script></head>
+<script language="javascript" type="text/javascript">
+<!--
+function alertMessage()
+{
+	alert("<% GetMultiLangStr("genie_125") %>");
+}
+-->
+</script>
+ <link href="css/custom.css" rel="stylesheet" type="text/css"> 
+<body    bgcolor="#FFFFFF" onload="alertMessage();">
+<form method="POST" action="/securityquestions.cgi">
+	<table border="0" cellpadding="0" cellspacing="3" width="600px">
+		<tr>
+			<td class="subhead2 p1-0"><% GetMultiLangStr("genie_114") %></td>
+		</tr>
+		<tr>
+			<td class="MNUText"><% GetMultiLangStr("genie_137") %></td>
+		</tr>
+		<tr>
+			<td class="MNUText"><% GetMultiLangStr("genie_43") %><input type="text" class="input1" name="serialNumber" size=""></td>
+		</tr>
+		<tr>
+			<td class="MNUText"><% GetMultiLangStr("genie_5") %></td>
+		</tr>
+		<tr>
+			<td class="MNUText" colspan="2">
+				<button type="RESET" value="Cancel" name="Cancel" class="button-cancel cancel_bt" style="padding-left:10px" ><% GetMultiLangStr("UAS021") %></button>
+				<button type="SUBMIT" value="Continue" name="Continue" class="button-apply apply_bt" style="padding-left:10px" ><% GetMultiLangStr("OTH021") %></button>
+
+			</td>
+		</tr>
+		
+	</table>
+</form>
+
+</body>
+</html>

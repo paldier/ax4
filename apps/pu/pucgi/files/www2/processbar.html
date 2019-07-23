@@ -1,0 +1,90 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title>
+<script type="text/javascript">
+<!--
+var pchar = "||"; // progress char
+var maxchars = <% GetPageCfg("MaxChars") %>; 
+var delay_time = <% GetPageCfg("DelayTime") %>; // msecs
+var charcount = 0; 
+
+function makeStr(strSize, fillChar)
+{
+	var temp = "";
+	for (i=0; i < strSize ; i ++)
+		temp = temp + fillChar;
+	return temp;
+}
+function updateProgress()
+{
+	var cf = document.forms[0];
+	var nextF = cf.next_file.value;
+	if (charcount < maxchars)
+	{
+		charcount ++;
+		cf.progress.value = makeStr(charcount,pchar);
+		setTimeout("updateProgress()",delay_time);
+	}
+    //else if( nextF.search(".htm") == -1 ) //For LAN ip change, LNA ip change and go to newly web location.
+    else if( nextF.match(/\/$/) ) //For LAN ip change, LNA ip change and go to newly web location.
+    {
+        top.window.location.replace(nextF);
+    }
+	else
+	{ 
+		window.location.replace(nextF);
+	}
+}
+//-->
+</script>
+ <link href="css/custom.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+
+
+
+TD {
+	FONT-SIZE: 12px; FONT-FAMILY: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif
+}
+H1 {
+	FONT-WEIGHT: bold; FONT-SIZE: 16px;  COLOR: #000; FONT-FAMILY: Arial, Helvetica, Geneva, Swiss, SunSans-Regular, sans-serif
+}
+.prgbar { font-family:Arial; padding:0px; height: 20px; width: 200px; font-weight: bolder; font-size: 10pt; color: #0000FF}
+</style>
+</head>
+<body leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" style="margin:0px;background-color:#FFFFFF">
+<form id="target" name="update" action="null.cgi" method="post" onSubmit="return false">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+<tr>
+</tr>
+<tr>
+	<td align="left">
+	 <h1><% GetPageCfg("Message") %></h1>
+ </td>
+ <td nowrap align="left">&nbsp;  </td>
+ <td nowrap><input type="text" name="progress" style="prgbar" value=""></td>
+ <td nowrap align="left">&nbsp;  </td>
+</tr>
+<tr> 
+ 
+ <td colspan="4" class="pt-20"><div style="background-image:url('seprator.gif');width:100%;background-repeat:repeat-x;">&nbsp;</div></td>
+</tr>
+</table>
+<input type="hidden" name="next_file" value="<% GetPageCfg("ReloadPage") %>">
+</form>
+<script language="javascript" type="text/javascript">
+<!--
+updateProgress(); 
+//-->
+</script>
+</BODY>
+</html>

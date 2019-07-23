@@ -1,0 +1,24 @@
+Config Storage daemon
+=====================
+
+Config Storage Daemon is reponsible for the DB access. XML based DB. And uses ezXML parser to parse XML.
+Offers methods like :
+1 Load
+2 Get
+3 Set
+4 Config-file
+5 Dump
+6 Setlog
+7 Restore
+8 Config
+9 Reload
+10 Factoryreset
+
+Responsibilities
+================  
+1. GET/SET objects and parameter from/to DB.
+2. perfoms Basic validation 
+3. Persistent Storage of DB
+4. Backup and restore of config files
+
+

@@ -1,0 +1,333 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title>
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+
+<style type="text/css">
+
+html {
+    -webkit-transition: background-color 1s;
+    transition: background-color 1s;
+}
+
+html, body { min-height: 100%; }
+html.loading {
+    background: #FCFCFC url('loading.gif') no-repeat 50% 50%;
+    -webkit-transition: background-color 0;
+    transition: background-color 0;
+}
+
+body {
+    -webkit-transition: opacity 1s ease-in;
+    transition: opacity 1s ease-in;
+    }
+
+html.loading body {
+    opacity: 0.2;
+    -webkit-transition: opacity 0;
+    transition: opacity 1s;
+}
+
+.confirm-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 100px;
+    top: 100px;
+    width: 480px; /* Full width */
+    height: 380px; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(255,255,255); /* Fallback color */
+	font-family:Arial; 	
+    
+}
+
+
+</style>
+
+<STYLE TYPE="text/javascript">
+	classes.num.all.fontFamily = "Courier";
+	classes.num.all.fontSize = "10pt" ;
+</style>
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!--
+    var html = document.getElementsByTagName('html')[0];
+
+
+    $(document).ready(function()
+    {	
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+var apply_button_grayout=0;
+
+function mode_select(mode)
+{
+
+   	var cf=document.forms[0];
+
+    if(mode==1)
+    {
+        if(cf.parentalSelect.value==3)
+        {
+        	  cf.parentalSelect_tmp.value=3;
+        	  show_confirm_page();
+        }
+        else if(cf.parentalSelect.value==1)
+        {
+            cf.parentalSelect.value=2;
+            cf.circle_status_pic.src="img/enabled.jpg";
+            $("#circle_message").css("display","block");
+        }
+        else if(cf.parentalSelect.value==2)
+        {
+            cf.parentalSelect.value=1;
+            cf.circle_status_pic.src="img/disabled.jpg";
+            $("#circle_message").css("display","none");
+        }
+    }
+    else if(mode==2)
+    {
+        if(cf.parentalSelect.value==2)
+        {
+        	  cf.parentalSelect_tmp.value=2;
+        	  show_confirm_page();
+        }
+        else if(cf.parentalSelect.value==1)
+        {
+            cf.parentalSelect.value=3;
+            cf.opendns_status_pic.src="img/enabled.jpg";
+        }
+        else if(cf.parentalSelect.value==3)
+        {
+        	  cf.parentalSelect.value=1;
+            cf.opendns_status_pic.src="img/disabled.jpg";
+        }
+    }
+    
+    if(apply_button_grayout==1)
+        ungrayout_applybtn("Apply");
+}
+
+function confirm_change()
+{
+   	var cf=document.forms[0];
+
+	if(cf.parentalSelect_tmp.value==2)
+	{
+		cf.parentalSelect.value=3;
+    cf.circle_status_pic.src="img/disabled.jpg";
+    cf.opendns_status_pic.src="img/enabled.jpg";
+    $("#circle_message").css("display","none");
+	}
+	else if(cf.parentalSelect_tmp.value==3)
+	{
+		cf.parentalSelect.value=2;
+    cf.circle_status_pic.src="img/enabled.jpg";
+    cf.opendns_status_pic.src="img/disabled.jpg";
+    $("#circle_message").css("display","block");
+		
+	}
+    $("#confirm-modal").css("display","none");
+    $("#main_screen").css("display","block");
+}
+
+function hide_confirm_page()
+{
+    $("#confirm-modal").css("display","none");
+    $("#main_screen").css("rgba","0,0,0,0");
+    $("#main_screen").css("display","block");
+    
+}
+
+function show_confirm_page()
+{
+    document.getElementById("confirm-modal").style.top=($(window).height()-200)/2;
+    document.getElementById("confirm-modal").style.left=($(window).width()-200)/2;
+             
+    $("#confirm-modal").css("display","block");
+    $("#main_screen").css("rgba","0,0,0,0.5");
+    $("#main_screen").css("display","none");
+}
+
+function loadvalue()
+{
+	var cf=document.forms[0];
+
+	if(cf.enable_circle_control.value == "1")
+	{
+    cf.parentalSelect.value=2;
+    cf.circle_status_pic.src="img/enabled.jpg";
+    cf.opendns_status_pic.src="img/disabled.jpg";
+    $("#circle_message").css("display","block");
+	}
+	else if(cf.enable_opendns_control.value == "1")
+	{
+    cf.parentalSelect.value=3;
+    cf.circle_status_pic.src="img/disabled.jpg";
+    cf.opendns_status_pic.src="img/enabled.jpg";
+//    cf.circle_status_pic.src="img/disabled.jpg";
+//    cf.opendns_status_pic.src="img/enabled.jpg";
+    $("#circle_message").css("display","none");
+  }
+  else
+  {
+    cf.parentalSelect.value=1;
+    cf.circle_status_pic.src="img/disabled.jpg";
+    cf.opendns_status_pic.src="img/disabled.jpg";
+//    cf.circle_status_pic.src="img/disabled.jpg"
+//    cf.opendns_status_pic.src="img/disbled.jpg"
+    $("#circle_message").css("display","none");
+  }	
+
+  if(cf.parental_control_apply.value!="1" && cf.enable_circle_control.value != "1" && cf.enable_opendns_control.value != "1")
+  {
+      apply_button_grayout=1;
+  }
+  
+  if(cf.AlertMessage.value!="")
+      alert(cf.AlertMessage.value);
+}
+
+function showAnimation()
+{
+    html.className = 'loading';
+}
+
+//-->
+</script>
+</head>
+<body  onload="change_size();loadvalue();" class="page-body"  onResize="change_size();" >
+  <img class="cover-image" src="img/cover-image_noh.gif">
+  <img class="body-image" src="img/subhead2-background_noh.jpg">
+  <div id="full-page-container">
+    <form id="target"  name="formname" method="POST" action="http://admin:password@192.168.1.1/circle_control.cgi?id=cf758ebd44ff3d8ca8ddc8ee7c64dccb7c4b07c230f68f3197addc412d40807a">
+      <input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue"> 
+      <img class="subtop-image" src="img/subhead2-top_noh.gif">
+      <div class="subhead2" style="margin-top:20px"> Parental Controls</div>
+      <div id="main_screen">
+      <table border="0"     class="subhead2-table">
+        <tr align="left" valign="middle">
+          <td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
+            <button type="submit" value="SUBMIT"  onClick="buttonClick(this,'Apply');showAnimation();" id="Apply" name="Apply" class="button-apply" style="padding-left:10px"> <span class="roundleft_apply" >Apply&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
+            <button type="button" value="BUTTON"  onClick="buttonClick(this,'Cancel');reset();loadSettings();" name="Cancel" class="button-rule" style="padding-left:10px" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;Cancel</span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="2" class="scrollpane-table-seperate-border">
+            <div class="scroll-pane" style="height:380px;width:620px;overflow:auto;scrolling:no">
+              <table style="border-collapse:collapse;width:97%">
+                <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
+                <tr>
+                  <td style="width:80px" valign="top"><img src="img/disabled.jpg" name="circle_status_pic" onclick="mode_select(1);"></td>
+                  <td valign="top">
+                    <span style="font-size:14px"><b> Circle with Disney. </b></span>
+                    <p><span style="font-size:14px;"> Circle lets you manage all your family's devices. Set time limits, filter content, create a bedtime, and so much more! </span><br>
+                    <span style="font-size:12px"><a onClick=window.open("http://www.netgear.com/circle","_blank") href="#"><span style="color:#05BBD1">Learn More</span></a></span></p>
+                    <div id="circle_message">
+                    <table style="border:0px;width:500px">
+                      <tr style="background-color:#f8f8f8">
+                        <td style="width:300px">
+                           <p><b>Download the Circle App to get started</b></p>
+                           <p><img src="img/apple_store.jpg" style="cursor: pointer;cursor:hand" onClick='window.open("https://itunes.apple.com/us/app/circle-home/id1037062934?ls=1&amp;mt=8","_blank");' >&nbsp;&nbsp;&nbsp;<img src="img/google_store.jpg" style="cursor: pointer;cursor:hand" onClick='window.open("https://play.google.com/store/apps/details?id=com.circlemedia.circlehome","_blank");'></p>
+                        </td>
+                        <td style="width:200px;" >
+                           <p  style="padding-top:12px"><b>Circle Parental Control Info</b><p>
+                           <p>Agent Version: 2.0.7.8
+<br>
+                           App Database Version: 1.2.4
+</p>
+                        </td>
+                      </tr>
+                    </table>
+                    </div>
+                  </td>   
+                </tr>
+                <tr>
+                  <td colspan="2">&nbsp; </td>
+                </tr>
+                <tr>
+                  <td style="width:80px"  valign="top"><img src="img/disabled.jpg" name="opendns_status_pic" onClick="mode_select(2);"></td>
+                  <td valign="top">
+                    <span style="font-size:14px;"><b> Standard Parental Controls.</b></span>
+                    <p style="font-size:14px;"> Open DNS parental controls<br>
+                    <span style="font-size:12px"><a onClick=window.open("http://www.netgear.com/lpc","_blank")  href="#"><span style="color:#05BBD1">Learn More </span></a><span></p>
+                </tr>
+                <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
+              </table>
+              <p style="text-align:center;font-size:14px;"> You can enable only one parental control service at a time. <br>
+              &nbsp;<br>After you enable a parental control server, click the <b>Apply</b> button to save your settings.
+              <br>To turn off parental control services, set each service to <b>Disabled</b> and click the <b>Apply</b>. After you enable a parental control server, click the <b>Apply</b> button.
+              </p>
+            </div>
+          </td>
+        </tr>
+      </table>
+      </div>
+      <div name="confirm" id="confirm-modal" class="confirm-modal" style="display:none;border-width:1px;border-color:black">
+        <table>
+          <tr>
+            <td>
+              <p style="text-align:center;font-size:18px;"><b><span style="color:#05BBD1">Enable Only One Parental Contro Service</span><span style="float:right;font-size:24px" onclick="hide_confirm_page();">&times</span></b></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+          <p style="text-align:center;font-size:14px">You can enable only one parental control service at a time. If you enable one service, the other service is disabled.</p>
+            </td>
+          </tr>
+          <tr bgcolor="#F0F0F0">
+            <td>
+          <p style="height:40px;text-align:center;font-size:14px"><span><b>Do you want to continue?</b></span></p>
+            </td>
+          </tr>
+          <tr>
+            <td>
+              <p style="text-align:center;font-size:14px">      <button type="button" value="no"  " name="no" class="button-rule" style="padding-left:10px"  onClick="hide_confirm_page();"><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;NO</span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+              <button type="button" value="yes" name="yes" class=button-apply style="padding-left:10px" onClick="confirm_change();"> <span class="roundleft_apply" >YES&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button> </p>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <INPUT name="ipv6_proto" type=hidden value= "disable">
+      <a name="helpframe-anchor"></a>
+      <input type="hidden" name="enable_circle_control" value="0">
+      <input type="hidden" name="enable_opendns_control" value="1">
+      <input type="hidden" name="parental_control_apply" value="1">
+      <input type="hidden" name="parentalSelect_tmp" value="">
+      <input type="hidden" name="parentalSelect" value="">
+      <input type="hidden" name="AlertMessage" value="">
+    </form>
+  </div>
+</body>
+
+</html>

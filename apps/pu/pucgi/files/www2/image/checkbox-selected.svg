@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.5 (67469) - http://www.bohemiancoding.com/sketch -->
+    <title>Inputs / Radio / Selected-white Copy 2</title>
+    <desc>Created with Sketch.</desc>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Inputs-/-Radio-/-Selected-white">
+            <g id="Inputs-/-Radio-/-Selected">
+                <g id="Active">
+                    <rect id="Green-Background" fill="#3F354B" x="0" y="0" width="20" height="20" rx="3"></rect>
+                    <g id="Check-Mark" transform="translate(3.000000, 4.666667)" stroke="#FFFFFF" stroke-linecap="square" stroke-width="1.5">
+                        <path d="M0.5,4.80952381 L4.88431548,8.56750851" id="Line"></path>
+                        <path d="M5.1547619,8.51190476 L13.5348011,0.13186558" id="Line"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

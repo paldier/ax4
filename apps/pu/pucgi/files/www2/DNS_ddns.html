@@ -1,0 +1,1687 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title> 
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!--
+  
+    $(document).ready(function()
+    {
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+		
+		$("#target").bind("keypress", function(e) {
+              if (e.keyCode == 13) {
+                 return false;
+              }
+           });
+
+    });
+
+
+    function setHelpIframeVisible(){
+        $('.help-frame-div').css("visibility","visible");
+    }
+
+
+    function showHelpIframe() {
+
+
+        var imgSrc=document.getElementById('help-button');
+
+        if(imgSrc.src.search("up")>=0)
+        {
+            $(".help-frame-div").show();
+            imgSrc.src="img/helparrowdown-icon.png";
+        }
+        else
+        {
+            $(".help-frame-div").hide();
+            imgSrc.src="img/helparrowup-icon.png";
+            setTimeout(setHelpIframeVisible,100);
+        }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
+             change_size();
+
+//             change_size();
+
+    }
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+    function loadhelp2(fname,anchname)
+    {
+        var pane = window.frames["helpframe"].$('#content');
+        var imgSrc=document.getElementById('help-button');
+        pane.jScrollPane({showArrows:true});
+        
+        if((navigator.appName.indexOf("Internet Explorer")!=-1) ||
+        (navigator.appVersion.indexOf("MSIE 9")!=-1))
+	   	{
+			$(".help-frame-div").show();
+		}else
+		{
+			$(".help-frame-div").hide();
+		}
+
+        if ((loadhelp2.arguments.length == 1 ) || (anchname == "" ))
+           window.frames["helpframe"].location.href=fname+"_h.htm";
+        else
+           window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+
+        pane.jScrollPane({showArrows:true});
+    }
+
+
+    function loadhelp(fname,anchname)
+    {
+        var pane = window.frames["helpframe"].$('#content');
+        var imgSrc=document.getElementById('help-button');
+        if(imgSrc.src.search("up")<0)
+        {
+
+            $(".help-frame-div").show();
+            pane.jScrollPane({showArrows:true});
+
+            if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+            {
+                window.frames["helpframe"].location.href=fname+"_h.htm";
+                $(".help-frame-div").show();
+            }
+            else
+            {
+                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                $(".help-frame-div").show();
+            }
+
+            $(".help-frame-div").show();
+            pane.jScrollPane({showArrows:true});
+        }
+    }
+
+    function resize() {
+    	if(get_browser()=="Chrome") {
+    		$(".scroll-pane").css("margin-top","-28px");
+    		$("#Netgear_account_status").children().children().children().eq(0).children().addClass("mt-20")
+    		$("#Netgear_account").children().children().children().eq(0).children().eq(0).addClass("mt-20");
+    	}
+    }
+
+function ShowResult() {
+    openDataSubWin('DNS_ddns_st.htm','alwaysRaised,dependent,resizable,scrollbars,width=450,height=150,left=200,top=200');
+}
+
+function ddns_active()
+{
+	var cf =document.forms[0];
+	var currentProvider = cf.sysDNSProviderlist.value;
+	
+	if(currentProvider == 4)
+	{
+		if(cf.sysDNSActive.checked)
+		{
+			ungrayout_button("NReset");
+		    if(cf.account[1].checked)
+			{
+				cf.sysDNSHost_Netgear.disabled = false;
+				cf.sysDNSEmail_Netgear.disabled = false;
+				cf.sysDNSPassword_Netgear.disabled = false;
+				//ungrayout_button("NRegister");
+			
+			
+				
+			}else
+			{
+				cf.sysDNSHost_Netgear_account.disabled = false;
+				cf.sysDNSEmail_Netgear_account.disabled = false;
+				cf.sysDNSPassword_Netgear_account.disabled = false;
+				//ungrayout_button("NButton");
+				//ungrayout_button("NCancel");
+				//ungrayout_button_apply("NApply");
+			}
+			cf.account[0].disabled = false;
+			cf.account[1].disabled = false;
+			cf.sysDNSProviderlist.disabled = false;
+
+		}else
+		{	
+			grayout_button("NReset");
+			if(cf.account[1].checked)
+			{
+				
+				cf.sysDNSHost_Netgear.disabled = true;
+				cf.sysDNSEmail_Netgear.disabled = true;
+				cf.sysDNSPassword_Netgear.disabled = true;
+				cf.sysDNSHost_Netgear.value = "";
+				cf.sysDNSEmail_Netgear.value = "";
+				cf.sysDNSPassword_Netgear.value = "";
+				grayout_button("NRegister");
+				document.getElementById("text_host_result_id").style.display="none";
+				document.getElementById("text_email_result_id").style.display="none";
+				document.getElementById("text_pass_result_register_id").style.display="none";
+				document.getElementById("register_error").style.display="none";
+				document.getElementById("Netgear_img").style.display="none";
+				document.getElementById("Netgear_img_no").style.display="none";
+				document.getElementById("Netgear_register_email_no").style.display="none";
+				document.getElementById("Netgear_img_register_no").style.display="none";
+				cf.email_graycheck.value="-1";
+				cf.password_graycheck.value="-1";
+				cf.host_graycheck.value="-1";
+			}else
+			{
+				cf.sysDNSHost_Netgear_account.disabled = true;
+				cf.sysDNSEmail_Netgear_account.disabled = true;
+				cf.sysDNSPassword_Netgear_account.disabled = true;
+				document.getElementById("text_host_result_account_id").style.display="none";
+				document.getElementById("text_email_result_account_id").style.display="none";
+				document.getElementById("text_pass_result_account_id").style.display="none";
+				document.getElementById("Netgear_img_account_host_no").style.display="none";
+				document.getElementById("account_error").style.display="none";
+				document.getElementById("Netgear_account_email_no").style.display="none";
+				document.getElementById("Netgear_account_confirm_no").style.display="none";
+				//grayout_button("NCancel");
+				//grayout_button_apply("NApply");
+				//grayout_button("NButton");
+			}
+			cf.account[0].disabled = true;
+			cf.account[1].disabled = true;
+			cf.sysDNSProviderlist.disabled = true;
+				
+		}
+	}else
+	{
+		if(cf.sysDNSActive.checked)
+		{
+				cf.sysDNSHost.disabled = false;
+				cf.sysDNSUser.disabled = false;
+				cf.sysDNSPassword.disabled = false;
+				cf.sysDNSProviderlist.disabled = false;
+		}else
+		{
+				cf.sysDNSHost.disabled = true;
+				cf.sysDNSUser.disabled = true;
+				cf.sysDNSPassword.disabled = true;
+				cf.sysDNSProviderlist.disabled = true;
+		}
+	}
+}
+
+
+var IsOraySpecific = false;
+var Is3322Specific = false;
+
+function chgDns()
+{
+    var cf =document.forms[0];
+    var currentProvider = cf.sysDNSProviderlist.value;
+    var netgear_haveaccount = "<% GetPageCfg("DNS_ddns_chgDns_netgear_haveaccount") %>";
+	var imgSrc=document.getElementById('help-button');
+  
+  	
+  
+    if (currentProvider == 2)//www.ORAY.cn
+    {
+        var diableButton;
+        var hostname = document.getElementsByName("sysDNSHost");
+        var inputusername = document.getElementsByName("sysDNSUser");
+        var inputpassword = document.getElementsByName("sysDNSPassword");	
+        if(!IsOraySpecific)
+        {
+            inputusername[0].value = "";
+            inputpassword[0].value = "";
+        }
+        hostname[0].value = "";
+        inputusername[0].maxLength = 16;
+        inputpassword[0].maxLength = 16;
+        cf.sysDNSHost.disabled = true;
+        document.getElementById("3322_specific").style.display="none";
+        document.getElementById("oray_specific").style.display="block";
+		document.getElementById("common_specific").style.display="block";
+		document.getElementById("common_button").style.display="block";
+		
+		document.getElementById("Netgear_account_status").style.display="none";
+		document.getElementById("Netgear_register").style.display="none";
+		document.getElementById("Netgear_account").style.display="none";
+		document.getElementById("Netgear_noip").style.display="none";
+		document.getElementById("Netgear_success_reset").style.display="none";
+		document.getElementById("netgear_button").style.display="none";
+		document.getElementById("negear_keep_screen").style.display="none";
+	
+//	    $('#helpframe').attr('src', 'DNS_ddns_h.htm')
+	    imgSrc.src="img/helparrowdown-icon.png";
+      loadhelp2('DNS_ddns');
+		
+        diableButton = document.getElementsByName("Button");
+        diableButton[0].outerHTML='<button  onClick="" type="button" name="Button" value=Show Status class="button-grey" ><span class="roundleft_grey">&nbsp;&nbsp;  <% GetMultiLangStr("ADD004") %> </span><span class="roundright_grey">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>';
+        diableButton[0].style.cursor='default';
+    }
+	else if(currentProvider == 4)//NETGEAR
+	{
+		
+		//alert(currentProvider);
+		document.getElementById("3322_specific").style.display="none";
+   		document.getElementById("oray_specific").style.display="none";
+   		document.getElementById("common_specific").style.display="none";
+		document.getElementById("common_button").style.display="none";
+		
+		document.getElementById("Netgear_noip").style.display="block";
+		document.getElementById("negear_keep_screen").style.display="block";
+	
+		if(cf.success_status.value != "0")
+		{
+			if(netgear_haveaccount == "1" || netgear_haveaccount == "0")
+			{
+				document.getElementById("Netgear_account_status").style.display="block";
+				//alert(netgear_haveaccount);
+				cf.account[1].checked = true;
+				ddns_active();
+				document.getElementById("Netgear_register").style.display="block";
+				document.getElementById("Netgear_img").style.display="none";
+				document.getElementById("Netgear_img_no").style.display="none";
+				//document.getElementById("Netgear_hostcheck").style.display="none";
+				//document.getElementById("text_pass_result_id").style.display="none";
+				document.getElementById("text_email_result_id").style.display="none";
+				//document.getElementById("Netgear_img_confirm_no").style.display="none";
+				//document.getElementById("Netgear_img_confirm").style.display="none";
+				document.getElementById("Netgear_register_email_no").style.display="none";
+				document.getElementById("text_email_result_account_id").style.display="none";
+				document.getElementById("text_pass_result_account_id").style.display="none";
+				document.getElementById("account_error").style.display="none";
+				document.getElementById("Netgear_account_email_no").style.display="none";
+				document.getElementById("Netgear_img_register_no").style.display="none";
+				document.getElementById("text_host_result_id").style.display="none";
+				document.getElementById("Netgear_account_confirm_no").style.display="none";
+				document.getElementById("Netgear_img_account_host_no").style.display="none";
+				document.getElementById("text_host_result_account_id").style.display="none";
+				document.getElementById("text_pass_result_register_id").style.display="none";
+				document.getElementById("register_error").style.display="none";
+				grayout_button("NRegister");
+
+//			$('#helpframe').attr('src', 'DNS_ddns_Netgear_no_h.htm')
+
+	    imgSrc.src="img/helparrowdown-icon.png";
+      loadhelp2('DNS_ddns_Netgear_no');
+
+				cf.sysDNSHost_Netgear.value="";
+				cf.sysDNSEmail_Netgear.value="";
+				cf.sysDNSPassword_Netgear.value="";
+				cf.email_graycheck.value="-1";
+				cf.password_graycheck.value="-1";
+				cf.host_graycheck.value="-1";
+				//cf.sysDNSConfirmPassword_Netgear.value="";
+				//statusChange(1);
+			}
+		}else
+		{
+			
+			document.getElementById("Netgear_success_reset").style.display="block";
+			document.getElementById("netgear_button").style.display="block";
+			document.getElementById("Netgear_register").style.display="none";
+			document.getElementById("Netgear_account_status").style.display="none";
+			document.getElementById("Netgear_account").style.display="none";
+			ddns_active();
+			
+
+		}
+	}
+    else
+    {
+	   ddns_active();
+        var enableButton;
+        var inputusername = document.getElementsByName("sysDNSUser");
+        var inputpassword = document.getElementsByName("sysDNSPassword");
+        if(IsOraySpecific)
+        {
+            inputusername[0].value = "";
+            inputpassword[0].value = "";
+        }
+        if(currentProvider == 1)
+            document.getElementById("3322_specific").style.display="block";
+        else
+            document.getElementById("3322_specific").style.display="none";
+        inputusername[0].maxLength = 64;
+        inputpassword[0].maxLength = 64;
+        cf.sysDNSHost.disabled = false;
+        document.getElementById("oray_specific").style.display="none";
+		document.getElementById("common_specific").style.display="block";
+		document.getElementById("common_button").style.display="block";
+		
+		document.getElementById("Netgear_account_status").style.display="none";
+		document.getElementById("Netgear_register").style.display="none";
+		document.getElementById("Netgear_account").style.display="none";
+		document.getElementById("netgear_button").style.display="none";
+		document.getElementById("Netgear_noip").style.display="none";
+		document.getElementById("Netgear_success_reset").style.display="none";
+		document.getElementById("negear_keep_screen").style.display="none";
+
+		
+//		$('#helpframe').attr('src', 'DNS_ddns_h.htm')
+	    imgSrc.src="img/helparrowdown-icon.png";
+      loadhelp2('DNS_ddns');
+		
+		
+        enableButton = document.getElementsByName("Button");
+        enableButton[0].outerHTML='<button  onClick="buttonClick(this,\'Show Status\');ShowResult()" type="button" name="Button" value=Show Status class="button-common common_bt" ><% GetMultiLangStr("ADD004") %></button>';
+        enableButton[0].style.cursor='default';
+    }
+}
+
+function checkData()
+{
+    var cf = document.forms[0];
+    var currentProvider = cf.sysDNSProviderlist.value;
+	var old_hostname  = "<% GetPageCfg("DNS_ddns_old_hostname") %>";
+	var openvpnEnable = "<% GetPageCfg("DNS_ddns_openvpnEnable") %>";
+    var msg = "";
+    if(cf.sysDNSActive.checked)
+    {
+    if(currentProvider != 2)
+		
+        msg+= checkBlank(cf.sysDNSHost, "<% GetMultiLangStr("ADD005") %>");
+    msg+= checkBlank(cf.sysDNSUser, "<% GetMultiLangStr("SWP051") %>");
+    msg+= checkBlank(cf.sysDNSPassword, "<% GetMultiLangStr("SWP027") %>");
+	}
+    
+    if(currentProvider == 2)
+    {
+        if (cf.sysDNSUser.value.match( /[^a-zA-Z0-9\_\-]/ ))
+        {      
+            alert("<% GetMultiLangStr("SWPE01") %>");
+            return false;    
+        }
+    }
+    
+    if(currentProvider == 1)
+    {
+        if(cf.sysDNSUser.value.length < 3)
+        {
+            alert("<% GetMultiLangStr("ADDE24") %>");
+            return false;    
+        }
+
+        if(cf.sysDNSUser.value.length > 64)
+        {      
+            alert("<% GetMultiLangStr("ADDE25") %>");
+            return false;    
+        }
+
+        if(cf.sysDNSPassword.value.length < 6)
+        {
+            alert("<% GetMultiLangStr("ADDE26") %>");
+            return false;    
+        }
+
+        if(cf.sysDNSPassword.value.length > 64)
+        {      
+            alert("<% GetMultiLangStr("ADDE27") %>");
+            return false;    
+        }
+
+        if (!cf.sysDNSUser.value.match( /^[a-zA-Z](?!.*_$)[a-zA-Z0-9_]*$/ ))
+        {      
+            alert("<% GetMultiLangStr("SWPE01") %>");
+            return false;    
+        }
+    }
+    
+    if (cf.sysDNSHost.value.match( /[^\x20-\x7E]/ ))
+    {
+        alert("<% GetMultiLangStr("ADDE01") %>");
+        return false;
+    }
+
+    if (cf.sysDNSUser.value.match( /[^\x20-\x7E]/ ))
+    {
+        alert("<% GetMultiLangStr("ADDE03") %>");
+        return false;
+    }
+    
+	
+    if (cf.sysDNSPassword.value.match( /[^\x20-\x7E]/ ))
+    {
+        alert("<% GetMultiLangStr("ADDE02") %>");
+        return false;
+    }
+    
+    if (msg.length > 1)
+    {
+        alert(msg);
+        return false;
+    }
+
+	if(openvpnEnable == "enable"){
+		if(cf.sysDNSHost.value != old_hostname){
+			alert("<% GetMultiLangStr("vpn162") %>");
+		}
+	}
+    return true;
+}
+
+function statusChange(Index)
+{
+	var cf = document.forms[0];
+	var imgSrc=document.getElementById('help-button');
+	
+	if(Index == 0)
+	{
+		document.getElementById("Netgear_register").style.display="block";
+		document.getElementById("Netgear_account").style.display="none";
+		document.getElementById("Netgear_account").style.marginTop="0px";
+		document.getElementById("netgear_button").style.display="none";
+		document.getElementById("text_email_result_account_id").style.display="none";
+		document.getElementById("text_pass_result_account_id").style.display="none";
+		document.getElementById("account_error").style.display="none";
+		document.getElementById("Netgear_account_email_no").style.display="none";
+		document.getElementById("Netgear_account_confirm_no").style.display="none";
+		document.getElementById("text_pass_result_account_id").style.display="none";
+		document.getElementById("Netgear_img_account_host_no").style.display="none";
+		document.getElementById("text_host_result_account_id").style.display="none";
+		
+			
+		if(cf.sysDNSHost_Netgear.value == "" && cf.sysDNSEmail_Netgear.value == "" && cf.sysDNSPassword_Netgear.value == "")		
+			grayout_button("NRegister");
+		
+	
+	
+//		$('#helpframe').attr('src', 'DNS_ddns_Netgear_no_h.htm')
+		imgSrc.src="img/helparrowdown-icon.png";
+    loadhelp2('DNS_ddns_Netgear_no');
+		
+	}
+	else
+	{
+	
+		//document.getElementById("forget_password").style.display="block";
+		document.getElementById("Netgear_register").style.display="none";
+		document.getElementById("Netgear_account").style.display="block";
+		document.getElementById("Netgear_account").style.marginTop="-40px";
+		document.getElementById("netgear_button").style.display="block";
+		document.getElementById("Netgear_img").style.display="none";
+		document.getElementById("Netgear_img_no").style.display="none";
+		//document.getElementById("Netgear_hostcheck").style.display="none";
+		//document.getElementById("text_pass_result_id").style.display="none";
+		document.getElementById("text_email_result_id").style.display="none";
+		document.getElementById("text_pass_result_register_id").style.display="none";
+		//document.getElementById("Netgear_img_confirm_no").style.display="none";
+		//document.getElementById("Netgear_img_confirm").style.display="none";
+		document.getElementById("Netgear_register_email_no").style.display="none";
+		document.getElementById("Netgear_img_register_no").style.display="none";
+		document.getElementById("text_host_result_id").style.display="none";
+		document.getElementById("register_error").style.display="none";
+		
+
+
+		cf.sysDNSHost_Netgear.value="";
+		cf.sysDNSEmail_Netgear.value="";
+		cf.sysDNSPassword_Netgear.value="";
+		//cf.sysDNSConfirmPassword_Netgear.value="";
+		cf.email_graycheck.value="-1";
+		cf.password_graycheck.value="-1";
+		cf.host_graycheck.value="-1";
+		
+//		$('#helpframe').attr('src', 'DNS_ddns_Netgear_yes_h.htm')
+		imgSrc.src="img/helparrowdown-icon.png";
+    loadhelp2('DNS_ddns_Netgear_yes');
+	
+		
+
+	}
+	ddns_active();
+}
+
+
+function account_check()
+{
+	var cf = document.forms[0];
+	var email=cf.sysDNSEmail_Netgear_account.value;
+	var msg = "";
+	emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+	if(cf.sysDNSActive.checked)
+	{
+		msg+= checkBlank(cf.sysDNSPassword_Netgear_account, "<% GetMultiLangStr("ADD015") %>");
+	    msg+= checkBlank(cf.sysDNSEmail_Netgear_account, "<% GetMultiLangStr("LPC005") %>");
+		msg+= checkBlank(cf.sysDNSHost_Netgear_account, "<% GetMultiLangStr("ADD005") %>");
+			//alert("checkblank"+msg);
+	
+		if (msg.length > 1)
+	    {
+	        alert(msg);
+	        return false;
+	    }
+	
+		if(email.search(emailRule) == -1)
+		{
+			//alert("lnvalid email format");
+			//cf.text_email_result_account.value="<% GetMultiLangStr("ADDE08") %>";
+			document.getElementById("text_email_result_account_id").style.display="block";
+			document.getElementById("Netgear_account_email_no").style.display="block";
+			return false;
+		}else
+		{
+			//cf.text_email_result_account.value="";
+			document.getElementById("text_email_result_account_id").style.display="none";
+			document.getElementById("Netgear_account_email_no").style.display="none";
+		}
+	
+		if (cf.sysDNSHost_Netgear_account.value.match( /[^a-zA-Z0-9\_\-]/ ))
+	    {
+		
+	        //cf.text_host_account_result.value="The characters allowed here are '0'~'9', 'a'~'z', 'A'~'Z', and hyphen '-'";
+			//cf.text_host_account_result.value="The hostname is not valid. The characters allowed here are '0'~'9', 'a'~'z', 'A'~'Z', and hyphen '-'";
+			document.getElementById("text_host_result_account_id").style.display="block";
+			document.getElementById("Netgear_img_account_host_no").style.display="block";
+	        return false;
+	    }else
+		{
+			//cf.text_host_account_result.value="";
+			document.getElementById("text_host_result_account_id").style.display="none";
+			document.getElementById("Netgear_img_account_host_no").style.display="none";
+		}
+	
+		if (cf.sysDNSPassword_Netgear_account.value.match( /[^\x20-\x7E]/ ))
+	    {
+	        alert("<% GetMultiLangStr("ADDE09") %>");
+	        return false;
+	    }
+	
+		if(cf.sysDNSHost_Netgear_account.value.length > 114)
+		{
+			//cf.text_host_account_result.value="The hostname is not valid. The characters allowed here are '0'~'9', 'a'~'z', 'A'~'Z', and hyphen '-'";
+			document.getElementById("text_host_result_account_id").style.display="block";
+			document.getElementById("Netgear_img_account_host_no").style.display="block";
+			return false;
+		}else
+		{
+			//cf.text_host_account_result.value="";
+			document.getElementById("text_host_result_account_id").style.display="none";
+			document.getElementById("Netgear_img_account_host_no").style.display="none";
+		}
+	
+		if(cf.sysDNSEmail_Netgear_account.value.length > 48)
+		{
+			//cf.text_email_result_account.value="The email address can be up to 48 characters";
+			//cf.text_email_result_account.value=	"The email address can be up to 48 characters";
+			document.getElementById("text_email_result_account_id").style.display="block";
+			document.getElementById("Netgear_account_email_no").style.display="block";
+			return false;
+		}else
+		{
+			//cf.text_email_result_account.value="";
+			document.getElementById("text_email_result_account_id").style.display="none";
+			document.getElementById("Netgear_account_email_no").style.display="none";
+		}
+	
+		if(cf.sysDNSPassword_Netgear_account.value.length > 32 || cf.sysDNSPassword_Netgear_account.value.length < 6)
+		{
+			document.getElementById("text_pass_result_account_id").style.display="block";
+			document.getElementById("Netgear_account_confirm_no").style.display="block";
+			return false;
+		}else
+		{
+			document.getElementById("text_pass_result_account_id").style.display="none";
+			document.getElementById("Netgear_account_confirm_no").style.display="none";
+		}
+	}
+	
+	return true;
+		
+}
+
+function register_check()
+{
+	 var cf = document.forms[0];
+	 var password=cf.sysDNSPassword_Netgear.value; 
+	 //var confirmpassword=cf.sysDNSConfirmPassword_Netgear.value;
+	 var email=cf.sysDNSEmail_Netgear.value;
+	 var msg = "";
+	 emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+	msg+= checkBlank(cf.sysDNSPassword_Netgear, "<% GetMultiLangStr("ADD015") %>");
+    msg+= checkBlank(cf.sysDNSEmail_Netgear, "<% GetMultiLangStr("LPC005") %>");
+	//msg+= checkBlank(cf.sysDNSConfirmPassword_Netgear, "<% GetMultiLangStr("LPC014") %>");
+	msg+= checkBlank(cf.sysDNSHost_Netgear, "<% GetMultiLangStr("ADD005") %>");
+		//alert("checkblank"+msg);
+	
+	if (msg.length > 1)
+    {
+        alert(msg);
+        return false;
+    }
+	
+	
+	if(email.search(emailRule) == -1)
+	{
+		//alert("lnvalid email format");
+		//cf.text_email_result.value="The email address is not valid";
+		document.getElementById("text_email_result_id").style.display="block";
+		document.getElementById("Netgear_register_email_no").style.display="block";
+		return false;
+	}else
+	{
+		//cf.text_email_result.value="";
+		document.getElementById("text_email_result_id").style.display="none";
+		document.getElementById("Netgear_register_email_no").style.display="none";
+	}
+	// if (cf.sysDNSHost_Netgear.value.match( /[^a-zA-Z0-9\_\-]/ ))
+    //{
+    //    alert("The hostname is not valid. The characters allowed here are '0'~'9', 'a'~'z', 'A'~'Z', and hyphen '-'");
+    //    return false;
+    //}
+	
+	
+	if (cf.sysDNSPassword_Netgear.value.match( /[^\x20-\x7E]/ ))
+    {
+        alert("<% GetMultiLangStr("ADDE02") %>");
+        return false;
+    }
+	return true;
+
+	 
+	 
+	 
+}
+
+
+var respflag="0";
+function sendhostcheck()
+{
+		var cf = document.forms[0];
+		var hostname=cf.sysDNSHost_Netgear.value;
+		
+				
+		if(hostname != "")
+		{
+			if(cf.sysDNSHost_Netgear.value.length > 114 || cf.sysDNSHost_Netgear.value.match( /[^a-zA-Z0-9\_\-]/ ))
+			{
+			
+				document.getElementById("Netgear_img_no").style.display="block";
+				document.getElementById("Netgear_img").style.display="none";
+				document.getElementById("text_host_result_id").style.display="block";
+				cf.host_graycheck.value  = "-1";
+			}
+			else
+			{
+			
+				//document.getElementById("Netgear_img_no").style.display="none";
+				//document.getElementById("Netgear_img").style.display="none";
+				document.getElementById("text_host_result_id").style.display="none";
+				cf.host_graycheck.value = "0";
+				
+				
+					// Call local PHP file on the device, which handles encryption and sending response
+				if(respflag == "0")
+				{
+					respflag = "-1";
+						$.ajax({
+							url: 'host_check.php',
+							method: 'POST',
+							data: {
+								hostname: hostname
+							},
+							success: function(resp) {
+							
+								if(resp == "available" && cf.sysDNSHost_Netgear.value != "")
+								{
+									document.getElementById("Netgear_img").style.display="block";
+									document.getElementById("Netgear_img_no").style.display="none";
+									respflag = "0";
+									if( hostname != cf.sysDNSHost_Netgear.value)
+										sendhostcheck();
+								}
+								else if(resp == "unavailable" && cf.sysDNSHost_Netgear.value != "")
+								{
+									document.getElementById("Netgear_img").style.display="none";
+									document.getElementById("Netgear_img_no").style.display="block";
+									respflag = "0";
+									if( hostname != cf.sysDNSHost_Netgear.value)
+										sendhostcheck();
+								}else
+								{
+									document.getElementById("Netgear_img_no").style.display="none";
+									document.getElementById("Netgear_img").style.display="none";
+									respflag = "0";
+								}
+								
+							}
+						});
+				}
+				
+			}
+		}else
+		{
+			
+			document.getElementById("Netgear_img_no").style.display="none";
+			document.getElementById("Netgear_img").style.display="none";
+			document.getElementById("text_host_result_id").style.display="none";
+			cf.host_graycheck.value = "-1";
+		}
+		
+			
+			
+				
+		if(cf.email_graycheck.value == "0" && cf.password_graycheck.value == "0" && cf.host_graycheck.value == "0")
+		{
+			ungrayout_button("NRegister");
+		}else if(cf.email_graycheck.value == "-1" || cf.password_graycheck.value == "-1" || cf.host_graycheck.value == "-1")
+		{
+			grayout_button("NRegister");
+			return false;
+		}
+				
+		return true;
+}
+
+
+//function hostformatcheck()
+//{
+//	var cf = document.forms[0];
+//	var host=cf.sysDNSHost_Netgear.value;
+	
+	
+//	if(host != "")
+//	{
+//		if(cf.sysDNSHost_Netgear.value.length > 114 || cf.sysDNSHost_Netgear.value.match( /[^a-zA-Z0-9\_\-]/ ))
+//		{
+			//alert("A password has to be at least 6 characters and at most 32 characters");
+			//cf.text_host_result.value="The hostname is not valid. The characters allowed here are '0'~'9', 'a'~'z', 'A'~'Z', and hyphen '-'";
+		//	document.getElementById("Netgear_img_no").style.display="block";
+		//	document.getElementById("text_host_result_id").style.display="block";
+		//	cf.host_graycheck.value  = "-1";
+		
+		//}
+		//else
+		//{
+			//cf.text_host_result.value="";
+		//	document.getElementById("Netgear_img_no").style.display="none";
+		//	document.getElementById("text_host_result_id").style.display="none";
+		//	cf.host_graycheck.value = "0";
+			
+		//}
+	//}else
+	//{
+			//cf.text_host_result.value="";
+	//		document.getElementById("Netgear_img_no").style.display="none";
+	//		document.getElementById("text_host_result_id").style.display="none";
+	//		cf.host_graycheck.value = "-1";
+	//}
+	
+	
+	
+	//if(cf.email_graycheck.value == "0" && cf.password_graycheck.value == "0" && cf.host_graycheck.value == "0")
+	//{
+	//	ungrayout_button("NRegister");
+	//}else if(cf.email_graycheck.value == "-1" || cf.password_graycheck.value == "-1" || cf.host_graycheck.value == "-1")
+	//{
+	//	grayout_button("NRegister");
+	//	return false;
+	//}
+	//return true;
+	
+//}
+
+
+function hostcheck_account()
+{
+	var cf = document.forms[0];
+	var host_account=cf.sysDNSHost_Netgear_account.value;
+	
+	if(host_account != "")
+	{
+		if(cf.sysDNSHost_Netgear_account.value.length > 114 || cf.sysDNSHost_Netgear_account.value.match( /[^a-zA-Z0-9\_\-]/ ))
+		{
+			
+			//cf.text_host_account_result.value="The hostname is not valid. The characters allowed here are '0'~'9', 'a'~'z', 'A'~'Z', and hyphen '-'";
+			document.getElementById("text_host_result_account_id").style.display="block";
+			document.getElementById("Netgear_img_account_host_no").style.display="block";
+			return false;
+		}else
+		{
+			//cf.text_host_account_result.value="";
+			document.getElementById("text_host_result_account_id").style.display="none";
+			document.getElementById("Netgear_img_account_host_no").style.display="none";
+		}
+	}else
+	{
+		//cf.text_host_account_result.value="";
+		document.getElementById("text_host_result_account_id").style.display="none";
+		document.getElementById("Netgear_img_account_host_no").style.display="none";
+	}
+	
+	
+	return true;
+}
+
+function passwordcheck_press()
+{
+	var cf = document.forms[0];
+	var pwd=cf.sysDNSPassword_Netgear.value;
+	
+
+	
+	if(pwd != "")
+	{
+		if(cf.sysDNSPassword_Netgear.value.length >= 6)
+		{
+			if(cf.sysDNSPassword_Netgear.value.length > 32)
+			{
+				//alert("A password has to be at least 6 characters and at most 32 characters");
+				//cf.text_pass_register_result.value="Your password must be at least 6 characters long and at most 32 characters long";
+				document.getElementById("Netgear_img_register_no").style.display="block";
+				document.getElementById("text_pass_result_register_id").style.display="block";
+				cf.password_graycheck.value = "-1";
+		
+			}
+			else
+			{
+				//cf.text_pass_register_result.value="";
+				document.getElementById("Netgear_img_register_no").style.display="none";
+				document.getElementById("text_pass_result_register_id").style.display="none";
+				cf.password_graycheck.value = "0";
+			
+				//cf.text_pass_result.value="";
+				//document.getElementById("Netgear_img_confirm").style.display="none";
+				//document.getElementById("Netgear_img_confirm_no").style.display="none";
+				//document.getElementById("text_pass_result_id").style.display="none";
+				//cf.confirmpass_graycheck.value = "0";	
+			}
+		}else
+		{
+				document.getElementById("Netgear_img_register_no").style.display="none";
+				document.getElementById("text_pass_result_register_id").style.display="none";
+				cf.password_graycheck.value = "-1";
+
+		}
+		
+	}else
+	{
+			//cf.text_pass_register_result.value="";
+			document.getElementById("Netgear_img_register_no").style.display="none";
+			document.getElementById("text_pass_result_register_id").style.display="none";
+			cf.password_graycheck.value = "-1";
+			
+			//cf.text_pass_result.value="";
+			//document.getElementById("Netgear_img_confirm").style.display="none";
+			//document.getElementById("Netgear_img_confirm_no").style.display="none";
+			//document.getElementById("text_pass_result_id").style.display="none";
+			//cf.confirmpass_graycheck.value = "-1";	
+	}
+	
+	if(cf.email_graycheck.value == "0" && cf.password_graycheck.value == "0" && cf.host_graycheck.value == "0")
+	{
+		ungrayout_button("NRegister");
+	}else if(cf.email_graycheck.value == "-1" || cf.password_graycheck.value == "-1" || cf.host_graycheck.value == "-1")
+	{
+		grayout_button("NRegister");
+		return false;
+	}
+	return true;
+	
+}
+
+function passwordcheck()
+{
+	var cf = document.forms[0];
+	var pwd=cf.sysDNSPassword_Netgear.value;
+	
+	//var pwd_confirm=cf.sysDNSConfirmPassword_Netgear.value;
+	
+	if(pwd != "")
+	{
+		if(cf.sysDNSPassword_Netgear.value.length > 32 || cf.sysDNSPassword_Netgear.value.length < 6)
+		{
+			//alert("A password has to be at least 6 characters and at most 32 characters");
+			//cf.text_pass_register_result.value="Your password must be at least 6 characters long and at most 32 characters long";
+			document.getElementById("Netgear_img_register_no").style.display="block";
+			document.getElementById("text_pass_result_register_id").style.display="block";
+			cf.password_graycheck.value = "-1";
+		
+		}
+		//else if(pwd != pwd_confirm)
+		//{
+		//	cf.text_pass_register_result.value="";
+		//	document.getElementById("Netgear_img_register_no").style.display="none";
+		//	document.getElementById("text_pass_result_register_id").style.display="none";
+		//	cf.password_graycheck.value = "0";
+		
+		//	cf.text_pass_result.value="password not match";
+		//	document.getElementById("Netgear_img_confirm").style.display="none";
+		//	document.getElementById("Netgear_img_confirm_no").style.display="block";
+		//	document.getElementById("text_pass_result_id").style.display="block";
+		//	cf.confirmpass_graycheck.value = "-1";
+		//}
+		else
+		{
+			//cf.text_pass_register_result.value="";
+			document.getElementById("Netgear_img_register_no").style.display="none";
+			document.getElementById("text_pass_result_register_id").style.display="none";
+			cf.password_graycheck.value = "0";
+			
+			//cf.text_pass_result.value="";
+			//document.getElementById("Netgear_img_confirm").style.display="none";
+			//document.getElementById("Netgear_img_confirm_no").style.display="none";
+			//document.getElementById("text_pass_result_id").style.display="none";
+			//cf.confirmpass_graycheck.value = "0";	
+		}
+	}else
+	{
+			//cf.text_pass_register_result.value="";
+			document.getElementById("Netgear_img_register_no").style.display="none";
+			document.getElementById("text_pass_result_register_id").style.display="none";
+			cf.password_graycheck.value = "-1";
+			
+			//cf.text_pass_result.value="";
+			//document.getElementById("Netgear_img_confirm").style.display="none";
+			//document.getElementById("Netgear_img_confirm_no").style.display="none";
+			//document.getElementById("text_pass_result_id").style.display="none";
+			//cf.confirmpass_graycheck.value = "-1";	
+	}
+	
+
+	
+	
+	if(cf.email_graycheck.value == "0" && cf.password_graycheck.value == "0" && cf.host_graycheck.value == "0")
+	{
+		ungrayout_button("NRegister");
+	}else if(cf.email_graycheck.value == "-1" || cf.password_graycheck.value == "-1" || cf.host_graycheck.value == "-1")
+	{
+		grayout_button("NRegister");
+		return false;
+	}
+	return true;
+}
+
+function passwordcheck_account()
+{
+	var cf = document.forms[0];
+	var pwd_account=cf.sysDNSPassword_Netgear_account.value;
+	
+	if(pwd_account != "")
+	{
+		if(cf.sysDNSPassword_Netgear_account.value.length > 32 || cf.sysDNSPassword_Netgear_account.value.length < 6)
+		{
+			//alert("Your password must be at least 6 characters long and at most 64 characters long");
+			//cf.text_pass_result_account.value="Your password must be at least 6 characters long and at most 32 characters long";
+			document.getElementById("text_pass_result_account_id").style.display="block";
+			document.getElementById("Netgear_account_confirm_no").style.display="block";
+			return false;
+		}else
+		{
+			//cf.text_pass_result_account.value="";
+			document.getElementById("text_pass_result_account_id").style.display="none";
+			document.getElementById("Netgear_account_confirm_no").style.display="none";
+		}
+	}else
+	{
+		//cf.text_pass_result_account.value="";
+		document.getElementById("text_pass_result_account_id").style.display="none";
+		document.getElementById("Netgear_account_confirm_no").style.display="none";
+	}
+	
+	return true;
+}
+
+
+function formatcheck()
+{
+	var cf = document.forms[0];
+	var email=cf.sysDNSEmail_Netgear.value;
+	emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+
+	if(email != "")
+	{
+		if(cf.sysDNSEmail_Netgear.value.length > 48)
+		{
+			//alert("The email address can be up to 48 characters");
+			//cf.text_email_result.value="The email address can be up to 48 characters";
+			document.getElementById("text_email_result_id").style.display="block";
+			document.getElementById("Netgear_register_email_no").style.display="block";
+			cf.email_graycheck.value="-1";
+			//return false;
+		}
+		else if(email.search(emailRule) == -1)
+		{
+			//alert("lnvalid email format");
+			//cf.text_email_result.value="The email address is not valid";
+			document.getElementById("text_email_result_id").style.display="block";
+			document.getElementById("Netgear_register_email_no").style.display="block";
+			cf.email_graycheck.value="-1";
+			//return false;
+		}else
+		{
+			//cf.text_email_result.value="";
+			document.getElementById("text_email_result_id").style.display="none";
+			document.getElementById("Netgear_register_email_no").style.display="none";
+			cf.email_graycheck.value="0";
+		}
+	}else
+	{
+			//cf.text_email_result.value="";
+			document.getElementById("text_email_result_id").style.display="none";
+			document.getElementById("Netgear_register_email_no").style.display="none";
+			cf.email_graycheck.value="-1";
+	}
+
+	
+	//alert(cf.email_graycheck.value+":"+cf.password_graycheck.value+":"+cf.confirmpass_graycheck.value);
+	if(cf.email_graycheck.value == "0" && cf.password_graycheck.value == "0" && cf.host_graycheck.value == "0")
+	{
+		ungrayout_button("NRegister");
+	}else if(cf.email_graycheck.value == "-1" || cf.password_graycheck.value == "-1" || cf.host_graycheck.value == "-1")
+	{
+		grayout_button("NRegister");
+		return false;
+	}
+	
+	return true;
+}
+
+function formatcheck_account()
+{
+	var cf = document.forms[0];
+	var email_account=cf.sysDNSEmail_Netgear_account.value;
+	emailRule = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/;
+		
+	if(email_account != "")
+	{
+		if(cf.sysDNSEmail_Netgear_account.value.length > 48)
+		{
+			//cf.text_email_result_account.value="The email address can be up to 48 characters";
+			document.getElementById("text_email_result_account_id").style.display="block";
+			document.getElementById("Netgear_account_email_no").style.display="block";
+			return false;
+		}
+		else if(email_account.search(emailRule) == -1)
+		{
+			//alert("lnvalid email format");
+			//cf.text_email_result_account.value="The email address is not valid";
+			document.getElementById("text_email_result_account_id").style.display="block";
+			document.getElementById("Netgear_account_email_no").style.display="block";
+			return false;
+		}else
+		{
+			//cf.text_email_result_account.value="";
+			document.getElementById("text_email_result_account_id").style.display="none";
+			document.getElementById("Netgear_account_email_no").style.display="none";
+		}
+	}else
+	{
+			//cf.text_email_result_account.value="";
+			document.getElementById("text_email_result_account_id").style.display="none";
+			document.getElementById("Netgear_account_email_no").style.display="none";
+	}
+	
+	return true;
+		
+}
+
+var press_cancel_flag="0";
+function press_cancel()
+{
+	
+	press_cancel_flag = "1";
+	
+}
+
+
+function loadSettings()
+{
+
+    var cf = document.forms[0];
+    var ddnsEnable = "<% GetPageCfg("DNS_ddns_ddnsEnable") %>";
+    var ddnsServer = "<% GetPageCfg("DNS_ddns_ddnsServer") %>";
+    var ddnsWildCard = "0";
+	var netgear_haveaccount = "<% GetPageCfg("DNS_ddns_loadSettings_netgear_haveaccount") %>";
+	var netgear_hostcheck_status = "0";
+	var hostname = "<% GetPageCfg("DNS_ddns_loadSettings_netgear_hostname") %>";
+	var email = "<% GetPageCfg("DNS_ddns_loadSettings_netgear_email") %>";
+	var pawd = "<% GetPageCfg("DNS_ddns_loadSettings_netgear_pawd") %>";
+	var netgear_create_result;
+	var email_confirm;	
+	
+    if (ddnsServer == "2")
+    	IsOraySpecific = true;
+    else
+        IsOraySpecific = false;
+        
+    if (ddnsServer == "1")
+        Is3322Specific = true;
+    else
+        Is3322Specific = false;
+    
+    if (ddnsEnable == "1")
+        cf.sysDNSActive.checked = true;
+    else
+        cf.sysDNSActive.checked = false;
+	
+    if (ddnsWildCard == "1")
+        cf.sysDNSWildCard.checked = true;
+    else
+        cf.sysDNSWildCard.checked = false;
+
+	
+	var success_status_nvram = "<% GetPageCfg("DNS_ddns_success_status_nvram") %>";
+	cf.success_status.value=success_status_nvram;	
+		
+	if (ddnsServer == "4")
+	{
+		
+		document.getElementById("3322_specific").style.display="none";
+   		document.getElementById("oray_specific").style.display="none";
+   		document.getElementById("common_specific").style.display="none";
+		document.getElementById("common_button").style.display="none";
+
+		document.getElementById("Netgear_account_status").style.marginTop="-30px"
+
+		document.getElementById("Netgear_account_status").style.display="block";
+		document.getElementById("Netgear_noip").style.display="block";
+		document.getElementById("text_pass_result_register_id").style.display="none";
+		document.getElementById("Netgear_img_register_no").style.display="none";
+		document.getElementById("text_host_result_id").style.display="none";
+		document.getElementById("Netgear_img_account_host_no").style.display="none";
+		document.getElementById("text_host_result_account_id").style.display="none";
+		document.getElementById("negear_keep_screen").style.display="block";
+
+		
+		
+		netgear_create_result="<% GetPageCfg("DNS_ddns_netgear_create_result") %>";
+		
+		if(press_cancel_flag != "1") //press cancel button not show confirm email
+		{
+			email_confirm="";
+		}
+		else
+		{
+			email_confirm="";
+			press_cancel_flag = "0";
+		}
+		
+
+	
+
+		if(cf.success_status.value != "0")
+		{
+			
+			
+			document.getElementById("Netgear_success_reset").style.display="none";
+			document.getElementById("Netgear_register").style.marginTop="-40px"
+			
+			if(netgear_haveaccount == "1")
+			{
+				document.getElementById("text_email_result_account_id").style.display="none";
+				document.getElementById("Netgear_account_email_no").style.display="none";
+				document.getElementById("Netgear_account_confirm_no").style.display="none";
+				document.getElementById("text_pass_result_account_id").style.display="none";
+				cf.account[0].checked = true;
+		 		statusChange(1);
+				document.getElementById("account_error").style.display="block";
+				if(email_confirm != "")
+				{
+					alert(email_confirm);
+					//document.getElementById("forget_password").style.display="none";
+				}
+		 	}
+			else if(netgear_haveaccount == "0")
+			{
+	
+			
+				if(netgear_create_result != "-1")
+				{
+					grayout_button("NRegister");
+					cf.email_graycheck.value="-1";
+					cf.password_graycheck.value="-1";
+					cf.host_graycheck.value="-1";
+				}else
+				{
+					cf.sysDNSHost_Netgear.value = hostname;
+					cf.sysDNSEmail_Netgear.value = email;
+					cf.sysDNSPassword_Netgear.value = pawd;
+					cf.email_graycheck.value="0";
+					cf.password_graycheck.value="0";
+					cf.host_graycheck.value="0";
+					ungrayout_button("NRegister");
+				
+				}
+			
+		
+			
+				document.getElementById("text_email_result_id").style.display="none";
+				document.getElementById("Netgear_register_email_no").style.display="none";
+				document.getElementById("Netgear_img_register_no").style.display="none";
+				document.getElementById("text_pass_result_register_id").style.display="none";
+				cf.account[1].checked = true;
+		 		statusChange(0);
+				document.getElementById("register_error").style.display="block";
+	
+					document.getElementById("Netgear_img").style.display="none";
+					document.getElementById("Netgear_img_no").style.display="none";
+		
+			
+
+		
+			}
+		}else //reset
+		{
+			document.getElementById("netgear_button").style.display="block";
+			document.getElementById("Netgear_success_reset").style.display="block";
+			document.getElementById("Netgear_register").style.display="none";
+			document.getElementById("Netgear_account_status").style.display="none";
+			document.getElementById("Netgear_account").style.display="none";
+			ddns_active();
+			
+		
+			
+		
+		}
+	
+	}else
+	{
+		//alert("ddnsServer:"+ddnsServer);
+		chgDns();
+		press_cancel_flag = "0";
+	}	
+}
+
+//-->
+</script>
+<link rel="stylesheet" type="text/css" href="css/custom.css">
+</head>
+<body  onload="change_size();loadSettings();resize();" onUnload="closeWin(datSubWinVar);"  class="page-body"  onResize="change_size();resize();" >
+<img class="cover-image" src="img/cover-image_noh.gif">
+<!--<img class="body-image" src="img/subhead2-background_noh.jpg">-->
+<div id="full-page-container">
+
+<form id="target"  method="POST" action="ddns.cgi">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+<img class="subtop-image" src="img/subhead2-top_noh.gif">
+<div class="subhead2"><% GetMultiLangStr("LUP034") %></div>
+<table border="0"    style="height:370px"  class="subhead2-table main_bas">
+
+<tr align="left" valign="middle">
+<td colspan="2" class="table-seperate-border">
+<div id="common_button" class="fix_button" style="display: block;">
+<table cellpadding="0" cellspacing="3" width="100%">
+<button  onClick="buttonClick(this,'Show Status');ShowResult()" type="button" name="Button" id="show_status" value="Show Status" class="button-common common_bt" ><% GetMultiLangStr("ADD004") %></button>
+<button  value="Cancel" onClick="buttonClick(this,'Cancel');press_cancel();reset();loadSettings();" type="button" name="Cancel" id="cancel" class="button-cancel cancel_bt" ><% GetMultiLangStr("UAS021") %></button>
+<button  value="Apply"  onClick="buttonClick(this,'Apply');return checkData()" type="SUBMIT" name="cfAlert_Apply" id="apply" class="button-apply apply_bt" ><% GetMultiLangStr("LUP004") %></button>
+
+</table>
+</div>
+<img id="Netgear_noip" class="no_ip_logo" src="DDNS_NoIplog.png">
+<div id="negear_keep_screen" style="display: block;">
+<table cellpadding="0" cellspacing="3" width="100%">
+	<img id="keep_screen" style="display: block;width:18px;height:18px" src="empty.gif">
+
+</table>
+</div>
+
+
+</td>
+</tr>
+
+<tr><td class="scrollpane-table-seperate-border scroll_container" colspan="2"><div class="scroll-pane" style="height:365px;width:620px;overflow:auto;scrolling:auto;margin-top: -11px"><table style="border-collapse:collapse;width:97%">
+<tr>
+	<td width="80%" class="p-0">
+	<div id="netgear_button" style="display: block;" class="fix_button">
+	<button  onClick="buttonClick(this,'Show Status');ShowResult()" type="button" name="NButton" id="NButton" value="Show Status" class="button-common common_bt" ><% GetMultiLangStr("ADD004") %></button>
+	<button value="Cancel" onClick="buttonClick(this,'Cancel');press_cancel();reset();loadSettings();" type="button" name="NCancel" id="NCancel" class="button-cancel cancel_bt" ><% GetMultiLangStr("UAS021") %></button>
+	<button value="Apply"  onClick="buttonClick(this,'Apply');return account_check()" type="submit" name="NApply" id="NApply" class="button-apply apply_bt" ><% GetMultiLangStr("LUP004") %></button>
+	</div></td>
+
+</tr>
+
+
+<tr>
+    <td colspan="2" class="pt-0">
+        <label class="checkbox-container">
+            <input type="checkbox" name="sysDNSActive" id="sys_dnsactive" value="dnsEnable" onClick="ddns_active()"> <a href="javascript:loadhelp('DNS_ddns','setup')" tabindex="-1"><b><% GetMultiLangStr("ADD002") %></b> </a> 
+            <span class="checkbox-checkmark"></span> 
+        </label>
+    </td>
+	
+</tr>
+<tr><td colspan="2" height="12" ><div style="background-image:url('seprator.gif');width:100%;background-repeat:repeat-x;">&nbsp;</div></td></tr>
+<tr>
+    <td width="50%" align="left" nowrap class="pb-0">
+    <a href="javascript:loadhelp('DNS_ddns','provider')" tabindex="-1"><b><% GetMultiLangStr("ADD001") %></b></a> 
+    </td>
+    <td width="50%" align="right" class="pt-0">
+    <select name="sysDNSProviderlist" id="sys_dnsprovider_list" size="1" onchange="chgDns()"><% GetPageCfg("DNS_ddns_sysDNSProviderlist") %></select></td>
+
+
+</tr>
+
+<tr><td colspan="2">
+	<div id="common_specific" style="display: block;">
+	<table cellpadding="0" cellspacing="3" width="100%">
+	<tr>
+	    <td width="50%" align="left" nowrap class="pb-0"><% GetMultiLangStr("ADD005") %></td>
+	 <td width="50%" align="left" class="pt-0"><input class="input1" type="text" name="sysDNSHost" id="sys_dnshost" value = "<% GetPageCfg("DNS_ddns_sysDNSHost") %>" size="32" maxlength="255"></td>
+	</tr>
+	<tr>
+	    <td width="50%" align="left" class="pb-0"><% GetMultiLangStr("SWP051") %></td>
+	    <td width="50%" align="left"  class="pt-0"><input class="input1" type="text" name="sysDNSUser" id="sys_dnsuser" value = "<% GetPageCfg("DNS_ddns_sysDNSUser") %>" size="32" maxlength="64"></td>
+	</tr>
+	<tr>
+	    <td width="50%" align="left" class="pb-0"><% GetMultiLangStr("SWP027") %></td>
+	    <td width="50%" align="left" class="pt-0"><input class="input1" type="password" name="sysDNSPassword" id="sys_dnspassword" value = "<% GetPageCfg("DNS_ddns_sysDNSPassword") %>" size="32" maxlength="64"></td>
+	</tr>
+	</table>
+	</div>
+</td></tr>	
+
+<tr><td colspan="2" class="p-0">
+<div id="3322_specific" style="display: block;">
+    <label class="checkbox-container">
+    <input type="checkbox" name="sysDNSWildCard" value="wildEnable"><% GetMultiLangStr("ADD003") %>
+        <span class="checkbox-checkmark"></span> 
+    </label>
+<table cellpadding="0" cellspacing="3" width="100%">
+</table></div></td></tr>
+<tr><td colspan="2">
+<div id="oray_specific" style="display: block;">
+<table cellpadding="0" cellspacing="3" width="100%">
+        <tr class="basic-text">
+            <td width="75%" align="left" nowrap><b><% GetMultiLangStr("MRS006") %>:</b></td>
+            <td width="25%" align="left" ><% GetMultiLangStr("ADD023") %></td>
+        </tr>
+        <tr class="basic-text">
+            <td width="75%" align="left" nowrap><% GetMultiLangStr("CBE005") %>:</td>
+            <td width="25%" align="left" >---</td>
+        </tr>
+        <tr class="basic-text">
+            <td width="75%" align="left" nowrap><% GetMultiLangStr("ADD021") %>:</td>
+            <td width="25%" align="left" ></td>
+        </tr>
+        <tr class="basic-text">
+            <td width="75%" align="left" nowrap ><% GetMultiLangStr("ADD022") %>:</td>
+            <td width="25%" align="left" nowrap="nowrap"><a class="linktype" target="_blank" href="http://www.oray.cn/passport/register.php"><u><font color="#0000ff">http://www.oray.cn/passport/register.php</font></u></a></td></tr>
+        <tr>
+            <td width="25%" align="left" nowrap="nowrap" class="pt-0"><a class="linktype" target="_blank" href="http://www.oray.cn/peanuthull/service.php"><u><font color="#0000ff">http://www.oray.cn/peanuthull/service.php</font></u></a></td></tr>
+        <tr>
+            <td width="25%" align="left" nowrap="nowrap" class="pt-0 pb-0"><a class="linktype" target="_blank" href="http://www.oray.cn/ask/"><u><font color="#0000ff">http://www.oray.cn/ask/</font></u></a></td></tr>
+</table></div></td></tr>
+
+
+<tr><td colspan="2">
+	<div id="Netgear_account_status" style="display: block;">
+	<table cellpadding="0" cellspacing="3" width="100%">
+	
+	<tr>
+	<td colspan="2"> <b><% GetMultiLangStr("ADD014") %></b></td>
+	</tr>
+	
+	<tr>
+	<td colspan="2">
+	    <label class="checkbox-container">
+	        <input type="radio"  name="account" id="account_yes" value="yes" onClick="statusChange(1)"><% GetMultiLangStr("SWP003") %>
+	        <span class="radio-checkmark"></span>
+		</label>
+    </td>
+	</tr>
+
+	<tr>
+	<td colspan="2" class="pt-0">
+        <label class="checkbox-container">
+	        <input type="radio"  name="account" id="account_no" value="no" onClick="statusChange(0)"><% GetMultiLangStr("SWP009") %>
+	        <span class="radio-checkmark"></span>
+		</label>
+    </td>
+	</tr>
+	
+
+
+	
+	</table>
+	</div>
+</td>	
+</tr>
+
+<tr><td colspan="2">
+	<div id="Netgear_success_reset" style="display: block;">
+	<table cellpadding="0" cellspacing="3" width="100%">
+	<tr>
+	     <td width="50%" align="left" nowrap>
+		 <b><% GetMultiLangStr("ADD032") %>:</b>
+		 </td>
+	</tr>
+
+	<tr>
+	    <td width="50%" align="left"><b><% GetMultiLangStr("ADD005") %>:</b>&nbsp;<% GetPageCfg("DNS_ddns_ntgr_reset_Host") %></td>
+	</tr>		
+
+	<tr>
+	    <td width="50%" align="left"><b><% GetMultiLangStr("LPC005") %>:</b>&nbsp;<% GetPageCfg("DNS_ddns_ntgr_reset_User") %></td>
+	</tr>
+
+	<tr>
+		<td width="50%" align="left"><% GetMultiLangStr("PCVP_004") %><button value="reset" onClick="buttonClick(this,'reset');" type="submit" name="NReset" class="button-sty1" id="NReset"><% GetMultiLangStr("GD15") %></button><% GetMultiLangStr("PCVP_005") %></td>
+	</tr>
+
+	</table>
+	</div>
+</td>	
+</tr>
+
+
+<tr><td colspan="2">
+	<div id="Netgear_register" style="display: block;">
+	<table cellpadding="0" cellspacing="3" width="100%">
+	<tr>
+	     <td width="50%" align="left" nowrap>
+		 <% GetMultiLangStr("ADD035") %>
+		 </td>
+	</tr>
+
+	<tr>
+	    <td width="50%" align="left" nowrap class="pb-0"><% GetMultiLangStr("ADD005") %></td>
+	 <td nowrap class="top0"><input class="input1" type="text" name="sysDNSHost_Netgear" id="sys_dnshost_Netgear" size="16" maxlength="114"   onkeyup="return sendhostcheck()">.mynetgear.com</td><!---->
+	 <td width="50%" align="left" id="Netgear_img" style="display: block;" class="pb-0"> <img  src="DDNS_Yes.png"></td>
+	 <td width="50%" align="left" id="Netgear_img_no" style="display: block;" class="pb-0"> <img  src="DDNS_No.png"></td>
+	</tr>
+	
+	<tr>
+		
+		<td width="50%" align="left" class="p-0">
+		<div id="text_host_result_id" style="display: block;text-align:left;color:#FF0000"><% GetMultiLangStr("ADDE07") %></div>
+		<!--<input type="text" id="text_host_result_id" name="text_host_result" size="80" maxlength="55" style="display: block;border-width:0;color:#FF0000;background-color:#FFFFFF;text-align:right" readonly>-->
+		</td>
+	</tr>
+	
+	
+	<tr>
+	    <td width="50%" align="left" class="pb-0"><% GetMultiLangStr("LPC005") %></td>
+	    <td nowrap class="top0"><input class="input1" type="text" name="sysDNSEmail_Netgear" id="sys_dnsmail_Netgear" size="30" maxlength="48" onblur="return formatcheck()"></td>
+
+		<td width="50%" align="right" id="Netgear_register_email_no" style="display: block;"> <img src="DDNS_No.png"></td>
+	</tr>
+	
+	<tr>
+		
+		<td width="50%" align="right" class="p-0">
+		<div id="text_email_result_id" style="display: block;text-align:right;color:#FF0000"><% GetMultiLangStr("ADDE08") %></div>
+		<!--<input type="text" id="text_email_result_id" name="text_email_result" size="50" maxlength="60" style="display: block;border-width:0;color:#FF0000;background-color:#FFFFFF;text-align:right;margin-left: 30%" readonly>-->
+		</td>
+	</tr>
+	
+	<tr>
+	    <td width="50%" align="left" class="pb-0"><% GetMultiLangStr("ADD015") %></td>
+	    <td nowrap class="top0"><input class="input1" type="text" name="sysDNSPassword_Netgear" id="sys_dnspassword_Netgear" size="30" maxlength="32" onblur="return passwordcheck()" onkeyup="return passwordcheck_press()"></td><!--value = "<% GetPageCfg("DNS_ddns_ntgr_password") %>"-->
+		 <td width="50%" align="right" id="Netgear_img_register_no" style="display: block;"> <img src="DDNS_No.png"></td>
+	</tr>
+	
+	<tr>
+		
+		<td width="50%" align="right" class="p-0">
+		<div id="text_pass_result_register_id" style="display: block;text-align:right;color:#FF0000"><% GetMultiLangStr("ADDE09") %></div>
+		<!--<input type="text" id="text_pass_result_register_id" name="text_pass_register_result" size="80" maxlength="35" style="display: block;border-width:0;color:#FF0000;background-color:#FFFFFF;text-align:right" readonly>-->
+		</td>
+	</tr>
+	
+	<tr>
+		<td width="50%" align="left">
+		<div id="register_error" style="display: block;">
+		<% GetPageCfg("DNS_ddns_register_error_Netgear_account") %>
+		</div>
+		</td>
+	</tr>  
+	
+	<tr>
+		<td width="50%" align="left">
+		<table cellpadding="0" cellspacing="3" width="100%">
+		<tr>
+		<td align="left">
+			<button value="Register" onClick="buttonClick(this,'Register');return register_check()" type="submit" name="NRegister"  class="button-sty1" id=NRegister ><% GetMultiLangStr("UBS105") %></button>
+		</td>
+		<td align="left">
+			<% GetMultiLangStr("ADD018") %> <a href="http://kb.netgear.com/app/answers/detail/a_id/23757" target="_blank" style="color: rgb(000,000,255);text-decoration:underline"><% GetMultiLangStr("ADD019") %></a> <% GetMultiLangStr("ADD020") %>
+		</td>
+		</tr>
+		</table>
+		</td>
+		
+	</tr>
+                              
+	
+		
+	</table>
+	</div>
+</td></tr>
+
+<tr><td colspan="2">
+	<div id="Netgear_account" style="display: block;">
+	<table cellpadding="0" cellspacing="3" width="100%">
+
+	<tr>
+	    <td width="50%" align="left" nowrap class="pb-0"><% GetMultiLangStr("ADD005") %></td>
+	 	<td nowrap class="top0"><input class="input1" type="text" name="sysDNSHost_Netgear_account" id="sys_dnshost_Netgear_account" value = "<% GetPageCfg("DNS_ddns_sysDNSHost_Netgear_account") %>" size="16" maxlength="114" onblur="return hostcheck_account()">.mynetgear.com</td>
+		<td width="50%" align="right" id="Netgear_img_account_host_no" style="display: block;"> <img src="DDNS_No.png"></td>
+	</tr>
+	
+	<tr>
+		
+		<td width="50%" align="right" class="pt-0">
+		<div id="text_host_result_account_id" style="display: block;text-align:right;color:#FF0000"><% GetMultiLangStr("ADDE07") %></div>
+		<!--<input type="text" id="text_host_result_account_id" name="text_host_account_result" size="80" maxlength="60" style="display: block;border-width:0;color:#FF0000;background-color:#FFFFFF;text-align:right" readonly>-->
+		</td>
+	</tr>
+	
+	<tr>
+	    <td width="50%" align="left" class="pb-0"><% GetMultiLangStr("LPC005") %></td>
+	    <td nowrap class="top0"><input class="input1" type="text" name="sysDNSEmail_Netgear_account" id="sys_dnsmail_Netgear_account" value = "<% GetPageCfg("DNS_ddns_sysDNSEmail_Netgear_account") %>" size="30" maxlength="48" onblur="return formatcheck_account()"></td>
+			<td width="50%" align="right" id="Netgear_account_email_no" style="display: block;"> <img src="DDNS_No.png"></td>
+	</tr>
+	
+	<tr>
+		
+		<td width="50%" align="right" class="pt-0">
+		<div id="text_email_result_account_id" style="display: block;text-align:left;color:#FF0000"><% GetMultiLangStr("ADDE08") %></div>
+		<!--<input type="text" id="text_email_result_account_id" name="text_email_result_account" size="50" maxlength="35" style="display: block;border-width:0;color:#FF0000;background-color:#FFFFFF;text-align:right;margin-left: 30%" readonly>-->
+		</td>
+	</tr>
+	
+	<tr>
+	    <td width="50%" align="left" class="pb-0"><% GetMultiLangStr("ADD015") %></td>
+	    <td nowrap class="top0"><input class="input1" type="password" name="sysDNSPassword_Netgear_account" id="sys_dnspassword_Netgear_account" value = "<% GetPageCfg("DNS_ddns_sysDNSPassword_Netgear_account") %>" size="30" maxlength="32" onblur="return passwordcheck_account()"></td>
+		<td width="50%" align="right" id="Netgear_account_confirm_no" style="display: block;"> <img src="DDNS_No.png"></td>
+	</tr>
+	
+	<tr>
+		
+		<td width="50%" align="right" class="pt-0">
+		<div id="text_pass_result_account_id" style="display: block;text-align:left;color:#FF0000"><% GetMultiLangStr("ADDE09") %></div>
+		<!--<input type="text" id="text_pass_result_account_id" name="text_pass_result_account" size="80" maxlength="60" style="display: block;border-width:0;color:#FF0000;background-color:#FFFFFF;text-align:right" readonly>-->
+		</td>
+	</tr>
+	
+	<tr>
+		<td width="50%" align="left" class="p-0">
+		<div id="account_error" style="display: block;">
+		<table cellpadding="0" cellspacing="3" width="100%">
+		<% GetPageCfg("DNS_ddns_account_error_Netgear_account") %>
+		</table>
+		</div>
+		</td>
+		
+	</tr>
+
+
+	
+	<tr>
+		<td width="50%" align="left"><% GetMultiLangStr("PCVP_003") %></td>
+	</tr>
+	<tr>
+		<td width="50%" align="left"><% GetMultiLangStr("ADD017") %>&nbsp;<a href="https://www.noip.com/login/?oem=ntgr" target="_blank" style="color: rgb(0,51,255);text-decoration:underline"><% GetMultiLangStr("ADDE17") %></a></td>
+	</tr>
+
+	
+	
+	
+
+	
+
+	
+	<!--<INPUT name=createres type=hidden value= "">-->
+	</table>
+	</div>
+</td></tr>
+
+<tr><td colspan="2" height="12"><div style="background-image:url('seprator.gif');width:100%;background-repeat:repeat-x;">&nbsp;</div></td></tr>
+
+</table></div></td></tr>
+<tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe" name="helpframe" src="DNS_ddns_Netgear_no_h.htm" class="help-iframe" scrolling="no"  frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
+</table>
+   <!--<img class="subfooter-image" src="img/subhead2-bottom.gif">-->
+<div class="subhead2-bottom" >
+    <span class="help_ico"><img src="img/help-icon.png" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
+    <span class="subhead2-text help_center_text" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_51") %> </span>
+    <span class="button-help-arrow">
+      <img src="img/helparrowdown-icon.png" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
+    <span class="subhead2-text help_right_text" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_123") %> </span>
+      </div>
+
+
+
+
+	
+	<input name="host_graycheck" type="hidden">
+	<input name="email_graycheck" type="hidden" >
+	<input name="password_graycheck" type="hidden" >
+	<input name="success_status" type="hidden" >
+	<!--<input name="confirmpass_graycheck" type="hidden" >-->
+	<input type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+	<a name="helpframe-anchor"></a>
+</form>
+
+</div>
+</body>
+</html>
+

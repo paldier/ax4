@@ -1,0 +1,135 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+
+<title>NETGEAR Router RAX40</title>
+  <style type="text/css">
+    .genie_font {
+	    font-family: Arial, Helvetica, sans-serif; 
+	    font-size:14px;
+	    height:21px;
+      color:#404040;    
+	    padding-left:20px; 
+  }
+  </style>
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<STYLE TYPE="text/javascript">
+	classes.num.all.fontFamily = "Courier";
+	classes.num.all.fontSize = "10pt" ;
+</style>
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!--
+    $(document).ready(function()
+    {	
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+function check_ra_opt()
+{
+/*
+    var cf = document.forms[0];
+    if( cf.router_full_tnc_select[0].checked==true || cf.router_full_tnc_select[1].checked==true)
+        ungrayout_button("next");
+    else
+        grayout_button("next");
+*/
+    return true;
+}
+function load_status()
+{
+/*
+    var cf = document.forms[0];
+    if(cf.auto_update_enable.value==1 && cf.router_tnc_enable.value==1)
+        cf.router_full_tnc_select[0].checked=true;
+    else if(cf.auto_update_enable.value==2 && cf.router_tnc_enable.value==2)
+        cf.router_full_tnc_select[1].checked=true;
+    else
+    {
+        cf.router_full_tnc_select[0].checked=false;
+        cf.router_full_tnc_select[1].checked=false;
+    }
+*/
+    return true;
+}
+//-->
+</script>
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+</head>
+<body onload="load_status();check_ra_opt();">
+<form id="cf" action=ramain.cgi method="POST">
+<table style="height:92px;width:100%;margin:0;padding:0" CELLPADDING=0 CELLSPACING=0 class="newtopframe">
+<tr>
+    <td style="padding-left:20px">
+<img style="position:relative;left:1px;width: 216px" src="img/NightHawk.png" >
+<br>
+<span id="ModuleName" style="position:relative;left:6px;"><b>Nighthawk AX4</b></span>
+    </td>
+</tr>
+</table>
+
+<table border="0"    style="height:400px;width:100%"  class="subhead2-table" align="center">
+<tr align="center"><td class="scrollpane-table-seperate-border" colspan="2"><div align="left" class="scroll-pane" style="height:300px;width:90%;overflow:auto;scrolling:auto"><table style="border-collapse:collapse;width:97%" >
+<font size="4" align="center" color="gray">
+<% GetPageCfg("SetupWizard_router_tnc_detail") %>
+</font>
+</table>
+</table>
+<table border="0" align="center">
+<tr align="center">
+<td>
+<div style="width:100%;">
+<font size="4" align="center">
+<% GetMultiLangStr("Analytics_003") %>
+<br><br>
+</font>
+</div>
+</div>
+</td>
+</tr>
+</table>
+<div style="background-image:url('seprator.gif');width:100%;background-repeat:repeat-x;">&nbsp;</div>
+<br>
+<div style="position:relative;left:10%;width:100%;">
+<!--<a href="#" onclick="window.open('https://www.netgear.com/about/privacy-policy/?cid=wmt_netgear_organic','name','width=600,height=400,scrollbars=1,resizable=1','blank')"  style="color: rgb(000,000,255);text-decoration:underline"><font size="3"></font></a>
+--></div>
+<div align="center">
+
+
+<button value="agree"  type="submit" name="Apply" style="width:100px" class="button-common common_bt" id=Apply ><% GetMultiLangStr("Analytics_004") %></button>
+
+
+</div>
+<input type="hidden" name="router_full_tnc_apply" value="1">
+<input type="hidden" name="auto_update_enable" value="0">
+<input type="hidden" name="router_tnc_enable" value="0">
+</form>
+</body>
+</html>
+

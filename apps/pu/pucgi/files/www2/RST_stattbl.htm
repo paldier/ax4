@@ -1,0 +1,174 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+
+<title>NETGEAR Router RAX40</title>
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<script language="javascript" type="text/javascript"><!--
+
+    $(document).ready(function()
+    {	
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+
+//--></script>
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+</head>
+<body  style="margin:0px;">
+<TABLE border=0 width="100%">
+
+ 
+ <TR>
+     <TD colspan="2" align="left" nowrap><div class="subhead2 page_title"><% GetMultiLangStr("MRS030") %> </div></TD>
+ </TR>
+ <br><br><br><br>
+</TABLE>
+
+
+
+	<div class="pl28"><b><% GetMultiLangStr("MRS038") %></b> <!><% GetPageCfg("ST_SysUptime") %><!>
+
+			
+ <table border="1" cellpadding="0" cellspacing="0" width="97%" class="tbWhite" id="statistic_table">
+<tr class="table_header">
+<td nowrap width="10%" align="center"> <span class="thead"><% GetMultiLangStr("SBS028") %></span>
+</td>
+<td nowrap width="10%" align="center"> <span class="thead"><% GetMultiLangStr("UAS004") %></span>
+</td>
+<td nowrap width="10%" align="center"> <span class="thead"><% GetMultiLangStr("MRS040") %></span>
+</td>
+<td nowrap width="10%" align="center"> <span class="thead"><% GetMultiLangStr("MRS035") %></span>
+</td>
+<td nowrap width="10%" align="center"> <span class="thead"><% GetMultiLangStr("MRS031") %></span>
+</td>
+<td nowrap width="10%" align="center"> <span class="thead"><% GetMultiLangStr("MRS039") %></span>
+</td>
+<td nowrap width="10%" align="center"> <span class="thead"><% GetMultiLangStr("MRS034") %></span>
+</td>
+<td nowrap width="20%" align="center"> <span class="thead"><% GetMultiLangStr("MRS041") %></span>
+</td>
+</tr>
+<!--
+<td nowrap width="10%" align="center"> <span class="thead">WAN</span>
+-->
+ <tr style="background-color:#FFFFFF;">
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="thead"><% GetMultiLangStr("MRS042") %></span>
+</td>
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="ttext"><% GetPageCfg("ST_WanStatus") %></span>
+</td>
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="ttext"><% GetPageCfg("ST_WanTxPkts") %></span>
+</td>
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="ttext"><% GetPageCfg("ST_WanRxPkts") %></span>
+</td>
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="ttext"><% GetPageCfg("ST_WanCollisions") %></span>
+</td>
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="ttext"><% GetPageCfg("ST_WanTxBps") %></span>
+</td>
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="ttext"><% GetPageCfg("ST_WanRxBps") %></span>
+</td>
+<td nowrap width="20%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="ttext"><% GetPageCfg("ST_WanUptime") %></span>
+</td>
+</tr>
+ <tr style="background-color:#FFFFFF;">
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="thead">LAN1</span>
+</td>
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="ttext"><% GetPageCfg("ST_Lan1Status") %></span>
+</td>
+<td nowrap width="10%" align="center" rowspan="4" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="ttext"><% GetPageCfg("ST_LanTxPkts") %></span>
+</td>
+<td nowrap width="10%" align="center" rowspan="4" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="ttext"><% GetPageCfg("ST_LanRxPkts") %></span>
+</td>
+<td nowrap width="10%" align="center" rowspan="4" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="ttext"><% GetPageCfg("ST_LanCollisions") %></span>
+</td>
+<td nowrap width="10%" align="center" rowspan="4" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="ttext"><% GetPageCfg("ST_LanTxBps") %></span>
+</td>
+<td nowrap width="10%" align="center" rowspan="4" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="ttext"><% GetPageCfg("ST_LanRxBps") %></span>
+</td>
+<td nowrap width="20%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="ttext"><% GetPageCfg("ST_Lan1Uptime") %></span>
+</td>
+</tr>
+ <tr style="background-color:#FFFFFF;">
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="thead">LAN2</span>
+</td>
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="ttext"><% GetPageCfg("ST_Lan2Status") %></span>
+</td>
+<td nowrap width="20%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="ttext"><% GetPageCfg("ST_Lan2Uptime") %></span>
+</td>
+</tr>
+ <tr style="background-color:#FFFFFF;">
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="thead">LAN3</span>
+</td>
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="ttext"><% GetPageCfg("ST_Lan3Status") %></span>
+</td>
+<td nowrap width="20%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="ttext"><% GetPageCfg("ST_Lan3Uptime") %></span>
+</td>
+</tr>
+ <tr style="background-color:#FFFFFF;">
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="thead">LAN4</span>
+</td>
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="ttext"><% GetPageCfg("ST_Lan4Status") %></span>
+</td>
+<td nowrap width="20%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"> <span class="ttext"><% GetPageCfg("ST_Lan4Uptime") %></span>
+</td>
+</tr>
+<!--
+<tr>
+<td nowrap width="10%" align="center"><span class="thead">WLAN</span></td>
+<td nowrap width="10%" align="center"><span class="ttext"></span></td>
+<td nowrap width="10%" align="center"><span class="ttext"></span></td>
+<td nowrap width="10%" align="center"><span class="ttext"></span></td>
+<td nowrap width="10%" align="center"><span class="ttext"></span></td>
+<td nowrap width="10%" align="center"><span class="ttext"></span></td>
+<td nowrap width="10%" align="center"><span class="ttext"></span></td>
+<td nowrap width="20%" align="center"><span class="ttext"></span></td>
+</tr>
+-->
+ <tr style="background-color:#FFFFFF;">
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"><span class="thead">2.4G WLAN b/g/n/ax</span></td>
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"><span class="ttext"><% GetPageCfg("ST_Wlan1Status") %></span></td>
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"><span class="ttext"><% GetPageCfg("ST_Wlan1TxPkts") %></span></td>
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"><span class="ttext"><% GetPageCfg("ST_Wlan1RxPkts") %></span></td>
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"><span class="ttext"><% GetPageCfg("ST_Wlan1Collisions") %></span></td>
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"><span class="ttext"><% GetPageCfg("ST_Wlan1TxBps") %></span></td>
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"><span class="ttext"><% GetPageCfg("ST_Wlan1RxBps") %></span></td>
+<td nowrap width="20%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"><span class="ttext"><% GetPageCfg("ST_Wlan1Uptime") %></span></td>
+</tr>
+ <tr style="background-color:#FFFFFF;">
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"><span class="thead">5G WLAN a/n/ac/ax</span></td>
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"><span class="ttext"><% GetPageCfg("ST_Wlan2Status") %></span></td>
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"><span class="ttext"><% GetPageCfg("ST_Wlan2TxPkts") %></span></td>
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"><span class="ttext"><% GetPageCfg("ST_Wlan2RxPkts") %></span></td>
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"><span class="ttext"><% GetPageCfg("ST_Wlan2Collisions") %></span></td>
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"><span class="ttext"><% GetPageCfg("ST_Wlan2TxBps") %></span></td>
+<td nowrap width="10%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"><span class="ttext"><% GetPageCfg("ST_Wlan2RxBps") %></span></td>
+<td nowrap width="20%" align="center" style="border-left:#d7d7d7 solid 1px; border-top:#d7d7d7 solid 1px;"><span class="ttext"><% GetPageCfg("ST_Wlan2Uptime") %></span></td>
+</tr>
+</table>
+	</div>
+<!--</td>
+</tr>
+</table>-->
+</body>
+</html>
+

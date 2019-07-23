@@ -1,0 +1,604 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title> 
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<style TYPE="text/javascript">
+	classes.num.all.fontFamily = "Courier";
+	classes.num.all.fontSize = "10pt" ;
+</style>
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!--
+  
+    $(document).ready(function()
+    {	
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+    function setHelpIframeVisible(){
+        $('.help-frame-div').css("visibility","visible");
+    }
+
+
+    function showHelpIframe() {
+
+        var imgSrc=document.getElementById('help-button');
+
+        if(imgSrc.src.search("up")>=0)
+        {
+            $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
+            imgSrc.src="img/helparrowdown-icon.png";
+        }
+        else
+        {
+            $(".help-frame-div").hide();
+            imgSrc.src="img/helparrowup-icon.png";
+            setTimeout(setHelpIframeVisible,500);
+        }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
+             change_size();
+
+    }
+
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+
+    function loadhelp(fname,anchname)
+    {
+                var pane = window.frames["helpframe"].$('#content');
+                var imgSrc=document.getElementById('help-button');
+                if(imgSrc.src.search("up")<0)
+                {
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+
+                        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm";
+                                $(".help-frame-div").show();
+                        }
+                        else
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                                $(".help-frame-div").show();
+                        }
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+                }
+    }
+
+   
+
+function check_data()
+{
+	var cf = document.forms[0];
+	var msg = "";
+	if (cf.dmz_enable.checked)
+	{
+		if(checkIP(cf.dmzip1,cf.dmzip2,cf.dmzip3,cf.dmzip4,254)
+			|| (parseInt(cf.dmzip4.value,10) == 0))
+			msg += "<% GetMultiLangStr("AWN015") %>\n";
+	}
+	msg+= checkInt(cf.wan_mtu, "MTU value", 1, parseInt(cf.wan_way.value,10), true);
+
+	if((parseInt(cf.wan_mtu.value,10)>parseInt(cf.wan_way.value,10))
+			||(parseInt(cf.wan_mtu.value,10)<616))
+		msg += "<% GetMultiLangStr("AWNE01") %> "+cf.wan_way.value+"\n"; 
+
+	if (msg.length > 1)
+	{
+		alert(msg);
+		return false;
+	}
+	cf.dmzip1.value = parseInt(cf.dmzip1.value,10);
+	cf.dmzip2.value = parseInt(cf.dmzip2.value,10);
+	cf.dmzip3.value = parseInt(cf.dmzip3.value,10);
+	cf.dmzip4.value = parseInt(cf.dmzip4.value,10);
+	cf.dmz_ip.value = cf.dmzip1.value+'.'+cf.dmzip2.value+'.'+cf.dmzip3.value+'.'+cf.dmzip4.value;
+	cf.wan_mtu.value = parseInt(cf.wan_mtu.value,10);
+	return true;
+}
+
+//RU_IPTV start
+function display_ru_iptv()
+{
+	var cf = document.forms[0];
+	var ru_iptv_en = "Disable";
+	var wlan1_en = "Enable";
+	var wlan2_en = "Enable";
+
+	if (ru_iptv_en == "Enable")
+	{
+		document.getElementById("ru_iptv_support_str").style.display = "block";
+		document.getElementById("ru_iptv_support_lan").style.display = "block";
+		if (wlan1_en == "Enable")
+			document.getElementById("ru_iptv_support_wlan1").style.display = "block";
+		else
+			document.getElementById("ru_iptv_support_wlan1").style.display = "none";
+		if (wlan2_en == "Enable")
+			document.getElementById("ru_iptv_support_wlan2").style.display = "block";
+		else
+			document.getElementById("ru_iptv_support_wlan2").style.display = "none";
+		document.getElementById("ru_iptv_support_line").style.display = "block";
+	}
+	else
+	{
+		document.getElementById("ru_iptv_support_str").style.display = "none";
+		document.getElementById("ru_iptv_support_lan").style.display = "none";
+		document.getElementById("ru_iptv_support_wlan1").style.display = "none";
+		document.getElementById("ru_iptv_support_wlan2").style.display = "none";
+		document.getElementById("ru_iptv_support_line").style.display = "none";
+	}
+}
+//RU_IPTV end
+
+function igmp_disable_click()
+{
+/*
+	var cf = document.forms[0];
+
+	if(cf.disable_gproxy.checked == true)
+		cf.bt_igmp_enable.disabled = true;
+	else
+		cf.bt_igmp_enable.disabled = false;
+*/
+}
+
+function loadSettings()
+{
+	var cf = document.forms[0];
+	var openvpnEnable = "<% GetPageCfg("openvpnEnable") %>";
+	var spiEnable = "<% GetPageCfg("spiEnable") %>";
+	var dmzEnable = "<% GetPageCfg("dmzEnable") %>";
+	var resp2ping = "<% GetPageCfg("resp2ping") %>";
+	var nat_inbound_filtering = cf.nat_inbound_filtering.value;
+/*
+	var ipsec_passthrough = cf.ipsec_passthrough.value;
+	var pptp_passthrough = cf.pptp_passthrough.value;
+	var l2tp_passthrough = cf.l2tp_passthrough.value;
+*/
+	var sipenable = "<% GetPageCfg("sipenable") %>";
+	var gproxy_enable = "<% GetPageCfg("gproxy_enable") %>";
+/*
+	var bt_igmp_enable = "";
+*/
+
+/*
+	var ipv6_enable = "0";
+*/
+	//RU_IPTV start
+/*
+	var var_iptv_lan1 = cf.iptv_intf_lan1.value;
+	var var_iptv_lan2 = cf.iptv_intf_lan2.value;
+	var var_iptv_lan3 = cf.iptv_intf_lan3.value;
+	var var_iptv_lan4 = cf.iptv_intf_lan4.value;
+	var var_iptv_wlan1 = cf.iptv_intf_wlan1.value;
+	var var_iptv_wlan2 = cf.iptv_intf_wlan2.value;
+*/
+
+	var ru_iptv_en = "Disable";
+	//RU_IPTV end
+
+
+	if (nat_inbound_filtering == "1")
+		cf.NatInboundFiltering[0].checked = true;
+	else
+		cf.NatInboundFiltering[1].checked = true;
+		
+/*
+	if (ipsec_passthrough == "1")
+	    cf.IPSecPassthrough[0].checked = true;
+	else
+	    cf.IPSecPassthrough[1].checked = true;
+	    
+	if (pptp_passthrough == "1")
+	    cf.PPTPPassthrough[0].checked = true;
+	else
+	    cf.PPTPPassthrough[1].checked = true;
+	    
+	if (l2tp_passthrough == "1")
+	    cf.L2TPPassthrough[0].checked = true;
+	else
+	    cf.L2TPPassthrough[1].checked = true;
+*/
+
+	if (spiEnable == "1")
+		cf.disable_spi.checked = false;
+	else
+		cf.disable_spi.checked = true;
+
+	var dmzIP = cf.dmz_ip.value.split(".");
+	cf.dmzip1.value = dmzIP[0];
+	cf.dmzip2.value = dmzIP[1];
+	cf.dmzip3.value = dmzIP[2];
+	cf.dmzip4.value = dmzIP[3];
+
+	if (dmzEnable == "1")
+	{
+		cf.dmz_enable.checked = true;
+	}
+	else
+	{
+		cf.dmz_enable.checked = false;
+	}
+
+	if (resp2ping == "1")
+		cf.rspToPing.checked = true;
+	else
+		cf.rspToPing.checked = false;
+
+	if (sipenable == "1")
+		cf.disable_sip.checked = false;
+	else
+		cf.disable_sip.checked = true;
+
+	if (gproxy_enable == "1")
+		cf.disable_gproxy.checked = false;
+	else
+		cf.disable_gproxy.checked = true;
+
+  
+
+/*
+	if(cf.disable_gproxy.checked == true)
+		cf.bt_igmp_enable.disabled = true;
+	else
+		cf.bt_igmp_enable.disabled = false;
+	
+
+	if (bt_igmp_enable == "1")
+		cf.bt_igmp_enable.checked = true;
+	else
+		cf.bt_igmp_enable.checked = false;
+*/
+
+/*
+    if (ipv6_enable == "1")
+		cf.ipv6disable.checked = false;
+	else
+		cf.ipv6disable.checked = true;
+    if (cf.wan_proto.value == "pppoe")
+        cf.wan_way.value = 1454;
+    else if (cf.wan_proto.value == "pptp" || cf.wan_proto.value == "l2tp")
+        cf.wan_way.value = 1460;
+    else
+*/
+
+    if (cf.wan_proto.value == "pppoe")
+        cf.wan_way.value = 1492;
+    else if (cf.wan_proto.value == "pptp")
+        cf.wan_way.value = 1436;
+	else if (cf.wan_proto.value == "l2tp")
+		cf.wan_way.value = 1428;
+	else
+        cf.wan_way.value = 1500;
+
+    if (parseInt(cf.nvram_mtu.value,10) >= parseInt(cf.wan_way.value,10) )
+        cf.wan_mtu.value = cf.wan_way.value;
+    else
+        cf.wan_mtu.value = cf.nvram_mtu.value;
+
+	if(openvpnEnable == "enable")
+		setDisabled(true, cf.rspToPing);
+	else
+		setDisabled(false, cf.rspToPing);
+	
+    //RU_IPTV start
+    display_ru_iptv();
+/*
+    if (ru_iptv_en == "Enable")
+    {
+        if (var_iptv_lan1 == 1)
+            cf.enable_iptv_lan1.checked = true;
+        if (var_iptv_lan2 == 2)
+            cf.enable_iptv_lan2.checked = true;
+        if (var_iptv_lan3 == 3)
+            cf.enable_iptv_lan3.checked = true;
+        if (var_iptv_lan4 == 4)
+            cf.enable_iptv_lan4.checked = true;
+        if (var_iptv_wlan1 == 5)
+            cf.enable_iptv_wlan1.checked = true;
+        if (var_iptv_wlan2 == 6)
+            cf.enable_iptv_wlan2.checked = true;
+    }
+*/
+    //RU_IPTV end
+}
+
+//-->
+</script> 
+	<link rel="stylesheet" type="text/css" href="css/custom.css">
+</head>
+<body  onload="change_size();loadSettings();" class="page-body"  onResize="change_size();" >
+<img class="cover-image" alt="" src="img/cover-image_noh.gif">
+<!--<img class="body-image" src="img/subhead2-background_noh.jpg">-->
+<div id="full-page-container">
+
+<form id="target"  name="frmRules" method="POST" action="security.cgi?">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+<img class="subtop-image" src="img/subhead2-top_noh.gif" alt="">
+<div class="subhead2"> <% GetMultiLangStr("LUP031") %></div>
+<table border="0"    style="height:370px"  class="subhead2-table mt-15">
+
+<tr align="left" valign="middle">
+<td colspan="2" class="table-seperate-border">
+	<div class="fix_button">
+
+<button value="Cancel" onclick="buttonClick(this,'Cancel');loadSettings();" type="button" name="cancel" id="cancel" class="button-cancel cancel_bt" ><% GetMultiLangStr("UAS021") %></button>
+		<button value="Apply"  onClick="buttonClick(this,'Apply');return check_data()" type="submit" name="apply" id="apply" class="button-apply apply_bt" ><% GetMultiLangStr("LUP004") %></button>
+	</div>
+</td>
+</tr>
+
+<tr><td class="scrollpane-table-seperate-border" colspan="2">
+	<div class="scroll-pane main_bas" style="height:365px;width:620px;overflow:auto;scrolling:auto">
+		<table style="border-collapse:collapse;width:97%">
+
+
+<tr><td colspan="2" height="12"></td></tr>
+
+<tr>
+ <td colspan="2">
+  <label class="checkbox-container">
+	<input type="checkbox"  name="disable_spi" id="disable_spi" value="disable_spi"> <a href="javascript:loadhelp('WAN_wan','spi')" tabindex="-1"> <b><% GetMultiLangStr("AWN009") %></b></a>
+	<span class="checkbox-checkmark"></span> 
+  </label> 
+</td>
+</tr>
+
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+
+
+<tr>
+<td nowrap align="left" width="50%">		
+  <label class="checkbox-container">
+	<input type="checkbox"  name="dmz_enable" id="dmz_enable" value="dmz_enable"> 
+	<a href="javascript:loadhelp('WAN_wan','dmz')" tabindex="-1"><b><% GetMultiLangStr("AWN002") %></b></a>
+	<span class="checkbox-checkmark"></span> 
+  </label> 
+</td>
+<td nowrap align="left">
+	<span class="num ip-input-row"><input type="text" name="dmzip1" id="dmz_ipaddress1" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.<input type="text" name="dmzip2" id="dmz_ipaddress2" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="dmzip3" id="dmz_ipaddress3" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="dmzip4" id="dmz_ipaddress4" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></span>
+	</td>
+</tr>
+
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+
+
+<tr>
+<td colspan="2">
+	<label class="checkbox-container">
+	<input type="checkbox" name="rspToPing" id="response_ping" value="rspToPing">
+	<a href="javascript:loadhelp('WAN_wan','ping')" tabindex="-1"> <b><% GetMultiLangStr("AWN007") %></b></a>
+	<span class="checkbox-checkmark"></span> 
+  </label> 
+	</td>
+</tr>
+
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+
+<tr>
+<td colspan="2">
+  <label class="checkbox-container">
+	<input type="checkbox" name="disable_gproxy" id="disable_igmp" value="disable_gproxy" onClick="igmp_disable_click();">
+	<a href="javascript:loadhelp('WAN_wan','igmp')" tabindex="-1"> <b><% GetMultiLangStr("AWN017") %></b></a>
+	<span class="checkbox-checkmark"></span> 
+  </label>
+	</td>
+</tr>
+<!--
+<tr>
+<td colspan="2" style="padding-left:20px">
+	<input type="checkbox" name="bt_igmp_enable" value="enable_bt_igmp"><a href="javascript:loadhelp('WAN_wan','gproxy')" tabindex="-1"> <b>Support British Telecom (BT)IGMP Proxying</b></a></td>
+</tr>
+-->
+
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+<!--
+<tr>
+<td colspan="2"><input type="checkbox" name="ipv6disable" value="ipv6disable"><a href="javascript:loadhelp('WAN_wan','ipv6')"> <b><% GetMultiLangStr("AWN010") %></b></a></td>
+</tr>
+
+<tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
+-->
+<tr>
+	<td>&nbsp;<a href="javascript:loadhelp('WAN_wan','mtu')" tabindex="-1"><b><% GetMultiLangStr("AWN003") %></b><% GetMultiLangStr("AWN001") %></a></td>
+	<td align="left" class="num"><input type="text" class="input1" name="wan_mtu" id="wan_mtu" size="5" maxlength="4"></td>
+</tr>
+
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+
+<tr>
+	<td>&nbsp;<a href="javascript:loadhelp('WAN_wan','nat')" tabindex="-1"><b><% GetMultiLangStr("AWN004") %></b></a></td>
+	<td align="left">
+		<label class="checkbox-container" ><% GetMultiLangStr("AWN006") %>
+		<input type="radio" name="NatInboundFiltering" id="nat_filtering_secured" value="Secured">
+		<span class="radio-checkmark"></span>
+		</label>
+        <br>
+		<label class="checkbox-container"><% GetMultiLangStr("AWN005") %>
+		<input type="radio" name="NatInboundFiltering" id="nat_filtering_open" value="Open">
+		<span class="radio-checkmark"></span>
+		</label>
+    </td>
+</tr>
+
+<tr> 
+    <td colspan="2" class="pt-20">
+  <label class="checkbox-container">
+	<input type="checkbox" name="disable_sip" id="disable_sip" value="disable_sip">
+	<a href="javascript:loadhelp('WAN_wan','sipalg')" tabindex="-1"> <b><% GetMultiLangStr("AWN008") %></b></a>
+	<span class="checkbox-checkmark"></span> 
+  </label> 
+		
+		
+	
+	</td>
+</tr>
+
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+<tr><td colspan="2" height="12"></td></tr>
+<!--
+<tr>
+    <td colspan="2">&nbsp;<a href="javascript:loadhelp('WAN_wan','vpn')" tabindex="-1"><b>VPN Pass-Through<BR></b></a></td>
+</tr>
+
+<tr>
+    <td>&nbsp;<a href="javascript:loadhelp('WAN_wan','ipsec')" tabindex="-1">IPSec Pass-Through</a></td>
+        <td align="left">
+        <input type="radio" name="IPSecPassthrough" value="enable"><% GetMultiLangStr("SBS026") %>
+	    <input type="radio" name="IPSecPassthrough" value="disable"><% GetMultiLangStr("UAS010") %>
+    </td>
+</tr>
+<tr>
+    <td>&nbsp;<a href="javascript:loadhelp('WAN_wan','ipsec')" tabindex="-1">PPTP Pass-Through</a></td>
+        <td align="left">
+	    <input type="radio" name="PPTPPassthrough" value="enable"><% GetMultiLangStr("SBS026") %>
+	    <input type="radio" name="PPTPPassthrough" value="disable"><% GetMultiLangStr("UAS010") %>
+    </td>
+</tr>
+<tr>
+    <td>&nbsp;<a href="javascript:loadhelp('WAN_wan','ipsec')" tabindex="-1"> L2TP Pass-Through</a></td>
+        <td align="left">
+	    <input type="radio" name="L2TPPassthrough" value="enable"><% GetMultiLangStr("SBS026") %>
+	    <input type="radio" name="L2TPPassthrough" value="disable"><% GetMultiLangStr("UAS010") %>
+    </td>
+</tr>
+
+<tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
+-->
+<!-- /* RU_IPTV start */ -->
+<tr id="ru_iptv_support_str" style="display: block;">
+    <td>&nbsp;<b><% GetMultiLangStr("AWN018") %></b></td>
+</tr>
+<tr id="ru_iptv_support_lan" style="display: block;">
+    <td colspan="4">
+        <input type="checkbox" name="enable_iptv_lan1" value="iptv_lan1"><b>LAN 1</b>&nbsp;&nbsp;&nbsp;
+        <input type="checkbox" name="enable_iptv_lan2" value="iptv_lan2"><b>LAN 2</b>&nbsp;&nbsp;&nbsp;
+        <input type="checkbox" name="enable_iptv_lan3" value="iptv_lan3"><b>LAN 3</b>&nbsp;&nbsp;&nbsp;
+        <input type="checkbox" name="enable_iptv_lan4" value="iptv_lan4"><b>LAN 4</b>
+    </td>
+</tr>
+<tr id="ru_iptv_support_wlan1" style="display: block;">
+    <td colspan="2">
+  <label class="checkbox-container">
+	<input type="checkbox" name="enable_iptv_wlan1" value="iptv_wlan1">
+	<a> <b>Wireless Network RAX40</b></a>
+	<span class="checkbox-checkmark"></span> 
+  </label> 
+		
+		
+    </td>
+</tr>
+<tr id="ru_iptv_support_wlan2" style="display: block;">
+    <td colspan="2">
+	   <label class="checkbox-container">
+		<input type="checkbox" name="enable_iptv_wlan2" value="iptv_wlan2">
+		<a> <b>Wireless Network RAX40-5G</b></a>
+		<span class="checkbox-checkmark"></span> 
+	  </label> 	
+</td>
+</tr>
+<tr id="ru_iptv_support_line" style="display: block;">
+    <td colspan="2" height="12"><div class="divider">&nbsp;</div></td>
+</tr>
+			
+<!-- /* RU_IPTV end */ -->
+
+
+<tr>
+ <input type="hidden" name="wan_way" value="1500">
+ <input name="nat_inbound_filtering" type=hidden value= "<% GetPageCfg("nat_inbound_filtering") %>">
+ <input type="hidden" name="wan_proto" value= "<% GetPageCfg("wan_proto") %>">
+ <input type="hidden" name="nvram_mtu" value= "<% GetPageCfg("nvram_mtu") %>">
+ <input name="dmz_ip" type=hidden value= "<% GetPageCfg("dmz_ip") %>">
+ <input type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+ <!-- /* VPN */ -->
+<!--
+ <input type="hidden" name="ipsec_passthrough" value= "1">
+ <input type="hidden" name="pptp_passthrough" value= "1">
+ <input type="hidden" name="l2tp_passthrough" value= "1">
+-->
+ <!-- /* RU_IPTV start */ -->
+<!--
+ <INPUT name="iptv_intf_lan1" type=hidden value= "0">
+ <INPUT name="iptv_intf_lan2" type=hidden value= "0">
+ <INPUT name="iptv_intf_lan3" type=hidden value= "0">
+ <INPUT name="iptv_intf_lan4" type=hidden value= "0">
+ <INPUT name="iptv_intf_wlan1" type=hidden value= "0">
+ <INPUT name="iptv_intf_wlan2" type=hidden value= "0">
+-->
+ <!-- /* RU_IPTV end */ -->
+</tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+</table></div></td></tr>
+<tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe"  src="WAN_wan_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
+</table>
+  <!-- <img class="subfooter-image" src="img/subhead2-bottom.gif">-->
+<div class="subhead2-bottom" >
+    <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.png" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();" alt=""></span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_51") %> </span>
+    <span class="button-help-arrow">
+      <img src="img/helparrowdown-icon.png" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" alt="" ></span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_123") %> </span>
+      </div>
+
+
+
+
+<a name="helpframe-anchor"></a>
+</form>
+</div>
+</body>
+ <!--<head>
+  <META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+</head>-->
+
+
+</html>
+
+

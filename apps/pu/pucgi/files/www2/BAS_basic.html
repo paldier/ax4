@@ -1,0 +1,79 @@
+<html>
+
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title>
+<script src="script/script.js"></script>
+<script language="javascript" type="text/javascript">
+<!--
+    function loadhelp(fname,anchname)
+    {
+                var pane = window.frames["helpframe"].$('#content');
+                var imgSrc=document.getElementById('help-button');
+                if(imgSrc.src.search("up")<0)
+                {
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+
+                        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm";
+                                $(".help-frame-div").show();
+                        }
+                        else
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                                $(".help-frame-div").show();
+                        }
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+                }
+    }
+
+ 
+    
+    
+function checkType(wan_proto) // called from basictop.htm
+{
+//	if (basictop.document.forms[0])
+	if (1)
+	{
+		if (wan_proto == "pppoe")
+		    basicbuttom.location.href = "BAS_pppoe.html";
+		else if (wan_proto == "pptp")
+		    basicbuttom.location.href = "BAS_pptp.html";
+		else if (wan_proto == "bpa")
+		    basicbuttom.location.href = "BAS_bpa.html";
+		else if (wan_proto == "l2tp")
+		    basicbuttom.location.href = "BAS_l2tp.html";
+		else
+		    basicbuttom.location.href = "BAS_ether.html";
+	}
+	else 
+	    window.setTimeout(checkType(),300);
+}
+
+function loadSettings()
+{
+	window.location.href = "BAS_basictop.html";
+}
+
+//-->
+</script>
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+ </head>
+ <body  onload="loadSettings();" class="page-body" >
+ 
+  </body>
+
+</html>

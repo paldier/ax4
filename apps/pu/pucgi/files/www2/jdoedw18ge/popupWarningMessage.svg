@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="303px" height="99px" viewBox="0 0 303 99" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>Group</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <linearGradient x1="40.2832113%" y1="0%" x2="40.2832121%" y2="165.26522%" id="linearGradient-1">
+            <stop stop-color="#F3A778" offset="0%"></stop>
+            <stop stop-color="#D82636" offset="100%"></stop>
+        </linearGradient>
+    </defs>
+    <g id="LOGIN" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="10.-Popup-Warning-Message" transform="translate(-570.000000, -325.000000)">
+            <g id="Group" transform="translate(570.000000, 325.000000)">
+                <text id="0" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" fill="#4A4A4A">
+                    <tspan x="0" y="77">0</tspan>
+                </text>
+                <text id="5" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" fill="#4A4A4A">
+                    <tspan x="48" y="77">5</tspan>
+                </text> 
+                <text id="10" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" fill="#4A4A4A">
+                    <tspan x="96" y="77">10</tspan>
+                </text>
+                <text id="15" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" fill="#4A4A4A">
+                    <tspan x="145" y="77">15</tspan>
+                </text>
+                <text id="20" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" fill="#4A4A4A">
+                    <tspan x="193" y="77">20</tspan>
+                </text>
+                <text id="25" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" fill="#4A4A4A">
+                    <tspan x="241" y="77">25</tspan>
+                </text>
+                <text id="30" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" fill="#4A4A4A">
+                    <tspan x="290" y="77">30</tspan>
+                </text>                         
+                <text id="Days" font-family=".AppleSystemUIFont" font-size="12" font-weight="normal" fill="#000000">
+                    <tspan x="137.139648" y="96">Days</tspan>
+                </text>
+                <g id="Group-2" transform="translate(1.000000, 0.000000)">
+                    <rect id="Rectangle-Copy-16" stroke="#979797" x="0.818181818" y="0.590909091" width="300" height="59"></rect>
+                    <rect id="Rectangle-Copy-9" fill="url(#linearGradient-1)" x="0.818181818" y="0.0909090909" width=<%RUNNING_TIME%> height="60"></rect>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

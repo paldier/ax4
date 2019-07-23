@@ -1,0 +1,564 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title> 
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+<link rel="stylesheet" href="css/form.css">
+<link rel="stylesheet" href="css/custom.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!--
+  
+    $(document).ready(function()
+    {
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+    function setHelpIframeVisible(){
+        $('.help-frame-div').css("visibility","visible");
+    }
+
+
+    function showHelpIframe() {
+
+        var imgSrc=document.getElementById('help-button');
+
+        if(imgSrc.src.search("up")>=0)
+        {
+            $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
+            imgSrc.src="img/helparrowdown-icon.png";
+        }
+        else
+        {
+            $(".help-frame-div").hide();
+            imgSrc.src="img/helparrowup-icon.png";
+            setTimeout(setHelpIframeVisible,500);
+        }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
+             change_size();
+
+    }
+
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+
+    function loadhelp(fname,anchname)
+    {
+        var pane = window.frames["helpframe"].$('#content');
+        var imgSrc=document.getElementById('help-button');
+        if(imgSrc.src.search("up")<0)
+        {
+
+            $(".help-frame-div").show();
+            pane.jScrollPane({showArrows:true});
+
+            if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+            {
+                window.frames["helpframe"].location.href=fname+"_h.htm";
+                $(".help-frame-div").show();
+            }
+            else
+            {
+                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                $(".help-frame-div").show();
+            }
+
+            $(".help-frame-div").show();
+            pane.jScrollPane({showArrows:true});
+        }
+    }
+
+
+
+function apply_check()
+{
+	var pingEnable = "<% GetPageCfg("wan_pingEnable") %>";
+	var ntp_sync = "1";
+	var ddns_enable_check = "<% GetPageCfg("ddns_enable") %>";
+	var static_enable_check = "<% GetPageCfg("static_enable") %>";
+	var old_protocol = "<% GetPageCfg("vpn_protocol_tap") %>";
+	var new_protocol;
+	var service_port = "<% GetPageCfg("vpn_port_tap") %>";
+	var old_protocol_tun = "<% GetPageCfg("vpn_protocol_tun") %>";
+	var new_protocol_tun;
+	var service_port_tun = "<% GetPageCfg("vpn_port_tun") %>";
+	var redirectGW = "<% GetPageCfg("vpn_access_opt") %>";
+	var ipv6_protocol = "disable";
+	var new_redirectGW;
+	var cf = document.forms[0];
+/*	
+	if(pingEnable == 0)
+	{
+		alert("For connection keepalive, enable ping from WAN.");
+	}else{
+	//do noting
+	}
+
+	if(ntp_sync == 0){
+		alert("Sync NTP System Time failed!! OPENVPN will disconnect.");
+	}
+*/
+	if(!cf.openvpnActive.checked)
+		return true;
+
+    if(ddns_enable_check == 0 && static_enable_check == 0)
+    {
+        //alert("Dynamic DNS service is suggested to be used alone with the VPN Service. Please make sure you will enable the Dynamic DNS service or use Static IP address for your Internet connection.");
+        alert("<% GetMultiLangStr("vpn158") %>");
+        return false;
+    }
+
+  if(cf.wan_protocol.value=="pppoe")
+  {
+      if(cf.openvpnActive.checked)
+      {
+          if(cf.pppoe_dod.value==1)
+          {
+              //if(!confirm("If you enable the VPN service on your router, your router’s Internet connection mode will change from Dial on Demand to Always On. This change is required for a VPN client to connect to your router. Do you want to continue?"))
+              if(!confirm("<% GetMultiLangStr("UAS052") %>"))
+              {
+                  return false;
+              }
+              else
+                  cf.dod_type_change.value="1";
+          }
+          else if(cf.pppoe_dod.value==2)
+          {
+              //alert("If you enable the VPN service on your router, you need to change your router’s Internet connection mode from Manually Connect to Always On in order for a VPN client to connect to your router. Go to the Internet Setup page to make this change.");
+              alert("<% GetMultiLangStr("UAS053") %>");
+          }
+      }
+
+  }
+  else if(cf.wan_protocol.value=="l2tp")
+  {
+      if(cf.openvpnActive.checked)
+      {
+          if(cf.l2tp_dod.value==1)
+          {
+              //if(!confirm("If you enable the VPN service on your router, your router’s Internet connection mode will change from Dial on Demand to Always On. This change is required for a VPN client to connect to your router. Do you want to continue?"))
+              if(!confirm("<% GetMultiLangStr("UAS052") %>"))
+              {
+                  return false;
+              }
+              else
+                  cf.dod_type_change.value="1";
+          }
+          else if(cf.l2tp_dod.value==2)
+          {
+              //alert("If you enable the VPN service on your router, you need to change your router’s Internet connection mode from Manually Connect to Always On in order for a VPN client to connect to your router. Go to the Internet Setup page to make this change.");
+              alert("<% GetMultiLangStr("UAS053") %>");
+          }
+      }
+
+  }
+  else if(cf.wan_protocol.value=="pptp")
+  {
+      if(cf.openvpnActive.checked)
+      {
+          if(cf.pptp_dod.value==1)
+          {
+              //if(!confirm("If you enable the VPN service on your router, your router’s Internet connection mode will change from Dial on Demand to Always On. This change is required for a VPN client to connect to your router. Do you want to continue?"))
+              if(!confirm("<% GetMultiLangStr("UAS052") %>"))
+              {
+                  return false;
+              }
+              else
+                  cf.dod_type_change.value="1";
+          }
+          else if(cf.pptp_dod.value==2)
+          {
+              //alert("If you enable the VPN service on your router, you need to change your router’s Internet connection mode from Manually Connect to Always On in order for a VPN client to connect to your router. Go to the Internet Setup page to make this change.");
+              alert("<% GetMultiLangStr("UAS053") %>");
+          }
+      }
+
+  }
+
+	if (isNumeric(cf.openvpn_service_port, 65535) || (cf.openvpn_service_port.value < 1) || (cf.openvpn_service_port.value >= 65535)){
+		//alert("The Service Port has to be less than or equal to 65534.");
+		alert("<% GetMultiLangStr("vpn164") %>");
+		cf.openvpn_service_port.focus();
+		return false;
+	}
+
+	if(isNumeric(cf.openvpn_service_port_tun, 65535) || (cf.openvpn_service_port_tun.value < 1) || (cf.openvpn_service_port_tun.value >= 65535)){
+		//alert("The Service Port has to be less than or equal to 65534.");
+		alert("<% GetMultiLangStr("vpn164") %>");
+		cf.openvpn_service_port_tun.focus();
+		return false;
+	}
+
+	if(cf.openvpn_protocol[0].checked)
+		new_protocol = 'udp';
+	else
+		new_protocol = 'tcp';
+	if(cf.openvpn_protocol_tun[0].checked)
+		new_protocol_tun = 'udp';
+	else
+		new_protocol_tun = 'tcp';
+		
+	if ((new_protocol == new_protocol_tun) && (cf.openvpn_service_port.value == cf.openvpn_service_port_tun.value)){
+		//alert("Port conflicts with another rule.");
+		alert("<% GetMultiLangStr("AQSE09") %>");
+		cf.openvpn_service_port_tun.focus();
+		return false;
+	}
+	
+    /*
+	if(ipv6_protocol != "disable"){
+		//alert("VPN Service does not work with an IPv6 Internet connection. If you want to use VPN Service, you must disable the IPv6 Internet connection first. (In the IPv6 screen, select Disabled and click the Apply button.)");
+		alert("<% GetMultiLangStr("vpn171") %>");
+		cf.openvpnActive.focus();
+		return false;
+	}
+	*/
+
+	if(cf.openvpn_redirectGW[0].checked)
+		new_redirectGW = 'all';
+	else if(cf.openvpn_redirectGW[1].checked)
+		new_redirectGW = 'onlylan';
+	else
+		new_redirectGW = 'auto';
+
+	if((new_protocol != old_protocol) || (new_protocol_tun != old_protocol_tun) 
+	    || (cf.openvpn_service_port.value != service_port) || (cf.openvpn_service_port_tun.value != service_port_tun) 
+	    || (new_redirectGW != redirectGW)){
+		//alert("You have changed your VPN Service configurations, please follow the Step 2 and Step 3 to download and install the configuration files on each of your VPN client devices (overwrite existing configuration files).");
+		alert("<% GetMultiLangStr("vpn160") %>");
+	}
+	return true;
+}
+
+function ddns_check()
+{
+	var ddns_enable_check = "<% GetPageCfg("ddns_enable") %>";
+	var openvpnEnable = "<% GetPageCfg("vpn_enable") %>";
+	
+	var cf = document.forms[0];
+
+	if(openvpnEnable == 0){
+		//alert("Please enable the VPN Service and click \"Apply\" button first.");
+		alert("<% GetMultiLangStr("vpn178") %>");
+		cf.openvpnActive.focus();
+		return false;
+	}
+
+	if(ddns_enable_check == 0){
+		//alert("Currently your Dynamic DNS service is not enabled, and the IP address for your Internet connection will be used for client configurations. When the IP address for your Internet connection is changed, you will have to download and install the configuration files again.");
+		alert("<% GetMultiLangStr("vpn159") %>");
+	}
+
+	return true;
+}
+
+function init()
+{
+    var cf = document.forms[0];
+
+    if(cf.vpn_enable.value == 1)
+        cf.openvpnActive.checked = true;
+    else
+        cf.openvpnActive.checked = false;
+
+    if(cf.vpn_protocol_tun.value == "udp")
+    {
+	    cf.openvpn_protocol_tun[0].checked = true;
+        cf.openvpn_protocol_tun[1].checked = false;
+    }
+    else
+    {
+	    cf.openvpn_protocol_tun[0].checked = false;
+        cf.openvpn_protocol_tun[1].checked = true;
+    }
+	
+    if(cf.vpn_protocol_tap.value == "udp")
+    {
+	    cf.openvpn_protocol[0].checked = true;
+        cf.openvpn_protocol[1].checked = false;
+    }
+    else
+    {
+	    cf.openvpn_protocol[0].checked = false;
+        cf.openvpn_protocol[1].checked = true;
+    }
+
+    if(cf.vpn_access_opt.value == "all")
+    {
+	    cf.openvpn_redirectGW[0].checked = true;
+        cf.openvpn_redirectGW[1].checked = false;
+        cf.openvpn_redirectGW[2].checked = false;
+    }
+    else if(cf.vpn_access_opt.value == "onlylan")
+    {
+	    cf.openvpn_redirectGW[0].checked = false;
+        cf.openvpn_redirectGW[1].checked = true;
+        cf.openvpn_redirectGW[2].checked = false;
+    }
+	else
+    {
+	    cf.openvpn_redirectGW[0].checked = false;
+        cf.openvpn_redirectGW[1].checked = false;
+        cf.openvpn_redirectGW[2].checked = true;
+    }
+
+    return true;
+}
+
+//-->
+</script> 
+</head>
+<body  onload="change_size(); init();" class="page-body"  onResize="change_size();" >
+<img class="cover-image" src="img/cover-image_noh.gif">
+<img class="body-image" src="img/subhead2-background_noh.jpg">
+<div id="full-page-container">
+
+<form id="target"  method="POST" action="openvpn.cgi">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+<img class="subtop-image" src="img/subhead2-top_noh.gif">
+<!--
+<div class="subhead2"> VPN Service</div>
+-->
+<div class="subhead2"> <% GetMultiLangStr("vpn172") %></div>
+
+
+
+<table border="0"    style="height:370px"  class="subhead2-table">
+
+<tr align="left" valign="middle">
+<td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
+<div class="fix_button">
+<button value="Cancel" onClick="buttonClick(this,'Cancel');location.href='OPENVPN.html'" type="BUTTOn" name="Cancel" id="cancel" class="button-cancel cancel_bt" ><% GetMultiLangStr("UAS021") %></button>
+<button value="Apply"  onClick="buttonClick(this,'Apply');if(!apply_check()) return false;" type="SUBMIT" name="cfAlert_Apply" id="apply" class="button-apply apply_bt" ><% GetMultiLangStr("LUP004") %></button>
+
+</div>
+</td>
+</tr>
+
+<tr><td class="scrollpane-table-seperate-border scroll_container" colspan="2"><div class="scroll-pane main_bas" style="height:365px;width:620px;overflow:auto;scrolling:auto">
+<table style="border-collapse:collapse;width:97%">
+
+
+<tr>
+    <td colspan="2">
+<!--
+    <input type="checkbox" name="openvpnActive" value="openvpnEnable" checked> <b>Enable VPN Service</b>
+--><label class="checkbox-container">
+    <input type="checkbox" name="openvpnActive" id="openvpn_active" value="openvpnEnable" checked> <b><% GetMultiLangStr("vpn151") %></b>
+	<span class="checkbox-checkmark"></span> 
+  </label>
+
+    </td>
+</tr>
+<tr><td colspan="2" height="12"><div style="background-image:url('seprator.gif');width:100%;background-repeat:repeat-x;">&nbsp;</div></td></tr>
+
+<tr>
+
+<!--
+	<td align="left"><b>OpenVPN client setup instruction</b></td>
+-->
+	<td align="left"><b><% GetMultiLangStr("vpn185") %></b></td>
+</tr>
+
+<tr>
+	<td colspan="4" align="left" style="padding-left:10px;">
+	<a target="_blank" href="vpn_instruction_windows.htm"><u>Windows</u></a>
+	&nbsp;&nbsp;<a target="_blank" href="vpn_instruction_mac.htm"><u>Mac OSX</u></a>
+	&nbsp;&nbsp;<a target="_blank" href="vpn_instruction_iphone.htm"><u>iPhone/iPad</u></a>
+	&nbsp;&nbsp;<a target="_blank" href="vpn_instruction_android.htm"><u>Android</u></a>
+	</td>
+</tr>
+
+<tr><td colspan="2" height="12"><div style="background-image:url('seprator.gif');width:100%;background-repeat:repeat-x;">&nbsp;</div></td></tr>
+
+<tr>
+<!--
+	<td align="left"><b>OpenVPN configuration package download</b></td>
+-->
+	<td align="left"><b><% GetMultiLangStr("vpn183") %></b></td>
+</tr>
+<tr>
+	<td colspan="4" align="left">
+<!--
+	<button type="BUTTON" value="windows_zip" name="windows" class="button-rule" onclick="buttonClick(this,'windows_zip'); if(!ddns_check()) return false; window.location.href = 'windows.zip';"><span class="roundleft_button">&nbsp;&nbsp; For Windows</span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+	&nbsp;&nbsp;<button type="BUTTON" value="nonwindows_zip" name="non-windows" class="button-rule" onclick="buttonClick(this,'nonwindows_zip'); if(!ddns_check()) return; window.location.href = 'nonwindows.zip';"><span class="roundleft_button">&nbsp;&nbsp; For non-Windows</span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+	&nbsp;&nbsp;<button type="BUTTON" value="smartphone_zip" name="smartphone" class="button-rule" onclick="buttonClick(this,'smartphone_zip'); if(!ddns_check()) return; window.location.href = 'smartphone.zip';"><span class="roundleft_button">&nbsp;&nbsp; For Smart Phone</span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+-->
+	<button type="BUTTON" value="windows_zip" name="windows" id="for_windows" class="button-sty1" onclick="buttonClick(this,'windows_zip'); if(!ddns_check()) return false; window.location.href = 'windows.zip';"><% GetMultiLangStr("vpn181") %></button>
+	<button type="BUTTON" value="nonwindows_zip" name="non-windows" id="for_non_windows" class="button-sty1" onclick="buttonClick(this,'nonwindows_zip'); if(!ddns_check()) return; window.location.href = 'nonwindows.zip';"><% GetMultiLangStr("vpn182") %></button>
+	<button type="BUTTON" value="smartphone_zip" name="smartphone" id="for_smart_phone" class="button-sty1" onclick="buttonClick(this,'smartphone_zip'); if(!ddns_check()) return; window.location.href = 'smartphone.zip';"><% GetMultiLangStr("vpn184") %></span></button>
+	</td>
+	
+</tr>
+    
+<tr><td colspan="2" height="12"><div style="background-image:url('seprator.gif');width:100%;background-repeat:repeat-x;">&nbsp;</div></td></tr>
+<tr>
+<!--
+	<td align="left"><b>Advanced Configurations</b></td>
+-->
+	<td align="left"><b><% GetMultiLangStr("vpn177") %></b></td>
+</tr>
+
+<TR>
+<!--
+    <TD nowrap style="padding-left:10px;">TUN Mode Service Type
+-->
+    <TD nowrap><% GetMultiLangStr("vpn186") %>
+    <br><br>
+    <label class="checkbox-container">
+    <input type="radio" name="openvpn_protocol_tun" id="tun_protocol_udp" value="udp" checked > UDP 
+		  <span class="radio-checkmark"></span>
+		</label>
+    
+    <br>
+    <label class="checkbox-container">
+    <input type="radio" name="openvpn_protocol_tun" id="tun_protocol_tcp" value="tcp"  > TCP
+		  <span class="radio-checkmark"></span>
+		</label>
+    </TD>
+</TR>
+
+<tr>
+<!--
+    <td width="50%" align="left" nowrap style="padding-left:10px;">TUN Mode Service Port &nbsp; <input type="text" name="openvpn_service_port_tun" value = "<% GetPageCfg("vpn_port_tun") %>" size="6" height="12" maxlength="8"></td>
+--><td><% GetMultiLangStr("vpn187") %></td>
+    <td width="50%" align="left" nowrap class="pt-0"><input class="table-input input1" type="text" name="openvpn_service_port_tun" id="openvpn_tun_service_port" value = "<% GetPageCfg("vpn_port_tun") %>" size="6" height="12" maxlength="8"></td>
+</tr>
+
+<TR>
+<!--
+    <TD nowrap style="padding-left:10px;">TAP Mode Service Type
+-->
+    <TD nowrap><% GetMultiLangStr("vpn188") %>
+    <br><br>
+     <label class="checkbox-container">
+		<input type="radio" name="openvpn_protocol" id="protocol_udp" value="udp" checked > UDP 
+		  <span class="radio-checkmark"></span>
+		</label>
+    
+    <br>
+    <label class="checkbox-container">
+		 <input type="radio" name="openvpn_protocol" id="protocol_tcp" value="tcp"  > TCP
+		  <span class="radio-checkmark"></span>
+		</label>
+
+ </TD>
+</TR>
+
+<tr>
+<!--
+    <td width="50%" align="left" nowrap style="padding-left:10px;">TAP Mode Service Port &nbsp; <input type="text" name="openvpn_service_port" value = "<% GetPageCfg("vpn_port_tap") %>" size="6" height="12" maxlength="8"></td>
+--><td><% GetMultiLangStr("vpn189") %></td>
+    <td width="50%" align="left" nowrap class="pt-0"><input class="table-input input1" type="text" name="openvpn_service_port" id="openvpn_service_port" value = "<% GetPageCfg("vpn_port_tap") %>" size="6" height="12" maxlength="8"></td>
+</tr>
+
+<TR>
+<!--
+    <TD nowrap style="padding-left:10px;">Clients will use this VPN connection to access
+<input type="radio" name="openvpn_redirectGW" value="all"  > All sites on the Internet & Home Network 
+<input type="radio" name="openvpn_redirectGW" value="onlylan"  > Home Network only
+<input type="radio" name="openvpn_redirectGW" value="auto" checked > Auto </TD>
+-->
+    <TD nowrap><% GetMultiLangStr("vpn174") %>
+     <br><br>
+     <label class="checkbox-container">
+		<input type="radio" name="openvpn_redirectGW" value="all"  > <% GetMultiLangStr("vpn175") %>
+		  <span class="radio-checkmark"></span>
+		</label>
+    
+    <br>
+    <label class="checkbox-container"> 
+		<input type="radio" name="openvpn_redirectGW" value="onlylan"  > <% GetMultiLangStr("vpn176") %>
+		  <span class="radio-checkmark"></span>
+		</label>
+        <br>
+    <label class="checkbox-container">
+		 <input type="radio" name="openvpn_redirectGW" value="auto" checked > <% GetMultiLangStr("SWS001") %>
+		  <span class="radio-checkmark"></span>
+		</label>
+
+
+ </TD>
+</TR>
+<tr><td colspan="2">&nbsp;</td></tr>
+
+
+<tr><td colspan="2">
+<div id="oray_specific" style="display: block;">
+</div></td></tr>
+
+<tr><td colspan="2" height="12"><div style="background-image:url('seprator.gif');width:100%;background-repeat:repeat-x;">&nbsp;</div></td></tr>
+
+</table></div></td></tr>
+<tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe"  src="openvpn_help.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
+</table>
+  
+<div class="subhead2-bottom" >
+    <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.png" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
+<!--
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> Help Center </span>
+-->
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_51") %> </span>
+    <span class="button-help-arrow">
+      <img src="img/helparrowdown-icon.png" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
+<!--
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> Show/Hide Help Center </span>
+-->
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_123") %> </span>
+      </div>
+
+
+
+<a name="helpframe-anchor"></a>
+<INPUT name="vpn_enable" type=hidden value= "<% GetPageCfg("vpn_enable") %>">
+<INPUT name="vpn_protocol_tun" type=hidden value= "<% GetPageCfg("vpn_protocol_tun") %>">
+<INPUT name="vpn_port_tun" type=hidden value= "<% GetPageCfg("vpn_port_tun") %>">
+<INPUT name="vpn_protocol_tap" type=hidden value= "<% GetPageCfg("vpn_protocol_tap") %>">
+<INPUT name="vpn_port_tap" type=hidden value= "<% GetPageCfg("vpn_port_tap") %>">
+<INPUT name="vpn_access_opt" type=hidden value= "<% GetPageCfg("vpn_access_opt") %>">
+
+<INPUT name="wan_protocol" type=hidden value= "<% GetPageCfg("wan_protocol") %>">
+<INPUT name="pppoe_dod" type=hidden value= "<% GetPageCfg("pppoe_dod") %>">
+<INPUT name="l2tp_dod" type=hidden value= "<% GetPageCfg("l2tp_dod") %>">
+<INPUT name="pptp_dod" type=hidden value= "<% GetPageCfg("pptp_dod") %>">
+<INPUT name="dod_type_change" type=hidden value= "0">
+<INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+</form>
+
+</div>
+</body>
+</html>
+

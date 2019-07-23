@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="100px" height="86px" viewBox="0 0 100 86" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 45.2 (43514) - http://www.bohemiancoding.com/sketch -->
+    <title>Group 2</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="LOGIN" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="7.-Blocked-by-Access-Control" transform="translate(-671.000000, -334.000000)">
+            <g id="Install-Bitdefender" transform="translate(419.000000, 187.000000)">
+                <g id="Group-2" transform="translate(252.000000, 147.000000)">
+                    <text id="Blocked" font-family="OpenSans-Semibold, Open Sans" font-size="18" font-weight="500" fill="#EA0101">
+                        <tspan x="17.8369141" y="85">Blocked</tspan>
+                    </text>
+                    <path d="M100,39.8064516 L-1.66533454e-16,39.8064516 L0,18.7119841 C0,16.1096271 1.73568726,14 3.85884475,14 L96.1411553,14 C98.2723364,14 100,16.113413 100,18.7119841 L100,39.8064516 Z M100,43.6774194 L100,44.7718869 C100,47.3742438 98.2643127,49.483871 96.1411553,49.483871 L3.85884475,49.483871 C1.72766364,49.483871 0,47.3704579 0,44.7718869 L0,43.6774194 L100,43.6774194 Z M8.35836599,28.6543345 C8.35836599,31.3266801 10.5247301,33.4930442 13.1970757,33.4930442 C15.8694212,33.4930442 18.0357853,31.3266801 18.0357853,28.6543345 C18.0357853,25.981989 15.8694212,23.8156249 13.1970757,23.8156249 C10.5247301,23.8156249 8.35836599,25.981989 8.35836599,28.6543345 Z" id="generic-device" fill="#BBBBBB" fill-rule="nonzero"></path>
+                    <g id="if_block_326541" transform="translate(20.000000, 0.000000)" fill-rule="nonzero" fill="#EA0101">
+                        <path d="M0,30 C0,46.5 13.5,60 30,60 C46.5,60 60,46.5 60,30 C60,13.5 46.5,0 30,0 C13.5,0 0,13.5 0,30 Z M30,6 C35.4,6 40.5,7.8 44.7,11.1 L11.1,44.7 C7.8,40.5 6,35.4 6,30 C6,16.8 16.8,6 30,6 Z M15.3,48.9 L48.9,15.3 C52.2,19.5 54,24.6 54,30 C54,43.2 43.2,54 30,54 C24.6,54 19.5,52.2 15.3,48.9 Z" id="Shape"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title>
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<script language=JavaScript type="text/javascript">
+
+
+
+    $(document).ready(function()
+    {	
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+
+function Fresh() 
+{
+	var cf = document.forms[0];
+	if(cf.refreshScrn.value == "yes")
+		window.setTimeout("location.href='RST_st_fix.htm'",10000);
+// reload if not connected	
+}
+</script>
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+</head>
+
+<body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" text=black onLoad="Fresh()" style="margin:0px;">
+
+<form id="target"  method="post" action="st_fixip.cgi?">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+
+<TABLE border=0 width="100%">
+
+ 
+ <TR>
+ <TD colspan="2" align="left" nowrap><h1><% GetMultiLangStr("MRS006") %> </h1></TD>
+ </TR>
+ 
+</TABLE>
+
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+
+
+</table>
+
+
+<table width="100%" border=1 cellspacing=1 cellpadding=4 id="static_table" class="tbWhite cmn-table-2">
+	<tr class="table_header">
+		<TD NOWRAP width="50%"><B><% GetMultiLangStr("SWP030") %></B></td>
+		
+        <TD NOWRAP width="50%"><% GetPageCfg("RST_st_fixed_wan_ip") %></td>
+        
+        <!--
+        <TD NOWRAP width="50%">0.0.0.0</td>
+        -->	
+    </tr>
+	<tr>
+		<TD NOWRAP><B><% GetMultiLangStr("MRS016") %></B></td>
+        
+		<TD NOWRAP><% GetPageCfg("RST_st_fixed_wan_subnetMask") %></td>
+        
+        <!--
+        <TD NOWRAP width="50%">0.0.0.0</td>
+        -->  	
+    </tr>
+	<tr>
+		<TD NOWRAP><B><% GetMultiLangStr("MRS045") %></B></td>
+        
+		<TD NOWRAP><% GetPageCfg("RST_st_fixed_wan_daefaultGateway") %></td>
+        
+        <!--
+        <TD NOWRAP width="50%">0.0.0.0</td>
+        --> 	
+    </tr>
+	<tr>
+		<TD NOWRAP><B><% GetMultiLangStr("MRS004") %></B></td>
+        
+		<TD NOWRAP><% GetPageCfg("RST_st_fixed_wan_dnsPrimary") %><br><% GetPageCfg("RST_st_fixed_wan_dnsSecond") %><br></td>
+        
+        <!--
+        <TD NOWRAP width="50%">0.0.0.0<br></td>
+        -->  	
+    </tr>
+</table>
+
+
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+ <TR>
+ <TD align="center">
+ <button type=button value="Close Window" name="close" id="close" class="button-sty1" onclick="buttonClick(this,'Close Window');self.close();"><% GetMultiLangStr("WP0006") %></button></TD>
+</TR>
+</TABLE>
+
+
+<input type="hidden" name="refreshScrn" value="yes">
+</form>
+
+</body>
+</html>
+

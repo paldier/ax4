@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!--
+
+
+function loadSettings()
+{
+    cf = document.forms[0];
+    var appName =navigator.appName;
+    var userAgent = navigator.userAgent.toLowerCase();
+    cf.appName.value = appName;
+    cf.userAgent.value = userAgent;
+    cf.submit();
+}
+//-->
+</script>
+	<link rel="stylesheet" type="text/css" href="css/custom.css">
+	</head>
+<body  style="background-color:#E5E5E5;margin:0px">
+<div id="full-page-container">
+<img class="cover-image" src="img/cover-image_noh.gif" onload="loadSettings();">
+<form name="browser_name" method="post" action="/usb_basic_main.cgi">
+<input type="hidden" name="appName" value="">
+<input type="hidden" name="userAgent" value="">
+<INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+<a name="helpframe-anchor"></a>
+</form>
+</div>
+</body>
+</html>

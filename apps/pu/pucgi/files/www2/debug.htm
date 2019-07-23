@@ -1,0 +1,405 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="<% GetPageCfg("modelName") %>">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+
+<title>NETGEAR Router <% GetPageCfg("modelName") %></title>
+
+<link rel="stylesheet" href="css/button.css">
+<link rel="stylesheet" href="form.css"> <!--To become single liteblue-->
+
+<script src="script/script.js"></script>
+<script language="javascript" type="text/javascript">
+<!--
+function init()
+{
+	var cf2 = document.forms['cf1'];
+	if (cf2.capture_in_process.value != "")	
+		cf2.action_Start_Capture.outerHTML='<button type="SUBMIT" value="Start_Capture" name=action_Start_Capture class="button-sty1" disabled="disabled">Start Capture</button>';		
+}
+
+function isChecked()
+{
+	var cf1 = document.forms['cf1'];
+	var cf3 = document.forms['cf3'];
+
+	if (cf1.Start_When_Boot_Up.value == "On")
+		cf1.action_Start_When_Boot_Up.checked=true;
+	else 
+		cf1.action_Start_When_Boot_Up.checked=false;
+	
+	if (cf1.dump_LAN_WAN_pkt.value == "On")
+		cf1.action_Capture_Packets.checked=true;
+	else 
+		cf1.action_Capture_Packets.checked=false;
+/*
+	if (cf3.Enable_Telnet.value == "On")
+		cf3.action_Enable_Telnet.checked=true;
+	else 
+		cf3.action_Enable_Telnet.checked=false;		
+		*/
+	if (cf3.WAN_port_mirror_to_LAN_port.value == "On")
+		cf3.action_Mirror_Port.checked=true;
+	else 
+		cf3.action_Mirror_Port.checked=false;	
+
+    var cf4 = document.forms['cf4'];
+    if( cf4.stageDev.value == "1" )
+    {
+        cf4.stageDev.checked = true;
+    }
+    else
+    {
+        cf4.stageDev.checked = false;
+    }
+    if( cf4.stageProd.value == "1" )
+    {
+        cf4.stageProd.checked = true;
+    }
+    else
+    {
+        cf4.stageProd.checked = false;
+    }
+
+    var cf5 = document.forms['cf5'];
+    if( cf5.useReadyCloudTestServer.value == "1" )
+    {
+        cf5.readyCloudTestServer.checked = true;
+    }
+    else
+    {
+        cf5.readyCloudTestServer.checked = false;
+    }
+
+    var cf7 = document.forms['cf7'];
+    if(cf7.IPv6Ping_External_to_Internal.value == "On")
+    {
+        cf7.allow_ipv6_ping.checked = true;
+    }
+    else
+    {
+        cf7.allow_ipv6_ping.checked = false;
+    }
+}
+
+function clickSaveButton()
+{
+    var cf1 = document.forms['cf1'];
+	if (cf1.action_Start_Capture.disabled)
+		alert("Debug Log capturing in progress");
+	cf1.action_Start_Capture.outerHTML='<button type="SUBMIT" value="Start_Capture" name=action_Start_Capture class="button-sty1" >Start Capture</button>';
+}
+
+function raEnabled()
+{
+	//document.getElementById('raBtnLeft').className = "roundleft_button";
+	//document.getElementById('raBtnRight').className = "roundright_button";
+	document.getElementById('raParamSetting').disabled = "";
+}
+
+function raDisabled()
+{
+	//document.getElementById('raBtnLeft').className = "roundleft_grey";
+	//document.getElementById('raBtnRight').className = "roundright_grey";
+	document.getElementById('raParamSetting').disabled = "disabled";
+}
+
+function checkRAData()
+{
+	var enabled = 0;
+    var cf4 = document.forms['cf4'];
+	if (cf4.stageDev.value != cf4.raStageDev.value)
+		enabled=1;
+	if (cf4.stageProd.value != cf4.raStageProd.value)
+		enabled=1;
+	if (cf4.serverIP.value != cf4.raServerIP.value)
+		enabled=1;
+        if (cf4.HTTPserverIP.value != cf4.raHTTPServerIP.value)
+                enabled=1;
+	if (cf4.serverPath.value != cf4.raServerPath.value)
+		enabled=1;
+	if (cf4.initStartTime.value != cf4.raInitStartTime.value)
+		enabled=1;
+
+	if (enabled ==1)
+		raEnabled();
+	else
+		raDisabled();
+}
+
+function stageDevChange()
+{
+    var cf4 = document.forms['cf4'];
+	if (cf4.stageDev.value == "0")
+	{
+		cf4.stageDev.value = "1";
+		cf4.stageDev.checked=true;
+		cf4.stageProd.value = "0";
+		cf4.stageProd.checked=false;
+	}
+	else
+	{
+		cf4.stageProd.value = "1";
+		cf4.stageProd.checked=true;
+		cf4.stageDev.value = "0";
+		cf4.stageDev.checked=false;
+	}
+	checkRAData();
+}
+
+function stageProdChange()
+{
+    var cf4 = document.forms['cf4'];
+	if (cf4.stageProd.value == "1")
+	{
+		cf4.stageDev.value = "1";
+		cf4.stageDev.checked=true;
+		cf4.stageProd.value = "0";
+		cf4.stageProd.checked=false;
+	}
+	else
+	{
+		cf4.stageProd.value = "1";
+		cf4.stageProd.checked=true;
+		cf4.stageDev.value = "0";
+		cf4.stageDev.checked=false;
+	}
+	checkRAData();
+}
+
+function serverIPChange()
+{
+	checkRAData();
+}
+
+function serverPathChange()
+{
+	checkRAData();
+}
+
+function initStartTimeChange()
+{
+	checkRAData();
+}
+
+function CheckDebuglogData()
+{
+	var cf1 = document.forms['cf1'];
+	if (cf1.action_Start_When_Boot_Up.checked == true)
+	{
+		cf1.Start_When_Boot_Up.value = "On";
+	}
+	else
+	{
+		cf1.Start_When_Boot_Up.value = "Off";
+	}
+}
+
+function CheckPortMirror()
+{
+    var cf3 = document.forms['cf3'];
+
+    if (cf3.action_Mirror_Port.checked == true)
+    {
+        cf3.WAN_port_mirror_to_LAN_port.value = "On";
+    }
+    else
+    {
+        cf3.WAN_port_mirror_to_LAN_port.value = "Off";
+    }
+
+    cf3.submit();
+}
+
+function CheckIPv6PingData()
+{
+    var cf7 = document.forms['cf7'];
+
+    if (cf7.allow_ipv6_ping.checked == true)
+    {
+        cf7.IPv6Ping_External_to_Internal.value = "On";
+    }
+    else
+    {
+        cf7.IPv6Ping_External_to_Internal.value = "Off";
+    }
+
+    cf7.submit();
+}
+
+//-->
+</script>
+<link rel="stylesheet" type="text/css" href="css/mainpage.css">
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+
+</head>
+<body onload="init();isChecked();">
+<form id="cf" name="cf" action=newdebug.cgi? method="POST">
+    <table style="height:92px;width:100%;margin:0;padding:0" CELLPADDING=0 CELLSPACING=0 class="newtopframe">
+        <tr>
+            <td style="padding-left:20px"><img style="width: 216px" src="img/NightHawk.png" ></td>
+        </tr>
+    </table>
+    <span id="ModuleName"><b><% GetPageCfg("modelName") %></b></span>
+<div class="pl-10"><b>Basic Information</b></div>
+<table width="100%">
+<tr>
+<td width="22%"><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;CPU Load</b><br><br></td>
+<td width="78%"><b>CPU1: <% GetPageCfg("cpu1Usage") %>% CPU2: <% GetPageCfg("cpu2Usage") %>%</b><br><br></td>
+</tr>
+<tr>
+<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Memory Usage (Used/Total)</b><br><br></td>
+<td><b><% GetPageCfg("memUsed") %>MB/<% GetPageCfg("memTotal") %>MB</b><br><br></td>
+</tr>
+<tr>
+<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Flash Usage (Used/Total)</b><br><br></td>
+<td><b><% GetPageCfg("flashUsed") %>MB/<% GetPageCfg("flashTotal") %>MB</b><br><br></td>
+</tr>
+<tr>
+<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Network Session (Active/Total)</b><br><br></td>
+<td><b><% GetPageCfg("activatedSessions") %>/<% GetPageCfg("totalSessions") %></b><br><br></td>
+</tr>
+<tr>
+<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;System Uptime</b><br><br></td>
+<td><b> <% GetPageCfg("sysUptime") %></b><br><br></td>
+</tr>
+<tr>
+<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;SKU Name</b><br><br></td>
+<td><b> <% GetPageCfg("skuName") %></b><br><br></td>
+</tr>
+<tr>
+<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;NMRP Region</b><br><br></td>
+<td><b> <% GetPageCfg("nmrpRegion") %></b><br><br></td>
+</tr>
+</table>
+</form>
+<form id="cf1" name="cf1" action=newdebug.cgi? method="POST">
+&nbsp;&nbsp;
+<b>Debug Log Capture</b>
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="checkbox" name="action_Start_When_Boot_Up" value="Start_When_Boot_Up" onclick=CheckDebuglogData();><b> Start Debug Log Capture when boot up</b>
+<br><br>
+<input type="hidden" name="Start_When_Boot_Up" value="<% GetPageCfg("Start_When_Boot_Up") %>">
+<input type="hidden" name="form" value="1" >
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="checkbox" name="action_Capture_Packets" value="Capture_Packet"><b> Enable LAN/WAN Packet Capture</b>
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<b>Store location</b>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<select name="store_location">
+<option value="memory" <% GetPageCfg("select_systemMemory") %>>System Memory&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</option>
+<option value="usb" <% GetPageCfg("select_USBStorage") %>>USB Storage</option>
+</select>
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button type="SUBMIT" value="Start_Capture" name="action_Start_Capture" class="button-sty1" >
+Start Capture
+</button>
+<br><br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button type="BUTTON" value="DebugLog" name="DebugLog" onclick="window.location.href = 'Debug_log.zip';clickSaveButton();" class="button-sty1">
+Save Debug Log
+</button> 
+<br><br>
+<input type="hidden" name="capture_in_process" value="<% GetPageCfg("capture_in_process") %>">
+<input type="hidden" name="dump_LAN_WAN_pkt" value="<% GetPageCfg("dump_LAN_WAN_pkt") %>">
+<input type="hidden" name="form" value="2" >
+<INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+</form>
+<form id="cf2" name="cf2" action=newdebug.cgi? method="POST">
+</form>
+<form id="cf3" name="cf3" action=newdebug.cgi? method="POST">
+&nbsp;&nbsp;
+<!--
+<input type="checkbox" name="action_Enable_Telnet" value="Telnet_Enable" onclick="document.forms[3].submit();"><b> Enable Telnet</b>
+<input type="hidden" name="Enable_Telnet" value="Off">
+<br><br>-->
+&nbsp;&nbsp;
+<input type="checkbox" name="action_Mirror_Port" value="Port_mirror" onclick="CheckPortMirror()"><b> WAN Port mirror to LAN port 1</b>
+<input type="hidden" name="WAN_port_mirror_to_LAN_port" value="<% GetPageCfg("WAN_port_mirror_to_LAN_port") %>">
+<input type="hidden" name="form" value="3" >
+<INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+</form>
+
+<br>
+<form id="cf7" name="cf7" action=newdebug.cgi? method="POST">
+&nbsp;&nbsp;
+&nbsp;&nbsp;
+<input type="checkbox" name="allow_ipv6_ping" value="ipv6_ping" onclick="CheckIPv6PingData();"><b> Allow external IPv6 hosts ping internal IPv6 hosts </b>
+<input type="hidden" name="IPv6Ping_External_to_Internal" id="IPv6Ping_External_to_Internal" value="<% GetPageCfg("IPv6Ping_External_to_Internal") %>">
+<input type="hidden" name="form" value="7" >
+<INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+</form>
+
+<br>
+<form id="cf4" name="cf4" action=radebug.cgi? method="POST">
+&nbsp;&nbsp;
+<b>RA Stage Management</b>
+<br><br>
+<table width="45%">
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<input type="checkbox" name="stageDev" value="<% GetPageCfg("raStageDev") %>"  onclick="stageDevChange();" ><b> Dev </b>
+&nbsp;&nbsp;
+<input type="checkbox" name="stageProd" value="<% GetPageCfg("raStageProd") %>" checked onclick="stageProdChange();" ><b> prod </b>
+&nbsp;&nbsp;
+<button type="SUBMIT" value="raChange" id="raParamSetting" disabled="disabled" class="button-sty1" >
+Restart RA Process
+</button>
+<tr>
+<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;ftp server:</b><br><br></td>
+<td nowrap width="20%" align="left"><input type="text" name="serverIP" value="<% GetPageCfg("serverIP") %>" onchange="serverIPChange();" size="18" maxlength="33"></td>
+</tr>
+<tr>
+<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;https server:</b><br><br></td>
+<td nowrap width="20%" align="left"><input type="text" name="HTTPserverIP" value="<% GetPageCfg("HTTPserverIP") %>" onchange="serverIPChange();" size="18" maxlength="33"></td>
+</tr>
+<tr>
+<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Directory path:</b><br><br></td>
+<td nowrap width="50%" align="left"><input type="text" name="serverPath" value="<% GetPageCfg("serverPath") %>" onchange="serverPathChange();" size="18" maxlength="33"></td>
+</tr>
+<tr>
+<td><b>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Initial start time:</b><br><br></td>
+<td nowrap width="50%" align="left"><input type="text" name="initStartTime" value="<% GetPageCfg("initStartTime") %>" onchange="initStartTimeChange();" size="18" maxlength="33"></td>
+<br><br>
+</tr>
+</table>
+<input type="hidden" name="form" value="4" >
+<input type="hidden" name="raStageDev" value="<% GetPageCfg("raStageDev") %>" >
+<input type="hidden" name="raStageProd" value="<% GetPageCfg("raStageProd") %>" >
+<input type="hidden" name="raServerIP" value="<% GetPageCfg("raServerIP") %>" >
+<input type="hidden" name="raHTTPServerIP" value="<% GetPageCfg("raHTTPServerIP") %>" >
+<input type="hidden" name="raServerPath" value="<% GetPageCfg("raServerPath") %>" >
+<input type="hidden" name="raInitStartTime" value="<% GetPageCfg("raInitStartTime") %>" >
+<INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+</form>
+
+<br>
+<form id="cf5" name="cf5" action=newdebug.cgi? method="POST">
+&nbsp;&nbsp;
+<input type="checkbox" name="readyCloudTestServer" value="0"  onclick="document.forms['cf5'].submit();" ><b>Use ReadyCloud test server</b>
+<input type="hidden" name="form" value="5" >
+<input type="hidden" name="useReadyCloudTestServer" value="<% GetPageCfg("useReadyCloudTestServer") %>" >
+<INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+</form>
+<form id="cf6" name="cf6" action=cleanall.cgi? method="POST">
+<br>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+<button type="SUBMIT" value="Clean_All" name="action_Clean_All" class="button-sty1" >
+Clean All
+</button>
+<br><br>
+<input type="hidden" name="form" value="6" >
+<INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+</form>
+
+</body>
+</html>

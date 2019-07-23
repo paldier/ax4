@@ -1,0 +1,32 @@
+#!/bin/sh
+
+if [ ! "$CONFIGLOADED" ]; then
+        if [ -r /etc/rc.d/config.sh ]; then
+                . /etc/rc.d/config.sh 2>/dev/null
+                CONFIGLOADED="1"
+        fi
+fi
+. /opt/lantiq/etc/switchports.conf 2> /dev/null
+
+echo "===Enable lan port seperation for $switch_lan_ports==="
+if [ -n "$switch_lan_ports" ]; then
+  lan_port=$switch_lan_ports
+else
+  lan_port="4 5"
+fi
+
+brctl delif br-lan eth0
+
+i=1
+for port in $lan_port; do
+	echo "adding interface eth0_${i}"
+	eval interface_name=eth0_${i}
+	ip link add dev $interface_name link eth0 type ethsw ports $port
+	# interfaces are brought up later on by SLs, not required here
+	#ifconfig $interface_name 0.0.0.0 up
+	#brctl addif br-lan $interface_name
+	i=`expr $i \+ 1`
+done
+
+
+

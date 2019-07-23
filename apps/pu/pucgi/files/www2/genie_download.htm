@@ -1,0 +1,183 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+	<meta charset="UTF-8" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<link rel="stylesheet" href="CDL.css">	
+	<script src="script/script.js"></script>
+	<title>NETGEAR Genie</title>
+	
+	
+</head>
+
+<script >
+
+var OSType = detectOS();
+var RS_num=1;
+var genie_mac_num=1;
+var genie_num=1;
+var mode = 0;
+
+function downloadSoftware()
+{
+    if(OSType != "Win" && OSType != "Mac"){
+    window.location.href='genie_ver_check.htm';
+    }
+    if(OSType != "Win")
+    {
+         document.getElementById("OS_WIN").style.display="none";
+         document.getElementById("OS_MAC").style.display="block";
+    }
+    else
+    {
+         document.getElementById("OS_WIN").style.display="block";
+         document.getElementById("OS_MAC").style.display="none";
+    }
+}
+function choose_RS(n, cf)
+{
+	if(  document.getElementById("rs_choose").className == "checked")
+	{
+		document.getElementById("rs_choose").className = "uncheck"
+		cf.download_readyshare.value = "0";
+	}
+	else
+	{
+		document.getElementById("rs_choose").className = "checked"
+		cf.download_readyshare.value = "1";
+	}	
+		//alert(RS_num);
+}
+function genie_mac_choose(n, cf)
+{
+	if( document.getElementById("genie_mac").className == "checked")
+	{
+		document.getElementById("genie_mac").className = "uncheck"
+		cf.download_desktop_genie.value = "0";
+	}
+	else
+	{
+		document.getElementById("genie_mac").className = "checked"
+		cf.download_desktop_genie.value = "1";
+	}
+}
+
+function genie_choose(n, cf)
+{
+        if( document.getElementById("genie_choice").className == "checked")
+        {
+                document.getElementById("genie_choice").className = "uncheck"
+                cf.download_desktop_genie.value = "0";
+        }
+        else
+        {
+                document.getElementById("genie_chice").className = "checked"
+                cf.download_desktop_genie.value = "1";
+        }
+}
+
+function click_next(cf)
+{
+	if( OSType == "Mac" )
+		cf.download_readyshare.value = "0";
+
+	cf.submit();
+}
+
+function do_submit(cf)
+{
+       cf.exit_genie.value = "exit"; 
+       if(OSType == "Mac")
+           cf.download_readyshare.value = "0";
+       	cf.submit();
+}
+
+function do_submit2(cf)
+{
+       cf.exit_genie.value = "previous"; 
+       if(OSType == "Mac")
+           cf.download_readyshare.value = "0";
+       	cf.submit();
+}
+
+</script>
+ <link href="css/custom.css" rel="stylesheet" type="text/css"> 
+<body style="background-color:#ffffff" onLoad="downloadSoftware();">
+<form id="target"  name="formname" method="POST" action="genieDownload.cgi">
+	<table border="0" cellpadding="0" cellspacing="3"  width="99%">
+	<tr style="height:10px">
+		<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+	</tr>
+  </table>
+   <div id="OS_MAC" style="display:none">
+   <table border="0" cellpadding="0" cellspacing="3"  width="99%">
+   	<tr>
+      <td>&nbsp;</td><TD class="centerTd pl-0"><B><% GetMultiLangStr("genie_938") %> </B></TD><td>&nbsp;</td>
+    </TR>
+    <tr>
+		  <td>&nbsp;</td><td></td><td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td>
+      <td class="textRow centerTd pl-0" nowrap height=25px; width=25px;>
+        <div id="genie_mac" class="checked" onclick="genie_mac_choose(genie_mac_num, document.forms[0]);genie_mac_num++;"> </div>
+          <b class="choice_font"><a style="cursor:pointer;" href="http://www.netgear.com/genie" target="_blank"><% GetMultiLangStr("genie_939") %></b>
+      </td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr><td>&nbsp;</td><td></td><td>&nbsp;</td></tr><tr>
+   </table>
+ </div>
+ <div id="OS_WIN" style="display:none">
+   <table border="0" cellpadding="0" cellspacing="3"  width="99%">
+	   <TR height=40px;> 
+       <td>&nbsp;</td><TD class="centerTd pl-0"><B><% GetMultiLangStr("genie_938") %> </B></TD><td>&nbsp;</td>
+    </TR>
+ 	  <tr>
+		  <td>&nbsp;</td><td></td><td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td><td class="textRow centerTd pl-0" nowrap height=25px; width=25px; >
+      <div id="genie_choice" class="checked" onclick="genie_choose(genie_num, document.forms[0]);genie_num++;"></div>
+      <b class="choice_font"><a style="cursor:pointer;" href="http://www.netgear.com/genie" target="_blank"><% GetMultiLangStr("genie_939") %></b></td><td>&nbsp;</td>
+      </tr><tr><td>&nbsp;</td><td></td><td>&nbsp;</td></tr><tr>
+      <td>&nbsp;</td><td class="textRow centerTd pl-0" nowrap height=25px; width=25px;>
+        <div id="rs_choose" class="checked"  src="checked.jpg" onclick="choose_RS(RS_num, document.forms[0]);RS_num++;"></div>
+          <b class="choice_font"><a style="cursor:pointer;" href="http://www.netgear.com/readyshare" target="_blank"><% GetMultiLangStr("genie_940") %></b>
+      </td>
+      <td>&nbsp;</td>
+  	</tr>	
+    	<tr>
+   </table>
+ </div>
+   <table border="0" cellpadding="0" cellspacing="3"  width="99%">
+   	<tr>
+      <td>&nbsp;</td><td></td><td>&nbsp;</td>
+     </tr>
+   	<tr>
+   		<td>&nbsp;</td><td></td><td>&nbsp;</td>
+    </tr>
+    </table>
+<table border="0" cellpadding="0" cellspacing="3"  width="99%">
+    <TR><td>&nbsp;</td><td class="textRow centerTd" colspan=2></td><td>&nbsp;</td></TR>
+    <TR><td>&nbsp;</td><td class="textRow centerTd" colspan=2></td><td>&nbsp;</td></TR>
+    <TR><td>&nbsp;</td><td class="textRow centerTd" colspan=2></td><td>&nbsp;</td></TR>
+    <TR>
+            <td>&nbsp;</td>
+	        <TD nowrap width="300px"  align=left>
+            <button value="submit" class="button-sty1" name="exit" id="exit" onClick="do_submit(document.forms[0]);" type="button"><span>&nbsp;&nbsp;&nbsp;<% GetMultiLangStr("3G8") %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+            </TD>
+            <TD nowrap width="300px"  align=right>
+            <button value="submit" class="button-sty1" name="previous" id="previous" onClick="do_submit2(document.forms[0]);" type="button"><span>< <% GetMultiLangStr("LPC079") %> &nbsp;&nbsp;&nbsp;</span></button>&nbsp;&nbsp;&nbsp;&nbsp;
+            <button value="submit" class ="button-sty1" name="next" id="next" onclick="click_next( document.forms[0]);" type="submit"><span>&nbsp;&nbsp;&nbsp;<% GetMultiLangStr("OTH011") %> >&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+            </TD>
+            <td >&nbsp;</td>
+    </TR>
+</table>
+    <input type="hidden" name="download_desktop_genie" value="1" />
+    <input type="hidden" name="download_readyshare" value="1" />
+    <input type="hidden" name="exit_genie" value=""/>
+    <INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+</form>
+</body>
+</html>

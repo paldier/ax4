@@ -1,0 +1,152 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR   Genie</title>
+<link rel="stylesheet" href="CDL.css">
+<script language="javascript" type="text/javascript">
+<!--
+function checkSel(){
+	if (document.formname.WANDetc[0].checked == true){
+		window.location.href="genie_detwan.htm";
+	}else if (document.formname.WANDetc[1].checked == true){
+		window.location.href="genie_detwan.htm";
+	}else if (document.formname.WANDetc[2].checked == true){
+		window.location.href="genie_ph_fail.htm";
+    /*
+  }else if (document.formname.WANDetc[3].checked == true){
+    window.location.href="genie_detwwan.htm";
+    */
+  }else{
+		alert("<% GetMultiLangStr("genie_121") %>");
+	}
+}
+
+function loadSettings()
+{
+
+        ;     
+        if(top.parent.frames['topframe'] != null){           	          
+           top.parent.frames['topframe'].location="genie_top.htm"; 
+        }
+	var cf = document.forms[0];	
+	cf.WANDetc[1].checked = false;
+	cf.WANDetc[0].checked = false;
+	cf.WANDetc[2].checked = false;
+    /*
+    cf.WANDetc[3].checked = false;
+    */
+}
+//-->
+</script>
+ <link href="css/custom.css" rel="stylesheet" type="text/css"> 
+</head>
+
+<body bgcolor="#ffffff" onLoad="loadSettings();document.forms[0].elements[0].focus();">
+<form name="formname"> 
+<table border="0" cellpadding="0" cellspacing="0" width="99%">
+<tr style="height:10px">
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="centerTd pl-0">
+		<h2 class="subhead2 pl-0"  style="color:#ff0000;"><% GetMultiLangStr("genie_105") %></h2>
+        </td>
+	<td>&nbsp;</td>
+
+</tr>
+<tr style="height:10px">
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="textRow centerTd pl-0"><p><% GetMultiLangStr("genie_128") %></p></td>
+	<td>&nbsp;</td>
+<tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="textRow centerTd pl-0"><p><% GetMultiLangStr("genie_7") %></p></td>
+	<td>&nbsp;</td>
+<tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="textRow centerTd pl-0"><p style="padding-left:20px"><% GetMultiLangStr("genie_134") %></p></td>
+	<td>&nbsp;</td>
+<tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="textRow centerTd pl-0"><p><% GetMultiLangStr("genie_8") %></p></td>
+	<td>&nbsp;</td>
+<tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="textRow centerTd pl-0"><p style="padding-left:20px"><% GetMultiLangStr("genie_133") %><p></td>
+	<td>&nbsp;</td>
+<tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="textRow centerTd pl-0"><p><% GetMultiLangStr("genie_122") %></p></td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td  class="textRow centerTd pl-0"  colspan="2" onFocus="this.blur()">
+    <label class="checkbox-container"><% GetMultiLangStr("genie_56") %>
+				  <input type="radio"  checked name="WANDetc" value="Yes">
+				  <span class="radio-checkmark"></span>
+</label>
+    </td>
+    <td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="textRow centerTd pl-0" colspan="2" nowrap onFocus="this.blur()">
+   <label class="checkbox-container"><% GetMultiLangStr("genie_53") %>
+				 <input type="radio" name="WANDetc" value="No">
+				  <span class="radio-checkmark"></span>
+	</label>
+    
+    
+    </td>
+	<td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="textRow centerTd pl-0" colspan="2" nowrap onFocus="this.blur()">
+    <label class="checkbox-container"><% GetMultiLangStr("genie_86") %>
+				 <input type="radio" name="WANDetc" value="None">
+				  <span class="radio-checkmark"></span>
+	</label>
+    
+    </td>
+	<td>&nbsp;</td>
+</tr>
+<!--
+<tr>
+    <td>&nbsp;</td>
+    <td class="textRow centerTd" colspan="2" nowrap onFocus="this.blur()"><input type="radio" name="WANDetc" value="WWan"><span style="padding-left:10px;">I want to skip Ethernet setup, and setup 3G/4G connection.</span></td>
+    <td>&nbsp;</td>
+</tr>
+-->
+<tr style="height:10px">
+	<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+<tr>
+	<td>&nbsp;</td>
+	<td class="textRow centerTd2">
+		<button class = "button-sty1" width=100px name="next" onClick="checkSel();" type="Button"><% GetMultiLangStr("OTH011") %></button>
+	</td>
+	<td>&nbsp;</td>
+</tr>
+
+</table>
+</form>
+</body>
+</html>

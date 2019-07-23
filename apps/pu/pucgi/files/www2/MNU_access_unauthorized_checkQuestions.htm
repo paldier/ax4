@@ -1,0 +1,114 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>401 Unauthorized</title>
+<link rel="stylesheet" href="css/MNUAccess.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="script/script.js"></script>
+<script language="javascript" type="text/javascript"><!--
+
+ 
+//--></script></head>
+<script language="javascript" type="text/javascript">
+<!--
+
+  
+function showQuestion1()
+{
+	var questions = [	"<% GetMultiLangStr("genie_97") %>",
+						"<% GetMultiLangStr("genie_149") %>",
+						"<% GetMultiLangStr("genie_150") %>",
+						"<% GetMultiLangStr("genie_145") %>",
+						"<% GetMultiLangStr("genie_144") %>",
+						"<% GetMultiLangStr("genie_63") %>",
+						"<% GetMultiLangStr("genie_142") %>",
+						"<% GetMultiLangStr("genie_141") %>",
+						"<% GetMultiLangStr("genie_64") %>",
+						"<% GetMultiLangStr("genie_138") %>"	];
+						
+	document.write(questions[<% GetPageCfg("recover_question1") %>]);				
+	return true;
+}
+function showQuestion2()
+{
+	var questions = [	"<% GetMultiLangStr("genie_97") %>",
+						"<% GetMultiLangStr("genie_147") %>",
+						"<% GetMultiLangStr("genie_146") %>",
+						"<% GetMultiLangStr("genie_140") %>",
+						"<% GetMultiLangStr("genie_143") %>",
+						"<% GetMultiLangStr("genie_148") %>",
+						"<% GetMultiLangStr("genie_62") %>",
+						"<% GetMultiLangStr("genie_61") %>",
+						"<% GetMultiLangStr("genie_139") %>"	];
+						
+	document.write(questions[<% GetPageCfg("recover_question2") %>]);				
+	return true;
+}
+-->
+</script>
+<link href="css/custom.css" rel="stylesheet" type="text/css"> 
+<body  bgcolor="#FFFFFF">
+<p class="subhead2 p1-0"><% GetMultiLangStr("genie_114") %></p>
+
+<form method="POST" action="/passwordrecovered.cgi">
+	<table border="0" cellpadding="0" cellspacing="3" style="width:600px">
+    <col width="200" />
+    <col width="400" />
+		<tr>
+			<td colspan="2" class="MNUText"><% GetMultiLangStr("genie_93") %></td>
+		</tr>
+		<tr>
+			<td align="right" class="MNUText"><% GetMultiLangStr("genie_117") %></td>
+			<td align="left" class="MNUText">
+				<script language="javascript" type="text/javascript">
+				<!--
+				showQuestion1();	
+				//-->
+				</script>
+			</td>
+		</tr>
+		<tr>
+			<td align="right" class="MNUText"><% GetMultiLangStr("genie_17") %></td>
+			<td align="left" class="MNUText"><input type="text" name="answer1" size=""></td>
+		</tr>
+		<tr>
+			<td align="right" class="MNUText"><% GetMultiLangStr("genie_118") %></td>
+			<td align="left" class="MNUText">
+				<script language="javascript" type="text/javascript">
+				<!--
+				showQuestion2();	
+				//-->
+				</script>			
+			</td>
+		</tr>
+		<tr>
+			<td align="right" class="MNUText"><% GetMultiLangStr("genie_17") %></td>
+			<td align="left" class="MNUText"><input type="text" name="answer2" size=""></td>
+		</tr>
+		<tr>
+			<td align="right" class="MNUText"><% GetMultiLangStr("genie_6") %></td>
+			<td align="left" class="MNUText"></td>
+		</tr>
+		<tr >	
+			<td class="MNUText" colspan="2">
+
+				<button type="RESET" value="Cancel" name="Cancel" class="button-cancel cancel_bt" style="padding-left:10px" ><% GetMultiLangStr("UAS021") %></button>
+				<button type="SUBMIT" value="Continue" name="Continue" class="button-apply apply_bt" style="padding-left:10px"><% GetMultiLangStr("OTH021") %></button>
+
+			</td>
+		</tr>
+		
+	</table>
+</form>
+
+</body>
+</html>
+

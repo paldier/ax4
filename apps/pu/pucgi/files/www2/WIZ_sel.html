@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title>
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!--
+
+
+    $(document).ready(function()
+    {	
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+    function setHelpIframeVisible(){
+        $('.help-frame-div').css("visibility","visible");
+    }
+
+
+    function showHelpIframe() {
+
+        var imgSrc=document.getElementById('help-button');
+
+        if(imgSrc.src.search("up")>=0)
+        {
+            $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
+            imgSrc.src="img/helparrowdown-icon.png";
+        }
+        else
+        {
+            $(".help-frame-div").hide();
+            imgSrc.src="img/helparrowup-icon.png";
+            setTimeout(setHelpIframeVisible,500);
+        }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
+             change_size();
+
+    }
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+
+    function loadhelp(fname,anchname)
+    {
+                var pane = window.frames["helpframe"].$('#content');
+                var imgSrc=document.getElementById('help-button');
+                if(imgSrc.src.search("up")<0)
+                {
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+
+                        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm";
+                                $(".help-frame-div").show();
+                        }
+                        else
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                                $(".help-frame-div").show();
+                        }
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+                }
+    }
+
+function checkSel()
+{
+    if (document.formname.WANDetc[0].checked == true)
+    {
+        //window.location.href="WIZ_detwan.htm";
+        //window.location.href="genie_detwan.htm";
+        window.location.href="genie_firstping.htm";
+    }
+    else
+    {
+        window.location.href="BAS_basic.html";
+    }
+}
+
+function caCheckSel()
+{
+    if (document.formname.WANDetc[0].checked == true)
+        window.location.href="WIZ_detwan.htm";
+    else
+        document.forms[0].submit();
+}
+
+//-->
+</script>
+<link href="css/custom.css" rel="stylesheet" type="text/css"> 
+</head>
+
+<body  onload="change_size();" class="page-body"  onResize="change_size();" >
+<img class="cover-image" src="img/cover-image_noh.gif">
+<!--<img class="body-image" src="<%69%>">-->
+<div id="full-page-container">
+<div class=Section1>
+<form id="target"  name="formname" method="POST" action="adv_user.cgi">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue"> 
+<img class="subtop-image" src="img/subhead2-top_noh.gif">
+<div class="subhead2"> <% GetMultiLangStr("LUP005") %></div>
+<br><br>
+<table  border=0    style="height:370px"  class="subhead2-table">
+
+
+<tr><td class="scrollpane-table-seperate-border scroll_container" colspan="2"><div class="scroll-pane inner-main" style="height:410px;width:620px;overflow:auto;scrolling:auto"><table style="border-collapse:collapse;width:97%">
+
+
+
+
+			<tr>
+				<td colspan="2" class="pb-20 pt-0"><b><% GetMultiLangStr("SWP001") %></b></td>
+			</tr>
+			<tr></tr>
+			<tr>
+				<td colspan="2" class="pb-20"><b><% GetMultiLangStr("SWP002") %></b></td>
+			</tr>
+			<tr></tr>
+			<tr>
+				<td colspan="2">
+				    <label class="checkbox-container">
+				        <input type="radio"  checked name="WANDetc" id="wan_detect_type" value="AutoDetc"><% GetMultiLangStr("SWP003") %>
+				        <span class="radio-checkmark"></span>
+		            </label>
+                </td>
+			</tr>
+			<tr>
+				<td colspan="2" nowrap class="pt-10">
+				    <label class="checkbox-container">
+				    <input type="radio" name="WANDetc" id="wan_detect_type2" value="MyDetc"><% GetMultiLangStr("SWP004") %>
+				        <span class="radio-checkmark"></span>
+		            </label>
+                </td>
+			</tr>
+			
+<tr> 
+ <td colspan="2" class="pt-20"><div style="background-image:url('seprator.gif');width:100%;background-repeat:repeat-x;">&nbsp;</div></td>
+</tr>
+<tr>
+	<td colspan="2" align="left">
+
+		<button type="Button" value="Next" name="next" id="next" class="button-apply apply_bt mt-20" onClick="buttonClick(this,'Next');checkSel()"><% GetMultiLangStr("OTH011") %></button>
+</td></tr>
+</table></div></td></tr>
+<tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe"  src="WIZ_sel_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
+</table>
+   <!--<img class="subfooter-image" src="img/subhead2-bottom.gif">-->
+<div class="subhead2-bottom" >
+    <span class="help_ico"><img src="img/help-icon.png" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
+    <span class="subhead2-text help_center_text" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_51") %> </span>
+    <span class="button-help-arrow">
+      <img src="img/helparrowdown-icon.png" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
+    <span class="subhead2-text help_right_text" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_123") %> </span>
+      </div>
+
+
+
+<INPUT TYPE="hidden" NAME="wps_in_progress" VALUE="0">
+<a name="helpframe-anchor"></a>
+<INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+</form>
+</div>
+</div>
+</body>
+</html>

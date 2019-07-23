@@ -1,0 +1,326 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title> 
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+<link rel="stylesheet" href="css/form.css">
+<link rel="stylesheet" href="css/custom.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+		
+<script language="javascript" type="text/javascript">
+<!--
+  
+    $(document).ready(function()
+    {	
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+    function setHelpIframeVisible(){
+        $('.help-frame-div').css("visibility","visible");
+    }
+
+
+    function showHelpIframe() {
+
+        var imgSrc=document.getElementById('help-button');
+
+        if(imgSrc.src.search("up")>=0)
+        {
+            $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
+            imgSrc.src="img/helparrowdown-icon.png";
+        }
+        else
+        {
+            $(".help-frame-div").hide();
+            imgSrc.src="img/helparrowup-icon.png";
+            setTimeout(setHelpIframeVisible,500);
+        }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
+             change_size();
+
+    }
+
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+
+    function loadhelp(fname,anchname)
+    {
+                var pane = window.frames["helpframe"].$('#content');
+                var imgSrc=document.getElementById('help-button');
+                if(imgSrc.src.search("up")<0)
+                {
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+
+                        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm";
+                                $(".help-frame-div").show();
+                        }
+                        else
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                                $(".help-frame-div").show();
+                        }
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+                }
+    }
+
+   
+
+function trim(vString)
+{ 
+	var tString = vString;
+
+	//trim left spaces
+	if (tString.charAt(0) == " ")
+		tString = trim(tString.substring(1, tString.length));
+
+	//trim right spaces
+	if (tString.charAt(tString.length-1) == " ")
+		tString = trim(tString.substring(0, tString.length-1));
+
+	return(tString);
+}
+function isNumOnly(vString)
+{
+	var NUMBERS = "0123456789";
+	var valid = true;
+	for(var i=0;i<vString.length;i++)
+		if(NUMBERS.indexOf(vString.charAt(i))<0)
+			valid = false;
+			
+	return(valid);
+}
+function isNull(vField) {
+	var ret = false;
+	vField.value = trim(vField.value)
+	
+	if (vField.value.length == 0)
+		ret = true;
+	return(ret)
+}
+function CheckAdverTimeVal(vField)
+{
+	if(isNull(vField)){
+		alert("<% GetMultiLangStr("OTH013") %> " + vField.name);
+		vField.value = vField.form.hiddenAdverTime.value;
+		vField.focus();
+		return false;
+	}
+	if(!isNumOnly(vField.value)){
+		alert(vField.name + " <% GetMultiLangStr("OTH014") %>");
+		vField.value = vField.form.hiddenAdverTime.value;
+		vField.focus();
+		return false;
+	}
+	if((vField.value >1440 )||(vField.value <= 0 )){
+		alert(vField.name + " <% GetMultiLangStr("AUPE01") %>");
+		vField.value = vField.form.hiddenAdverTime.value;
+		vField.focus();
+		return false;
+	}	
+	return true
+}
+function CheckTimeToLiveVal(vField)
+{
+	if(isNull(vField)){
+		alert("<% GetMultiLangStr("OTH013") %> " + vField.name);
+		vField.value = vField.form.hiddenTimeToLive.value;
+		vField.focus();
+		return false;
+	}
+	if(!isNumOnly(vField.value)){
+		alert(vField.name + " <% GetMultiLangStr("OTH014") %>");
+		vField.value = vField.form.hiddenTimeToLive.value
+		vField.focus()
+		return false	
+	}
+	if((vField.value > 255 )||(vField.value <= 0 )){
+		alert(vField.name + " <% GetMultiLangStr("AUPE02") %>")
+		vField.value = vField.form.hiddenTimeToLive.value
+		vField.focus()
+		return false 
+	}
+	return true
+}
+
+function finishchech()
+{
+    var cf = document.forms[0];
+
+	if(!CheckAdverTimeVal(document.formname.AdverTime))
+		return false;
+	else if(!CheckTimeToLiveVal(document.formname.TimeToLive))
+		return false;
+	else
+	{
+	    //document.formname.submit();
+	    if (cf.UPnP.checked)
+	        cf.hiddenTurnUPnPOn.value = 1;
+	    else
+	        cf.hiddenTurnUPnPOn.value = 0;
+	    return true
+	}
+}
+
+function fresh()
+{
+window.location.href="UPNP_upnp.html";
+}
+
+function init()
+{
+    var cf = document.forms[0];
+
+    if (cf.hiddenTurnUPnPOn.value == 1)
+        cf.UPnP.checked = true;
+    else
+        cf.UPnP.checked = false;
+}
+//-->
+</script>
+</head>
+<body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onload="change_size(); init();" class="page-body"  onResize="change_size();" >
+<img class="cover-image" src="img/cover-image_noh.gif">
+<img class="body-image" src="img/subhead2-background_noh.jpg">
+<div id="full-page-container">
+
+<form id="target"  name="formname" method="POST" action="upnp.cgi">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+ 
+<img class="subtop-image" src="img/subhead2-top_noh.gif">
+<div class="subhead2"> UPnP</div>
+<table border="0"    style="height:370px"  class="subhead2-table">
+
+<tr align="left" valign="middle">
+<td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
+<div class=" fix_button">
+<button value="<% GetMultiLangStr("UBS012") %>" OnClick="buttonClick(this,'<% GetMultiLangStr("UBS012") %>');fresh();" type="button" name="refresh" id="refresh" class="button-common common_bt" ><% GetMultiLangStr("UBS012") %></button>
+<button value="<% GetMultiLangStr("UAS021") %>" onClick="buttonClick(this,'<% GetMultiLangStr("UAS021") %>');location.href='UPNP_upnp.html'" type="button" name="cancel" id="cancel" class="button-cancel cancel_bt" ><% GetMultiLangStr("UAS021") %></button>
+<button value="<% GetMultiLangStr("LUP004") %>"  onClick="buttonClick(this,'<% GetMultiLangStr("LUP004") %>');return finishchech()" type="submit" name="apply" id="apply" class="button-apply apply_bt" ><% GetMultiLangStr("LUP004") %></button>
+
+</div>
+</td>
+</tr>
+
+<tr><td class="scrollpane-table-seperate-border" colspan="2"><div class="scroll-pane main_bas" style="height:365px;width:620px;overflow:auto;scrolling:auto"><table style="border-collapse:collapse;width:97%">
+		
+	
+
+
+
+<tr><td nowrap width="46%">
+<label class="checkbox-container">
+			 <input type="checkbox" name="UPnP" id="upnp" value="UPnP"><B><a href="javascript:loadhelp('UPNP_upnp','turnon')" tabindex="-1"><% GetMultiLangStr("AUP005") %></a></B>
+					  <span class="checkbox-checkmark"></span>
+					</label>
+</td>
+
+ 
+<tr><td nowrap width="46%"><B><a href="javascript:loadhelp('UPNP_upnp','adv')" tabindex="-1"><% GetMultiLangStr("AUP001") %></a> </B><% GetMultiLangStr("APP001") %></td>
+<td nowrap width="54%" align="right"><input type="text" class="num input1" name="AdverTime" id="adver_time" size="5" maxlength="4" value="<% GetPageCfg("UPNP_upnp_AdverTime") %>" onFocus="this.select();" ></td>
+</tr>
+
+<tr>
+ <td nowrap width="46%"><B><a href="javascript:loadhelp('UPNP_upnp','live')" tabindex="-1"><% GetMultiLangStr("AUP007") %></a></b> <% GetMultiLangStr("AUP003") %></td>
+	<td nowrap width="54%" align="right"><input type="text" class="num input1" name="TimeToLive" id="time_to_live" size="4" maxlength="3" value="<% GetPageCfg("UPNP_upnp_TTL") %>" onFocus="this.select();" ></td>
+</tr>
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+
+<tr>
+ <td colspan="2"><b><a href="javascript:loadhelp('UPNP_upnp','table')" tabindex="-1"><% GetMultiLangStr("AUP006") %></a></b></td>
+</tr>
+
+<tr>
+<td colspan="2">
+
+<table border ="1" cellpadding ="0" cellspacing ="0" width="100%" id="upnp_portmap"  class="tbWhite cmn-table-2">
+ <TR class="table_header"><TD width="10%" align="center"><span class="thead"><% GetMultiLangStr("ASR001") %></span></TD>
+ 	<TD width="15%" align="center"><span class="thead"><% GetMultiLangStr("SBS014") %></span></TD>
+ 	
+	 <TD width="15%" align="center"><span class="thead"><% GetMultiLangStr("AUP004") %></span></TD>
+	 <TD width="15%" align="center"><span class="thead"><% GetMultiLangStr("AUP002") %></span></TD>
+	 <TD width="25%" align="center"><span class="thead"><% GetMultiLangStr("SWP030") %></span></TD>
+	</TR> 
+	<!><% GetPageCfg("UPNP_Table") %><!>
+</table>
+</td>
+</tr>
+
+<tr><td colspan="2">&nbsp;</td></tr>
+<tr><td colspan="2" height="12" ></td></tr>
+<tr><td colspan="2" height="12" ></td></tr>
+
+</table></div></td></tr>
+<tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe"  src="UPNP_upnp_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
+</TABLE>
+ 
+<div class="subhead2-bottom" >
+    <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.png" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_51") %> </span>
+    <span class="button-help-arrow">
+      <img src="img/helparrowdown-icon.png" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_123") %> </span>
+      </div>
+
+
+ 
+
+<input type="hidden" value="<% GetPageCfg("UPNP_upnp_Enable") %>" name="hiddenTurnUPnPOn">
+<input type="hidden" value="<% GetPageCfg("UPNP_upnp_AdverTime") %>" name="hiddenAdverTime">
+<input type="hidden" value="<% GetPageCfg("UPNP_upnp_TTL") %>" name="hiddenTimeToLive">
+<INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+<a name="helpframe-anchor"></a>
+</form>
+</div>
+</body>
+ <head>
+  <META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+</head>
+</html>
+
+

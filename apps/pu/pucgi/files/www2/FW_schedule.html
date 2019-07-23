@@ -1,0 +1,651 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title>
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+<link rel="stylesheet" href="css/form.css">
+<link rel="stylesheet" href="css/custom.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<STYLE TYPE="text/javascript">
+	classes.num.all.fontFamily = "Courier";
+	classes.num.all.fontSize = "10pt" ;
+</style>
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!--
+var isInited = 0;
+  
+    $(document).ready(function()
+    {	
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+    function setHelpIframeVisible(){
+        $('.help-frame-div').css("visibility","visible");
+    }
+
+
+    function showHelpIframe() {
+
+        var imgSrc=document.getElementById('help-button');
+
+        if(imgSrc.src.search("up")>=0)
+        {
+            $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
+            imgSrc.src="img/helparrowdown-icon.png";
+        }
+        else
+        {
+            $(".help-frame-div").hide();
+            imgSrc.src="img/helparrowup-icon.png";
+            setTimeout(setHelpIframeVisible,500);
+        }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
+             change_size();
+
+    }
+
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+
+    function loadhelp(fname,anchname)
+    {
+                var pane = window.frames["helpframe"].$('#content');
+                var imgSrc=document.getElementById('help-button');
+                if(imgSrc.src.search("up")<0)
+                {
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+
+                        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm";
+                                $(".help-frame-div").show();
+                        }
+                        else
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                                $(".help-frame-div").show();
+                        }
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+                }
+    }
+
+   
+
+function BlockPeriodClick(cf)
+{
+	if(cf.checkboxNamehours.checked)
+	{
+		cf.starthour.disabled = true;
+		cf.startminute.disabled = true;
+		cf.endhour.disabled = true;
+		cf.endminute.disabled = true;
+		TimePeriodDisabled = true;
+	}
+	else
+	{
+		cf.starthour.disabled = false;
+		cf.startminute.disabled = false;
+		cf.endhour.disabled = false;
+		cf.endminute.disabled = false;
+		TimePeriodDisabled = false;
+	}
+	return;
+}
+
+function BlockAllClickCheck()
+{
+	var cf = document.forms[0];
+	if(cf.checkboxNameAll.checked)
+	{
+		cf.checkboxNameMon.checked = true;
+		cf.checkboxNameTue.checked = true;
+		cf.checkboxNameWed.checked = true;
+		cf.checkboxNameThu.checked = true;
+		cf.checkboxNameFri.checked = true;
+		cf.checkboxNameSat.checked = true;
+		cf.checkboxNameSun.checked = true;
+
+		cf.checkboxNameMon.disabled = true;
+		cf.checkboxNameTue.disabled = true;
+		cf.checkboxNameWed.disabled = true;
+		cf.checkboxNameThu.disabled = true;
+		cf.checkboxNameFri.disabled = true;
+		cf.checkboxNameSat.disabled = true;
+		cf.checkboxNameSun.disabled = true;
+	}
+	else
+	{
+		cf.checkboxNameMon.disabled = false;
+		cf.checkboxNameTue.disabled = false;
+		cf.checkboxNameWed.disabled = false;
+		cf.checkboxNameThu.disabled = false;
+		cf.checkboxNameFri.disabled = false;
+		cf.checkboxNameSat.disabled = false;
+		cf.checkboxNameSun.disabled = false;
+	}
+    BlockPeriodClick(cf);
+    
+    if (cf.enable_apmode.value == "1" || cf.enable_extmode.value == "1") {
+		cf.checkboxNameAll.disabled = true;
+		cf.checkboxNameSun.disabled = true;
+		cf.checkboxNameMon.disabled = true;
+		cf.checkboxNameTue.disabled = true;
+		cf.checkboxNameWed.disabled = true;
+		cf.checkboxNameThu.disabled = true;
+		cf.checkboxNameFri.disabled = true;
+		cf.checkboxNameSat.disabled = true;  
+        
+        cf.checkboxNamehours.disabled = true;
+		cf.starthour.disabled = true;
+		cf.startminute.disabled = true;
+		cf.endhour.disabled = true;
+		cf.endminute.disabled = true;        
+    }  
+    
+    
+	return;
+}
+
+function init()
+{
+	var cf = document.forms[0];
+	var temp;
+	var old;
+	BIN=new Array(4);
+	cf.adjust.checked = false;
+	
+	if (cf.schedule_daylightadjust.value == 1)
+		cf.adjust.checked = true;
+
+	if (cf.schedule_day.value == 127) //check everyday if all check except everyday
+	{
+		cf.checkboxNameAll.checked = true;
+    }
+
+	for(var i=0; i<8; i++)
+			BIN[i]=0;
+
+	if (cf.schedule_day.value > 1)
+	{
+		temp = cf.schedule_day.value;
+		for(var i=0; i<8; i++)
+		{
+			old = temp;
+			temp = Math.floor(temp/2);
+
+			if (temp >= 1)
+			{
+				if ((temp*2) != old)
+					BIN[7-i] = 1;
+				else
+					BIN[7-i] = 0;
+				if (temp == 1)
+				{
+					BIN[6-i] = temp;
+					i=7;
+				}
+			}
+			else
+				i=7;
+		}
+	}
+	else if (cf.schedule_day.value == 1)
+		BIN[7]=1;
+
+	if (BIN[0] == 1) //128
+		cf.checkboxNameAll.checked = true;
+	if (BIN[1] == 1) //64
+		cf.checkboxNameSun.checked = true;
+	if (BIN[2] == 1) //32
+		cf.checkboxNameMon.checked = true;
+	if (BIN[3] == 1) //16
+		cf.checkboxNameTue.checked = true;
+	if (BIN[4] == 1) //8
+		cf.checkboxNameWed.checked = true;
+	if (BIN[5] == 1) //4
+		cf.checkboxNameThu.checked = true;
+	if (BIN[6] == 1) //2
+		cf.checkboxNameFri.checked = true;
+	if (BIN[7] == 1) //1
+		cf.checkboxNameSat.checked = true;
+
+	if ((cf.schedule_starthour.value == 0) && (cf.schedule_startminute.value == 0) && (cf.schedule_endhour.value == 23) && (cf.schedule_endminute.value == 59))
+		cf.checkboxNamehours.checked = true;
+	else
+	{
+		cf.starthour.value = cf.schedule_starthour.value;
+		cf.startminute.value = cf.schedule_startminute.value;
+		cf.endhour.value = cf.schedule_endhour.value;
+		cf.endminute.value = cf.schedule_endminute.value;
+	}
+	if(cf.schedule_alldayenable.value == 1)
+		cf.checkboxNamehours.checked = true;
+
+	if(cf.checkboxNamehours.checked == true)
+	{
+		cf.starthour.value = 0;
+		cf.startminute.value = 0;
+		cf.endhour.value = 23;
+		cf.endminute.value = 59;
+	}
+	BlockAllClickCheck();
+
+    isInited = 1;
+
+  if(cf.timezone_manual_ntp_server.value == 1)
+  {
+  	cf.specify_ntp_server.checked=true;
+    cf.ntp_server.disabled=false; 
+  }
+  else
+  {
+  	cf.specify_ntp_server.checked=false;
+    cf.ntp_server.disabled=true; 
+  }
+  
+    cf.ntp_server.value=cf.timezone_ntp_server.value;
+    cf.time_zone.selectedIndex=cf.schedule_timezone_index.value; 
+  	
+}
+
+function checkSchedule()
+{
+	var cf = document.forms[0];
+	var value = 0;
+
+    if (cf.adjust.checked)
+		cf.schedule_daylightadjust.value = 1;
+	else
+		cf.schedule_daylightadjust.value = 0;
+
+	if (cf.checkboxNamehours.checked)
+		cf.schedule_alldayenable.value = 1;
+	else
+		cf.schedule_alldayenable.value = 0;
+
+	if (cf.checkboxNameAll.checked)
+		value = 128;
+	if (cf.checkboxNameSun.checked)
+		value = value + 64;
+	if (cf.checkboxNameMon.checked)
+		value = value + 32;
+	if (cf.checkboxNameTue.checked)
+		value = value + 16;
+	if (cf.checkboxNameWed.checked)
+		value = value + 8;
+	if (cf.checkboxNameThu.checked)
+		value = value + 4;
+	if (cf.checkboxNameFri.checked)
+		value = value + 2;
+	if (cf.checkboxNameSat.checked)
+		value = value + 1;
+
+	cf.schedule_day.value = value;
+
+	if (!(cf.checkboxNamehours.checked))
+	{
+		if((isNumeric(cf.starthour,23) || isNumeric(cf.endhour,23)
+		  ||isNumeric(cf.startminute,59) || isNumeric(cf.endminute,59)) 
+		  && ( cf.endhour.value != 24 && cf.endminute.value != 0 ) )
+		{
+			alert("<% GetMultiLangStr("CSEE01") %>");
+			return false;
+		}
+		else
+		{
+			cf.starthour.value = parseInt(cf.starthour.value,10);
+			cf.endhour.value = parseInt(cf.endhour.value,10);
+			cf.startminute.value = parseInt(cf.startminute.value,10);
+			cf.endminute.value = parseInt(cf.endminute.value,10);
+		}
+
+    	if (cf.starthour.value == cf.endhour.value &&
+    	    cf.startminute.value == cf.endminute.value)
+    	{
+    		alert("<% GetMultiLangStr("CSEE01") %>");
+    		return false;
+        }
+
+        if (cf.starthour.value == 24 && cf.startminute.value == 0)
+        {
+			alert("<% GetMultiLangStr("CSEE01") %>");
+			return false;
+		}
+
+		if (cf.endhour.value == 24 && cf.endminute.value == 0)
+		{
+			// allow end time to be 24:00
+            if ((cf.starthour.value < 0) || (cf.starthour.value > 23) ||
+                (cf.startminute.value < 0) || (cf.startminute.value > 59))
+            {
+                alert("<% GetMultiLangStr("CSEE01") %>");
+                return false;
+            }
+		}
+		else
+        if ((cf.starthour.value < 0) || (cf.starthour.value > 23) ||
+            (cf.endhour.value < 0) || (cf.endhour.value > 23) ||
+            (cf.startminute.value < 0) || (cf.startminute.value > 59) ||
+            (cf.endminute.value < 0) || (cf.endminute.value > 59))
+    	{
+    		alert("<% GetMultiLangStr("CSEE01") %>");
+    		return false;
+    	}
+
+    	if ((!_isNumeric(cf.starthour.value)) ||
+    	    (!_isNumeric(cf.endhour.value)) ||
+    	    (!_isNumeric(cf.startminute.value)) ||
+    	    (!_isNumeric(cf.endminute.value)))
+    	{
+    		alert("<% GetMultiLangStr("CSEE01") %>");
+    		return false;
+    	}
+
+    	if ((cf.starthour.value == '') || (cf.endhour.value == ''))
+    	{
+    		alert("<% GetMultiLangStr("CSEE01") %>");
+    		return false;
+    	}
+
+    	if ((cf.starthour.value != '') && (cf.endhour.value != ''))
+    	{
+    		if (cf.startminute.value == '')
+    			cf.startminute.value = 0;
+    		if (cf.endminute.value == '')
+    			cf.endminute.value = 0;
+    	}
+		cf.schedule_starthour.value = cf.starthour.value;
+    	cf.schedule_startminute.value = cf.startminute.value;
+    	cf.schedule_endhour.value = cf.endhour.value;
+    	cf.schedule_endminute.value = cf.endminute.value;
+	}
+	else
+	{
+		cf.schedule_starthour.value = 0;
+    	cf.schedule_startminute.value = 0;
+    	cf.schedule_endhour.value = 23;
+    	cf.schedule_endminute.value = 59;
+	}
+	
+ 	if (cf.specify_ntp_server.checked==true)
+ 	{
+      if(cf.ntp_server.value=="")
+      {
+        	alert("<% GetMultiLangStr("SWPE10") %>");
+          return false;
+      }
+  }
+
+	cf.schedule_timezone_index.value = cf.time_zone.selectedIndex;
+	cf.result.value="apply";
+	return true;
+}
+
+function clickNTPCheckbox()
+{
+    var cf = document.forms[0];
+    if(cf.specify_ntp_server.checked==true)
+        cf.ntp_server.disabled=false;
+    else
+        cf.ntp_server.disabled=true;
+}
+
+function CancelAction()
+{
+    var cf = document.forms[0];
+
+    cf.result.value="cancel";
+    return true;
+}
+
+/*
+function chSession(newsession)
+{
+    if(newsession == 2)
+        location.href = "FW_schedule_ppp2.htm";		
+    else if(newsession == 1)
+        location.href = "FW_schedule.htm";		
+}
+*/
+//-->
+</script>
+</head>
+<body  onload="change_size();BlockAllClickCheck();init();" class="page-body"  onResize="change_size();" >
+<img class="cover-image" src="img/cover-image_noh.gif">
+<img class="body-image" src="img/subhead2-background_noh.jpg">
+<div id="full-page-container">
+
+<form id="target"  method="POST" action="fwSchedule.cgi">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+	<img class="subtop-image" src="img/subhead2-top_noh.gif">
+<div class="subhead2" id="security_schedule"> <% GetMultiLangStr("LUP019") %></div>
+<table border="0"    style="height:370px"  class="subhead2-table  main_bas">
+
+<tr align="left" valign="middle">
+<td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
+<div class="fix_button">
+<button value="<% GetMultiLangStr("UAS021") %>" onclick="buttonClick(this,'<% GetMultiLangStr("UAS021") %>');location.href='FW_schedule.html'" type="button" name=action id="cancel" class="button-cancel cancel_bt" ><% GetMultiLangStr("UAS021") %></button>
+<button value="<% GetMultiLangStr("LUP004") %>"  onclick="if(!isInited) return false; buttonClick(this,'<% GetMultiLangStr("LUP004") %>');if(!checkSchedule()) return false;" type=submit name=action id="apply" class="button-apply apply_bt"><% GetMultiLangStr("LUP004") %></button>
+</div>
+</td>
+</tr>
+
+<tr><td class="scrollpane-table-seperate-border" colspan="2"><div class="scroll-pane " style="height:365px;width:620px;overflow:auto;scrolling:auto"><table style="border-collapse:collapse;width:97%">
+		
+     
+      
+		<tr>
+			<td colspan="2"><b><a href="javascript:loadhelp('FW_schedule','blocksch')" tabindex="-1"><% GetMultiLangStr("CSE003") %></a></b></td></tr>
+        <TR>
+            <TD colSpan=2 colspan="2" class="pb-0 pt-0" >
+               <label class="checkbox-container"><INPUT name=checkboxNameAll id="everyday" onclick=BlockAllClickCheck(); type=checkbox value=checkboxValue><% GetMultiLangStr("CSE005") %>
+				  <span class="checkbox-checkmark"></span>
+				</label>  </TD></TR>
+        <TR>
+            <TD colSpan=2 colspan="2" class="pb-0" >
+              <label class="checkbox-container">
+				   <INPUT name=checkboxNameSun id="sun" type=checkbox value=checkboxValue ><% GetMultiLangStr("CSE012") %>
+				  <span class="checkbox-checkmark"></span>
+				</label>  </TD></TR>
+        <TR>
+            <TD colSpan=2 colspan="2" class="pb-0" >
+              <label class="checkbox-container">
+				  <INPUT name=checkboxNameMon id="mon" type=checkbox value=checkboxValue><% GetMultiLangStr("CSE009") %>
+				  <span class="checkbox-checkmark"></span>
+				</label>  </TD></TR>
+        <TR>
+            <TD colSpan=2 colspan="2" class="pb-0">
+               <label class="checkbox-container">
+				  <INPUT name=checkboxNameTue id="tue" type=checkbox value=checkboxValue><% GetMultiLangStr("CSE015") %>
+				  <span class="checkbox-checkmark"></span>
+				</label> </TD></TR>
+        <TR>
+            <TD colSpan=2 colspan="2"class="pb-0" >
+               <label class="checkbox-container">
+				   <INPUT name=checkboxNameWed id="wed" type=checkbox value=checkboxValue><% GetMultiLangStr("CSE016") %>
+				  <span class="checkbox-checkmark"></span>
+				</label> </TD></TR>
+        <TR>
+            <TD colSpan=2 colspan="2" class="pb-0">
+               <label class="checkbox-container">
+				   <INPUT name=checkboxNameThu id="thu" type=checkbox value=checkboxValue><% GetMultiLangStr("CSE013") %>
+				  <span class="checkbox-checkmark"></span>
+				</label> </TD></TR>
+        <TR>
+            <TD colSpan=2 colspan="2" class="pb-0">
+              <label class="checkbox-container">
+				   <INPUT name=checkboxNameFri id="fri" type=checkbox value=checkboxValue><% GetMultiLangStr("CSE006") %>
+				  <span class="checkbox-checkmark"></span>
+				</label>  </TD></TR>
+        <TR>
+            <TD colSpan=2 colspan="2" class="pb-0">
+              <label class="checkbox-container">
+				  <INPUT name=checkboxNameSat id="sat" type=checkbox value=checkboxValue><% GetMultiLangStr("CSE010") %>
+				  <span class="checkbox-checkmark"></span>
+				</label>  </TD></TR>
+       <tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+		<tr>
+			<td colspan="2"><b><a href="javascript:loadhelp('FW_schedule','blocksch')" tabindex="-1"><% GetMultiLangStr("CSE014") %></a></b><% GetMultiLangStr("CSE001") %></td></tr>
+        <TR>
+            <TD colSpan=2 colspan="2" >
+               <label class="checkbox-container">
+				   <INPUT name=checkboxNamehours id="all_day" onclick=BlockPeriodClick(this.form); type=checkbox value=checkboxValue> <% GetMultiLangStr("CSE002") %>
+				  <span class="checkbox-checkmark"></span>
+				</label> </TD></TR>
+        <TR>
+            <TD width="50%"><% GetMultiLangStr("CSE011") %></TD>
+            <TD width="50%">
+                <INPUT class="num s_input s_input2" maxLength=2 name=starthour id="start_hour" onfocus="if(TimePeriodDisabled) this.blur()" size=3><% GetMultiLangStr("CSE007") %>
+                <INPUT class="num s_input s_input2" maxLength=2 name=startminute id="start_minute" onfocus="if(TimePeriodDisabled) this.blur()" size=3><% GetMultiLangStr("CSE008") %></TD></TR>
+        <TR>
+            <TD width="50%"><% GetMultiLangStr("CSE004") %></TD>
+            <TD>
+                <INPUT class="num s_input s_input2" maxLength=2 name=endhour id="end_hour" onfocus="if(TimePeriodDisabled) this.blur()" size=3><% GetMultiLangStr("CSE007") %>
+                <INPUT class="num s_input s_input2" maxLength=2 name=endminute id="end_minute" onfocus="if(TimePeriodDisabled) this.blur()" size=3><% GetMultiLangStr("CSE008") %></TD></TR>
+       <tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+        <tr>
+            <td colspan="2"><a href="javascript:loadhelp('FW_schedule','timezone')" tabindex="-1"><b><% GetMultiLangStr("CEM013") %></b></a></td></tr>
+        <tr>
+            <td colspan="2">
+                <SELECT name=time_zone id="time_zone" size=1>
+                    <OPTION value=-12 ><% GetMultiLangStr("CEM017") %></OPTION>
+                    <OPTION value=-11 ><% GetMultiLangStr("CEM018") %></OPTION>
+                    <OPTION value=-10 ><% GetMultiLangStr("CEM019") %></OPTION>
+                    <OPTION value=-9 ><% GetMultiLangStr("CEM020") %></OPTION>
+                    <OPTION value=-8 ><% GetMultiLangStr("CEM021") %></OPTION>
+                    <OPTION value=-7 ><% GetMultiLangStr("CEM023") %></OPTION>
+                    <OPTION value=-6 ><% GetMultiLangStr("CEM024") %></OPTION>
+                    <OPTION value=-5 ><% GetMultiLangStr("CEM026") %></OPTION>
+                    <OPTION value=-4 ><% GetMultiLangStr("CEM028") %></OPTION>
+                    <OPTION value=-35 ><% GetMultiLangStr("CEM056") %></OPTION>
+                    <OPTION value=-3 ><% GetMultiLangStr("CEM029") %></OPTION>
+                    <OPTION value=-2 ><% GetMultiLangStr("CEM030") %></OPTION>
+                    <OPTION value=-1 ><% GetMultiLangStr("CEM031") %></OPTION>
+                    <OPTION value=0 ><% GetMultiLangStr("CEM033") %></OPTION>
+                    <OPTION value=1 ><% GetMultiLangStr("CEM034") %></OPTION>
+                    <OPTION value=2 ><% GetMultiLangStr("CEM038") %></OPTION>
+                    <OPTION value=3 ><% GetMultiLangStr("CEM041") %></OPTION>
+                    <OPTION value=4 ><% GetMultiLangStr("CEM043") %></OPTION>
+                    <OPTION value=5 ><% GetMultiLangStr("CEM044") %></OPTION>
+                    <OPTION value=55 ><% GetMultiLangStr("CEM045") %></OPTION>
+                    <OPTION value=6 ><% GetMultiLangStr("CEM046") %></OPTION>
+                    <OPTION value=7 ><% GetMultiLangStr("CEM047") %></OPTION>
+                    <OPTION value=8 ><% GetMultiLangStr("CEM048") %></OPTION>
+					<OPTION value=9 ><% GetMultiLangStr("CEM050") %></OPTION>
+                    <OPTION value=95 ><% GetMultiLangStr("CEM058") %></OPTION>
+                    <OPTION value=10 ><% GetMultiLangStr("CEM051") %></OPTION>
+                    <OPTION value=11 ><% GetMultiLangStr("CEM053") %></OPTION>
+                    <OPTION value=12 ><% GetMultiLangStr("CEM054") %></OPTION>
+                    <OPTION value=13 ><% GetMultiLangStr("CEM055") %></OPTION></SELECT></td></tr>
+        <tr>
+            <td colspan="2"><label class="checkbox-container">
+				  <input type="checkbox" name="adjust" id="adjust" value="adjust" ><% GetMultiLangStr("CEM003") %>
+				  <span class="checkbox-checkmark"></span>
+				</label>
+               </td></tr>
+        <tr>
+            <td colspan="2"><label class="checkbox-container">
+				  <input type="checkbox" name="specify_ntp_server" value="1" onClick="clickNTPCheckbox();"><% GetMultiLangStr("PCVP_030") %>
+				  <span class="checkbox-checkmark"></span>
+				</label>
+                </td></tr>
+        <tr>
+            <td colspan="2" class="pb-0">
+          <% GetMultiLangStr("SWP029") %>:</td></tr>
+          <tr class="dis_td"><td class="pt-0"><INPUT maxLength=128 class="input1" type="text" name="ntp_server"></td></tr>
+        <tr>
+            <td colspan="2" align="center"><BR><b id="current_time"><% GetMultiLangStr("CLO002") %>: &nbsp; <% GetPageCfg("schedule_time") %></b><BR> &nbsp; </td>
+            <td colspan="2" align="center" id="ntp_warning" style="color:red">
+            <script>
+            var schedule_ntp_sync = <% GetPageCfg("schedule_ntp_sync") %>;
+            if(schedule_ntp_sync != 1)
+            	document.write("<% GetMultiLangStr("PCVP_044") %>"); 
+            </script></td></tr>    
+      <tr><td colspan="2">&nbsp;</td></tr><tr><td colspan="2">&nbsp;</td></tr>
+        
+    </table></div></td></tr>
+<tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe"  src="FW_schedule_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
+</table>
+  
+<div class="subhead2-bottom" >
+    <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.png" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
+    <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_51") %> </span>
+    <span class="button-help-arrow">
+      <img src="img/helparrowdown-icon.png" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
+    <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_123") %> </span>
+      </div>
+
+
+
+    <INPUT name=schedule_day type=hidden value= "<% GetPageCfg("schedule_day") %>">
+    <INPUT name=schedule_alldayenable type=hidden value="<% GetPageCfg("schedule_alldayenable") %>">
+    <INPUT name=schedule_starthour type=hidden value= "<% GetPageCfg("schedule_starthour") %>">
+    <INPUT name=schedule_startminute type=hidden value= "<% GetPageCfg("schedule_startminute") %>">
+    <INPUT name=schedule_endhour type=hidden value= "<% GetPageCfg("schedule_endhour") %>">
+    <INPUT name=schedule_endminute type=hidden value= "<% GetPageCfg("schedule_endminute") %>">
+    <INPUT name=schedule_daylightadjust type=hidden value= "<% GetPageCfg("schedule_daylightadjust") %>">
+    <INPUT name=result type=hidden value= "">
+    <INPUT type="hidden" name="enable_apmode" value="<% GetPageCfg("schedule_enable_apmode") %>">
+    <INPUT type="hidden" name="timezone_manual_ntp_server" value="<% GetPageCfg("timezone_manual_ntp_server") %>">
+    <INPUT type="hidden" name="timezone_ntp_server" value="<% GetPageCfg("timezone_ntp_server") %>">
+    <INPUT type="hidden" name="enable_extmode" value="0">
+    <INPUT type=hidden name=schedule_timezone_index value="<% GetPageCfg("schedule_timezone_index") %>">
+   	<INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+<a name="helpframe-anchor"></a>
+</form>
+
+</div>
+</body>
+ <head>
+  <META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+</head>
+
+
+</html>
+

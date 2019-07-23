@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title> 
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+
+<STYLE TYPE="text/javascript">
+	classes.num.all.fontFamily = "Courier";
+	classes.num.all.fontSize = "10pt" ;
+</style>
+
+<!--link rel="stylesheet" href="demos.css"-->
+<link rel="stylesheet" href="jquery-ui.css">
+<!--link rel="stylesheet" href="jquery.ui.all.css"-->
+
+<script src="jquery.ui.core.js"></script>
+<script src="jquery.ui.widget.js"></script>
+<script src="jquery.ui.tabs.js"></script>
+<link rel="stylesheet" type="text/css" href="css/tabs.css">
+
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+	var iframeStr;
+<!--
+	var viewportheight;
+	if (typeof window.innerWidth != 'undefined')
+		viewportheight = window.innerHeight;
+
+	else if (typeof document.documentElement != 'undefined'
+			&& typeof document.documentElement.clientWidth !=
+			'undefined' && document.documentElement.clientWidth != 0)
+       viewportheight = document.documentElement.clientHeight;
+	else
+       viewportheight = document.getElementsByTagName('body')[0].clientHeight;
+
+	viewportheight = viewportheight-65;
+//-->
+function loadSetting()
+{
+	iframeStr = "<iframe src='USB_adv_tab.htm' width='100%' height='"+viewportheight+"' frameborder='0'>";
+    $("#Ready_Share").html(iframeStr); 
+}    
+$(function() {
+    
+    /**Tabs*/
+    $( "#readyShare_tabs" ).tabs();  
+	
+    $("#ReadyShare").click(function(){ 
+		iframeStr = "<iframe src='USB_adv_tab.htm' width='100%' height='"+viewportheight+"' frameborder='0'>"; 
+        $("#Ready_Share").html(iframeStr); 
+    })
+	
+	$("#MediaServer").click(function(){
+		iframeStr = "<iframe src='UPNP_media.htm' width='100%' height='"+viewportheight+"' frameborder='0'>"; 
+		$("#Media_Server").html(iframeStr); 
+    }) 
+    
+	
+	$("#ReadyCloud").click(function(){
+		iframeStr = "<iframe src='USB_basic_remote.htm' width='100%' height='"+viewportheight+"' frameborder='0'>"; 
+        $("#Ready_Cloud").html(iframeStr); 
+    }) 
+
+});//$(function() {
+</script>	
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+</head>
+<body onload="loadSetting()">
+<div id="readyShare_tabs" style="border:0px;">
+    <ul>
+        <li><a id="ReadyShare" href="#Ready_Share">ReadySHARE</a></li>
+        <li><a id="MediaServer" href="#Media_Server">Media Server</a></li>
+		<li><a id="ReadyCloud" href="#Ready_Cloud">ReadyCLOUD</a></li>
+    </ul>
+    <div class="tab_bdr_1 tab_bdr_2 "></div>
+    <div id="Ready_Share"></div>
+    <div id="Media_Server"></div>
+	<div id="Ready_Cloud"></div>
+</div>
+</body>
+
+</html>
+

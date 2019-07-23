@@ -1,0 +1,357 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<link rel="stylesheet" href="form.css">
+<STYLE TYPE="text/javascript">
+    classes.num.all.fontFamily = "Courier";
+    classes.num.all.fontSize = "10pt" ;
+</style>
+<title>NETGEAR Router RAX40</title> 
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+<link rel="stylesheet" href="css/custom.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!--
+  
+    $(document).ready(function()
+    {	
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+    function setHelpIframeVisible(){
+        $('.help-frame-div').css("visibility","visible");
+    }
+
+
+    function showHelpIframe() {
+
+
+        var imgSrc=document.getElementById('help-button');
+
+        if(imgSrc.src.search("up")>=0)
+        {
+            $(".help-frame-div").show();
+            imgSrc.src="img/helparrowdown-icon.png";
+        }
+        else
+        {
+            $(".help-frame-div").hide();
+            imgSrc.src="img/helparrowup-icon.png";
+            setTimeout(setHelpIframeVisible,500);
+        }
+             change_size();
+
+    }
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+
+    function loadhelp(fname,anchname)
+    {
+                var pane = window.frames["helpframe"].$('#content');
+                var imgSrc=document.getElementById('help-button');
+                if(imgSrc.src.search("up")<0)
+                {
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+
+                        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm";
+                                $(".help-frame-div").show();
+                        }
+                        else
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                                $(".help-frame-div").show();
+                        }
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+                }
+    }
+
+
+function checkData()
+{
+    var cf = document.forms[0];
+    var msg = "";
+    var vlan_id = parseInt(cf.vlan_id.value,10);
+    var vlan_prio = parseInt(cf.vlan_prio.value,10);
+    var vlan_rule=cf.vlan_rule_name.value.split(" ");
+    var i = 0, conflict, reply;
+
+    ////console.log("vlan_rule="+vlan_rule);
+    //// prevent "&#32;" can not be split by " "
+    //if(cf.vlan_rule_name.value.indexOf("&#32;")!=-1)
+    //{
+    //    vlan_rule=cf.vlan_rule_name.value.split("&#32;");
+    //    //console.log("cf.vlan_rule_name.value="+cf.vlan_rule_name.value);
+    //    //console.log("vlan_rule="+vlan_rule);
+    //}
+
+    if (cf.vlan_name.value == "" || (cf.vlan_name.value.match( /[^\x21-\x7E]/ )))
+    {
+        msg+="<% GetMultiLangStr("genie_1065") %>\n";
+        alert(msg);
+        return false;
+    }
+    if ((!_isNumeric(cf.vlan_id.value)) || isNaN(vlan_id) || vlan_id > 4094 || vlan_id < 1) {
+        alert("<% GetMultiLangStr("genie_261") %>");
+        return false;
+    }
+        
+    if ((!_isNumeric(cf.vlan_prio.value)) || isNaN(vlan_prio) || vlan_prio > 7 || vlan_prio < 0) {
+        alert("<% GetMultiLangStr("genie_260") %>");
+        return false;
+    }
+    while(typeof vlan_rule[i] != "undefined")
+    {
+        if (vlan_rule[i]==cf.vlan_name.value)
+        {
+            if(cf.orig_vlan_name.value == cf.vlan_name.value)
+            {
+                i++;
+                continue;
+            }
+            else{
+                conflict = true;
+                break;
+            }
+        }
+        i++;
+    }
+    if (conflict) {
+        alert("<% GetMultiLangStr("genie_262") %> "+cf.vlan_name.value+" <% GetMultiLangStr("genie_263") %>");
+        return false;
+    }
+    
+    if (cf.vlan_name.value == "Internet")
+        return true;
+    
+    if((!cf.vlan_ports_0.checked) && (!cf.vlan_ports_1.checked) && (!cf.vlan_ports_2.checked)
+         && (!cf.vlan_ports_3.checked) && (!cf.vlan_ports_4.checked) && (!cf.vlan_ports_5.checked)
+/*
+         && (!cf.vlan_ports_6.checked)
+*/
+         )
+    {
+        alert("<% GetMultiLangStr("genie_264") %>");
+        return false;
+    }
+    else if((cf.vlan_ports_0.checked) && (cf.vlan_ports_1.checked) && (cf.vlan_ports_2.checked)
+         && (cf.vlan_ports_3.checked) && (cf.vlan_ports_4.checked) && (cf.vlan_ports_5.checked)
+/*
+         && (cf.vlan_ports_6.checked)
+*/
+         )
+    {
+        alert("<% GetMultiLangStr("genie_265") %>");
+        return false;
+    }
+
+    
+
+
+    return true;
+}
+
+function loadSettings()
+{
+    var cf = document.forms[0];
+    cf.vlan_name.value = "<% GetPageCfg("VlanName") %>";
+    
+    if(cf.vlan_name.value == "Internet")
+    {
+        document.getElementById("vlan_name").readOnly = true
+        document.getElementById("vlan_support_lan").style.display = "none";
+    }
+    cf.vlan_id.value = "<% GetPageCfg("VlanId") %>";
+    cf.vlan_prio.value = "<% GetPageCfg("VlanPrio") %>";
+    
+    var vlan_ports= "<% GetPageCfg("VlanPort") %>";
+    
+    if (vlan_ports & 0x1)
+        cf.vlan_ports_0.checked = true;
+    if (vlan_ports & 0x2)
+        cf.vlan_ports_1.checked = true;
+    if (vlan_ports & 0x4)
+        cf.vlan_ports_2.checked = true;
+    if (vlan_ports & 0x8)
+        cf.vlan_ports_3.checked = true;
+    if (vlan_ports & 0x10)
+        cf.vlan_ports_4.checked = true;
+    if (vlan_ports & 0x20)
+        cf.vlan_ports_5.checked = true;
+/*
+    if (vlan_ports & 0x40)
+        cf.vlan_ports_6.checked = true;
+*/
+
+}
+
+//-->
+</script>
+<link rel="stylesheet" type="text/css" href="css/custom.css">
+</head>
+<body  onload="change_size();loadSettings();" class="page-body"  onResize="change_size();" >
+<img class="cover-image" src="img/cover-image_noh.gif">
+<img class="body-image" src="img/subhead2-background_noh.jpg">
+<div id="full-page-container">
+
+<form id="target"  method="POST" action="/vlan_rule_edit.cgi">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+    <img class="subtop-image" src="img/subhead2-top_noh.gif">
+<div class="subhead2"> <% GetMultiLangStr("genie_1063") %></div>
+<table border="0"    style="height:370px"  class="subhead2-table">
+
+<tr align="left" valign="middle">
+<!--
+<td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
+&nbsp;&nbsp;&nbsp;<button value="Apply"  onClick="buttonClick(this,'Apply');if(!checkData()) return false;" type="SUBMIT" name="apply" class=button-apply > <span class="roundleft_apply" ><% GetMultiLangStr("LUP004") %>&nbsp;<span class="apply-icon">&nbsp;&nbsp;&nbsp;&nbsp;</span></span><span class="roundright_apply">&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button value="Cancel" onClick="buttonClick(this,'Cancel');location.href='VLAN_IPTV.html'" type="Button" name="Cancel" class="button-rule" ><span class="roundleft_button"><span class ="cancel-icon">&nbsp;&nbsp;&nbsp;&nbsp;<% GetMultiLangStr("UAS021") %></span></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+</td>
+-->
+<td colspan="2" class="table-seperate-border">
+<div class="fix_button">
+<button value="Cancel" onClick="buttonClick(this,'Cancel');location.href='VLAN_IPTV.html'" type="Button" name="Cancel" class="button-cancel cancel_bt" ><% GetMultiLangStr("UAS021") %></button>
+<button value="Apply"  onClick="buttonClick(this,'Apply');if(!checkData()) return false;" type="SUBMIT" name="apply" class="button-apply apply_bt"><% GetMultiLangStr("LUP004") %></button>
+</div>
+</td>
+</tr>
+
+<tr><td class="scrollpane-table-seperate-border" colspan="2"><div class="scroll-pane main_bas" style="height:365px;width:620px;overflow:auto;scrolling:auto; margin-top: -3px"><table style="border-collapse:collapse;width:97%">
+        
+<!-- <tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr> -->
+
+<tr><td>
+<table border="0"   width="100%">
+
+<tr>
+    <td nowrap><% GetMultiLangStr("ALS015") %></td>
+    <td width="50%" align="left" ><input class="input1" type="text" id = "vlan_name" name="vlan_name" value="" size="32" maxlength="10"></td>
+</tr>
+<tr>
+    <td nowrap><% GetMultiLangStr("genie_271") %></td>
+    <td width="50%" align="left">
+        <input class="input1" type="text" name="vlan_id" value="" class="num" size="10" maxlength="4">
+    (1~4094)
+    </td>
+</tr>
+<tr>
+    <td nowrap><% GetMultiLangStr("AQS040") %></td>
+    <td width="50%" align="left">
+        <input class="input1" type="text" name="vlan_prio" value="" class="num" size="10" maxlength="1">
+    (0~7)
+    </td>
+</tr>
+<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+<tr id="vlan_support_lan">
+    <td nowrap colspan=2>
+        <table>
+            <tr>
+                <td style="<%3805%>display: none<%3806%>">
+                   <label class="checkbox-container">
+    <input type="checkbox" name="vlan_ports_0">Port1
+                        <span class="checkbox-checkmark"></span>
+                    </label>
+                </td>
+                <td>
+                   <label class="checkbox-container">
+    <input type="checkbox" name="vlan_ports_1">Port2
+                        <span class="checkbox-checkmark"></span>
+                    </label>
+                </td>
+                <td>
+                   <label class="checkbox-container">
+    <input type="checkbox" name="vlan_ports_2">Port3
+                        <span class="checkbox-checkmark"></span>
+                    </label>
+                </td>
+                <td>
+                   <label class="checkbox-container">
+    <input type="checkbox" name="vlan_ports_3">Port4
+                        <span class="checkbox-checkmark"></span>
+                    </label>
+                </td>
+               <td>
+                   <label class="checkbox-container">
+    <input type="checkbox" name="vlan_ports_4">WiFi-2.4G
+                        <span class="checkbox-checkmark"></span>
+                    </label>
+                </td>
+                <td>
+                   <label class="checkbox-container">
+    <input type="checkbox" name="vlan_ports_5">WiFi-5G
+                        <span class="checkbox-checkmark"></span>
+                    </label>
+                </td>
+<!--
+    <input type="checkbox" name="vlan_ports_6">WiFi-5G-2
+-->
+             </tr>
+        </table>
+</td>
+</tr>
+<tr><td colspan="2" height="12" ><div style="background-image:url('seprator.gif');width:100%;background-repeat:repeat-x;">&nbsp;</div></td></tr>
+
+
+</table></td></tr>
+</table></div></td></tr>
+<tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe"  src="VLAN_IPTV_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
+</table>
+   <!-- <img class="subfooter-image" src="img/subhead2-bottom.gif"> -->
+<div class="subhead2-bottom" >
+    <!-- <span style="float:left;padding-left:10px;padding-top:5px"><img src="img/help-icon.png" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span> -->
+    <span class="help_ico"><img src="img/help-icon.png" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
+    <!-- <span class="subhead2-text" style="float:left;padding-left:3px;" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_51") %> </span> -->
+<span class="subhead2-text help_center_text" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_51") %> </span>
+    <span class="button-help-arrow">
+      <img src="img/helparrowdown-icon.png" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
+    <!-- <span class="subhead2-text" style="text-decoration:underline;float:right;padding-right:10px" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_123") %> </span> -->
+    <span class="subhead2-text help_right_text" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_123") %> </span>
+      </div>
+
+<input type="hidden" name="vlan_rule_name" value="<% GetPageCfg("VlanRuleName") %>">
+<input type="hidden" name="orig_vlan_name" value="<% GetPageCfg("OrigVlanName") %>">
+<INPUT name="vlan_enable" type="hidden" value= "disable">
+<INPUT name="vlan_mode" type="hidden" value="edit">
+<INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+
+<a name="helpframe-anchor"></a>
+</form>
+</div>
+</body>
+</html>

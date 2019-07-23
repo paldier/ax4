@@ -1,0 +1,197 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title>
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!-- hide script from old browsers
+
+
+var showit = (document.layers) ? "show" : "visible";
+var hideit = (document.layers) ? "hide" : "hidden";
+var NS4 = (document.layers);
+var animationTimer = null;
+var pgbarTimer = null;
+
+
+
+    $(document).ready(function()
+    {	
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+
+function setVisible(divID, setto)
+{
+	if (NS4)
+		document.layers[divID].visibility = setto;
+	else if (document.all)
+		document.all(divID).style.visibility = setto;
+	else if (document.getElementById)
+		document.getElementById(divID).style.visibility = setto;
+}
+
+function stopAnimation()
+{
+	if(animationTimer != null)
+		clearTimeout(animationTimer);
+	setVisible('animation', hideit);
+	
+    if(pgbarTimer != null)
+		clearTimeout(pgbarTimer);
+	setVisible('pgbar', hideit);
+}
+function checkData()
+{
+    updateProgress();
+    parent.$('.noSub').die("click");
+    parent.$('.SubMenu').die("click");
+    parent.$('.Sub').die("click");
+    return true;
+}
+var pchar = "|"; // progress char
+var maxchars = 94;
+var delay_time = 1458;
+var charcount = 0;
+
+function makeStr(strSize, fillChar)
+{
+	var temp = "";
+	for (i=0; i < strSize ; i ++)
+		temp = temp + fillChar;
+	return temp;
+}
+function updateProgress()
+{
+	var cf = document;
+	var pf = document.forms[0];
+	
+	if ( charcount == 1 )
+	{
+        pf.No.style.display="none";
+        setVisible('animation', showit);
+        setVisible('pgbar', showit);
+        $('#YesButton').css("display","none");
+	}
+	
+	if (charcount < maxchars)
+	{
+		charcount ++;
+		//document.all("progress").value = makeStr(charcount,pchar);
+		document.forms[1].progress.value = makeStr(charcount,pchar);
+		setTimeout("updateProgress()",delay_time);
+	}
+}
+function changeAlive()
+{
+           
+          parent.$('.subHeader').hide();          
+          parent.$('.noSubActive').removeClass('noSubActive');
+          parent.$('.SubMenuActive').addClass('SubMenu');   
+          parent.$('.SubMenuActive').removeClass('SubMenuActive');
+          parent.$('.SubMenuActiveLarge').addClass('SubMenuLarge');
+          parent.$('.SubMenuActiveLarge').addClass('SubMenu');
+          parent.$('.SubMenuActiveLarge').addClass('Large');
+          parent.$('.SubMenuActiveLarge').removeClass('SubMenuActiveLarge');
+          parent.$('.SubActive').addClass('Sub');
+          parent.$('.SubActive').removeClass('SubActive');         
+          parent.$('#setup_header').addClass('SubActive');
+          parent.$('#setup_header').removeClass('Sub');
+          parent.$('#int_set').addClass('SubMenuActive');
+          parent.$('#int_set').removeClass('SubMenu');
+          parent.$('#set_hdr').show(); 
+}
+//-->
+</script>
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+</head>
+<body style="margin:0px;background-color:#FFFFFF">
+<form id="target"  name="formname" method="POST" action="/upgrade.cgi">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue"> 
+<input type="hidden" name="check_downgrade" value="1">
+<div class="subhead2"><% GetMultiLangStr("D-genie_311") %></div>
+<table border="0"   width="100%" style="height: 350px; position: relative; top: 48px; width: 980px;">
+
+<tr>
+    <td class="scrollpane-table-seperate-border scroll_container" colspan="2">
+        <div class="scroll-pane main_bas" style="height: 412px; width: 980px; overflow: auto;">    <table style="border-collapse:collapse;width:97%">
+    
+<tr>
+    <td colspan="2" class="pb-20 pt-0"><b><% GetPageCfg("Upgrade_Msg") %><br><% GetMultiLangStr("genie_648") %> </b></td>
+</tr>
+<tr></tr>
+<tr>
+	<td width="50%" class="pb-20"><% GetMultiLangStr("MRU007") %></td>
+        <td width="50%" class="pb-20"><% GetPageCfg("Upgrade_Current_Ver") %></td>
+</tr>
+<tr></tr>
+<tr>
+	<td width="50%" class="pb-20"><% GetMultiLangStr("MRU034") %></td>
+        <td width="50%" class="pb-20"><% GetPageCfg("Upgrade_Upload_Ver") %></td>
+</tr>
+<tr></tr>
+
+<tr> 
+ <td colspan="2" class="pt-20"><div style="background-image:url('seprator.gif');width:100%;background-repeat:repeat-x;">&nbsp;</div></td>
+</tr>
+<tr>
+	<td colspan="2" align="center">
+		<button type="submit" value="<% GetMultiLangStr("SWP009") %>" name="No" class="button-cancel cancel_bt" onClick="buttonClick(this,'No');changeAlive();self.location.href='UPG_upgrade.htm'"><% GetMultiLangStr("SWP009") %></button>
+		<button type="submit" value="<% GetMultiLangStr("SWP003") %>" name="Yes" id="YesButton" class="button-apply apply_bt" onClick="buttonClick(this,'Yes');return checkData();"><% GetMultiLangStr("SWP003") %></button>
+    </td></tr>
+            </table>
+        </div>
+    </td>
+</tr>
+</table>
+    <input type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+</form>
+<form name="display" style="margin-top: -143px">
+<div align="left" ID="pgbar" style="position:relative;top:0;left:0;visibility:hide;visibility:hidden;">
+<tr><td>
+<table border="0"   width="100%"width="100%">
+
+<tr>
+ <td style="padding-left: 26px"><BIG><b>Note:</b> <% GetMultiLangStr("genie_950") %>
+ </BIG></td>
+</tr>
+<tr>
+<td align="center">
+<input type="text" name="progress" class="prgbar mt-20" value="" style="color: black" size="42"    contentEditable=false onkeydown="return false;" onbeforeeditfocus="return false;" onpaste="return false;"></td>
+</tr>
+</table>
+</div>
+    <input type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+</form>
+<div align="center" ID="animation" style="position:relative;top:0;left:0;visibility:hide;visibility:hidden;">
+<br><img src="upload_new.gif" width="290" height="82" alt="" border="0"></div>
+</body>
+</html>
+

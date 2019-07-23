@@ -1,0 +1,1054 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title>
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<STYLE TYPE="text/javascript">
+	classes.num.all.fontFamily = "Courier";
+	classes.num.all.fontSize = "10pt" ;
+</style>
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+
+
+<script language="javascript" type="text/javascript">
+<!-- 
+var DisableFixedDNS = false;
+var DisableFixedMAC = false;
+var MacAddress;
+var DodDisable = false;
+var DodIndex = 1;
+var SkipParentalControlCheck=1;
+var CurrentDodIndex;
+
+    $(document).ready(function()
+    {	
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+            
+
+        });
+
+    });
+
+    
+
+    function setHelpIframeVisible(){
+        $('.bas-help-frame-div').css("visibility","visible");
+    }
+
+
+    function showHelpIframe() {
+
+        var imgSrc=document.getElementById('help-button');
+
+        if(imgSrc.src.search("up")>=0)
+        {
+            $(".bas-help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
+            imgSrc.src="img/helparrowdown-icon.png";
+        }
+        else
+        {
+            $(".bas-help-frame-div").hide();
+            imgSrc.src="img/helparrowup-icon.png";
+            setTimeout(setHelpIframeVisible,500);
+        }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
+             change_size();
+
+    }
+
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+
+    function loadhelp(fname,anchname)
+    {
+                var pane = window.frames["helpframe"].$('#content');
+                var imgSrc=document.getElementById('help-button');
+                if(imgSrc.src.search("up")<0)
+                {
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+
+                        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm";
+                                $(".help-frame-div").show();
+                        }
+                        else
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                                $(".help-frame-div").show();
+                        }
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+                }
+    }
+  
+function checkType(wan_proto) // called from basictop.htm
+{
+	if (1)
+//	if (basictop.document.forms[0])
+	{
+		if (wan_proto == "pppoe")
+		    window.location.href = "BAS_pppoe.html";
+		else if (wan_proto == "pptp")
+		    window.location.href = "BAS_pptp.html";
+		else if (wan_proto == "bpa")
+		    window.location.href = "BAS_bpa.html";
+		else if (wan_proto == "l2tp")
+		    window.location.href = "BAS_l2tp.html";
+		else
+		    window.location.href = "BAS_ether.html";
+	}
+	else 
+	    window.setTimeout(checkType(),300);
+}
+
+
+ 
+function goTestApply()
+{
+	var winoptions = "width=640,height=480,menubar=yes,toolbar=yes,status=yes,location=yes,resizable=yes";
+	if(document.forms[0].runtest.value == "yes")
+		window.open('BAS_wtest_l.htm','test_win',winoptions);
+}
+
+function loadcheck()
+{
+	var cf = document.forms[0];
+	var region_gui = cf.gui_region.value;
+	if(isIE()){
+		cf.pptp_username.size="24";
+		cf.pptp_passwd.size="24";
+	}
+ MacAddress=document.formname.Spoofmac.value;
+	loadhelp('BAS_pptp');
+    if (region_gui == "Russian")
+	    setIP();
+	setDNS();
+	setMAC();
+	setServer();
+}
+function setIP()
+{
+    var cf = document.forms[0];
+    var dflag = cf.WANAssign[0].checked;
+    var region_gui = cf.gui_region.value;
+    setDisabled(dflag,cf.WPethr1,cf.WPethr2,cf.WPethr3,cf.WPethr4);
+    
+    DisableFixedIP = dflag;
+}
+
+function isParentalControlEnable()
+{
+	var cf = document.forms[0];
+    if(((cf.parental_control.value=='1') ) && (SkipParentalControlCheck==0))
+        return true;
+    else
+        return false;
+}
+
+function isCircleControlEnable()
+{
+	var cf = document.forms[0];
+    if(( (cf.parental_circle.value=='1')) && (SkipParentalControlCheck==0))
+        return true;
+    else
+        return false;
+}
+
+
+function setDNS()
+{
+	var cf = document.forms[0];
+	var dflag = (cf.DNSAssign[0].checked || cf.DNSAssign[1].disabled);
+
+  if(isParentalControlEnable() && cf.DNSAssign[0].checked)
+  {
+  	alert('The DNS Server setup will not take effect due to Parental Controls is enabled. If you need to configure DNS manually, please disable the Parental Controls.');
+		cf.DNSAssign[1].checked=true;
+    dflag=false;      
+  }
+
+  if(isCircleControlEnable() && cf.DNSAssign[1].checked)
+  {
+  	alert('The DNS Server setup will not take effect due to Parental Controls is enabled. If you need to configure DNS manually, please disable the Parental Controls.');
+		cf.DNSAssign[0].checked=true;
+  }
+
+
+	setDisabled(dflag,cf.DAddr1,cf.DAddr2,cf.DAddr3,cf.DAddr4,cf.PDAddr1,cf.PDAddr2,cf.PDAddr3,cf.PDAddr4);
+	DisableFixedDNS = dflag;
+}
+function setMAC()
+{
+	var cf = document.forms[0];
+
+	if (cf.MACAssign[0].checked)
+		cf.Spoofmac.value = cf.wan_hwaddr_def.value;
+	else if(cf.MACAssign[1].checked)
+		cf.Spoofmac.value = cf.wan_hwaddr_pc.value;
+	else if (cf.MACAssign[2].checked)
+		cf.Spoofmac.value = cf.wan_hwaddr2.value;
+
+	if (cf.MACAssign[2].checked)
+		cf.Spoofmac.disabled = false;
+	else
+		cf.Spoofmac.disabled = true;
+	DisableFixedMAC = cf.Spoofmac.disabled;
+}
+
+function setServer()
+{
+	var cf = document.forms[0];
+	var stype = cf.login_type.selectedIndex;
+	if(stype==1) //pppoe
+		window.location.href="BAS_pppoe.html";
+    else if(stype==2) //L2TP
+        window.location.href="BAS_l2tp.html"
+}
+
+function show_idleout(form,conn_mode)
+{
+    var cf = document.forms[0];
+    if(conn_mode == 1) // Dial on Demand
+    {
+        DodDisable = false;
+        if(cf.gui_language.value == "German")
+        {
+              
+            var List = document.getElementById('auto_conn_time_id');          
+            cf.auto_conn_24hr.disabled = true;
+			List.disabled = true;
+        }
+    }
+    else
+    {
+        DodDisable = true;
+        if(cf.gui_language.value == "German")
+        {
+            //sSpan.style.background="url(selects_disabled.gif) no-repeat right center"; 
+            var List = document.getElementById('auto_conn_time_id');           
+            cf.auto_conn_24hr.disabled = false;
+			List.disabled = false;
+
+
+        }
+    }
+}
+
+function setConnMode()
+{
+    var cf = document.forms[0];
+    var conn_mode = cf.pptp_dod.selectedIndex;
+
+/*
+    if(conn_mode == 1) // Dial on Demand
+    {
+        DodDisable = false;
+        if(cf.gui_language.value == "German")
+        {
+            cf.auto_conn_24hr.disabled = true;
+            cf.auto_conn_time.disabled = true;
+        }
+    }
+    else
+    {
+        DodDisable = true;
+        if(cf.gui_language.value == "German")
+        {
+            cf.auto_conn_24hr.disabled = false;
+            cf.auto_conn_time.disabled = false;
+        }
+    }
+*/
+    show_idleout(cf, conn_mode);
+
+    var msg = "";
+    if((conn_mode != 1) && !_isNumeric(cf.pptp_idletime.value))
+    {
+        cf.pptp_dod.selectedIndex = DodIndex;
+        if(cf.pptp_idletime.value.length<=0)
+            msg+= "<% GetMultiLangStr("SWPE03") %>";
+        else if(!_isNumeric(cf.pptp_idletime.value))
+            msg+= "<% GetMultiLangStr("SWPE12") %>";
+        if (msg.length > 1)
+        {
+            alert(msg);
+            return false;
+        }
+    }
+    else
+    {
+        DodIndex = cf.pptp_dod.selectedIndex;
+        setDisabled(DodDisable,cf.pptp_idletime);
+    }
+    return true;
+}
+
+function checkData()
+{
+	var cf = document.forms[0];
+	var msg = "";
+	var region_gui = cf.gui_region.value;
+	var wan_ip  = "<% GetPageCfg("wan_ip") %>";
+	var openvpnEnable = "<% GetPageCfg("openvpnEnable") %>";
+    var conn_mode = cf.pptp_dod.selectedIndex;
+	
+    var wan_proto = "<% GetPageCfg("wan_proto") %>";
+    var pppoe_single_login = "0";
+
+    if(cf.dial_on_demand_warning.value==1)
+    {
+    	  {
+            if((conn_mode == 1 || conn_mode == 2)) // Dial on Demand and manually
+            {
+                if(!confirm("<% GetMultiLangStr("UAS054") %>"))
+                {
+            	      cf.pptp_dod.selectedIndex=CurrentDodIndex;
+                    return false;
+                }
+            }
+        }
+    }
+
+    if (wan_proto == "pppoe" && cf.ipv6_proto.value == "pppoe" && pppoe_single_login == 1)
+    {
+        if (!confirm("IPv4 PPPoE configuration is shared with IPv6 PPPoE. Apply the change will disable the IPv6. Do you want to proceed?"))
+            return false;
+    }
+
+	msg+= checkBlank(cf.pptp_username, "<% GetMultiLangStr("SWP051") %>");
+	if(cf.pptp_idletime.value.length<=0)
+	 msg+= "<% GetMultiLangStr("SWPE03") %>";
+	else if(!_isNumeric(cf.pptp_idletime.value))
+	 msg+= "<% GetMultiLangStr("SWPE12") %>";
+	
+	if((cf.myip_1.value.length>0)||(cf.myip_2.value.length>0)||(cf.myip_3.value.length>0)||(cf.myip_4.value.length>0))
+	{
+		if(!((cf.mymask_1.value.length>0)||(cf.mymask_2.value.length>0)||(cf.mymask_3.value.length>0)||(cf.mymask_4.value.length>0)))
+		{
+			if(!checkIP(cf.myip_1,cf.myip_2,cf.myip_3,cf.myip_4,255))
+			{
+				if (cf.myip_1.value > 191) //class C
+				{
+					cf.mymask_1.value = 255;
+					cf.mymask_2.value = 255;
+					cf.mymask_3.value = 255;
+					cf.mymask_4.value = 0;
+				}
+				else if (cf.myip_1.value > 127) //class B
+				{
+					cf.mymask_1.value = 255;
+					cf.mymask_2.value = 255;
+					cf.mymask_3.value = 0;
+					cf.mymask_4.value = 0;
+				}
+				else //class A
+				{
+					cf.mymask_1.value = 255;
+					cf.mymask_2.value = 0;
+					cf.mymask_3.value = 0;
+					cf.mymask_4.value = 0;
+				}
+			}
+		}
+		else if(checkIP(cf.mymask_1,cf.mymask_2,cf.mymask_3,cf.mymask_4,255))
+			msg += "<% GetMultiLangStr("SWPE06") %>";
+		
+		
+		if(checkIP(cf.myip_1,cf.myip_2,cf.myip_3,cf.myip_4,255))
+			msg+= "<% GetMultiLangStr("SWPE07") %>";
+		else
+		{
+			cf.myip_1.value = parseInt(cf.myip_1.value,10);
+			cf.myip_2.value = parseInt(cf.myip_2.value,10);
+			cf.myip_3.value = parseInt(cf.myip_3.value,10);
+			cf.myip_4.value = parseInt(cf.myip_4.value,10);
+		}
+
+		if (cf.DNSAssign[1].checked )
+		{
+			var myIpAddr = (cf.myip_1.value << 24) | (cf.myip_2.value << 16) | (cf.myip_3.value << 8) | (cf.myip_4.value);
+			var netMask = (cf.mymask_1.value << 24) | (cf.mymask_2.value << 16) | (cf.mymask_3.value << 8) | (cf.mymask_4.value);
+			var dnsIpAddr1 = (cf.DAddr1.value << 24) | (cf.DAddr2.value << 16) | (cf.DAddr3.value << 8) | (cf.DAddr4.value);
+			var dnsIpAddr2 = (cf.PDAddr1.value << 24) | (cf.PDAddr2.value << 16) | (cf.PDAddr3.value << 8) | (cf.PDAddr4.value);
+			if(((myIpAddr&netMask) != (dnsIpAddr1&netMask)) && ((myIpAddr&netMask) != (dnsIpAddr2&netMask)))
+			{
+				if(!((cf.mygw_1.value.length>0)||(cf.mygw_2.value.length>0)||(cf.mygw_3.value.length>0)||(cf.mygw_4.value.length>0)))
+				{
+					msg+= "<% GetMultiLangStr("SWPE04") %>";
+				}
+			}
+		}
+
+		cf.static_pptp_enable.value = 1;
+	}
+	else
+		cf.static_pptp_enable.value = 0;
+
+	if((cf.mygw_1.value.length>0)||(cf.mygw_2.value.length>0)||(cf.mygw_3.value.length>0)||(cf.mygw_4.value.length>0))
+	{
+		var myIpAddr = (cf.myip_1.value << 24) | (cf.myip_2.value << 16) | (cf.myip_3.value << 8) | (cf.myip_4.value);
+		var netMask = (cf.mymask_1.value << 24) | (cf.mymask_2.value << 16) | (cf.mymask_3.value << 8) | (cf.mymask_4.value);
+		var myGateway = (cf.mygw_1.value << 24) | (cf.mygw_2.value << 16) | (cf.mygw_3.value << 8) | (cf.mygw_4.value);
+		var tmpip = cf.myip_1.value+'.'+cf.myip_2.value+'.'+cf.myip_3.value+'.'+cf.myip_4.value;
+		var tmpgateway = cf.mygw_1.value+'.'+cf.mygw_2.value+'.'+cf.mygw_3.value+'.'+cf.mygw_4.value;
+	
+		if(checkIP(cf.mygw_1,cf.mygw_2,cf.mygw_3,cf.mygw_4,255))
+			msg+= "<% GetMultiLangStr("SWPE04") %>";
+		//else if((myIpAddr&netMask) != (myGateway&netMask))
+		//{
+		//	msg+= 'Error: IP Address' +tmpip+ 'is in a different subnet as the gateway address'+ tmpgateway+'\n';
+		//}
+		else
+		{
+			cf.mygw_1.value = parseInt(cf.mygw_1.value,10);
+			cf.mygw_2.value = parseInt(cf.mygw_2.value,10);
+			cf.mygw_3.value = parseInt(cf.mygw_3.value,10);
+			cf.mygw_4.value = parseInt(cf.mygw_4.value,10);
+		}
+	}
+
+	var data;
+	data = cf.pptp_serv_ip.value.match(/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/);
+	if ((data && !isValidIPaddr(cf.pptp_serv_ip.value))
+		|| cf.pptp_serv_ip.value == ""
+		|| cf.pptp_serv_ip.value.match( /[^\x20-\x7E]/ ))
+		msg+= "<% GetMultiLangStr("SWPE10") %>";
+
+	if (region_gui == "Russian")
+	{
+		if(cf.WANAssign[1].checked)
+		{
+			if(checkIP(cf.WPethr1,cf.WPethr2,cf.WPethr3,cf.WPethr4,254)||(parseInt(cf.WPethr4.value,10)==0))
+				msg+= "<% GetMultiLangStr("SWPE11") %>";
+			else
+			{
+				cf.WPethr1.value = parseInt(cf.WPethr1.value,10);
+				cf.WPethr2.value = parseInt(cf.WPethr2.value,10);
+				cf.WPethr3.value = parseInt(cf.WPethr3.value,10);
+				cf.WPethr4.value = parseInt(cf.WPethr4.value,10);
+			}
+			cf.pptp_localip.value = cf.WPethr1.value+'.'+cf.WPethr2.value+'.'+cf.WPethr3.value+'.'+cf.WPethr4.value;
+			
+		}
+		else
+		{
+			cf.pptp_localip.value = "0.0.0.0";
+			//cf.pppoe_localnetmask.value = "...";
+		}
+	}
+	if(cf.DNSAssign[1].checked && !cf.DNSAssign[1].disabled)
+	{	
+		if(checkIP(cf.DAddr1,cf.DAddr2,cf.DAddr3,cf.DAddr4,254)||(parseInt(cf.DAddr4.value,10)==0))
+			msg+= "<% GetMultiLangStr("SWPE08") %>";
+		else
+		{
+			cf.DAddr1.value = parseInt(cf.DAddr1.value,10);
+			cf.DAddr2.value = parseInt(cf.DAddr2.value,10);
+			cf.DAddr3.value = parseInt(cf.DAddr3.value,10);
+			cf.DAddr4.value = parseInt(cf.DAddr4.value,10);
+		}
+		if(cf.PDAddr1.value.length>0 || cf.PDAddr2.value.length>0 || cf.PDAddr3.value.length>0 || cf.PDAddr4.value.length>0)
+		{
+			if(checkIP(cf.PDAddr1,cf.PDAddr2,cf.PDAddr3,cf.PDAddr4,254)||(parseInt(cf.PDAddr4.value,10)==0))
+				msg+= "<% GetMultiLangStr("SWPE09") %>";
+			else
+			{
+				cf.PDAddr1.value = parseInt(cf.PDAddr1.value,10);
+				cf.PDAddr2.value = parseInt(cf.PDAddr2.value,10);
+				cf.PDAddr3.value = parseInt(cf.PDAddr3.value,10);
+				cf.PDAddr4.value = parseInt(cf.PDAddr4.value,10);
+			}
+		}
+	}
+	if( checkMacStr(cf.Spoofmac) || MacStrallf(cf.Spoofmac) )
+		msg+= "<% GetMultiLangStr("AAWE06") %>";
+	if (msg.length > 1)
+	{
+		alert(msg);
+		return false;
+	}
+	
+	//Check whether to enable internet static pppoe mode
+    if (region_gui == "Russian")
+    {
+    //    if((cf.WANAssign[1].checked) && (cf.WMask1.value.length>0) && (cf.WMask2.value.length>0) && (cf.WMask3.value.length>0) && (cf.WMask4.value.length>0))
+        //pptp_ip_sel means internet pppoe connection
+        if(cf.WANAssign[1].checked)
+            cf.pptp_ip_sel.value = 1;
+        else
+            cf.pptp_ip_sel.value = 0;
+    }
+	
+	
+	cf.pptp_user_netmask.value = cf.mymask_1.value+'.'+cf.mymask_2.value+'.'+cf.mymask_3.value+'.'+cf.mymask_4.value;
+	cf.pptp_user_ip.value = cf.myip_1.value+'.'+cf.myip_2.value+'.'+cf.myip_3.value+'.'+cf.myip_4.value;
+
+	if(openvpnEnable == "enable"){
+		if(wan_ip != cf.pptp_user_ip.value){
+			alert("<% GetMultiLangStr("vpn161") %>");
+		}
+	}
+	
+	cf.pptp_gateway.value = cf.mygw_1.value+'.'+cf.mygw_2.value+'.'+cf.mygw_3.value+'.'+cf.mygw_4.value;
+	cf.wan_dns1_pri.value = cf.DAddr1.value+'.'+cf.DAddr2.value+'.'+cf.DAddr3.value+'.'+cf.DAddr4.value;
+	cf.wan_dns1_sec.value = cf.PDAddr1.value+'.'+cf.PDAddr2.value+'.'+cf.PDAddr3.value+'.'+cf.PDAddr4.value;
+	cf.wan_hwaddr2.value = cf.Spoofmac.value;
+	
+    setDisabled(false,cf.pptp_dod);
+
+	return sumvalue(cf);
+}
+
+function loadSettings()
+{
+    var cf = document.forms[0];
+    var pptp_user_ip = cf.pptp_user_ip.value.split(".");
+    var pptp_user_netmask = cf.pptp_user_netmask.value.split(".");
+    var pptp_gateway = cf.pptp_gateway.value.split(".");
+    var region_gui = cf.gui_region.value;
+
+    var wan_ipaddr = cf.wan_ipaddr.value.split(".");
+    var pptp_localip = cf.pptp_localip.value.split(".");
+    var wan_dns_sel = cf.wan_dns_sel.value;
+    var wan_dns1_pri = cf.wan_dns1_pri.value.split(".");
+    var wan_dns1_sec = cf.wan_dns1_sec.value.split(".");
+  	var wan_dns_pri = cf.wan_dns_pri.value.split(".");
+	  var wan_dns_sec = cf.wan_dns_sec.value.split(".");
+    var wan_hwaddr_sel = cf.wan_hwaddr_sel.value;
+    cf.pptp_idletime.value = <% GetPageCfg("pptp_idletime") %>;
+
+    // Get pptp_dod (nvram)
+    cf.pptp_dod.selectedIndex = <% GetPageCfg("pptp_dod_sel") %>;
+    CurrentDodIndex=cf.pptp_dod.selectedIndex;
+
+    if(cf.gui_language.value == "German")
+    {
+		var selectObj = document.getElementById("auto_conn_time_id");
+		
+        cf.auto_conn_time_default.value = parseInt(cf.auto_time.value, 10);
+        selectObj.value = parseInt(cf.auto_time.value, 10);
+    }
+    /*
+    if (cf.pppoe_dod.selectedIndex == 1)
+    {
+        DodDisable = false;
+        if(cf.gui_language.value == "German")
+        {
+            cf.auto_conn_24hr.disabled = true;
+            cf.auto_conn_time.disabled = true;
+        }
+    }
+    else
+    {
+        DodDisable = true;
+        if(cf.gui_language.value == "German")
+        {
+            cf.auto_conn_24hr.disabled = false;
+            cf.auto_conn_time.disabled = false;
+        }
+    }
+    */
+    show_idleout(cf, cf.pptp_dod.selectedIndex);
+    
+    setDisabled(DodDisable,cf.pptp_idletime);
+    if (cf.ipv6_proto.value == "6to4" || 
+        (cf.ipv6_proto.value == "auto" && cf.ipv6_proto_auto.value == "6to4"))
+    {
+        cf.pptp_dod.selectedIndex = 0;
+        setDisabled(true,cf.pptp_dod);
+        setDisabled(true,cf.pptp_idletime);
+    }
+    
+    if(cf.static_pptp_enable.value == 1)
+    {
+        if (cf.pptp_user_ip.value != "")
+        {
+            cf.myip_1.value = pptp_user_ip[0];
+            cf.myip_2.value = pptp_user_ip[1];
+            cf.myip_3.value = pptp_user_ip[2];
+            cf.myip_4.value = pptp_user_ip[3];
+        }
+        if (cf.pptp_user_netmask.value != "")
+        {
+            cf.mymask_1.value = pptp_user_netmask[0];
+            cf.mymask_2.value = pptp_user_netmask[1];
+            cf.mymask_3.value = pptp_user_netmask[2];
+            cf.mymask_4.value = pptp_user_netmask[3];
+        }
+
+        if (cf.pptp_gateway.value != "")
+        {
+            cf.mygw_1.value = pptp_gateway[0];
+            cf.mygw_2.value = pptp_gateway[1];
+            cf.mygw_3.value = pptp_gateway[2];
+            cf.mygw_4.value = pptp_gateway[3];
+        }
+    }
+    else
+    {
+        setDisabled(true, cf.mygw_1, cf.mygw_2, cf.mygw_3, cf.mygw_4);
+    }
+    if ( (cf.pptp_user_ip.value == "...") || (cf.pptp_user_ip.value == "") )
+    {
+        setDisabled(true, cf.mygw_1, cf.mygw_2, cf.mygw_3, cf.mygw_4);
+    }
+    
+    //Internet PPTP interface
+    if (region_gui == "Russian")
+    {
+        if (cf.pptp_localip.value == "0.0.0.0")
+        {
+          cf.WANAssign[0].checked = true;
+          cf.WPethr1.value = wan_ipaddr[0];
+          cf.WPethr2.value = wan_ipaddr[1];
+          cf.WPethr3.value = wan_ipaddr[2];
+          cf.WPethr4.value = wan_ipaddr[3];
+        }
+        else
+        {
+          cf.WANAssign[1].checked = true;
+          cf.WPethr1.value = pptp_localip[0];
+          cf.WPethr2.value = pptp_localip[1];
+          cf.WPethr3.value = pptp_localip[2];
+          cf.WPethr4.value = pptp_localip[3];
+        }
+    }
+    
+    cf.pptp_serv_ip.value = cf.serv_ip.value;
+    cf.DNSAssign[wan_dns_sel].checked = true;
+    dns_update();
+    setDNS();
+    if (region_gui == "Russian")
+        setIP();
+
+	if(wan_dns_sel=="1")
+	{
+    if (cf.wan_dns1_pri.value != "")
+	  {
+		  cf.DAddr1.value = wan_dns1_pri[0];
+		  cf.DAddr2.value = wan_dns1_pri[1];
+		  cf.DAddr3.value = wan_dns1_pri[2];
+		  cf.DAddr4.value = wan_dns1_pri[3];
+	  }
+	  if (cf.wan_dns1_sec.value != "")
+	  {
+		  cf.PDAddr1.value = wan_dns1_sec[0];
+		  cf.PDAddr2.value = wan_dns1_sec[1];
+		  cf.PDAddr3.value = wan_dns1_sec[2];
+		  cf.PDAddr4.value = wan_dns1_sec[3];
+	  }
+  }
+  else
+	{
+    if (cf.wan_dns_pri.value != "")
+	  {
+		  cf.DAddr1.value = wan_dns_pri[0];
+		  cf.DAddr2.value = wan_dns_pri[1];
+		  cf.DAddr3.value = wan_dns_pri[2];
+		  cf.DAddr4.value = wan_dns_pri[3];
+	  }
+	  if (cf.wan_dns_sec.value != "")
+	  {
+		  cf.PDAddr1.value = wan_dns_sec[0];
+		  cf.PDAddr2.value = wan_dns_sec[1];
+		  cf.PDAddr3.value = wan_dns_sec[2];
+		  cf.PDAddr4.value = wan_dns_sec[3];
+	  }
+  }
+
+    if (wan_hwaddr_sel == 0)
+        cf.Spoofmac.value = cf.wan_hwaddr_def.value;
+    else if (wan_hwaddr_sel == 2)
+        cf.Spoofmac.value = cf.wan_hwaddr2.value;
+    cf.MACAssign[wan_hwaddr_sel].checked = true;
+}
+
+function myip_update()
+{
+    var cf = document.forms[0];
+
+    if((cf.myip_1.value.length>0)&&(cf.myip_2.value.length>0)&&(cf.myip_3.value.length>0)&&(cf.myip_4.value.length>0))
+    {
+        setDisabled(false, cf.mygw_1, cf.mygw_2, cf.mygw_3, cf.mygw_4);
+    }
+    else
+    {
+        setDisabled(true, cf.mygw_1, cf.mygw_2, cf.mygw_3, cf.mygw_4);
+    } 
+    dns_update();
+}
+function dns_update()
+{
+    var cf = document.forms[0];
+    var region_gui = cf.gui_region.value;
+    
+    if((cf.myip_1.value.length>0)&&(cf.myip_2.value.length>0)&&(cf.myip_3.value.length>0)&&(cf.myip_4.value.length>0))
+    {
+        var data = cf.pptp_serv_ip.value.match(/^\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3}$/);
+        if ((data && isValidIPaddr(cf.pptp_serv_ip.value)) || (cf.pptp_serv_ip.value == ""))
+        {
+            cf.DNSAssign[0].disabled = false;
+            cf.DNSAssign[1].disabled = false;
+        }
+        else
+        {
+            cf.DNSAssign[0].disabled = true;
+            cf.DNSAssign[1].checked = true;
+        }
+    }
+    else
+    {
+        cf.DNSAssign[0].disabled = false;
+        cf.DNSAssign[1].disabled = false;
+    } 
+    setDNS();
+}
+function pw_onfocus()
+{
+    var cf = document.forms[0];
+    cf.pptp_passwd.value = "";
+    
+    document.getElementById("passwdEnterStatus").innerHTML="<input type=\"password\" class=\"input1\" name=\"pptp_passwd\" size=\"15\"  maxlength=\"63\" value=\"\">";       
+    setTimeout("document.forms[0].pptp_passwd.focus();", 50);
+    return true;
+}
+//-->
+</script>
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+<style type="text/css">
+SELECT {
+	WIDTH: 150px; HEIGHT: 22px
+}
+
+</style>
+
+</head>
+
+<body  onload="change_size();loadSettings();loadcheck();goTestApply();SkipParentalControlCheck=0" class="page-body"  onResize="change_size();" >
+<img class="cover-image" src="img/cover-image_noh.gif">
+<img class="body-image" src="img/subhead2-background_noh.jpg">
+<div id="full-page-container">
+
+<form id="target"  name="formname" method="POST" action="pptp.cgi?">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue"> 
+<img class="subtop-image" src="img/subhead2-top_noh.gif">
+<div class="subhead2"> <% GetMultiLangStr("genie_68") %></div>
+<table border="0"     class="subhead2-table">
+
+<tr align="left" valign="middle">
+
+<td  colspan="2" class="table-seperate-border pt-10">
+<div class="fix_button">
+<button type="submit" value="SUBMIT"  onClick="buttonClick(this,'Test');return checkData()" name="Test" id="test" class="button-common common_bt"><% GetMultiLangStr("SWP045") %></button>
+<button type="button" value="BUTTON"  onClick="buttonClick(this,'Cancel');reset();loadSettings();" name="Cancel" id="cancel" class="button-cancel cancel_bt"><% GetMultiLangStr("UAS021") %></button>
+<button type="submit" value="SUBMIT"  onClick="buttonClick(this,'Apply');return checkData()" name="apply" id="apply" class="button-apply  apply_bt"><% GetMultiLangStr("LUP004") %></button>
+</div>
+
+</td>
+
+
+</tr>
+
+
+
+
+<tr><td colspan="2" class="table-seperate-border"><iframe id="topframe" style="width:100%;height:100px;margin-top:10px" allowTransparency="true" src="BAS_basictop2.htm" frameborder="0" scrolling="no"></iframe></td></tr>
+<tr><td colspan="2" class="scrollpane-table-seperate-border"><div class="scroll-pane main_bas" style="height:260px;width:620px;overflow:auto;scrolling:auto"><table style="border-collapse:collapse;width:97%">
+<tr>
+ <td width="50%"><a href="javascript:loadhelp('BAS_pptp','isp')" tabindex="-1"><b><% GetMultiLangStr("SBS002") %></b></a></td>
+ <td width="50%" align="left"><select name="login_type" onChange="setServer()"><option selected>PPTP</option><option>PPPoE</option><option>L2TP</option></select></td>
+</tr>
+
+<tr><td colspan="2" height="12" ><div class="divider">&nbsp;</div></td></tr>
+
+<tr>
+	<td><a href="javascript:loadhelp('BAS_pptp','login')" tabindex="-1"><b><% GetMultiLangStr("D-genie_341") %></b></a></td>
+	<td align="left" class="pt-0"><input type="text" class="input1" name="pptp_username" id="pptp_username" size="15" maxlength="63" value="<% GetPageCfg("pptp_username") %>"></td>
+</tr>
+<tr>
+	<td><a href="javascript:loadhelp('BAS_pptp','password')" tabindex="-1"><b><% GetMultiLangStr("SWP027") %></b></a></td>
+	<td align="left" class="pt-0">
+	<div id="passwdEnterStatus" style ="visibility:visible">
+	<input type="password" name="pptp_passwd" class="input1" id="pptp_passwd" size="15"   maxlength="63" value="<% GetPageCfg("pptp_passwd") %>" onfocus="pw_onfocus();">
+	</div>
+	</td>
+</tr>
+<tr>
+<td width="50%" nowrap><a href="javascript:loadhelp('BAS_pptp','conn_mode')" tabindex="-1"><b><% GetMultiLangStr("SBS004") %></b></a></td>
+<td width="50%" align="left">
+    <select name="pptp_dod" id="pptp_dod" onChange="setConnMode()" size="1">
+        <option value=0><% GetMultiLangStr("SBS008") %></option>
+        <option value=1><% GetMultiLangStr("SBS009") %></option>
+        <option value=2><% GetMultiLangStr("SBS010") %></option>
+    </select></td>
+</tr>
+<tr>
+	<td nowrap><a href="javascript:loadhelp('BAS_pptp','idletime')" tabindex="-1"><% GetMultiLangStr("SWP015") %></a></td>
+	<td align="left"><input type="text" class="num input1" name="pptp_idletime" id="pptp_idletime" size="3" maxlength="3" value="5"></td>
+</tr>
+<!--
+<tr>
+  <td nowrap>
+    <input type="checkbox"   name="auto_conn_24hr" value="auto_conn_24hr"><% GetMultiLangStr("SBS039") %>
+	</td>
+    <td colspan="1">
+    <select id=auto_conn_time_id  name=auto_conn_time size="1">
+        <option value=0>00:00</option>
+        <option value=1>00:30</option>
+        <option value=2>01:00</option>
+        <option value=3>01:30</option>
+        <option value=4>02:00</option>
+        <option value=5>02:30</option>
+        <option value=6>03:00</option>
+        <option value=7>03:30</option>
+        <option value=8>04:00</option>
+        <option value=9>04:30</option>
+        <option value=10>05:00</option>
+        <option value=11>05:30</option>
+        <option value=12>06:00</option>
+        <option value=13>06:30</option>
+        <option value=14>07:00</option>	   
+        <option value=15>07:30</option>
+        <option value=16>08:00</option>
+        <option value=17>08:30</option>
+        <option value=18>09:00</option>
+        <option value=19>09:30</option>
+        <option value=20>10:00</option>
+        <option value=21>10:30</option>
+        <option value=22>11:00</option>
+        <option value=23>11:30</option>
+        <option value=24>12:00</option>
+        <option value=25>12:30</option>
+        <option value=26>13:00</option>
+        <option value=27>13:30</option>
+        <option value=28>14:00</option>
+        <option value=29>14:30</option>
+        <option value=30>15:00</option>
+        <option value=31>15:30</option>
+        <option value=32>16:00</option>
+        <option value=33>16:30</option>
+        <option value=34>17:00</option>
+        <option value=35>17:30</option>
+        <option value=36>18:00</option>
+        <option value=37>18:30</option>
+        <option value=38>19:00</option>
+        <option value=39>19:30</option>
+        <option value=40>20:00</option>
+        <option value=41>20:30</option>
+        <option value=42>21:00</option>
+        <option value=43>21:30</option>
+        <option value=44>22:00</option>
+        <option value=45>22:30</option>
+        <option value=46>23:00</option>
+        <option value=47>23:30</option>
+    </select>	</td> 
+
+</tr>
+-->
+
+<tr><td colspan="2" height="12" ><div class="divider">&nbsp;</div></td></tr>
+
+<tr>
+ <td><a href="javascript:loadhelp('BAS_pptp','myip')" tabindex="-1"><b><% GetMultiLangStr("SWP028") %></b></a></td>
+ <td align="left" class="num ip-input-row">
+ <input type="text" name="myip_1" id="myip1" class="num" size="4" maxlength="3" onBlur="myip_update()" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.<input type="text" name="myip_2" id="myip2" class="num" size="4" maxlength="3" onBlur="myip_update()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="myip_3" id="myip3" class="num" size="4" maxlength="3" onBlur="myip_update()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="myip_4" id="myip4" class="num" size="4" maxlength="3" onBlur="myip_update()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
+</tr>
+
+<tr>
+	<td nowrap><b><% GetMultiLangStr("MRS016") %></b></td>
+	<td align="left" class="num ip-input-row">
+	<input type="text" name="mymask_1" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.<input type="text" name="mymask_2" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="mymask_3" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="mymask_4" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
+</tr>
+
+<tr>
+ <td><a href="javascript:loadhelp('BAS_pptp','serverip')" tabindex="-1"><b><% GetMultiLangStr("SWP029") %></b></a></td>
+ <td align="left" class="pt-0"><input type="text" class="input1" name="pptp_serv_ip" id="pptp_serv_ip" size="24" maxlength="63" value="" onBlur="dns_update();"></td>
+</tr>
+
+<tr>
+ <td><a href="javascript:loadhelp('BAS_pptp','gatewayip')" tabindex="-1"><b><% GetMultiLangStr("SWP034") %></b></a></td>
+ <td align="left" class="num ip-input-row">
+ <input type="text" name="mygw_1" id="mygw1" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.<input type="text" name="mygw_2" id="mygw2" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="mygw_3" id="mygw3" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="mygw_4" id="mygw4" class="num" size="4" maxlength="3" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
+</tr>
+
+<tr>
+ <td class="pb-0"><a href="javascript:loadhelp('BAS_pptp','id')" tabindex="-1"><b><% GetMultiLangStr("SBS011") %></b></a></td>
+ <td align="left" class="pt-0"><input type="text" class="input1" name="pptp_conn_id" id="pptp_conn_id" size="12" maxlength="63" value="<% GetPageCfg("pptp_conn_id") %>"></td>
+</tr>
+
+<!--
+<tr><td colspan="2" height="12" ><div style="background-image:url('liteblue.gif');width:100%">&nbsp;</div></td></tr>
+<tr>
+    <td colspan="2"><a href="javascript:loadhelp('BAS_pptp','InternetIP')" tabindex="-1"><b><% GetMultiLangStr("SWP021") %></b></a></td>
+</tr>
+<tr>
+    <td colspan="2"><input type="radio" name="WANAssign" value="Dynamic" onClick="setIP()"><% GetMultiLangStr("SWP019") %></td>
+</tr>
+<tr>
+    <td nowrap><input type="radio" name="WANAssign" value="Fixed" onClick="setIP()"><% GetMultiLangStr("SWP024") %></td>
+    <td align="left" class="num">
+    <input type="text" name="WPethr1" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,1)" onkeyup="jumpcheck(this,0)">.<input type="text" name="WPethr2" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="WPethr3" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,0)">.<input type="text" name="WPethr4" class="num" size="4" maxlength="3" onFocus="if(DisableFixedIP) this.blur()" onkeydown="bscheck(event,this,0)" onkeyup="jumpcheck(this,1)"></td>
+</tr>
+-->
+
+<tr><td colspan="2" height="12" ><div class="divider">&nbsp;</div></td></tr>
+
+<tr>
+	<td colspan="2"><a href="javascript:loadhelp('BAS_pptp','DNSaddress')" tabindex="-1"><b><% GetMultiLangStr("SWP020") %> </b></a></td>
+</tr>
+
+<tr>
+	<td colspan="2">
+    <label class="checkbox-container">  <input type="radio" name="DNSAssign" id="dns_assign_auto" value="0" onClick="setDNS()"><% GetMultiLangStr("SWP018") %>
+				  <span class="radio-checkmark"></span> 
+				</label>
+    
+    </td>
+</tr>
+
+<tr>
+	<td colspan="2" class="pt-0">
+    	
+         <label class="checkbox-container">
+         	<input type="radio" name="DNSAssign" id="dns_assign_static" value="1" onClick="setDNS()"><% GetMultiLangStr("SWP025") %>
+				  <span class="radio-checkmark"></span> 
+				</label>
+        </td>
+</tr>
+
+<tr>
+	<td><% GetMultiLangStr("SWP022") %></td>
+	<td align="left" class="num ip-input-row"><input type="text" name="DAddr1" id="primary_dns_address1" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="if(isParentalControlEnable()) return false;bscheck(event,this,1)" onkeyup="if(isParentalControlEnable()){ alert('The DNS Server setup will not take effect due to Parental Controls is enabled. If you need to configure DNS manually, please disable the Parental Controls.');return false;} jumpcheck(this,0)">.
+	                              <input type="text" name="DAddr2" id="primary_dns_address2" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="if(isParentalControlEnable()) return false;bscheck(event,this,0)" onkeyup="if(isParentalControlEnable()){ alert('The DNS Server setup will not take effect due to Parental Controls is enabled. If you need to configure DNS manually, please disable the Parental Controls.');return false;} jumpcheck(this,0)">.
+	                              <input type="text" name="DAddr3" id="primary_dns_address3" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="if(isParentalControlEnable()) return false;bscheck(event,this,0)" onkeyup="if(isParentalControlEnable()){ alert('The DNS Server setup will not take effect due to Parental Controls is enabled. If you need to configure DNS manually, please disable the Parental Controls.');return false;} jumpcheck(this,0)">.
+	                              <input type="text" name="DAddr4" id="primary_dns_address4" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="if(isParentalControlEnable()) return false;bscheck(event,this,0)" onkeyup="if(isParentalControlEnable()){ alert('The DNS Server setup will not take effect due to Parental Controls is enabled. If you need to configure DNS manually, please disable the Parental Controls.');return false;} jumpcheck(this,1)"></td>
+</tr>
+<tr>
+	<td><a href="javascript:loadhelp('BAS_pptp','DNSaddress')" tabindex="-1"><% GetMultiLangStr("SWP023") %></a></td>
+	<td align="left" class="num ip-input-row"><input type="text" name="PDAddr1" id="second_dns_address1" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="if(isParentalControlEnable()) return false;bscheck(event,this,1)" onkeyup="if(isParentalControlEnable()){ alert('The DNS Server setup will not take effect due to Parental Controls is enabled. If you need to configure DNS manually, please disable the Parental Controls.');return false;} jumpcheck(this,0)">.
+	                              <input type="text" name="PDAddr2" id="second_dns_address2" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="if(isParentalControlEnable()) return false;bscheck(event,this,0)" onkeyup="if(isParentalControlEnable()){ alert('The DNS Server setup will not take effect due to Parental Controls is enabled. If you need to configure DNS manually, please disable the Parental Controls.');return false;} jumpcheck(this,0)">.
+	                              <input type="text" name="PDAddr3" id="second_dns_address3" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="if(isParentalControlEnable()) return false;bscheck(event,this,0)" onkeyup="if(isParentalControlEnable()){ alert('The DNS Server setup will not take effect due to Parental Controls is enabled. If you need to configure DNS manually, please disable the Parental Controls.');return false;} jumpcheck(this,0)">.
+	                              <input type="text" name="PDAddr4" id="second_dns_address4" class="num" size="4" maxlength="3" onFocus="if(DisableFixedDNS) this.blur()" onkeydown="if(isParentalControlEnable()) return false;bscheck(event,this,0)" onkeyup="if(isParentalControlEnable()){ alert('The DNS Server setup will not take effect due to Parental Controls is enabled. If you need to configure DNS manually, please disable the Parental Controls.');return false;} jumpcheck(this,1)"></td>
+</tr>
+<tr><td colspan="2" height="12" ><div class="divider">&nbsp;</div></td></tr>
+
+<tr>
+	<td nowrap colspan="2"><a href="javascript:loadhelp('BAS_pptp','localaddress')" tabindex="-1"><b><% GetMultiLangStr("SBS006") %></b></a></td>
+</tr>
+<tr>
+	<td colspan="2" nowrap>
+   <label class="checkbox-container"> <input type="radio" name="MACAssign" id="mac_assign_default" value="0" onClick="setMAC()"><% GetMultiLangStr("SBS005") %>
+				  <span class="radio-checkmark"></span> 
+				</label>
+  </td>
+</tr>
+<tr>
+	<td nowrap colspan="2" class="pt-0">
+    
+    <label class="checkbox-container"> <input type="radio" name="MACAssign" id="mac_assign_computer" value="1" onClick="setMAC()"><% GetMultiLangStr("SBS003") %>
+				  <span class="radio-checkmark"></span> 
+				</label>
+    
+    </td>
+</tr>
+<tr>
+	<td nowrap align="left" class="pt-0">
+    <label class="checkbox-container"><input type="radio" name="MACAssign" id="mac_assign_define" value="2" onClick="setMAC()"><% GetMultiLangStr("SBS007") %>
+				  <span class="radio-checkmark"></span> 
+				</label>
+    
+    </td>
+	<td align="left" class="num"><input type="text" class="num input1" name="Spoofmac" id="spoof_mac" size="17" value="IP &#1072;&#1076;&#1088;&#1077;&#1089; &#1096;&#1083;&#1102;&#1079;&#1072; &#1076;&#1086;&#1083;&#1078;&#1077;&#1085; &#1073;&#1099;&#1090;&#1100; &#1091;&#1082;&#1072;&#1079;&#1072;&#1085;" maxlength="17" onFocus="if(DisableFixedMAC) this.blur()"></td>
+</tr>
+
+<tr><td colspan="2" height="12"></td></tr>
+<tr><td colspan="2" height="12"></td></tr>
+
+
+</table></div></td></tr>
+<tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="bas-help-frame-div" > <iframe id="helpframe"  name=helpframe src="BAS_pptp_h.htm" class="help-iframe"  scrolling="no" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
+</table>
+  <div class="subhead2-bottom" >
+    <span class="help_ico"><img src="img/help-icon.png" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
+    <span class="subhead2-text  help_center_text" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_51") %> </span>
+    <span class="button-help-arrow">
+      <img src="img/helparrowdown-icon.png" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();" ></span>
+    <span class="subhead2-text help_right_text" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_123") %> </span>
+      </div>
+
+
+<input type="hidden" name="runtest" value="<% GetPageCfg("runtest") %>">
+<INPUT name=wan_ipaddr type=hidden value= "<% GetPageCfg("wan_ipaddr") %>">
+<INPUT name=pptp_localip type=hidden value= "<% GetPageCfg("pptp_localip") %>">
+<INPUT name=pptp_user_ip type=hidden value= "<% GetPageCfg("pptp_user_ip") %>">
+<INPUT name=serv_ip type=hidden value= "<% GetPageCfg("serv_ip") %>">
+<INPUT name=wan_dns_sel type=hidden value= "<% GetPageCfg("wan_dns_sel") %>">
+<INPUT name=wan_dns1_pri type=hidden value= "<% GetPageCfg("wan_dns1_pri") %>">
+<INPUT name=wan_dns1_sec type=hidden value= "<% GetPageCfg("wan_dns1_sec") %>">
+<INPUT name=wan_dns_pri type=hidden value= "<% GetPageCfg("wan_dns_pri") %>">
+<INPUT name=wan_dns_sec type=hidden value= "<% GetPageCfg("wan_dns_sec") %>">
+<INPUT name=wan_hwaddr_sel type=hidden value= "<% GetPageCfg("wan_hwaddr_sel") %>">
+<INPUT name=wan_hwaddr_def type=hidden value= "<% GetPageCfg("wan_hwaddr_def") %>">
+<INPUT name=wan_hwaddr2 type=hidden value= "<% GetPageCfg("wan_hwaddr2") %>">
+<INPUT name=wan_hwaddr_pc type=hidden value= "<% GetPageCfg("wan_hwaddr_pc") %>">
+<INPUT name=pptp_gateway type=hidden value="<% GetPageCfg("pptp_gateway") %>">
+<INPUT name=gui_region type=hidden value="">
+<INPUT name=pptp_user_netmask type=hidden value="<% GetPageCfg("pptp_user_netmask") %>">
+<INPUT name=static_pptp_enable type=hidden value= "<% GetPageCfg("static_pptp_enable") %>">
+<INPUT name=pptp_ip_sel type=hidden value= "0">
+<INPUT name=gui_language type=hidden value= "English">
+<INPUT name=auto_time type=hidden value= "0">
+<INPUT name=ipv6_proto type=hidden value= "disable">
+<INPUT name=ipv6_proto_auto type=hidden value= "">
+<input name=auto_conn_time_default type=hidden value= "0">
+<INPUT name=parental_control type=hidden value= "<% GetPageCfg("parental_control") %>">
+<INPUT name=parental_circle type=hidden value= "0">
+<input name=dial_on_demand_warning type=hidden value= "1">
+<INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+
+<a name="helpframe-anchor"></a>
+</form>
+
+</div>
+</body>
+
+
+
+</html>

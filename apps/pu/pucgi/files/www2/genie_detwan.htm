@@ -1,0 +1,77 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<head>
+<meta charset="UTF-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>NETGEAR   Genie</title>
+<link rel="stylesheet" type="text/css" href="CDL.css">
+<script type="text/javascript">
+    var t,objFrame,loadingImg;
+    var testImg = new Image();
+    var isSafari = navigator.userAgent.match("Safari");
+	testImg.src = window.location.protocol + "//" + window.location.host + "/loading.gif";
+
+	function wait1()
+	{
+		loadingImg = new Image();
+		loadingImg.src = "loading.gif";
+		objFrame  = document.getElementById("loading");
+     	objFrame.src = loadingImg.src;
+		t = setTimeout('do_submit()', 1500);                 
+                if(top.parent.frames['topframe'] != null ){           
+                   top.parent.frames['topframe'].location="genie_top.htm"; 
+                } 
+                if(parent.document.getElementById("container"))
+                {
+                    parent.checkMenuDisable();
+                }
+                return false;
+	}
+
+	function do_submit()
+	{     
+		document.forms[0].submit();
+		if (isSafari) { 
+			objFrame.style.display = "none"; 
+		}
+                clearTimeout(t);
+                return false;
+	}
+
+	if (isSafari) {
+		var refreshIntervalId = setInterval(refreshImage, 500);
+	}
+
+	function refreshImage() {
+		if (testImg.complete) {
+			objFrame.style.display = "";
+			//clearInterval(refreshIntervalId);
+			//console.log("load OK");
+		} else {
+			//console.log("reload faild");
+		}
+	}
+</script>
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+</head>
+<body  onLoad="wait1();" bgcolor="#ffffff">
+	<table border="0" cellpadding="0" cellspacing="3"  width="99%">
+	<tr style="height:10px">
+
+	</tr>
+	<tr>
+		<td><div class="subhead2 page_title"><% GetMultiLangStr("SWP057") %></div></td>
+	</tr>
+	<tr>
+		<td class="pl28" ><p><% GetMultiLangStr("genie_130") %></p></td>
+    </tr>
+
+	<tr>
+		<td class = "LoadingImg" style="border:0;" ><img id="loading" frameborder="0" border="0" ></td>
+	</tr>
+	<form name="formname" method="POST" action="geniewan.cgi">
+		 <input type="hidden" name="WDect" value="Execute">
+         <input type="hidden" name="disable_menu" value="true">
+         <INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+	</form>
+	</table>
+</body>

@@ -1,0 +1,33 @@
+#!/bin/sh
+
+cd /etc/easy-rsa/
+if [ -f "/etc/openvpn/keys/genkeys" ]
+then 
+    echo "keys exist!"
+    exit 0
+fi
+
+clean-all
+
+mac5="$(uboot_env --get --name ethaddr|cut -d':' -f5)"
+mac6="$(uboot_env --get --name ethaddr|cut -d':' -f6)"
+#20190430, Modify model name to RAX35 after set uboot_env and factory reset.
+local pegamodel="RAX40"
+        [ -f /tmp/modelName ] && {
+                pegamodel="`cat /tmp/modelName`";
+        }
+keyname="${pegamodel}-${mac5}${mac6}"
+sed -i "s|RAX40-key|${keyname}|g" ./vars
+
+build-ca
+build-dh
+build-key-server server
+build-key client
+
+cd /etc/easy-rsa/keys
+cp dh1024.pem ca.crt server.crt server.key client.crt client.key /etc/openvpn/keys
+touch /etc/openvpn/keys/genkeys
+
+cd /etc/easy-rsa/
+clean-all
+

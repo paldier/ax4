@@ -1,0 +1,105 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title>
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script type="text/javascript">
+
+
+    $(document).ready(function()
+    {	
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+
+function delayedLoad()
+{
+	var nextF = document.forms[0].next_file.value;
+    var pnpxstatus=document.forms[0].pnpxstart.value;
+	if (nextF == "historyBack"){
+        document.getElementById("warning").style.display="block";
+		setTimeout("history.back()", 6000);
+	}else{
+        if(pnpxstatus==1){
+            document.getElementById("quitblock").style.display="block";
+        }else{
+            document.getElementById("warning").style.display="block";
+            setTimeout("location.replace('" + nextF + "')", 6000);
+        }
+    }
+}
+</script>
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+</head>
+<body  leftmargin="0" topmargin="0" marginwidth="0" marginheight="0" onLoad="delayedLoad()" style="margin:0px;">
+<form id="target"  name="msg" action="message.cgi?id=ceeb930fb249f9fb947972619eddb606b4c5ba25165ad5e3110a7c03e0a9da31" method="post" onSubmit="return false">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+<input type="hidden" name="pnpxstart" value='0'>
+<table WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="4">
+
+<tr>
+	<td align="left"><div class="subhead2"><% GetMultiLangStr("AWC005") %></div></td>
+</tr>
+</table>
+
+<table WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="4" style="margin-top: 50px">
+	
+<tr>
+ <td align=center><b><% GetPageCfg("ErrorMessage_String") %>
+</b></TD>
+</TR>
+</table>
+
+<table WIDTH="100%" BORDER="0" CELLSPACING="3" CELLPADDING="0">
+<tr> 
+ <td colspan="2" height="12"><div style="background-image:url('seprator.gif');width:100%;background-repeat:repeat-x;">&nbsp;</div></td>
+</tr>
+</table>
+
+<div id="warning" style="display: none;">
+<table WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="4">
+<tr>
+ <td align=center><% GetMultiLangStr("CBS009") %></TD>
+</TR>
+</TABLE>
+</div>	
+<div id="quitblock" style="display: none;">
+<table WIDTH="100%" BORDER="0" CELLSPACING="0" CELLPADDING="4">
+<tr align="left" valign="middle">
+<td  style="padding-top:10px;padding-bottom:10px" align="center" colspan="2" class="table-seperate-border">
+&nbsp;&nbsp;&nbsp;<button type="BUTTON" value="Quit" name="quit" class="button-sty1" onClick="buttonClick(this,'Quit');top.location.replace('close_process.htm');"><% GetMultiLangStr("quit_mark") %></button>
+</td>
+</tr>
+</TABLE>	
+</div>
+ <input type="hidden" name="next_file" value="<% GetPageCfg("ErrorMessage_BackUrl") %>">
+</form>
+</BODY>
+</HTML>
+

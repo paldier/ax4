@@ -1,0 +1,366 @@
+<!DOCTYPE HTML>
+<html><head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title> 
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+<link rel="stylesheet" href="css/form2.css">
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<style type="text/javascript">
+    classes.num.all.fontFamily = "Courier";
+    classes.num.all.fontSize = "10pt" ;
+</style>
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!--
+  
+    $(document).ready(function()
+    {	
+        //if(need_to_check_browser_type())
+            //window.location.href="USB_basic_main.htm";
+    
+    
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+    function setHelpIframeVisible(){
+        $('.help-frame-div').css("visibility","visible");
+    }
+
+
+    function showHelpIframe() {
+
+        var imgSrc=document.getElementById('help-button');
+
+        if(imgSrc.src.search("up")>=0)
+        {
+            $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
+            imgSrc.src="img/helparrowdown-icon.png";
+        }
+        else
+        {
+            $(".help-frame-div").hide();
+            imgSrc.src="img/helparrowup-icon.png";
+            setTimeout(setHelpIframeVisible,500);
+        }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
+             change_size();
+
+    }
+
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+
+    function loadhelp(fname,anchname)
+    {
+                var pane = window.frames["helpframe"].$('#content');
+                var imgSrc=document.getElementById('help-button');
+                if(imgSrc.src.search("up")<0)
+                {
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+
+                        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm";
+                                $(".help-frame-div").show();
+                        }
+                        else
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                                $(".help-frame-div").show();
+                        }
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+                }
+    }
+
+function need_to_check_browser_type()
+{
+    var isIE = navigator.userAgent.search("MSIE") > -1; 
+    var isFirefox = navigator.userAgent.search("Firefox") > -1;
+    var isOpera = navigator.userAgent.search("Opera") > -1;
+    var isChrome = navigator.userAgent.search("Chrome") > -1;
+    var isSafari = navigator.userAgent.search("Safari") > -1;
+    var router_smb_link_style = document.getElementsByName('router_smb_link_style');
+
+    if(isChrome & router_smb_link_style[0].value!="others")
+        return true;
+    else if(!isChrome & isSafari & router_smb_link_style[0].value!="safari")
+        return true;
+    else if(isIE & router_smb_link_style[0].value!="explorer")
+        return true;
+    else if(!isSafari & !isIE & router_smb_link_style[0].value!="others")
+        return true;
+    else
+        return false;
+}     
+
+function remove_disk()
+{
+    var msg = ""
+	cf=document.forms[0];
+	
+	if(cf.usb_num.value == 0)
+	{
+         msg+= "<% GetMultiLangStr("UASE21") %>.\n";
+    }
+    if (msg.length > 1)
+	{
+		alert(msg);
+		return false;
+    }
+    return true;
+}
+
+function loadSettings()
+{
+
+    var cf=document.forms[0];
+    
+    setUSBSupportLevel();
+    
+	if (cf.no_usb_device.value == 1)
+        {
+
+var removeButton;
+cf.Remove.disabled = 'true';
+removeButton=document.getElementsByName("Remove");
+removeButton[0].outerHTML='<button type="submit" disabled value="Safely Remove USB Device" name="Remove" id="safely_remove" class="new_apply_bt_disable ui-corner-all" onClick="buttonClick(this,\'Safely Remove USB Device\');return remove_disk();"><span>&nbsp;&nbsp; <% GetMultiLangStr("UBS011") %></span><span>&nbsp;&nbsp;&nbsp;</span></button>';
+removeButton[0].style.cursor='default';
+    removeButton[0].style.color='#f2f2f2';
+    removeButton[0].style.background='#c0c0c0';
+    removeButton[0].style.height='22px';
+}
+
+    if(get_browser()=="Chrome") {
+        $(".scroll-pane").css("margin-top","-35px");
+}
+
+    if (cf.umountsucc.value == "1")
+    {
+        //openWarnWindow();
+          alert("Now you can remove this device.");
+    }
+    else if (cf.umountsucc.value == "2")
+    {
+        openWarnWindow();
+    }
+}
+
+function setUSBSupportLevel()
+{
+    var cf=document.forms[0];
+    var SupportLevel = cf.ReadyShareSupportedLevel.value;
+    var support_basic = SupportLevel & 1 ? 1 : 0;
+    var support_remote = SupportLevel & 16 ? 1 : 0;
+    var support_printing = SupportLevel & 4 ? 1 : 0;
+    var support_ready_vault = SupportLevel & 8 ? 1 : 0;
+
+    /* foxconn Han remove, 07/26/2018 I don't see USB_line
+    if(SupportLevel == 0)
+       document.getElementById("USB_line").style.visibility = "hidden";
+    else
+       document.getElementById("USB_line").style.visibility = "visible";
+    */
+     
+    if(support_basic)
+        document.getElementById("USB_basic").style.display = "block";
+    else
+        document.getElementById("USB_basic").style.display = "none";
+    if(support_remote)
+        document.getElementById("USB_readycloud").style.display = "block";
+    else
+        document.getElementById("USB_readycloud").style.display = "none";
+    if(support_printing)
+        document.getElementById("USB_printer").style.display = "block";
+    else
+        document.getElementById("USB_printer").style.display = "none";        
+
+    if(support_ready_vault)
+        document.getElementById("USB_vault").style.display = "block";
+    else
+        document.getElementById("USB_vault").style.display = "none";      
+}
+
+function openWarnWindow()
+{
+     var ischrome = navigator.userAgent.toLowerCase().indexOf('chrome');
+     if(ischrome > -1){
+         var nwin = window.open();
+         nwin.location = "USB_umount.htm";         
+     }else{
+         window.open('USB_umount.htm','','width=400,height=360,status=yes,resizable=yes,alwaysRaised=yes');
+     }
+}
+
+function UpdateAliveLink()
+{
+    parent.$('.SubMenuActive').addClass('SubMenu');
+    parent.$('.SubMenuActive').removeClass('SubMenuActive');
+    parent.$('#Advanced_Settings').addClass('SubMenuActive');
+    parent.$('#Advanced_Settings').removeClass('SubMenu');
+}
+
+//-->
+</script>
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+</head>
+<body onload="change_size();loadSettings();"  class="page-body" onResize="change_size();" >
+<img class="cover-image" src="img/cover-image_noh.gif">
+<!--<img class="body-image" src="img/subhead2-background_noh.jpg"> -->
+<div id="full-page-container">
+
+<form id="target"  name="frmService" method="post" action="usb_adv.cgi?id=ac7ed1086c61638078dc947ba467fabb13952b8fcc3f0cf012a84ad4045e07c6">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+    <img class="subtop-image" src="img/subhead2-top_noh.gif">
+<div class="subhead2"> <% GetMultiLangStr("UBS001") %></div>
+<table border="0"    style="height:620px; position: relative; top: -3px; width: 825px;"  class="subhead2-table">
+
+<tbody><tr align="left" valign="middle">
+<td colspan="2" class="table-seperate-border">
+<div class="fix_button">
+<button value="<% GetMultiLangStr("UAS021") %>" onclick="buttonClick(this,'<% GetMultiLangStr("UBS012") %>');location.href='USB_basic.htm'" type="button" name="Refresh" class="button-common common_bt"><% GetMultiLangStr("UBS012") %>
+</button>
+</div>
+</td>
+</tr>
+
+<tr><td class="scrollpane-table-seperate-border pt-20 scroll_container" colspan="2"><div class="scroll-pane main_bas" style="height: 620px; width: 825px; overflow: auto;scrolling:auto"><table style="border-collapse:collapse;width:97%">
+<tbody>
+
+<tr id="USB_basic" style="display: block;">
+    <td colspan="2" class="pb-0">
+    <label class="checkbox-container"><% GetMultiLangStr("UBS015") %>
+	  <input type="radio" name="USB_support" checked>
+	  <span class="radio-checkmark"></span>
+	</label>
+    </td>
+</tr>
+
+
+<tr id="USB_readycloud" style="display: block;">
+    <td colspan="2" class="pb-0">
+    <label class="checkbox-container"><% GetMultiLangStr("UAS028") %>
+	  <input type="radio" name="USB_support"  onclick="location.replace('USB_basic_remote.htm');">
+	  <span class="radio-checkmark"></span>
+	</label>
+    </td>
+</tr> 
+<!--
+<tr id="USB_printer">
+    <td colspan="2"><input type="radio" name="USB_support"  onclick="location.replace('USB_basic_printing.htm');"><% GetMultiLangStr("UBS117") %></td>
+</tr>    
+-->
+<tr id="USB_vault" style="display: block;">
+    <td colspan="2" class="pb-0">
+     <label class="checkbox-container"> <% GetMultiLangStr("genie_226") %>
+	  <input type="radio" name="USB_support"  onclick="location.replace('USB_basic_vault.html');">
+	  <span class="radio-checkmark"></span>
+	</label>
+    </td>
+</tr>
+ 
+<!--
+<tr id="USB_connect">
+    <td colspan="2"><input type="radio" name="USB_support"  onclick="location.replace('WWAN_wan.htm');">ReadySHARE Mobile Connect</td>
+</tr> 
+-->
+
+<tr><td colspan="2" height="12" ><div style="background-image:url('seprator.gif');width:100%;background-repeat:repeat-x;">&nbsp;</div></td></tr>
+<tr>
+<td colspan="2" ><a href="javascript:loadhelp('USB_basic','device')" 
+tabindex="-1" id="readyshare_link"><b><% GetMultiLangStr("UBS002") %>:</b></a>&nbsp;&nbsp;&nbsp;&nbsp; \\<% GetPageCfg("DeviceName") %></td>
+</tr>
+<tr><td colspan="2" height="12" ><div style="background-image:url('seprator.gif');width:100%;background-repeat:repeat-x;">&nbsp;</div></td></tr>
+<tr>
+<td colspan="2" ><a href="javascript:loadhelp('USB_basic','available_folder')" tabindex="-1"><b><% GetMultiLangStr("UBS003") %></b></a></td>
+</tr>
+<tr>
+<td colspan="2" >
+<table class="tbWhite" border="1" cellpadding="2" cellspacing="0" width="100%">
+
+<tr class="table_header">
+<td align="center" nowrap="nowrap" width="20%"><span class="thead"><% GetMultiLangStr("UBS008") %></span></td>
+<td align="center" nowrap="nowrap" width="17%"><span class="thead"><% GetMultiLangStr("UBS009") %></span></td>
+<td align="center" nowrap="nowrap" width="17%"><span class="thead"><% GetMultiLangStr("UBS010") %></span></td>
+<td align="center" nowrap="nowrap" width="15%"><span class="thead"><% GetMultiLangStr("UBS004") %></span></td>
+<td align="center" nowrap="nowrap" width="15%"><span class="thead"><% GetMultiLangStr("UBS005") %></span></td>
+<td align="center" nowrap="nowrap" width="8%"><span class="thead"><% GetMultiLangStr("UBS006") %></span></td>
+<td align="center" nowrap="nowrap" width="8%"><span class="thead"><% GetMultiLangStr("UBS007") %></span></td>
+</tr>
+
+<% GetPageCfg("UsbShareInfo") %>
+</table>
+</td>
+</tr>
+<tr>
+<td colspan="2" >
+<button type="button" value="<% GetMultiLangStr("UAS011") %>" name="Edit" id="edit" class="button-sty1" onclick="buttonClick(this,'<% GetMultiLangStr("UAS011") %>');UpdateAliveLink();location.href='USB_adv_tab.htm'"><% GetMultiLangStr("UAS011") %></button></td>
+</tr>
+<tr><td colspan="2" height="12" ><div style="background-image:url('seprator.gif');width:100%;background-repeat:repeat-x;">&nbsp;</div></td></tr>
+<tr>
+<td colspan="2" >
+<button type="submit" value="<% GetMultiLangStr("UBS011") %>" name="Remove" id="safely_remove" class="new_apply_bt ui-corner-all" onClick="buttonClick(this,'Safely Remove USB Device');return remove_disk();" style="width: auto"><span>&nbsp;&nbsp;&nbsp;<% GetMultiLangStr("UBS011") %></span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+</td>
+</tr>
+<tr><td colspan="2" height="12" ><div style="background-image:url('seprator.gif');width:100%;background-repeat:repeat-x;">&nbsp;</div></td></tr>
+<tr><td colspan="2" ></td></tr><tr><td colspan="2" ></td></tr>
+
+</tbody></table></div></td></tr>
+<tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" style="display: none; width: 802px; top: 510px; visibility: hidden;"> <iframe id="helpframe"  src="USB_basic_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();" style="width: 802px;"></iframe> </div> </td> </tr>
+</tbody></table>
+   <div class="subhead2-bottom" style="width: 829px;">
+    <span class="help_ico"><img src="img/help-icon.png" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
+    <span class="subhead2-text help_center_text" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_51") %> </span>
+    <span class="button-help-arrow" style="position: absolute; left: 414.5px;">
+      <img src="img/helparrowdown-icon.png" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"></span>
+    <span class="subhead2-text help_right_text" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_123") %> </span>
+      </div>
+
+
+
+<input type="hidden" name="usb_num" value="<% GetPageCfg("UsbNum") %>">
+<input type="hidden" name="action" value="basic">
+<INPUT name=umountsucc type=hidden value="<% GetPageCfg("Umountsucc") %>">
+<INPUT name=router_smb_link_style type=hidden value="others">
+<input name="ReadyShareSupportedLevel" type="hidden" value="25">
+<INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+<a name="helpframe-anchor"></a>
+</form>
+</div>
+</body></html>
+

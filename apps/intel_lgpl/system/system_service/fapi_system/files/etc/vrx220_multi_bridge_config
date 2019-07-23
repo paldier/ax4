@@ -1,0 +1,93 @@
+#!/bin/sh
+
+#$1 operation ADD DEL MOD
+#$2 portid 
+
+if [ ! "$CONFIGLOADED" ]; then
+        if [ -r /etc/config.sh ]; then
+                . /etc/config.sh 2>/dev/null
+                CONFIGLOADED="1"
+        fi
+fi
+
+# this script will use only vlan related cofiguration, hence not passing wan mode.
+. /opt/lantiq/etc/switch_functions 2> /dev/null
+
+switch_cli IFX_ETHSW_VLAN_PORT_MEMBER_READ > /tmp/switch.txt
+
+sed -i -e 's/ VLAN ID | Port | Tag Member//g' /tmp/switch.txt
+sed -i -e 's/----------------------------//g' /tmp/switch.txt
+sed -i -e 's/---//g' /tmp/switch.txt
+sed 's/^[ \t]*//;s/[ \t]*$//' < /tmp/switch.txt > /tmp/switch1.txt
+
+__preVlanId=0
+map=
+NextVlan=500
+flag="notfound"
+cpuport=6
+
+#common in both DEL and ADD case.
+rmflag=0
+while read p; do
+[ -z "$p" ] && continue
+	__vlanId=`echo $p | awk '{print $1;}'`
+	__portId=`echo $p | awk '{print $3;}'`
+
+	if [ $__preVlanId != $__vlanId ]  ; then
+		map="$map $__vlanId" 
+	else
+		if [ $__portId != $cpuport ] ; then 
+			rmflag=1
+		fi
+	fi
+	if [ $__vlanId != "500" ] ; then
+		for i in $2 
+		do 
+			if [ $__portId == $i ] ; then 
+				reset_port_member $__vlanId $__portId
+				if [ $__vlanId != "501" ] && [ $1 != "MOD" ] && [ $rmflag != "1" ] ; then
+					reset_port_member $__vlanId $cpuport #cpu port
+				fi 
+			fi
+		done
+	fi
+	__preVlanId="$__vlanId"
+done < /tmp/switch1.txt
+
+#if [ $1 == "DEL" ] ; then
+#	config_port_member 501 $2 0 # adding backto base bridge
+#	switch_cli IFX_ETHSW_VLAN_PORT_MEMBER_ADD nVId=501 nPortId=$2
+#fi 
+
+i=0
+j=0
+if [ $1 == "ADD" ] ; then 
+	while : ; do
+		for i in $map 
+		do
+			if [ "$NextVlan" == "$i" ] ; then 
+				flag="found"
+				break
+			fi
+		done 
+		if [ "$flag" == "found" ] ; then
+			flag="notfound"
+		else
+			break
+		fi
+		NextVlan=$((NextVlan+1))
+	done 
+
+	nFId=`echo -n $NextVlan | tail -c 1`
+	if ! switch_cli IFX_ETHSW_VLAN_ID_GET nVId=$NextVlan &> /dev/null; then
+        	create_vlanid $NextVlan $nFId #lan fid
+	fi
+	for j in $2
+	do
+		config_port_pvid $j $NextVlan 1 3 
+		config_port_member $NextVlan $j 0
+		config_port_member $NextVlan $cpuport 0 #cpu port
+	done
+fi 
+
+rm -rf /tmp/switch.txt /tmp/switch1.txt

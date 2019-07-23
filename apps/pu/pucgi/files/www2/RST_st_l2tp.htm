@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title>
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<script language="javascript" type="text/javascript">
+<!--
+var delay_time = 10000;
+var t;
+
+    $(document).ready(function()
+    {	
+        $("#target").submit(function() {
+            window.clearTimeout(t);
+            buttonFilter();
+        });
+
+    });
+
+
+
+function refreshPage()
+{
+	t = window.setTimeout('window.location.href = "RST_st_l2tp.htm";',10000);
+}
+
+function disableConButton()
+{
+    delay_time = 10000;
+    document.forms[0].connect.disabled = true;
+    document.forms[0].disconnect.disabled = true;
+    document.forms[0].ConMethod.value = "Connect";
+    document.forms[0].submit();       
+    return true;
+}
+
+function disableDisConButton()
+{
+    delay_time = 20000;
+    document.forms[0].connect.disabled = true;
+    document.forms[0].disconnect.disabled = true;
+    document.forms[0].ConMethod.value = "Disconnect";
+    document.forms[0].submit();
+    return true;
+}
+
+function refreshparentpage()
+{
+    parent.window.opener.location.href="RST_status_dual_band.htm";
+    return true;
+}
+//-->
+</script>
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+</head>
+
+<body  onLoad="refreshPage()" style="margin:0px;">
+<form id="target"  name="pptp_st" method="post" action="st_l2tp.cgi?">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+
+<TABLE border=0 width="100%">
+
+ 
+ <TR>
+ <TD colspan="2" align="left" nowrap><h1><% GetMultiLangStr("MRS006") %> </h1></TD>
+ </TR>
+ 
+</TABLE>
+
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+
+</table>
+
+
+<table width="100%" border=1 cellspacing=1 cellpadding=4 class="tbWhite cmn-table-2">
+<tr class="table_header">
+	<TD NOWRAP width="50%"><B><% GetMultiLangStr("MRS006") %></B></td>
+	<TD NOWRAP width="50%"><% GetPageCfg("RST_st_l2tp_wan_connStatus") %></td>
+</tr>
+<tr>
+	<TD NOWRAP><B><% GetMultiLangStr("SWP030") %></B></td>
+	<TD NOWRAP><% GetPageCfg("RST_st_l2tp_wan_ip") %></td>
+</tr>
+<tr>
+	<TD NOWRAP><B><% GetMultiLangStr("MRS016") %></B></td>
+	<TD NOWRAP><% GetPageCfg("RST_st_l2tp_wan_subnetMask") %></td>
+</tr>
+</table>
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+<TR><TD NOWRAP align="center"><BR>
+
+
+<button type="submit" value="Connect" name="connect" class="button-sty1" onClick="buttonClick(this,'Connect');return disableConButton()" ><% GetMultiLangStr("MRS001") %></button>
+
+<!--
+<button type="submit" value="Connect" name="connect" class="button-sty1" onClick="buttonClick(this,'Connect');return disableConButton()" disabled ><span class="roundleft_grey">&nbsp;&nbsp; <% GetMultiLangStr("MRS001") %></span><span class="roundright_grey">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+-->
+<button type="submit" value="Disconnect" name="disconnect" class="button-sty1" onClick="buttonClick(this,'Disconnect');alert('<% GetMultiLangStr("MRS010") %>') ; return disableDisConButton()"><% GetMultiLangStr("MRS009") %></button></TD>
+</TR>
+
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+<TR><TD NOWRAP align="center">
+<button type=button value="Close Window" name="close" class="button-sty1" onclick="buttonClick(this,'Close Window');  window.close()"><% GetMultiLangStr("WP0006") %></button></TD></TR>
+</TABLE>
+<input type="hidden" name="ConMethod" value="Disconnect">
+<INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+</form>
+</body>
+</html>

@@ -1,0 +1,148 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" href="CDL.css">	
+  <title>NETGEAR Genie</title>
+	
+	<link href="css/custom.css" rel="stylesheet" type="text/css">
+</head>
+<script src="jquery.js"></script>
+<script src="script/script.js"></script> 
+<script >
+    var mode = 0
+    function submit()
+    {
+      document.forms["target"].submit();
+    }
+
+    function clickHere()
+    {
+      var mode = 0;
+      if(mode == "1"){
+        window.open ('start.htm','_blank','fullscreen=yes,toolbar=yes,locaiton=yes');
+      }else{
+        if(parent.$("#BasicTab").hasClass('current')){
+            parent.loadPage("WLG_wireless_dual_band.htm");
+        }else{
+            parent.loadPage2("WLG_wireless_dual_band.htm");
+        }        	
+      }
+
+    }
+
+    function showPassphrase()
+    {
+      /*    	
+      if(document.forms[0].wireless_2g_security.value==document.forms[0].wireless_5g_security.value)
+         document.getElementById("secuirty_2g").style.display="none";
+      else
+      */    	
+         document.getElementById("secuirty_2g").style.display="block";
+    	
+    }
+
+</script>
+<body style="background-color:#ffffff">
+<form id="target"  name="formname" method="POST" action="congratulations.cgi" target="_parent">
+	<table border="0">
+    <tr style="height:10px">
+      <td width="35%">&nbsp;</td><td  width="15%">&nbsp;</td><td  width="15%">&nbsp;</td><td  width="35%">&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td><td class="centerTd pl-0" id="message"><div class="subhead2 pl-0"><% GetMultiLangStr("genie_916") %></div></td><td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td><td class="textRow centerTd pl-0" colspan="2"><% GetMultiLangStr("genie_158") %></td><td>&nbsp;</td>
+    </tr>
+    <tr style="height:10px">
+      <td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+    </tr>
+    <!--
+    <tr>
+      <td>&nbsp;</td>
+      <td class="textRow centerTd" style="">Router wireless network name (SSID) and network key (password):</td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td><td></td><td>&nbsp;</td>
+    </tr>
+    -->
+    
+    <tr>
+
+      <td>&nbsp;</td><td class="textRow centerTd pl-0"><span style="display:-moz-inline-box;display:inline-block;width:300px;font-size:16px"><b><u>2.4G <% GetMultiLangStr("LUP009") %>:</u></b></td><td>&nbsp;</td><td>&nbsp;</td>
+<!--
+<td>&nbsp;</td><td class="textRow centerTd" style=""><span style="display:-moz-inline-box;display:inline-block;width:300px;"><b><h4><u>2.4G Wireless Settings:</u><h4></b></td><td>&nbsp;</td>
+-->
+    </tr>	
+    
+    <tr>
+      <td>&nbsp;</td><td class="textRow centerTd pl-0"><span style="display:-moz-inline-box;display:inline-block;width:300px;"><% GetMultiLangStr("genie_1115") %> </span></td><td style="white-space:pre;"><span id="wifi_ssid_info"><b><% GetPageCfg("SetupWizard_ssid_2G") %></span></b></td><td>&nbsp;</td>
+    </tr>	
+      <tr style="">	
+        <td>&nbsp;</td>	
+        <td class="textRow centerTd pl-0"><span style="display:-moz-inline-box;display:inline-block;width:300px;"><% GetMultiLangStr("genie_154") %> <span title="Your router is preset with WPA2-PSK wireless security to protect your network from unwanted access. To join the wireless network, you must enter the network key (password). These preset settings are unique to this device, like a serial number.  If you want to change them, you can do so later in the Wireless Settings screen on the router web GUI."><% GetMultiLangStr("D-genie_267") %>:</span></span></td><td><span id="wifi_pwd_info"><b><% GetPageCfg("SetupWizard_passphrase") %></span></b></td>
+        <td>&nbsp;</td>
+      </tr>
+    
+    <tr>
+      <td>&nbsp;</td><td></td><td>&nbsp;</td><td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td><td class="textRow centerTd pl-0"><span style="display:-moz-inline-box;display:inline-block;width:300px;font-size:16px"><b><u>5G <% GetMultiLangStr("LUP009") %>:</u></b></td><td>&nbsp;</td><td>&nbsp;</td>
+    </tr>	
+    
+  
+    <tr>
+      <td>&nbsp;</td>
+      <td class="textRow centerTd pl-0"><span style="display:-moz-inline-box;display:inline-block;width:300px;"><% GetMultiLangStr("genie_1117") %></span></td><td style="white-space:pre;"><span id="wifi_5g_ssid_info"><b><% GetPageCfg("SetupWizard_ssid_5G") %></b></span></td>
+      <td>&nbsp;</td>
+    </tr>
+    <tr style="">
+      <td>&nbsp;</td>
+      <td class="textRow centerTd pl-0"><span style="display:-moz-inline-box;display:inline-block;width:300px;"><% GetMultiLangStr("genie_154") %> <span title="Your router is preset with WPA2-PSK wireless security to protect your network from unwanted access. To join the wireless network, you must enter the network key (password). These preset settings are unique to this device, like a serial number.  If you want to change them, you can do so later in the Wireless Settings screen on the router web GUI."><% GetMultiLangStr("D-genie_267") %>:</span></span></td><td><span id="wifi_5g_pwd_info"><b><% GetPageCfg("SetupWizard_passphrase_an") %></span></b></td>
+      <td>&nbsp;</td>
+    </tr>
+   
+
+    
+    <tr>
+      <td>&nbsp;</td><td></td><td>&nbsp;</td><td>&nbsp;</td>
+    </tr>
+    <tr>
+      <td>&nbsp;</td><td class="textRow centerTd pl-0"><span style="display:-moz-inline-box;display:inline-block;width:300px;font-size:16px"><b><u><% GetMultiLangStr("pwr_020") %></u></b></td><td>&nbsp;</td><td>&nbsp;</td>
+    </tr>	
+    <tr>
+      <td>&nbsp;</td>
+      <td class="textRow centerTd pl-0"><span style="display:-moz-inline-box;display:inline-block;width:300px;"><% GetMultiLangStr("pwr_021") %></span></td><td><span id="admin_name_info"><b><% GetPageCfg("SetupWizard_username") %></span></b></td>
+      <td>&nbsp;</td>
+    </tr>	
+    <tr>
+      <td>&nbsp;</td>
+      <td class="textRow centerTd pl-0"><span style="display:-moz-inline-box;display:inline-block;width:300px;"><% GetMultiLangStr("pwr_022") %></span></td><td><span id="admin_pwd_info"><b><% GetPageCfg("SetupWizard_password") %></span></b></td>
+      <td>&nbsp;</td>
+    </tr>	
+    <tr>
+      <td>&nbsp;</td>
+      <td class="textRow centerTd pl-0"></td>
+      <td>&nbsp;</td><td>&nbsp;</td>
+    </tr>
+    
+    <tr>
+      <td>&nbsp;</td>
+        	<td class="textRow centerTd">		
+        <button class = "button-sty1" id="print" onclick="window.print();return false;"><span><% GetMultiLangStr("genie_102") %></span></button>
+			<span style="display:-moz-inline-box;display:inline-block;width:70px;"></span>
+        <button class = "button-sty1" id="config_com_next" onclick="window.location.href='genie_ver_check.htm';return false;"><span><% GetMultiLangStr("OTH011") %></span></button>
+      </td>
+      <td>&nbsp;</td>
+    </tr>
+  </table>
+  <input type="hidden" name="wireless_2g_security" value="<% GetPageCfg("SetupWizard_wireless_2g_security") %>" />
+  <input type="hidden" name="wireless_5g_security" value="<% GetPageCfg("SetupWizard_wireless_5g_security") %>" />
+</form>
+</body>
+</html>

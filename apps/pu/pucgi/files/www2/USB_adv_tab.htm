@@ -1,0 +1,704 @@
+<!DOCTYPE HTML>
+<html><head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title> 
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+<link rel="stylesheet" href="css/form2.css">
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<style type="text/javascript">
+    classes.num.all.fontFamily = "Courier";
+    classes.num.all.fontSize = "10pt" ;
+</style>
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!--
+
+  
+    $(document).ready(function()
+    {
+//        if(need_to_check_browser_type())
+//            window.location.href="USB_adv_main.htm";	
+    
+//        $('.scroll-pane').jScrollPane('scrollbarMargin:5px');
+        $("#target").submit(function() {
+            buttonFilter();
+        });
+
+    });
+
+
+    function setHelpIframeVisible(){
+        $('.help-frame-div').css("visibility","visible");
+    }
+
+
+    function showHelpIframe() {
+
+        var imgSrc=document.getElementById('help-button');
+
+        if(imgSrc.src.search("up")>=0)
+        {
+            $(".help-frame-div").show();
+            window.frames["helpframe"].$('#content').jScrollPane({showArrows:true});
+            imgSrc.src="img/helparrowdown-icon.png";
+        }
+        else
+        {
+            $(".help-frame-div").hide();
+            imgSrc.src="img/helparrowup-icon.png";
+            setTimeout(setHelpIframeVisible,500);
+        }
+        if((navigator.appName.indexOf("Internet Explorer")==-1) ||
+           (navigator.appVersion.indexOf("MSIE 9")==-1))
+             change_size();
+
+    }
+
+    function moveToHTMLend()
+    {
+        window.location.href='#helpframe-anchor';
+        setHelpIframeVisible();
+    }
+
+
+    function loadhelp(fname,anchname)
+    {
+                var pane = window.frames["helpframe"].$('#content');
+                var imgSrc=document.getElementById('help-button');
+                if(imgSrc.src.search("up")<0)
+                {
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+
+                        if ((loadhelp.arguments.length == 1 ) || (anchname == "" ))
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm";
+                                $(".help-frame-div").show();
+                        }
+                        else
+                        {
+                                window.frames["helpframe"].location.href=fname+"_h.htm#" + anchname;
+                                $(".help-frame-div").show();
+                        }
+
+                        $(".help-frame-div").show();
+                        pane.jScrollPane({showArrows:true});
+
+                }
+    }
+
+function need_to_check_browser_type()
+{
+    var isIE = navigator.userAgent.search("MSIE") > -1; 
+    var isFirefox = navigator.userAgent.search("Firefox") > -1;
+    var isOpera = navigator.userAgent.search("Opera") > -1;
+    var isChrome = navigator.userAgent.search("Chrome") > -1;
+    var isSafari = navigator.userAgent.search("Safari") > -1;
+    var router_smb_link_style = document.getElementsByName('router_smb_link_style');
+
+    if(isChrome & router_smb_link_style[0].value!="others")
+        return true;
+    else if(!isChrome & isSafari & router_smb_link_style[0].value!="safari")
+        return true;
+    else if(isIE & router_smb_link_style[0].value!="explorer")
+        return true;
+    else if(!isSafari & !isIE & router_smb_link_style[0].value!="others")
+        return true;
+    else
+        return false;
+}     
+
+function remove_disk()
+{
+    var msg = ""
+	cf=document.forms[0];
+	
+	if(cf.usb_num.value == 0)
+	{
+        msg+= "<% GetMultiLangStr("UASE21") %>.\n";
+    }
+    if (msg.length > 1)
+	{
+		alert(msg);
+		return false;
+    }
+    return true;
+}	
+
+function edit_folder()
+{
+	cf = document.forms[0];
+	if(cf.no_usb_device.value == 1)
+	{
+            alert("<% GetMultiLangStr("UASE21") %>.");
+		return false;
+	}
+	if(cf.select.value == -1)
+	{
+                alert("<% GetMultiLangStr("UASE12") %>");
+		return false;
+	}
+	cf.action.value = "edit";
+	buttonFilter();
+document.forms[0].submit();
+}
+
+function delete_folder()
+{
+	cf=document.forms[0];
+	if(cf.no_usb_device.value == 1)
+	{
+            alert("<% GetMultiLangStr("UASE21") %>.");
+		return false;
+	}
+	if(cf.select.value == -1)
+	{
+                alert("<% GetMultiLangStr("UASE12") %>\n");
+		return false;
+	}
+    
+    /* There exist folder is "admin" privilege but no "All - no password" privilege. */
+    var folderElements = document.getElementsByTagName("input");
+    var i;    
+    var checkAdminFolder = 1, folderNum=0;
+    for(i=0;i<folderElements.length;i++)
+    {        
+        if(folderElements[i].type=='hidden')
+        {
+            if(folderElements[i].id=="USB_NO_PASSWD" || folderElements[i].id=="USB_ADMIN")
+            {
+                folderNum = folderElements[i].value+1;
+                if(folderElements[i].id=="USB_NO_PASSWD" && folderElements[i].value!=cf.select.value)
+                {
+                    checkAdminFolder = 0;
+                    break;
+                }
+            }
+        }
+    }
+
+    if ( cf.no_dlna.value != 1 )  {
+        if(checkAdminFolder==1 && folderNum>1)
+            alert("<% GetMultiLangStr("PCVP_002") %>");
+    }
+    return true;
+}
+
+function checkData()
+{
+	var cf=document.forms[0];
+	var space_flag=0;
+	var msg = "";
+	/*
+	var dev_name=cf.deviceName.value;
+
+	msg+= checkBlank(cf.deviceName, "deviceName");
+	*/
+	msg+= checkBlank(cf.workGroup, "workGroup");
+	if (msg.length > 1)
+	{
+		alert(msg);
+		return false;
+	}
+	/*
+	if (   (cf.deviceName.value.match( /[\x21-\x2C]/ ))
+	    || (cf.deviceName.value.match( /[\x2E-\x2F]/ ))
+        || (cf.deviceName.value.match( /[\x3A-\x40]/ ))
+        || (cf.deviceName.value.match( /[\x5B-\x60]/ ))
+        || (cf.deviceName.value.match( /[\x7B-\x80]/ ))
+        || (cf.deviceName.value.match( /[^\x21-\x7E]/ ))
+       )
+	{
+                alert("<% GetMultiLangStr("AAWE04") %>\n");
+		return false;
+	}
+	*/
+
+	if(cf.workGroup.value == ""){
+                alert("<% GetMultiLangStr("UASE20") %>.\n");
+		return false;
+	}
+	if (cf.workGroup.value.match( /[^\x20-\x7E]/ ))
+	{
+		cf.workGroup.focus();
+                alert("<% GetMultiLangStr("UASE20") %>.\n");
+		return false;
+	}
+	
+	var portvalue=parseInt(cf.http_via_port.value);
+	if ((cf.is_https.value == "1") && (portvalue == 80) )
+	{
+                alert("<% GetMultiLangStr("UASE01") %>");
+		return false;
+	} else
+	if( (isNaN(cf.http_via_port.value) || !_isNumeric(cf.http_via_port.value)||
+	   parseInt(cf.http_via_port.value,10) < 1024 ||
+	   parseInt(cf.http_via_port.value,10) > 65534 ||
+	   cf.http_via_port.value.indexOf(".") != -1 ) && (cf.http_via_port.value !=443) )
+	{
+                alert("<% GetMultiLangStr("UASE01") %>");
+		return false;
+	} else if ( (cf.is_https.value == "0") && (portvalue == 443) ) {
+                alert("<% GetMultiLangStr("UASE01") %>");
+                return false;
+        }		
+
+    portvalue=parseInt(cf.ftp_via_port.value);
+    if( isNaN(cf.ftp_via_port.value) || cf.ftp_via_port.value < 21 || (cf.ftp_via_port.value > 21 & cf.ftp_via_port.value < 1024) || cf.ftp_via_port.value > 65534)
+    {
+            alert("<% GetMultiLangStr("UASE02") %>");
+	    return false;
+    }
+    if (cf.ftp_via_port.value == cf.http_via_port.value)
+    {
+        alert("<% GetMultiLangStr("UASE22") %>");
+	    return false;
+    }
+    
+
+    
+    buttonFilter();
+document.forms[0].submit();
+	return true;
+}
+
+function chgSel(index)
+{
+ document.forms[0].select.value = index;
+ return true;
+}
+
+function adjust_table_column()
+{
+	var i;
+	var obj = document.getElementsByName("folderName");
+	
+	for(i=0 ; i<obj.length ; i++)
+	{
+		$(obj[i]).addClass('folderName_ie10');
+	}
+}
+
+function loadSettings()
+{
+    var cf=document.forms[0];
+    var adv_add_edit_page = <% GetPageCfg("AdvAddEditPage") %>;
+	if (cf.no_usb_device.value == 1)
+        {
+
+var removeButton;
+cf.Remove.disabled = 'true';
+removeButton=document.getElementsByName("Remove");
+//removeButton[0].outerHTML='<button type="submit" disabled value="<% GetMultiLangStr("UBS011") %>" name="Remove" id="safely_remove" class="button-grey" onClick="buttonClick(this,\'<% GetMultiLangStr("UBS011") %>\');return remove_disk();"><span class="roundleft_grey">&nbsp;&nbsp; <% GetMultiLangStr("UBS011") %></span><span class="roundright_grey">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>';
+removeButton[0].style.cursor='default';
+}
+
+    if (cf.umountsucc.value == "1")
+    {
+         alert("<% GetMultiLangStr("now_remove=") %>");
+    }
+    else if (cf.umountsucc.value == "2")
+    {
+        openWarnWindow();
+    }
+    if (adv_add_edit_page == "2")
+    {
+		winoptions = "width=1100,height=580,status=yes,resizable=yes, scrollbars=yes";
+		datSubWinVar = window.open('USB_adv_edit.htm','datasub_win',winoptions);
+	}
+    else if (adv_add_edit_page == "1")
+	{
+		winoptions = "width=1100,height=580,status=yes,resizable=yes, scrollbars=yes";
+		datSubWinVar = window.open('USB_adv_add.htm','datasub_win',winoptions);
+	}
+    if (cf.enable_apmode.value == "1" || cf.enable_stamode.value == "1") {
+        cf.enable_wan_http.disabled=true;
+        cf.http_via_port.disabled=true;
+        cf.enable_wan_ftp.disabled=true;
+        cf.ftp_via_port.disabled=true;
+    } else {
+        cf.enable_wan_http.disabled=false;
+        cf.http_via_port.disabled=false;
+        cf.enable_wan_ftp.disabled=false;
+        cf.ftp_via_port.disabled=false;
+    }
+	if(get_ie_ver()==10 && get_browser()=="IE")
+		adjust_table_column();
+	
+}
+var trWarnWinVar = null;
+
+function openTrWarnWin(filename,win_type)
+{
+	trWarnWinVar = window.open(filename,'trwarn_win',win_type);
+}
+
+function openWarnWindow()
+{
+	var winoptions;
+
+    winoptions = "width=400,height=380,status=yes,resizable=no";
+    openTrWarnWin('USB_umount.htm',winoptions);
+}
+function creat_folder()
+{
+    var cf=document.forms[0];
+    if(cf.no_usb_device.value == 1)
+	{
+            alert("<% GetMultiLangStr("UASE21") %>.\n");
+		return false;
+	}
+	if(cf.sharefolderNum.value >= 256)
+	{
+	    alert("The number of shared folder has reached the maximum.");
+		return false;
+	}
+    cf.action.value = "add";
+    buttonFilter();
+document.forms[0].submit();
+}
+//-->
+</script>
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+</head>
+<body onload="change_size();loadSettings();"  class="subpage-body" onResize="change_size();" >
+<img class="cover-image" src="img/cover-image_noh.gif">
+<img class="body-image" src="img/subhead2-background_noh.jpg">
+<div id="full-page-container">
+
+<form id="target"  name="frmService" method="post" action="/usb_adv.cgi">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+<img class="subtop-image" src="img/subhead2-top_noh.gif">
+
+<div class="subhead2" id="usb_adv"> <% GetMultiLangStr("UAS001") %></div>
+
+<table border="0"    style="height:370px"  class="subhead2-table">
+
+<style type="text/css">
+    .ui-widget {
+        font-family: Verdana,Arial,sans-serif;
+        font-size: 1.0em;
+    }
+    .ui-dialog-title{
+        height: 1px; /* or whatever you want */
+    }
+    .ui-widget-header {
+        background: #0101DF;
+        border: 0;
+        color: #fff;
+        font-weight: normal;
+      }
+    .ui-dialog
+    {
+        /* The background wor of the dialog */
+        background-color: white;
+        box-shadow: 5px 5px 10px #333;
+    }
+    .ui-dialog-buttonpane .ui-dialog-buttonset {
+        text-align: center;
+        float: none !important;
+    } 
+</style>
+
+<script>    
+$( ".dialog" ).dialog({ 
+    autoOpen: false,
+    modal: true,
+    width: 550,
+    height: 200,
+    buttons: [
+        { 
+            text: "<%74%>",
+            click: function() { 
+            $(this).dialog('close');
+        }},
+        {
+            text: "<%72%>",
+            click: function() { 
+                var cf=document.forms[0];
+            
+            if(radio_1.checked){
+                //nothing to do!
+            }
+            else{
+                cf.deviceName.value = "<%2536%>";
+            }
+            buttonFilter();
+            document.forms[0].submit();
+        }
+    }],
+    open: function(event, ui) {
+        $(".ui-dialog-titlebar-close", $(this).parent()).hide(); //Hide icon X close button 
+        //$(".ui-dialog-titlebar").hide(); //Hide title
+
+        document.getElementById("radio_label_1").innerHTML = "<%2545%>" +" \\\\" + document.getElementById("deviceName").value;
+    }
+});     
+</script> 
+<tr align="left" valign="middle">
+<td  colspan="2" class="table-seperate-border">
+<div class="fix_button">
+<button value="<% GetMultiLangStr("UBS012") %>" onclick="buttonClick(this,'Refresh');location.href='USB_adv_tab.htm'" type="button" name="Refresh" id="refresh" class="button-common common_bt" ><% GetMultiLangStr("UBS012") %></button>
+<button value="<% GetMultiLangStr("LUP004") %>"  onclick="buttonClick(this,'Apply');checkData();" type="button" name="Apply" id="apply" class="button-apply" ><% GetMultiLangStr("LUP004") %></button>
+</div>
+</td>
+
+
+</tr>
+
+<tr><td class="scrollpane-table-seperate-border scroll_container pt-0" colspan="2">
+<div class="scroll-pane main_bas" style="height:365px;width:620px;overflow:auto;scrolling:auto"><table style="border-collapse:collapse;width:97%">
+
+
+<tr>
+<td colspan="2">
+<table border="0" cellpadding="2" cellspacing="0" width="60%">
+<!--
+<tr>
+<td><a href="javascript:loadhelp('USB_adv','device')" 
+        tabindex="-1"><b><% GetMultiLangStr("UBS002") %> :</b></a></td>
+<td width="30%">
+	
+	<% GetPageCfg("DeviceName") %>
+        &nbsp;&nbsp;&nbsp;<button type="button" value="<% GetMultiLangStr("UAS011") %>" name="Edit" class="button-rule" onClick="parent.location.href='DEV_name.htm';"><% GetMultiLangStr("UAS011") %></button>
+-->
+	
+	<!--
+	<input type="text" name="deviceName" size="21" maxlength="15" value="readyshare">
+	-->
+<!--
+</td>
+</tr>
+<tr><td></td></tr>
+<tr>
+<td class="pb-0 pt-0"><a href="javascript:loadhelp('USB_adv','workgroup')" 
+        tabindex="-1"><b><% GetMultiLangStr("UAS002") %> :</b></a></td>
+<td width="30%" class="pt-0"><input type="text" class="input1" name="workGroup" id="work_group" size="21" maxlength="15" value="<% GetPageCfg("Workgroup") %>"></td>
+</tr>
+-->
+<tbody>
+<tr>
+<td class="pb-0"><a href="javascript:loadhelp('USB_adv','device')" 
+	tabindex="-1"><b><% GetMultiLangStr("UBS002") %> :</b></a></td>
+<td width="30%" class="pt-0"><% GetPageCfg("DeviceName") %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" name="DevEdit" class="button-common button-sty1" onClick="location.href='DEV_name.html';"><% GetMultiLangStr("UAS011") %></button></td>
+</tr>
+
+<tr>
+<td class="pb-0" style="margin-top: -13px"><a href="javascript:loadhelp('USB_adv','workgroup')" 
+	tabindex="-1"><b><% GetMultiLangStr("UAS002") %> :</b></a></td>
+<td width="30%" class="pt-0"><input type="text" class="input1" name="workGroup" size="21" maxlength="15" value="<% GetPageCfg("Workgroup") %>"></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+
+<tr>
+<td colspan="2" style="margin-top: -17px">
+<table border="1" cellpadding="2" cellspacing="0" width="100%" class="tbWhite cmn-table-2">
+<tr class="table_header">
+<td align="center" nowrap="nowrap"><span class="thead"><% GetMultiLangStr("SBS026") %></span></td>
+<td align="center" nowrap="nowrap"><span class="thead"><% GetMultiLangStr("UAS003") %></span></td>
+<td align="center" nowrap="nowrap"><span class="thead"><% GetMultiLangStr("UAS005") %></span></td>
+<td align="center" nowrap="nowrap"><span class="thead"><% GetMultiLangStr("SBS028") %></span></td>
+
+<td align="center" nowrap="nowrap"><span class="thead"><% GetMultiLangStr("pwr_005") %></span></td>
+
+</tr>
+<tr>
+<td align="center" nowrap="nowrap">
+    <label class="checkbox-container">
+	<input type="checkbox" name="enable_samba" id="enable_net" value="enable_samba" <% GetPageCfg("EnableSamba") %>>
+	<span class="checkbox-checkmark"></span> 
+  </label>
+    </td>
+<td align="center" nowrap="nowrap"><% GetMultiLangStr("UAS006") %></td>
+<td align="center" nowrap="nowrap">\\<% GetPageCfg("DeviceName") %></td>
+<td align="center" nowrap="nowrap">-</td>
+
+<td align="center" nowrap="nowrap">
+	<label class="checkbox-container">
+        <input type="checkbox" name="enable_samba_protect" value="enable_samba_protect" <% GetPageCfg("EnableSambaProctect") %>>
+	<span class="checkbox-checkmark"></span> 
+  </label>
+    </td>
+
+</tr>
+<tr>
+<td align="center" nowrap="nowrap">
+	<label class="checkbox-container">
+        <input type="checkbox" name="enable_http" id="enable_http" value="enable_http" <% GetPageCfg("EnableHttp") %>>
+	<span class="checkbox-checkmark"></span> 
+  </label>
+    </td>
+<td align="center" nowrap="nowrap">HTTP</td>
+<td align="center" nowrap="nowrap"><a class="linktype" target="_blank" href="http://readyshare.routerlogin.net/shares"><u>http://<% GetPageCfg("DeviceName") %>.routerlogin.net/shares</u></a></td>
+<td align="center" nowrap="nowrap">80</td>
+
+<td align="center" nowrap="nowrap">
+        <label class="checkbox-container">
+        <input type="checkbox" name="enable_http_protect" value="enable_http_protect" <% GetPageCfg("EnableHttpProtect") %>>
+	<span class="checkbox-checkmark"></span> 
+  </label>
+    </td>
+
+</tr>
+<tr>
+<td align="center" nowrap="nowrap">
+     <label class="checkbox-container">
+        <input type="checkbox" name="enable_wan_http" id="enable_http_via" value="enable_wan_http" <% GetPageCfg("EnableWanHttp") %>>
+	<span class="checkbox-checkmark"></span> 
+  </label>
+    </td>
+
+<td align="center" nowrap="nowrap">HTTPS (<% GetMultiLangStr("UAS009") %>)</td>
+<!--
+<td align="center" nowrap="nowrap">HTTP (<% GetMultiLangStr("UAS009") %>)</td>
+-->
+<% GetPageCfg("HttpsWanLink") %>
+<td align="center" nowrap="nowrap"><input class="input1 table-input" type="text" name="http_via_port" id="http_via_port" size="5" maxlength="5" value="<% GetPageCfg("HttpViaPort") %>"></td>
+
+<td align="center" nowrap="nowrap">
+     <label class="checkbox-container">
+        <input type="checkbox" name="enable_wan_http_protect" value="enable_wan_http_protect" <% GetPageCfg("EnableWanHttpProctect") %>>
+	<span class="checkbox-checkmark"></span> 
+  </label>
+    </td>
+
+</tr>
+<tr>
+<td align="center" nowrap="nowrap">
+    <label class="checkbox-container">
+        <input type="checkbox" name="enable_ftp" id="enable_ftp" value="enable_ftp" <% GetPageCfg("EnableFtp") %>>
+	<span class="checkbox-checkmark"></span> 
+  </label>
+    </td>
+<td align="center" nowrap="nowrap">FTP</td>
+<td align="center" nowrap="nowrap"><a class="linktype" target="_blank" href="ftp://readyshare.routerlogin.net/shares/"><u>ftp://<% GetPageCfg("DeviceName") %>.routerlogin.net/shares</u></a></td>
+<td align="center" nowrap="nowrap">21</td>
+
+<td align="center" nowrap="nowrap">
+   <label class="checkbox-container">
+        <input type="checkbox" name="enable_ftp_protect" value="enable_ftp_protect" <% GetPageCfg("EnableFtpProctect") %>>
+	<span class="checkbox-checkmark"></span> 
+  </label>
+</td>
+
+
+
+</tr>
+<tr>
+<td align="center" nowrap="nowrap">
+    <label class="checkbox-container">
+        <input type="checkbox" name="enable_wan_ftp" id="enable_ftp_via" value="enable_wan_ftp" <% GetPageCfg("EnableWanFtp") %>>
+	<span class="checkbox-checkmark"></span> 
+  </label>
+    </td>
+<td align="center" nowrap="nowrap">FTP (<% GetMultiLangStr("UAS009") %>)</td>
+<% GetPageCfg("FtpWanLink") %>
+<td align="center" nowrap="nowrap"><input class="input1 table-input" type="text" name="ftp_via_port" id="ftp_via_port" size="5" maxlength="5" value="<% GetPageCfg("FtpViaPort") %>"></td>
+
+<td align="center" nowrap="nowrap">
+<label class="checkbox-container">
+        <input type="checkbox" name="enable_wan_ftp_protect" value="enable_wan_ftp_protect" <% GetPageCfg("EnableWanFtpProtect") %>>
+	<span class="checkbox-checkmark"></span> 
+  </label>
+  </td>
+</tr>
+</table>
+</td>
+</tr>
+
+<tr><td colspan="2" ><% GetMultiLangStr("pwr_006") %></td></tr>
+
+
+
+<tr><td colspan="2" height="12"><div class="divider">&nbsp;</div></td></tr>
+
+<tr>
+<td colspan="2" ><a href="javascript:loadhelp('USB_adv','available')" tabindex="-1"><b><% GetMultiLangStr("UBS003") %></b></a></td>
+</tr>
+
+<tr>
+<td colspan="2">
+	<table border="1" cellpadding="2" cellspacing="0" width="100%" id="available_folder" class="tbWhite cmn-table-2">
+	<tr class="table_header">
+	<td align="center" nowrap="nowrap" width="5%"><span class="thead"> &nbsp;</span></td>
+        <td align="center" nowrap="nowrap" width="17%"><span class="thead"><% GetMultiLangStr("UBS008") %></span></td>
+        <td align="center" nowrap="nowrap" width="14%"><span class="thead"><% GetMultiLangStr("UBS009") %></span></td>
+        <td align="center" nowrap="nowrap" width="14%"><span class="thead"><% GetMultiLangStr("UBS010") %></span></td>
+        <td align="center" nowrap="nowrap" width="15%"><span class="thead"><% GetMultiLangStr("UBS004") %></span></td>
+        <td align="center" nowrap="nowrap" width="15%"><span class="thead"><% GetMultiLangStr("UBS005") %></span></td>
+        <td align="center" nowrap="nowrap" width="10%"><span class="thead"><% GetMultiLangStr("UBS006") %></span></td>
+        <td align="center" nowrap="nowrap" width="10%"><span class="thead"><% GetMultiLangStr("UBS007") %></span></td>
+	</tr>
+
+	<% GetPageCfg("UsbList") %>
+	</table>
+	</td>
+</tr>
+
+<tr>
+<td colspan="2" >
+<button type="button" value="<% GetMultiLangStr("UAS011") %>" name="Edit" id="edit" class="button-common button-sty1" onclick="buttonClick(this,'<% GetMultiLangStr("UAS011") %>');edit_folder();"><% GetMultiLangStr("UAS011") %></button>
+<button type="button" value="<% GetMultiLangStr("UAS012") %>" name="Add" id="create" class="button-common button-sty1" onClick="buttonClick(this,'<% GetMultiLangStr("UAS012") %>');creat_folder();" style="width: auto"><% GetMultiLangStr("UAS012") %></button>
+<button type="submit" value="<% GetMultiLangStr("UAS013") %>" name="Delete" id="delete" class="button-common button-sty1" onclick="buttonClick(this,'<% GetMultiLangStr("UAS013") %>');return delete_folder();"><% GetMultiLangStr("UAS013") %></button></td>
+</tr>
+
+<tr><td colspan="2" height="12" ><div style="background-image:url('seprator.gif');width:100%;background-repeat:repeat-x;">&nbsp;</div></td></tr>
+
+<tr>
+<td colspan="2" >
+<button type="submit" value="<% GetMultiLangStr("UBS011") %>" name="Remove" id="safely_remove" class="new_apply_bt ui-corner-all" onClick="buttonClick(this,'<% GetMultiLangStr("UBS011") %>');return remove_disk();" style="width: auto"><span>&nbsp;&nbsp;&nbsp;<% GetMultiLangStr("UBS011") %></span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+</td>
+</tr>
+<tr><td colspan="2" ></td></tr><tr><td colspan="2" ></td></tr><tr><td colspan="2" ></td></tr>
+<tr><td colspan="2" height="20" ></td></tr>
+
+</table></div></td></tr>
+<tr valign="middle" align="center"><td class="table-seperate-border" colspan="2" style="padding-left:0px"><div class="help-frame-div" > <iframe id="helpframe"  src="USB_adv_h.htm" class="help-iframe" scrolling="no" name="helpframe" frameborder="0" onload="showHelpIframe();"></iframe> </div> </td> </tr>
+</table>
+   <div class="subhead2-bottom" style="width: 829px;">
+    <span class="help_ico"><img src="img/help-icon.png" onmouseover="changeCursorPointer();" onclick="showHelpIframe();" onmouseout="changeCursorDefault();"></span>
+    <span class="subhead2-text help_center_text" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_51") %> </span>
+    <span class="button-help-arrow" style="position: absolute; left: 414.5px;">
+      <img src="img/helparrowdown-icon.png" id="help-button" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"></span>
+    <span class="subhead2-text help_right_text" onclick="showHelpIframe();" onmouseover="changeCursorPointer();" onmouseout="changeCursorDefault();"> <% GetMultiLangStr("genie_123") %> </span>
+      </div>
+
+
+<input type="hidden" name="usb_num" value="<% GetPageCfg("UsbNum") %>">
+<input type="hidden" name="select" value="0">
+<input type="hidden" name="action" value="advance">
+<INPUT name=umountsucc type=hidden value="<% GetPageCfg("Umountsucc") %>">
+<input type="hidden" name="enable_apmode" value="0">
+<input type="hidden" name="enable_stamode" value="0">
+<input type="hidden" name="is_https" value="1">
+<INPUT name=router_smb_link_style type=hidden value="others">
+<input name="no_dlna" type="hidden" value="">
+<a name="helpframe-anchor"></a>
+<INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+</form>
+</div>
+</body></html>

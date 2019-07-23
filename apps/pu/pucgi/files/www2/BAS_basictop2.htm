@@ -1,0 +1,130 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<title>NETGEAR Router RAX40</title>
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<link rel="stylesheet" href="form.css">
+<script language="javascript" type="text/javascript" src="func.js"></script>
+<script language="javascript" type="text/javascript" src="msg.js"></script>
+<script language="javascript" type="text/javascript" src="utility.js"></script>
+<script language="javascript" type="text/javascript" src="browser.js"></script>
+<script language="javascript" type="text/javascript" src="md5.js"></script>
+<script language="javascript" type="text/javascript" src="wep.js"></script>
+
+<script language="javascript" type="text/javascript">
+<!-- 
+function selHelpFile(helpitem)
+{
+	var wanForLoadHelp;
+	var parentHref = parent.location.href;
+	
+	if(parentHref.search("pptp")>=0)
+		wanForLoadHelp = "BAS_pptp";
+	else if(parentHref.search("bpa")>=0)
+		wanForLoadHelp = "BAS_bpa";
+	else if(parentHref.search("l2tp")>=0)
+		wanForLoadHelp = "BAS_l2tp";
+	else
+		wanForLoadHelp = "BAS_pppoe";
+
+	if(!document.forms[0].loginreq[0].checked)
+		parent.loadhelp('BAS_ether',helpitem)
+	else
+		parent.loadhelp(wanForLoadHelp,helpitem)
+}
+function doTypeChange( newIndex )
+{
+	var cf = document.forms[0];
+	var wan_proto = cf.wan_proto.value;
+
+	if (newIndex == 0)
+	{
+		parent.location.href = "BAS_ether.html";
+	} 
+	else if (newIndex == 1)
+	{
+		if (wan_proto == "pptp")
+			parent.location.href = "BAS_pptp.html";
+		else if (wan_proto == "bpa")
+			parent.location.href = "BAS_bpa.html";
+		
+        else if (wan_proto == "l2tp")
+			parent.location.href = "BAS_l2tp.html";
+		
+		else
+			parent.location.href = "BAS_pppoe.html";
+		
+	}
+}
+
+function loadSettings()
+{
+	var cf = document.forms[0];
+alert("xxx");
+		cf.loginreq[0].checked = true;
+}
+//-->
+</script>
+<link href="css/custom.css" rel="stylesheet" type="text/css">
+</head>
+<body   style="margin:0px;padding:0px;padding-left:8px;background-color:transparent" >
+<form name="basic" method="POST" action="basictop.cgi?">
+<div id="bas_top">
+<table border="0"   style="width:97%" >
+
+
+
+<tr>
+	<td colspan="2">
+	<a href="javascript:selHelpFile('question')" tabindex="-1"><b><% GetMultiLangStr("SBS012") %></b></a></td>
+</tr>
+<tr>
+	<td colspan="2" >
+    <label class="checkbox-container">
+		<a href="javascript:selHelpFile('question')" tabindex="-1"><% GetMultiLangStr("SWP003") %></a>
+		  <input type="radio" name="loginreq" checked  value="pppoe" onClick="doTypeChange(1)">
+		  <span class="radio-checkmark"></span>
+		</label>
+    
+    </td>
+</tr>
+<tr>
+	<td colspan="2" class="pt-0">
+    <label class="checkbox-container">
+		<a href="javascript:selHelpFile('question')" tabindex="-1"><% GetMultiLangStr("SWP009") %></a>
+		  <input type="radio" name="loginreq" value="dhcp" onClick="doTypeChange(0)">
+		  <span class="radio-checkmark"></span>
+		</label>
+    
+    </td>
+</tr>
+
+<tr>
+        <td colspan="2" height="12"><div style="background-image:url
+
+('seprator.gif');width:100%;background-repeat:repeat-x;">&nbsp;</div></td>
+      </tr>
+
+</table>
+</div>
+  <INPUT name=wan_proto type=hidden value= "<% GetPageCfg("wan_proto") %>">
+  <INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+</form>
+
+</body>
+</html>

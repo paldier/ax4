@@ -1,0 +1,247 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<META name="description" content="RAX40">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META http-equiv="Content-Style-Type" content="text/css">
+<META http-equiv="Pragma" content="no-cache">
+<META HTTP-equiv="Cache-Control" content="no-cache">
+<META HTTP-EQUIV="Expires" CONTENT="Mon, 06 Jan 1990 00:00:01 GMT">
+
+<link rel="stylesheet" href="form.css">
+<title>NETGEAR Router RAX40</title>
+<link rel="stylesheet" href="css/table_noh.css">
+<link rel="stylesheet" href="css/scrollbar.css">
+<link rel="stylesheet" href="css/button.css">
+<link rel="stylesheet" href="css/custom.css">
+
+<script src="jquery.js"></script>
+<script src="script/jquery.mousewheel.js"></script>
+<script type="text/javascript" src="script/jquery.jscrollpane.min.js"></script>
+
+<script src="script/script.js"></script>
+<script language="javascript" type="text/javascript">
+<!--
+var delay_time = 10000;
+var t;
+
+    $(document).ready(function()
+    {	
+        $("#target").submit(function() {
+            window.clearTimeout(t);
+            buttonFilter();
+        });
+
+    });
+
+
+
+function refreshPage() 
+{
+    t = window.setTimeout("window.location.href='RST_st_poe.htm'", delay_time);
+}
+
+function disableConButton()
+{
+    delay_time = 10000;
+    document.forms[0].Connect.disabled = true;
+    document.forms[0].Disconnect.disabled = true;
+/*
+    if(document.forms[0].pppoe2.value == "enable")
+    {
+        document.forms[0].PPP2Connect.disabled = true;
+        document.forms[0].PPP2Disconnect.disabled = true;
+
+    }
+*/
+    document.forms[0].ConMethod.value = "Connect";
+
+    document.forms[0].submit();    
+    
+    return true;
+}
+
+function disableDisConButton()
+{
+/*
+    delay_time = 20000;
+*/
+    document.forms[0].Connect.disabled = true;
+    document.forms[0].Disconnect.disabled = true;
+/*
+    if(document.forms[0].pppoe2.value == "enable")
+    {
+        document.forms[0].PPP2Connect.disabled = true;
+        document.forms[0].PPP2Disconnect.disabled = true;
+
+    }
+*/
+    document.forms[0].ConMethod.value = "Disconnect";
+
+    document.forms[0].submit();     
+    
+    return true;
+}
+/*
+function disablePPP2ConButton()
+{
+    delay_time = 10000;
+    document.forms[0].Connect.disabled = true;
+    document.forms[0].Disconnect.disabled = true;
+    document.forms[0].PPP2Connect.disabled = true;
+    document.forms[0].PPP2Disconnect.disabled = true;
+    document.forms[0].ConMethod.value = "Connect2";
+    document.forms[0].submit();     
+    return true;
+}
+function disablePPP2DisConButton()
+{
+    delay_time = 20000;
+    document.forms[0].Connect.disabled = true;
+    document.forms[0].Disconnect.disabled = true;
+    document.forms[0].PPP2Connect.disabled = true;
+    document.forms[0].PPP2Disconnect.disabled = true;
+    document.forms[0].ConMethod.value = "Disconnect2";
+    document.forms[0].submit();    
+    return true; 
+}
+*/
+function refreshparentpage()
+{
+    parent.window.opener.location.href="RST_status_dual_band.htm";
+    return true;
+}
+
+//-->
+</script>
+</head>
+<body  onLoad="refreshPage()" style="margin:0px;">
+<form id="target"  name="poe_st" method="post" action="st_poe.cgi?">
+<input type="hidden" name="buttonHit"><input type="hidden" name="buttonValue">
+
+<TABLE border=0 width="100%">
+
+ 
+ <TR>
+ <TD colspan="2" align="left" nowrap><h1><% GetMultiLangStr("MRS006") %> </h1></TD>
+ </TR>
+ 
+</TABLE>
+
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+
+
+</table>
+
+<!--	
+<tr>
+ <td><b>PPPoE <% GetMultiLangStr("CBS010") %></b></td>
+</tr>
+-->	
+
+<table width="100%" border=1 cellspacing=1 cellpadding=4 id="ppp_connect" class="tbWhite cmn-table-2">
+<tr>
+	<TD NOWRAP width="50%"><B><% GetMultiLangStr("SBS036") %></B></td>
+	<TD NOWRAP width="50%"><% GetPageCfg("RST_st_poe_wan_upTime") %></td>
+</tr>
+<tr>
+	<TD NOWRAP><B><% GetMultiLangStr("MRS006") %></B></td>
+	<TD NOWRAP><% GetPageCfg("RST_st_poe_wan_connStatus") %></td>
+</tr>
+<tr>
+	<TD NOWRAP><B><% GetMultiLangStr("SBS019") %></B></td>
+	<TD NOWRAP><% GetPageCfg("RST_st_poe_wan_negotiation") %></td>
+</tr>
+<tr>
+	<TD NOWRAP><B><% GetMultiLangStr("SBS018") %></B></td>
+	<TD NOWRAP><% GetPageCfg("RST_st_poe_wan_authentication") %></td>
+</tr>
+<tr>
+	<TD NOWRAP><B><% GetMultiLangStr("SWP030") %></B></td>
+	<TD NOWRAP><% GetPageCfg("RST_st_poe_wan_ip") %></td>
+</tr>
+<tr>
+	<TD NOWRAP><B><% GetMultiLangStr("MRS016") %></B></td>
+        <TD NOWRAP><% GetPageCfg("RST_st_poe_wan_subnetMask") %></td>
+</tr>
+</table>
+
+
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+ <TR>
+ <TD align="center" nowrap>
+<BR>
+
+
+<button type="submit" value="Connect" name="Connect" id="connect" class="button-sty1" onClick="buttonClick(this,'Connect');return disableConButton()" ><% GetMultiLangStr("MRS001") %></button>
+
+<!--
+<button type="submit" value="Connect" name="Connect" class="button-sty1" onClick="buttonClick(this,'Connect');return disableConButton()" disabled ><span class="roundleft_grey">&nbsp;&nbsp; <% GetMultiLangStr("MRS001") %></span><span class="roundright_grey">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+-->
+<button type="submit" value="Disconnect" name="Disconnect" id="disconnect" class="button-sty1" onClick="buttonClick(this,'Disconnect');alert('<% GetMultiLangStr("MRS010") %>'); return disableDisConButton()"><% GetMultiLangStr("MRS009") %></button></TD>
+</TR>
+
+</TABLE>
+
+<!--	
+
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+<tr>
+ <td background="liteblue.gif" height="12"> &nbsp;</td>
+</tr>
+</table>
+
+<tr>
+ <td><b>PPPoE <% GetMultiLangStr("CBS011") %></b></td>
+</tr>
+
+<table width="100%" border=1 cellspacing=1 cellpadding=4>
+<tr>
+	<TD NOWRAP width="50%"><B><% GetMultiLangStr("SBS036") %></B></td>
+	<TD NOWRAP width="50%">00:00:00</td>
+</tr>
+<tr>
+	<TD NOWRAP><B><% GetMultiLangStr("MRS006") %></B></td>
+	<TD NOWRAP></td>
+</tr>
+<tr>
+	<TD NOWRAP><B><% GetMultiLangStr("SBS019") %></B></td>
+	<TD NOWRAP>--</td>
+</tr>
+<tr>
+	<TD NOWRAP><B><% GetMultiLangStr("SBS018") %></B></td>
+	<TD NOWRAP>--</td>
+</tr>
+<tr>
+	<TD NOWRAP><B><% GetMultiLangStr("SBS034") %></B></td>
+	<TD NOWRAP>--</td>
+</tr>
+<tr>
+	<TD NOWRAP><B><% GetMultiLangStr("MRS016") %></B></td>
+        <TD NOWRAP>--</td>
+</tr>
+</table>
+
+
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+ <TR>
+ <TD align="center" nowrap>
+<BR>
+&nbsp;&nbsp;&nbsp;<button type="submit" value="Connect" name="PPP2Connect" class="button-sty1" onclick="buttonClick(this,'Connect');return disablePPP2ConButton()" ><span class="roundleft_button">&nbsp;&nbsp; <% GetMultiLangStr("MRS001") %></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button>
+&nbsp;&nbsp;&nbsp;<button type="submit" value="Disconnect" name="PPP2Disconnect" class="button-sty1" onClick="buttonClick(this,'Disconnect');alert('<% GetMultiLangStr("MRS010") %>'); return disablePPP2DisConButton()"><span class="roundleft_button">&nbsp;&nbsp; <% GetMultiLangStr("MRS009") %></span><span class="roundright_button">&nbsp;&nbsp;&nbsp;&nbsp;</span></button></TD>
+</TR>
+</table>
+-->	
+
+<table border="0" cellpadding="0" cellspacing="3" width="100%">
+
+<TR><TD align="center"><button type=button value="Close Window" name="close" id="close" class="button-sty1" onclick="buttonClick(this,'Close Window'); window.close();"><% GetMultiLangStr("WP0006") %></button></TD></TR>
+</TABLE>
+<input type="hidden" name="ConMethod" value="Disconnect">
+<input type="hidden" name="pppoe2" value="disable">
+<INPUT type="hidden" name="USER_SET_TOKEN" value="<% GetCommonCfg("USER_SET_TOKEN") %>">
+
+</form>
+
+</body>
+</html>
